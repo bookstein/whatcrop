@@ -1,0 +1,625 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Fran's Project</title>
+</head>
+
+<body onkeydown="keydown(event)" onkeyup="keyup(event)" onclick="mouseclick(event)">
+
+<style type="text/css">
+@font-face
+{
+font-family: newFont;
+src: url('GothamRnd-Book.otf'); 
+}
+
+</style>
+
+<canvas id="myCanvas" width="900" height="590" style="border:1px solid #c3c3c3;">
+Your browser does not support the canvas element.
+</canvas>
+
+<script type="text/javascript">
+<!--
+
+//Code to write to a txt
+
+var gameID = Math.floor((Math.random()*10000)+1);
+var outputfile = gameID + ".txt";
+
+function ajaxFunction(input){
+	var ajaxRequest;  // The variable that makes Ajax possible!
+	
+	try{
+		// Opera 8.0+, Firefox, Safari
+		ajaxRequest = new XMLHttpRequest();
+	} catch (e){
+		// Internet Explorer Browsers
+		try{
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try{
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e){
+				// Something went wrong
+				alert("Your browser broke!");
+				return false;
+			}
+		}
+	}
+		
+	var string = input;
+	var input = "?data=" + string + "&file=" + outputfile;
+	ajaxRequest.open("GET", "getdata.php" + input, true);
+	ajaxRequest.send(null);
+}
+
+//Code for game
+
+//VARIABLES THAT MIGHT NEED TO BE CHANGED
+//ADJUST MAXIMUM NUMBER OF TURNS HERE
+var maxturn = 50;
+
+//HERE ARE THE SCORES FOR THE PLANTS
+var aplantwet = 70;
+var aplantdry = 80;
+var bplantwet = 100;
+var bplantdry = 50;
+
+//ADJUST MAXSCORE HERE
+var maxscore = 0;
+
+
+var playerchoices = [maxturn+1];
+
+var CANVUS_WIDTH = 900;
+var CANVUS_HEIGHT = 590;
+
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+
+//ctx.fillStyle="#FF0000";
+//ctx.fillRect(0,0,150,75);
+
+//Follow this example to draw stuff
+var backgroundrain1=new Image();
+var backgroundsun1=new Image();
+var backgroundrain2=new Image();
+var backgroundsun2=new Image();
+var backblack=new Image();
+var red=new Image();
+var redopen=new Image();
+var blue=new Image();
+var blueopen=new Image();
+var coin=new Image();
+var coinback=new Image();
+var messageback=new Image();
+
+var seedlinga1 = new Image();
+var seedlinga2 = new Image();
+var seedlinga3 = new Image();
+var seedlingb1 = new Image();
+var seedlingb2 = new Image();
+var seedlingb3 = new Image();
+var healthya1 = new Image();
+var healthya2 = new Image();
+var healthya3 = new Image();
+var healthyb1 = new Image();
+var healthyb2 = new Image();
+var healthyb3 = new Image();
+var deada1 = new Image();
+var deada2 = new Image();
+var deada3 = new Image();
+var deadb1 = new Image();
+var deadb2 = new Image();
+var deadb3 = new Image();
+var scorea = new Image();
+var scoreb = new Image();
+
+var grow = new Image();
+var pointer = new Image();
+var inactivep = new Image();
+
+var border = new Image();
+
+backgroundrain1.src="Rainy Day.png";
+backgroundsun1.src="sunny1.png";
+backgroundrain2.src="Rainy Day.png";
+backgroundsun2.src="sunny2.png";
+backblack.src="background black.png";
+red.src="seedacloseedit.png";
+redopen.src="seedaopenedit.png";
+blue.src="seedbcloseedit.png";
+blueopen.src="seedbopenedit.png";
+scorea.src="scorea.png";
+scoreb.src="scoreb.png";
+coin.src="coin.png";
+coinback.src="money-background.png";
+messageback.src="message-background.png";
+
+seedlinga1.src = "plant-a-seedling-1.png";
+seedlinga2.src = "plant-a-seedling-2.png";
+seedlinga3.src = "plant-a-seedling-3.png";
+seedlingb1.src = "plant-b-seedling-1.png";
+seedlingb2.src = "plant-b-seedling-2.png";
+seedlingb3.src = "plant-b-seedling-3.png";
+healthya1.src = "plant-a-healthy-1.png";
+healthya2.src = "plant-a-healthy-2.png";
+healthya3.src = "plant-a-healthy-3.png";
+healthyb1.src = "plant-b-healthy-1.png";
+healthyb2.src = "plant-b-healthy-2.png";
+healthyb3.src = "plant-b-healthy-3.png";
+deada1.src = "plant-a-dead-1.png";
+deada2.src = "plant-a-dead-2.png";
+deada3.src = "plant-a-dead-3.png";
+deadb1.src = "plant-b-dead-1.png";
+deadb2.src = "plant-b-dead-2.png";
+deadb3.src = "plant-b-dead-3.png";
+
+grow.src = "button-grow.png";
+pointer.src = "pointer.png";
+inactivep.src = "button-grow-grey.png";
+
+border.src = "border.png";
+
+var rainsound = new Audio("rainstick.wav");
+var sunsound = new Audio("Cigales.wav");
+
+
+var seedplaces = [9];
+seedplaces[0] = {x: 200, y: 350};
+seedplaces[1] = {x: 300, y: 350};
+seedplaces[2] = {x: 400, y: 350};
+seedplaces[3] = {x: 250, y: 375};
+seedplaces[4] = {x: 350, y: 375};
+seedplaces[5] = {x: 450, y: 375};
+seedplaces[6] = {x: 150, y: 395};
+seedplaces[7] = {x: 200, y: 395};
+seedplaces[8] = {x: 325, y: 395};
+
+var turn = 1;
+var score = 0;
+var bevent = "";
+var GameOver = false;
+var weather = Math.floor((Math.random()*1000)+1);
+var rweather = Math.floor((Math.random()*2)+1);
+var clouds = "";
+var lastcloud = "Dry";
+var water = false;
+var plantstatus = "";
+var seedchosen = "";
+var timerbar = -1;
+
+//ADJUST THIS VARIABLE TO DETEMINE PAUSE BETWEEN TURNS. PAUSE = X/60 SO FOR 2 SECONDS PUT IN 120
+var wait = 120;
+var keeptime = wait;
+
+var daybarx = 800;
+var daybary = 450;
+var daybarwidth = 10;
+var daybarheight = 0;
+
+var daybarmax = 250;
+var daybarrate = daybarmax / maxturn;
+var bordery = daybary - daybarrate*maxturn;
+
+
+var rainchance = 600;
+var pollution = [maxturn+1];
+pollution[0] = 5;
+pollution[1] = 5;
+pollution[2] = 5;
+pollution[3] = 5;
+pollution[4] = 5;
+pollution[5] = 5;
+pollution[6] = 5;
+pollution[7] = 5;
+pollution[8] = 5;
+pollution[9] = 5;
+pollution[10] = 5;
+pollution[11] = 5;
+pollution[12] = 5;
+pollution[13] = 5;
+pollution[14] = 5;
+pollution[15] = 5;
+pollution[16] = 5;
+pollution[17] = 5;
+pollution[18] = 5;
+pollution[19] = 5;
+pollution[20] = 5;
+pollution[21] = 5;
+pollution[22] = 5;
+pollution[23] = 5;
+pollution[24] = 5;
+pollution[25] = 5;
+pollution[26] = 5;
+pollution[27] = 5;
+pollution[28] = 5;
+pollution[29] = 5;
+pollution[30] = 5;
+pollution[31] = 5;
+pollution[32] = 5;
+pollution[33] = 5;
+pollution[34] = 5;
+pollution[35] = 5;
+pollution[36] = 5;
+pollution[37] = 5;
+pollution[38] = 5;
+pollution[39] = 5;
+pollution[40] = 5;
+pollution[41] = 5;
+pollution[42] = 5;
+pollution[43] = 5;
+pollution[44] = 5;
+pollution[45] = 5;
+pollution[46] = 5;
+pollution[47] = 5;
+pollution[48] = 5;
+pollution[49] = 5;
+pollution[50] = 5;
+
+
+var wmessage = "";
+var cmessage = "";
+
+var sunmessage = "It's a sunny dry day!";
+var rainmessage = "It's a drippy wet day!";
+
+var aplantwetmessage = "You made " + aplantwet + " coins!";
+var aplantdrymessage = "You made " + aplantdry + " coins!";
+var bplantwetmessage = "You made " + bplantwet + " coins!";
+var bplantdrymessage = "You made " + bplantdry + " coins!";
+
+var messaplantwet = "Pays " + aplantwet + " when wet";
+var messaplantdry = "Pays " + aplantdry + " when dry";
+var messbplantwet = "Pays " + bplantwet + " when wet";
+var messbplantdry = "Pays " + bplantdry + " when dry";
+
+var finalIDMessage = "Your unique ID number is:";
+
+
+var xpos=0;
+var ypos=0;
+
+var daybarprogress = 0;
+
+      function getMousePos(canvas, evt)
+      {
+        var rect = canvas.getBoundingClientRect(), root = document.documentElement;
+        // return relative mouse position
+        var mouseX = evt.clientX - rect.top - root.scrollTop;
+        var mouseY = evt.clientY - rect.left - root.scrollLeft;
+        xpos=mouseX;
+        ypos=mouseY;
+      }
+
+      window.onload = function()
+      {
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        canvas.addEventListener('mousemove', function(evt) {
+          var mousePos = getMousePos(canvas, evt);
+          //var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
+          ////writeMessage(canvas, message);
+        }, false);
+      };
+
+function updatedaybar()
+{
+	daybary -= daybarrate;
+	daybarheight += daybarrate;
+}
+
+function setclouds(x)
+{
+	if (x<=rainchance)
+	{clouds = "Wet";}
+	else
+	{clouds = "Dry";}
+}
+
+function updateGame()
+{
+	setclouds(weather);
+	
+	if (bevent == "A" && clouds == "Dry" && water)
+	{
+		//Dry Season
+		water = false;
+		bevent = "";
+		weather = Math.floor((Math.random()*1000)+1);
+		score += aplantdry;
+		playerchoices[turn] = {Turn: turn, Seed: "A", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
+		playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
+		ajaxFunction(playerchoices[turn].string);
+		rainchance -= pollution[turn];
+		turn = turn + 1;
+		keeptime = 0;
+		lastcloud = "Dry";
+		rweather = Math.floor((Math.random()*2)+1);
+		plantstatus = "dead";
+		seedchosen = "A";
+		updatedaybar();
+		timerbar = wait;
+		sunsound.currenttime=0;
+		sunsound.play();
+		wmessage = sunmessage;
+		cmessage = aplantdrymessage;
+	}
+	
+	if (bevent == "A" && clouds == "Wet" && water)
+	{
+		//Wet Season
+		water = false;
+		bevent = "";
+		weather = Math.floor((Math.random()*1000)+1);
+		score += aplantwet;
+		playerchoices[turn] = {Turn: turn, Seed: "A", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
+		playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
+		ajaxFunction(playerchoices[turn].string);
+		rainchance -= pollution[turn];
+		turn = turn + 1;
+		keeptime = 0;
+		lastcloud = "Wet";
+		rweather = Math.floor((Math.random()*2)+1);
+		plantstatus = "healthy";
+		seedchosen = "A";
+		updatedaybar();
+		timerbar = wait;
+		rainsound.currenttime=0;
+		rainsound.play();
+		wmessage = rainmessage;
+		cmessage = aplantwetmessage;
+	}
+	
+	if (bevent == "B" && clouds == "Wet" && water)
+	{
+		//Wet Season
+		water = false;
+		bevent = "";
+		weather = Math.floor((Math.random()*1000)+1);
+		score += bplantwet;
+		playerchoices[turn] = {Turn: turn, Seed: "B", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
+		playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
+		ajaxFunction(playerchoices[turn].string);
+		rainchance -= pollution[turn];
+		turn = turn + 1;
+		keeptime = 0;
+		lastcloud = "Wet";
+		rweather = Math.floor((Math.random()*2)+1);
+		plantstatus = "healthy";
+		seedchosen = "B";
+		updatedaybar();
+		timerbar = wait;
+		rainsound.currenttime=0;
+		rainsound.play();
+		wmessage = rainmessage;
+		cmessage = bplantwetmessage;
+	}
+	if (bevent == "B" && clouds == "Dry" && water)
+	{
+		//Dry Season
+		water = false;
+		bevent = "";
+		weather = Math.floor((Math.random()*1000)+1);
+		score += bplantdry;
+		playerchoices[turn] = {Turn: turn, Seed: "B", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
+		playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
+		ajaxFunction(playerchoices[turn].string);
+		rainchance -= pollution[turn];
+		turn = turn + 1;
+		keeptime = 0;
+		lastcloud = "Dry";
+		rweather = Math.floor((Math.random()*2)+1);
+		plantstatus = "dead";
+		seedchosen = "B";
+		updatedaybar();
+		timerbar = wait;
+		sunsound.currenttime=0;
+		sunsound.play();
+		wmessage = sunmessage;
+		cmessage = bplantdrymessage;
+	}
+	
+	water = false;
+	keeptime +=1;
+	if (timerbar > -1) timerbar--;
+	if (turn > maxturn) GameOver=true;
+}
+
+function drawGame()
+{
+	ctx.fillStyle="#000000";
+	ctx.strokeRect(0,0,CANVUS_WIDTH,CANVUS_HEIGHT);
+	ctx.fillRect(0,0,CANVUS_WIDTH,CANVUS_HEIGHT);
+	if (lastcloud == "Wet" && rweather == 1) {ctx.drawImage(backgroundrain1, 27, 9);}
+	if (lastcloud == "Dry" && rweather == 1) {ctx.drawImage(backgroundsun1, 27, 9);}
+	if (lastcloud == "Wet" && rweather == 2) {ctx.drawImage(backgroundrain2, 27, 9);}
+	if (lastcloud == "Dry" && rweather == 2) {ctx.drawImage(backgroundsun2, 27, 9);}
+	
+	if (bevent=="A") ctx.drawImage(redopen, 150 , 150);
+	else ctx.drawImage(red, 150 , 150);
+	
+	if (bevent=="B") ctx.drawImage(blueopen, 400 , 150);
+	else ctx.drawImage(blue, 400 , 150);
+	
+	ctx.drawImage(coinback,705,95);
+	ctx.drawImage(coin, 710, 100);
+	
+	if (bevent != "") ctx.drawImage(grow, 700, 25);
+	if (bevent == "") ctx.drawImage(inactivep, 700, 25);
+	
+	ctx.fillStyle="#000000";
+	ctx.font="18px newFont";
+	ctx.fillText(score, 733, 119);
+	
+	if(plantstatus=="seed" && seedchosen == "A")
+	{
+		ctx.drawImage(seedlinga1, seedplaces[0].x, seedplaces[0].y);
+		ctx.drawImage(seedlinga2, seedplaces[1].x, seedplaces[1].y);
+		ctx.drawImage(seedlinga3, seedplaces[2].x, seedplaces[2].y);
+		ctx.drawImage(seedlinga2, seedplaces[3].x, seedplaces[3].y);
+		ctx.drawImage(seedlinga1, seedplaces[4].x, seedplaces[4].y);
+		ctx.drawImage(seedlinga2, seedplaces[5].x, seedplaces[5].y);
+		ctx.drawImage(seedlinga3, seedplaces[6].x, seedplaces[6].y);
+		ctx.drawImage(seedlinga2, seedplaces[7].x, seedplaces[7].y);
+		ctx.drawImage(seedlinga1, seedplaces[8].x, seedplaces[8].y);
+		
+	};
+
+	if(plantstatus=="healthy" && seedchosen == "A")
+	{
+		ctx.drawImage(healthya1, seedplaces[0].x, seedplaces[0].y);
+		ctx.drawImage(healthya2, seedplaces[1].x, seedplaces[1].y);
+		ctx.drawImage(healthya3, seedplaces[2].x, seedplaces[2].y);
+		ctx.drawImage(healthya2, seedplaces[3].x, seedplaces[3].y);
+		ctx.drawImage(healthya1, seedplaces[4].x, seedplaces[4].y);
+		ctx.drawImage(healthya2, seedplaces[5].x, seedplaces[5].y);
+		ctx.drawImage(healthya3, seedplaces[6].x, seedplaces[6].y);
+		ctx.drawImage(healthya2, seedplaces[7].x, seedplaces[7].y);
+		ctx.drawImage(healthya1, seedplaces[8].x, seedplaces[8].y);
+	};
+
+	if(plantstatus=="dead" && seedchosen == "A")
+	{
+		ctx.drawImage(deada1, seedplaces[0].x, seedplaces[0].y);
+		ctx.drawImage(deada2, seedplaces[1].x, seedplaces[1].y);
+		ctx.drawImage(deada3, seedplaces[2].x, seedplaces[2].y);
+		ctx.drawImage(deada2, seedplaces[3].x, seedplaces[3].y);
+		ctx.drawImage(deada1, seedplaces[4].x, seedplaces[4].y);
+		ctx.drawImage(deada2, seedplaces[5].x, seedplaces[5].y);
+		ctx.drawImage(deada3, seedplaces[6].x, seedplaces[6].y);
+		ctx.drawImage(deada2, seedplaces[7].x, seedplaces[7].y);
+		ctx.drawImage(deada1, seedplaces[8].x, seedplaces[8].y);
+	};
+
+	if(plantstatus=="seed" && seedchosen == "B")
+	{
+		ctx.drawImage(seedlingb1, seedplaces[0].x, seedplaces[0].y);
+		ctx.drawImage(seedlingb2, seedplaces[1].x, seedplaces[1].y);
+		ctx.drawImage(seedlingb3, seedplaces[2].x, seedplaces[2].y);
+		ctx.drawImage(seedlingb2, seedplaces[3].x, seedplaces[3].y);
+		ctx.drawImage(seedlingb1, seedplaces[4].x, seedplaces[4].y);
+		ctx.drawImage(seedlingb2, seedplaces[5].x, seedplaces[5].y);
+		ctx.drawImage(seedlingb3, seedplaces[6].x, seedplaces[6].y);
+		ctx.drawImage(seedlingb2, seedplaces[7].x, seedplaces[7].y);
+		ctx.drawImage(seedlingb1, seedplaces[8].x, seedplaces[8].y);
+	};
+
+	if(plantstatus=="healthy" && seedchosen == "B")
+	{
+		ctx.drawImage(healthyb1, seedplaces[0].x, seedplaces[0].y);
+		ctx.drawImage(healthyb2, seedplaces[1].x, seedplaces[1].y);
+		ctx.drawImage(healthyb3, seedplaces[2].x, seedplaces[2].y);
+		ctx.drawImage(healthyb2, seedplaces[3].x, seedplaces[3].y);
+		ctx.drawImage(healthyb1, seedplaces[4].x, seedplaces[4].y);
+		ctx.drawImage(healthyb2, seedplaces[5].x, seedplaces[5].y);
+		ctx.drawImage(healthyb3, seedplaces[6].x, seedplaces[6].y);
+		ctx.drawImage(healthyb2, seedplaces[7].x, seedplaces[7].y);
+		ctx.drawImage(healthyb1, seedplaces[8].x, seedplaces[8].y);
+	};
+
+	if(plantstatus=="dead" && seedchosen == "B")
+	{
+		ctx.drawImage(deadb1, seedplaces[0].x, seedplaces[0].y);
+		ctx.drawImage(deadb2, seedplaces[1].x, seedplaces[1].y);
+		ctx.drawImage(deadb3, seedplaces[2].x, seedplaces[2].y);
+		ctx.drawImage(deadb2, seedplaces[3].x, seedplaces[3].y);
+		ctx.drawImage(deadb1, seedplaces[4].x, seedplaces[4].y);
+		ctx.drawImage(deadb2, seedplaces[5].x, seedplaces[5].y);
+		ctx.drawImage(deadb3, seedplaces[6].x, seedplaces[6].y);
+		ctx.drawImage(deadb2, seedplaces[7].x, seedplaces[7].y);
+		ctx.drawImage(deadb1, seedplaces[8].x, seedplaces[8].y);
+	};
+
+	
+	ctx.fillStyle="#fff000";
+	ctx.strokeRect(daybarx, daybary, daybarwidth, daybarheight);
+	ctx.fillRect(daybarx, daybary, daybarwidth, daybarheight);
+	ctx.drawImage(pointer, daybarx-98, daybary-20);
+	ctx.drawImage(border, daybarx, bordery);
+	var message = "";
+	message = message + (turn-1) + "/" + maxturn;
+	ctx.fillStyle="#000000";
+	ctx.font="24px newFont";
+	ctx.fillText(message, daybarx-87, daybary+9);
+
+	ctx.fillStyle="#ffffff";
+	ctx.font="24px newFont";	
+	ctx.fillText(messaplantwet, 120, 520);
+	ctx.fillText(messaplantdry, 120, 560);
+	ctx.fillText(messbplantwet, 550, 520);
+	ctx.fillText(messbplantdry, 550, 560);
+	ctx.drawImage(scorea,32,500);
+	ctx.drawImage(scoreb,460,500);
+
+	
+	if(timerbar > -1)
+	{
+		ctx.drawImage(messageback, 170, 40);
+		ctx.fillText(wmessage, 200, 80);
+		ctx.fillText(cmessage, 200, 120);
+	}
+	if(GameOver)
+	{
+		ctx.drawImage(messageback, 170, 40);
+		ctx.drawImage(messageback, 170, 240);
+
+		ctx.fillText("Thank you for playing!", 200, 80);
+		var lastmessage1 = "You earned " + score;
+		var lastmessage2 = "Out of " + maxscore + " points!";
+		ctx.fillText(lastmessage1, 200, 110);
+		ctx.fillText(lastmessage2, 200, 140);
+		ctx.fillText("Your unique ID number", 200 , 280);
+		ctx.fillText("is: " + gameID,200,310);
+	}
+}
+
+frate = 1000/60;
+var mainloop = function() {
+        
+        if (!GameOver)
+        {
+        	updateGame();
+        	drawGame();
+        }
+    };
+setInterval(mainloop, frate);
+
+//Button
+function keydown(event)
+{
+	if (event.keyCode==65 && timerbar == -1) {bevent = "A"; plantstatus="seed"; seedchosen="A";}
+	if (event.keyCode==66 && timerbar == -1) {bevent = "B"; plantstatus="seed"; seedchosen="B";}
+	if (event.keyCode==13 && timerbar == -1) {water = true;}
+
+}
+
+function keyup(event)
+{
+	//if (event.keyCode==65) {bevent = "";}
+	//if (event.keyCode==66) {bevent = "";}
+	//if (event.keyCode==13) {water = false;}
+}
+
+function mouseclick(event)
+{
+	if (xpos > 150 && xpos < 270 && ypos > 170 && ypos < 276 && timerbar == -1) {bevent = "A"; plantstatus="seed"; seedchosen="A";}
+	if (xpos > 400 && xpos < 507 && ypos > 170 && ypos < 268 && timerbar == -1) {bevent = "B"; plantstatus="seed"; seedchosen="B";}
+	if (xpos > 700 && xpos < 816 && ypos > 25 && ypos < 62 && timerbar == -1) {water = true;}
+}
+
+mainloop();
+
+</script>
+
+</body>
+</html>
+
