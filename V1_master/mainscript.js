@@ -1,3 +1,11 @@
+//SEMANTICS
+//threshold: defines which random numbers indicate rain and which indicate dry.
+//climateChange: makes changes to the threshold at each turn.
+//payout: these variables show payout for crop choices.
+//crop: all references to actual choices A and B (not seed, not plant)
+//
+
+
 $(document).ready(function(){
 
 //>>>>>>>>>>>>> 1. Introduction screen and set-up code for game
@@ -46,7 +54,10 @@ var clouds = ""; //"Empty" global variable called "clouds"
 var lastcloud = "Dry"; //What is lastcloud??
 var water = false;
 var plantstatus = "";
-var seedchosen = "";
+cropchoice = ""; //formerly seedchosen
+//"var" is local; removed var to make variable global
+//the first time JS sees variable, it will declare it. (without var)
+
 //var timerbar = -1;
 
 //ADJUST THIS VARIABLE TO DETEMINE PAUSE BETWEEN TURNS. PAUSE = X/60 SO FOR 2 SECONDS PUT IN 120
@@ -69,13 +80,13 @@ var seedchosen = "";
 
 function userclickedA () {
 	$("#cropA").toggleClass("select");
-	var cropchoice = "cropA";
+	cropchoice = "cropA"; //var declares NEW variables
 	$("#grow").toggleClass("highlight");
 };
 
 function userclickedB () {
 	$("#cropB").toggleClass("select");
-	var cropchoice = "cropB";
+	cropchoice = "cropB";
 	$("#grow").toggleClass("highlight");
 };
 
@@ -108,7 +119,7 @@ function updateGame()
 	setclouds(weather); //calling function setclouds within function updateGame
 						//parameter x is now "weather"
 	
-	if (bevent == "A" && clouds == "Dry" && water) //if user chooses A *and* clouds are equal to dry *and* water (?)
+	if (cropchoice == "cropA" && clouds == "Dry") //&& water) //if user chooses A *and* clouds are equal to dry
 	{
 		//Dry Season
 		water = false;
