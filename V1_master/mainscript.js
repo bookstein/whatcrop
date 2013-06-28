@@ -45,16 +45,15 @@ var playerchoices = [maxturn+1]; //creates an array containing "51".
 
 //sets up first turn
 var turn = 1; 
-var score = 0; //starting score is 0
-var bevent = ""; //What is bevent?
+var score = 0; //starting score is 0 
 var GameOver = false;
 var weather = Math.floor((Math.random()*1000)+1); //chooses random weather
 var rweather = Math.floor((Math.random()*2)+1); //rweather chooses random # between 0 and 3
 var clouds = ""; //"Empty" global variable called "clouds"
 var lastcloud = "Dry"; //What is lastcloud??
-var water = false;
+//var water = false;
 var plantstatus = "";
-cropchoice = ""; //formerly seedchosen
+cropchoice = ""; //formerly seedchosen; formerly bevent
 //"var" is local; removed var to make variable global
 //the first time JS sees variable, it will declare it. (without var)
 
@@ -122,12 +121,12 @@ function updateGame()
 	if (cropchoice == "cropA" && clouds == "Dry") //&& water) //if user chooses A *and* clouds are equal to dry
 	{
 		//Dry Season
-		water = false;
-		bevent = "";
+		//water = false;
+		cropchoice = "";
 		weather = Math.floor((Math.random()*1000)+1); 
 		//Sets "weather" equal to random number between 0 and 999 (+1= 1000)
 		score += payoutAdry; //sets score = score + aplantdry
-		playerchoices[turn] = {Turn: turn, Seed: "A", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		playerchoices[turn] = {Turn: turn, Seed: "cropA", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
 		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
 		playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
 		ajaxFunction(playerchoices[turn].string);
@@ -137,7 +136,7 @@ function updateGame()
 		lastcloud = "Dry";
 		rweather = Math.floor((Math.random()*2)+1);
 		plantstatus = "dead";
-		seedchosen = "A";
+		cropchoice = "cropA";
 		updatedaybar();
 		timerbar = wait;
 		sunsound.currenttime=0;
@@ -146,14 +145,14 @@ function updateGame()
 		cmessage = aplantdrymessage;
 	}
 	
-	if (bevent == "A" && clouds == "Wet" && water)
+	if (cropchoice == "cropA" && clouds == "Wet") //&& water)
 	{
 		//Wet Season
-		water = false;
-		bevent = "";
+		//water = false;
+		cropchoice = "";
 		weather = Math.floor((Math.random()*1000)+1);
 		score += payoutAwet;
-		playerchoices[turn] = {Turn: turn, Seed: "A", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		playerchoices[turn] = {Turn: turn, Seed: "cropA", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
 		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
 		playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
 		ajaxFunction(playerchoices[turn].string);
@@ -163,7 +162,7 @@ function updateGame()
 		lastcloud = "Wet";
 		rweather = Math.floor((Math.random()*2)+1);
 		plantstatus = "healthy";
-		seedchosen = "A";
+		cropchoice = "cropA";
 		updatedaybar();
 		timerbar = wait;
 		rainsound.currenttime=0;
@@ -172,14 +171,14 @@ function updateGame()
 		cmessage = aplantwetmessage;
 	}
 	
-	if (bevent == "B" && clouds == "Wet" && water)
+	if (cropchoice == "cropB" && clouds == "Wet") //&& water)
 	{
 		//Wet Season
-		water = false;
-		bevent = "";
+		//water = false;
+		cropchoice = "";
 		weather = Math.floor((Math.random()*1000)+1);
 		score += payoutBwet;
-		playerchoices[turn] = {Turn: turn, Seed: "B", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		playerchoices[turn] = {Turn: turn, Seed: "cropB", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
 		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
 		playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
 		ajaxFunction(playerchoices[turn].string);
@@ -189,7 +188,7 @@ function updateGame()
 		lastcloud = "Wet";
 		rweather = Math.floor((Math.random()*2)+1);
 		plantstatus = "healthy";
-		seedchosen = "B";
+		seedchosen = "cropB";
 		updatedaybar();
 		timerbar = wait;
 		rainsound.currenttime=0;
@@ -197,14 +196,14 @@ function updateGame()
 		wmessage = rainmessage;
 		cmessage = bplantwetmessage;
 	}
-	if (bevent == "B" && clouds == "Dry" && water)
+	if (cropchoice == "cropB" && clouds == "Dry") //&& water)
 	{
 		//Dry Season
-		water = false;
-		bevent = "";
+		//water = false;
+		cropchoice = "";
 		weather = Math.floor((Math.random()*1000)+1);
 		score += payoutBdry;
-		playerchoices[turn] = {Turn: turn, Seed: "B", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		playerchoices[turn] = {Turn: turn, Seed: "cropB", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
 		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
 		playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
 		ajaxFunction(playerchoices[turn].string);
@@ -214,7 +213,7 @@ function updateGame()
 		lastcloud = "Dry";
 		rweather = Math.floor((Math.random()*2)+1);
 		plantstatus = "dead";
-		seedchosen = "B";
+		cropchoice = "cropB";
 		updatedaybar();
 		timerbar = wait;
 		sunsound.currenttime=0;
@@ -223,7 +222,7 @@ function updateGame()
 		cmessage = bplantdrymessage;
 	}
 	
-	water = false;
+	//water = false;
 	keeptime +=1;
 	if (timerbar > -1) timerbar--;
 	if (turn > maxturn) GameOver=true;
