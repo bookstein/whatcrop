@@ -1,0 +1,294 @@
+/*SEMANTICS:
+	"plant" refers to action of planting;
+	"crop" refers to A and B;
+	"grow" refers to action of committing the crop (having chosen to plant it);
+*/
+
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	font-family: Verdana, sans-serif;
+
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+button, #grow {
+	background-color: rgb(238, 200, 48);
+	color: black;
+	border: 2px solid white;
+	border-radius: 3px;
+	width: 100px;
+	padding: 5px 10px;
+	font-size: 1em;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* New CSS rules for V1 Master */
+
+
+header {
+	background-color: #363032;
+	width: auto;
+	padding: 5px;
+}
+
+nav {
+	position: relative;
+}
+
+nav a {
+	color: white;
+	font-size: .75em;
+	position: relative;
+	top: 10px;
+	left: 20px;
+	text-decoration: none;
+}
+
+nav a:hover {
+	text-decoration: underline;
+}
+
+h4 {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+#instructions {
+	display: none;
+	color: black;
+	background-color: white;
+	padding: 5px;
+	font-size: .8em;
+	margin: 5px;
+}
+
+
+#instruction a {
+	font-size: 10px;
+	text-decoration: underline;
+	color: blue;
+}
+
+
+h3 {
+	color: white;
+	text-align: center;
+	font-size: 1.3em;
+	font-weight: 500;
+	margin: 5px;
+}
+
+/* >>>>>>>>> Parent (.container) - excluding header, footer <<<<<< */
+
+.container {
+	background-color: #363032;
+	display: block;
+	min-height: 600px;
+	min-width: 800px;
+	overflow: hidden; /* In order to position .canvas and .dashboard divs 
+	next to each other, floated divs left; "overflow" property specifies what happens if content
+	overflows element box. Contain floated children using value "hidden" */
+	}
+
+/* >>>>>>>>>>>>Canvas Rules<<<<<<<<<<<<<<< */
+
+.canvas {
+	margin: 10px;
+	position: relative;
+	/*Relative means it's now the point of reference coordinate system*/
+	display: inline-block;
+	float: left;
+	/* .canvas is currently 720px wide */
+	background: url("images/Default_background_medium.png") no-repeat;
+	min-width: 600px;
+	min-height: 600px;
+}
+
+/*img .default { //FORMERLY THE "BACKGROUND IMAGE"
+	position: absolute;
+	top: 0;
+	margin-left: auto;
+	margin-right: auto;
+	width: auto;
+	display: none;
+	}
+	NOTE: medium-sized default image width is 600px -- current version!
+	NOTE:; original default image width id 700 */
+
+
+.hiddenWeather {
+	display: none;
+}
+
+/*z-index: 2;*/
+
+.displayWeather {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: inline;
+	z-index: 2;
+}
+
+.seedpacketA {
+	height: 150px;
+	width: 150px;
+	background: none;
+	border: none;
+	position: absolute;
+	top: 5em;
+	left: 15%;
+	box-shadow: none;
+	z-index: 3;
+}
+
+.seedpacketB {
+	height: 150px;
+	width: 150px;
+	background: none;
+	border: none;
+	position: absolute;
+	top: 5em;
+	right: 15%;
+	box-shadow: none;
+}
+
+
+.plant {
+	margin: 0px 25px;
+	position: absolute;
+	top: 14em;
+}
+
+button[name="PlantA"] {
+	left: 15%;
+}
+
+button[name="PlantB"] {
+	right: 13%;
+}
+
+.plant:hover {
+	text-decoration: underline;
+}
+
+.select { /*For when a Crop has been selected */
+	border: 5px solid white;
+}
+
+/* >>>>>>>>>>>>>>Dashboard <<<<<<<<<<<<<<< */
+
+.dashboard {
+	display: inline-block;
+	padding: 10px;
+	position: relative; /* Why does position relative change whether or not the 
+	GROW button appears in correct position or not? */
+	float: left;
+	min-width: 160px;
+	/*min-width: with _medium_ default image, .canvas (including padding) is 620px wide.
+	For .container min-width of 800px, .dashboard min-width (including padding) is 180px*/
+	min-height: 100px;
+	width: auto;
+}
+
+#grow {
+	text-transform: uppercase;
+	position: absolute;
+	top: 3em;
+	left: 3em;
+	opacity: 0.6;
+}
+
+#grow:hover {
+	text-decoration: underline;
+}
+
+#grow:active {
+	/*Make button look "pushed"*/
+}
+
+.highlight { /* Highlight class specifically for #grow button */
+	padding: 7px !important;
+	opacity: 1 !important;
+	border: 6px solid white !important;
+}
+
+
+/* >>>>>>>>>>>>>>>>> Givens (Information) <<<<<<<<<<< */
+
+.givens {
+	display: inline-block;
+	padding: 10px;
+	min-width: 160px;
+	min-height: 100px;
+	width: auto;
+	background-color: white;
+	position: relative;
+	top: 300px;
+	right: 180px;
+}
+
+table, th, td {
+	border: 1px solid black;
+	padding: 5px;
+}
+
+table td {
+	text-align: center;
+}
+
+/* >>>>>>>>>>>>>>>>> Footer <<<<<<<<<<<<<<< */
+
+footer {
+	width: 100%;
+}
+
