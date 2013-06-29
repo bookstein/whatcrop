@@ -1,0 +1,18 @@
+Title: Random discrete weather chosen
+Goals: Game selects "rain" or "dry" outcome.
+Later goals: DO Rain or Dry.
+
+ 
+User clicks "A" or "B":
+	choice is assigned to a variable
+	(variables = memory/storage conceptually)
+
+On click "Grow":
+Game selects random number
+Random number is compared to threshold variable
+IF > threshold,
+	RAIN
+IF < threshold,
+	DRY
+Uses user choice (A or B) to inform outcome
+
