@@ -6,6 +6,8 @@
 //
 
 
+
+
 $(document).ready(function(){
 
 //>>>>>>>>>>>>> 1. Introduction screen and set-up code for game
@@ -97,33 +99,42 @@ $("#cropB").on("click", userclickedB);
 
 //>>>>>>>>>>>>>>>>>> 4. Weather is randomly chosen. 
 
+$("#grow").on("click", function () {
+	weather = Math.floor((Math.random()*1000)+1);
+	setclouds(weather);
+});
 
-var threshold = 600; //formerly "rainchance." The threshold between wet and dry (.6*1000)
-//Be able to modify this number easily.
 var climateChange = //formerly "pollution"
 [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]; //creates a new array with 51 "5"s.
 //Need to be able to modify each of these numbers easily
 
-function setclouds(x) //defining function called setclouds with parameter x
+
+function setclouds(x) //setclouds takes empty variable "clouds" and gives it value depending on parameter x
 {
 	if (x<=threshold) //if x is less than or equal to 600, clouds = "Wet"
 	{clouds = "Wet";} //changes value of clouds variable to "Wet"
 	else				//if x is greater than 600, changes value of clouds variable to "Dry"
 	{clouds = "Dry";} //changes value of clouds variable to "Wet"
-}
+	alert("Weather is " + clouds);
+};
 
-function updateGame()
-{
+var threshold = 600; //formerly "rainchance." The threshold between wet and dry (.6*1000)
+//Be able to modify this number easily.
+
+
+
+function updateGame() {
+	alert("Updating!");
+	weather = Math.floor((Math.random()*1000)+1); 
 	setclouds(weather); //calling function setclouds within function updateGame
-						//parameter x is now "weather"
+						//"weather" is actually the Clark Kent of x (x on the inside)
 	
 	if (cropchoice == "cropA" && clouds == "Dry") //&& water) //if user chooses A *and* clouds are equal to dry
 	{
 		//Dry Season
 		//water = false;
 		cropchoice = "";
-		weather = Math.floor((Math.random()*1000)+1); 
 		//Sets "weather" equal to random number between 0 and 999 (+1= 1000)
 		score += payoutAdry; //sets score = score + aplantdry
 		playerchoices[turn] = {Turn: turn, Seed: "cropA", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
