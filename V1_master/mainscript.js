@@ -326,7 +326,7 @@ function fadeWeather () {
    	$(".plant, .plant_img").fadeIn(function(){
 		$(this).removeClass("hidden");
 		});
-	}, 5000); //time in milliseconds (1000 ms = 1 s)
+	}, 4000); //time in milliseconds (1000 ms = 1 s)
 };
 
 //Grow button calls the function displayWeather on click

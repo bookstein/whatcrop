@@ -312,7 +312,7 @@ button[name="PlantB"] {
 	min-width: 160px;
 	min-height: 100px;
 	width: auto;
-	background-color: white;
+	background-color: none;
 	position: relative;
 	top: 500px;
 	right: 180px;
