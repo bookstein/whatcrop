@@ -18,7 +18,7 @@
 		<h3>Which crop will you plant?</h3>
 	</nav>
 <br>
-	<div id="instructions"> <!-- game instructions -->
+	<div id="instructions_dropdown" class="instructions"> <!-- game instructions -->
 		<h4> How to play </h4><br>
 		<p> Choose which crop you'd like to plant this season: either crop A or crop B. You will make money on your crops depending on the weather that season. To see how much money you'll make on each crop depending on the weather, see the graph on the left below. Thanks for playing! </p><br>
 		<a href="#"> >Hide instructions</a>
@@ -33,32 +33,41 @@
 		<!-- background image default, medium-width: see CSS "background" property -->
 
 		<!-- all weather images, CSS set to display: none -->
-		<img class="weather hiddenWeather" id="rain" src="images/rain.png" alt="Rain" />
-		<img class="weather hiddenWeather" id="sun" src="images/sun.png" alt="Sun" />
+		<img class="weather hidden" id="rain" src="images/rain.png" alt="Rain" />
+		<img class="weather hidden" id="sun" src="images/sun.png" alt="Sun" />
 
 		<!-- image files for all crops, display: none -->
 
-				<!-- "Plant" buttons -->
+		<!-- "Plant" buttons -->
 		<button class="plant" id="cropA" type="button"  name="PlantA"> Plant A<!-- Plant "A" button --></button>
 		<button class="plant" id="cropB" type="button" name="PlantB"> Plant B <!-- Plant "B" button -->
-				<!-- seed packet images -->
-		<button class="seedpacketA" type="button" name = "CropA" value="Seeds of A"><img src="images/SeedpacketA.png" alt="A"/></button>
+		<!-- seed packet images -->
+		<button class="plant_img" id="seedpacketA" type="button" name = "CropA" value="Seeds of A"><img src="images/SeedpacketA.png" alt="A"/></button>
 
-		<button class="seedpacketB" type="button" name ="CropB" value="Seeds of B"><img src="images/SeedpacketB.png" alt="B"/></button>
+		<button class="plant_img" id="seedpacketB" type="button" name ="CropB" value="Seeds of B"><img src="images/SeedpacketB.png" alt="B"/></button>
 
-		<div class="dialog"> <!-- child of .canvas -->
-			<!-- div.dialog (space for dialog boxes to appear; placeholder only, write text in jQuery; use same class .dialog to style all dialog boxes in CSS) -->
-				<!-- dialog: game instructions -->
-				<!-- dialog: Weather report -->
-				<!-- dialog: You made X coins -->
-				<!-- dialog: End of game + score + unique ID number -->
+			<div class="dialog"> <!-- for dialog boxes, child of .canvas -->
+				<!-- div.dialog (space for dialog boxes to appear; placeholder only, write text in jQuery; use same class .dialog to style all dialog boxes in CSS) -->
+					<!-- dialog: game instructions -->
+					<div class="instructions"> 
+						<h4>Thanks for playing WhatCrop!</h4>
+						<p>This game is part of a research project on agriculture and decision-making. By playing this game, you're helping advance the field of research on farmer decision-making.</p>
+						<p>To play, choose the crop you think will bring you the most money on the market -- either crop A or crop B. You don't know what the weather will be, but do your best to choose appropriately!</p>
+					</div>
 
-		</div> <!-- end of .dialog (child) -->
+					<!-- dialog: Weather report -->
+					<!-- dialog: You made X coins -->
+					<!-- dialog: End of game + score + unique ID number -->
+
+			</div> <!-- end of .dialog (child) -->
 	</div> <!-- end of .canvas (parent) -->
 
 	<div class="dashboard"> <!-- sibling of .canvas. Contains coins counter, turn counter, grow button -->
 		<input type="submit" name="Grow" id="grow" value="Grow"></input>
 		<!-- Grow button -->
+		<button id="coincounter"><img id="coin" src="images/coin.png" alt="coins" /><span>0</span></button><br>
+		<img id="turnbar" src="images/turncounterbar.png" alt="turn counter" /><br>
+		<button id="turnflag">x/50</button><br>
 	</div> <!-- end of .dashboard -->
 	<div class="givens"> <!-- sibling of .canvas. Contains infographics explaining value of A and B, weather distribution (if any) -->
 		<table>

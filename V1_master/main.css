@@ -102,7 +102,7 @@ h4 {
 	font-size: 1.2em;
 }
 
-#instructions {
+#instructions_dropdown { /*Unify this selector with .instructions */
 	display: none;
 	color: black;
 	background-color: white;
@@ -112,7 +112,7 @@ h4 {
 }
 
 
-#instruction a {
+#instructions_dropdown a {
 	font-size: 10px;
 	text-decoration: underline;
 	color: blue;
@@ -165,7 +165,7 @@ h3 {
 	NOTE:; original default image width id 700 */
 
 
-.hiddenWeather {
+.hidden {
 	display: none;
 }
 
@@ -179,7 +179,7 @@ h3 {
 	z-index: 2;
 }
 
-.seedpacketA {
+#seedpacketA {
 	height: 150px;
 	width: 150px;
 	background: none;
@@ -191,7 +191,7 @@ h3 {
 	z-index: 3;
 }
 
-.seedpacketB {
+#seedpacketB {
 	height: 150px;
 	width: 150px;
 	background: none;
@@ -200,6 +200,7 @@ h3 {
 	top: 5em;
 	right: 15%;
 	box-shadow: none;
+	z-index: 3;
 }
 
 
@@ -225,6 +226,19 @@ button[name="PlantB"] {
 	border: 5px solid white;
 }
 
+/* >>>>>>>>>>>>>>>>>> Dialog boxes <<<<<<<<<<<<<< */
+.instructions {
+	background-color: white;
+	text-align: center;
+	border: 1px solid black;
+}
+
+.dialog > .instructions { /* WORK IN PROGRESS */
+	z-index: 4;
+	width: 70%;
+	height: 50%;
+}
+
 /* >>>>>>>>>>>>>>Dashboard <<<<<<<<<<<<<<< */
 
 .dashboard {
@@ -236,15 +250,14 @@ button[name="PlantB"] {
 	min-width: 160px;
 	/*min-width: with _medium_ default image, .canvas (including padding) is 620px wide.
 	For .container min-width of 800px, .dashboard min-width (including padding) is 180px*/
-	min-height: 100px;
+	min-height: 300px;
 	width: auto;
 }
 
 #grow {
+	display: block;
 	text-transform: uppercase;
-	position: absolute;
-	top: 3em;
-	left: 3em;
+	text-align: center;
 	opacity: 0.6;
 }
 
@@ -262,6 +275,34 @@ button[name="PlantB"] {
 	border: 6px solid white !important;
 }
 
+#coincounter {
+	display: block;
+	text-align: center;
+	margin-top: 10px;
+}
+
+#coin {
+	float: left;
+}
+
+#coincounter span {
+	
+}
+
+#turnflag {
+	background: url("images/turncounterflag.png"), no-repeat;
+	width: 95px;
+	height: 39px;
+	border: none;
+	box-shadow: none;
+	margin-right: 0;
+	float: right;
+}
+
+#turnbar {
+	margin-left: 0;
+	float: right;
+}
 
 /* >>>>>>>>>>>>>>>>> Givens (Information) <<<<<<<<<<< */
 
@@ -273,7 +314,7 @@ button[name="PlantB"] {
 	width: auto;
 	background-color: white;
 	position: relative;
-	top: 300px;
+	top: 500px;
 	right: 180px;
 }
 

@@ -12,6 +12,15 @@ $(document).ready(function(){
 
 //>>>>>>>>>>>>> 1. Introduction screen and set-up code for game
 
+//Welcome dialog pop-up "Introduction screen"
+
+	//this dialog should appear as soon as the whole DOM loads.
+
+setTimeout (function() {
+	$(".dialog .instructions").addClass("hidden");
+	}, 5000);
+
+
 // Game instructions - toggle #instructions with nav button "Game instructions"
 $('nav a').click(function(event){
   event.preventDefault;
@@ -78,17 +87,24 @@ cropchoice = ""; //formerly seedchosen; formerly bevent
 //>>>>>>>>>>>>>>>>>>>>>> 2. User chooses crop. 
 					//   3. Grow button is highlighted after choice.
 
+function highlightGrow () {
+	$("#grow").addClass("highlight");
+};
 
 function userclickedA () {
 	$("#cropA").toggleClass("select");
 	cropchoice = "cropA"; //var declares NEW variables
-	$("#grow").toggleClass("highlight");
+	$("#cropB").removeClass("select");
+	//$("#grow").toggleClass("highlight");
+	highlightGrow();
 };
 
 function userclickedB () {
 	$("#cropB").toggleClass("select");
 	cropchoice = "cropB";
-	$("#grow").toggleClass("highlight");
+	$("#cropA").removeClass("select");
+	//$("#grow").toggleClass("highlight");
+	highlightGrow();
 };
 
 
@@ -107,7 +123,7 @@ $("#grow").on("click", function () {
 var climateChange = //formerly "pollution"
 [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]; //creates a new array with 51 "5"s.
-//Need to be able to modify each of these numbers easily
+//Fran needs to be able to modify each of these numbers easily
 
 
 function setclouds(x) //setclouds takes empty variable "clouds" and gives it value depending on parameter x
@@ -116,7 +132,7 @@ function setclouds(x) //setclouds takes empty variable "clouds" and gives it val
 	{clouds = "Wet";} //changes value of clouds variable to "Wet"
 	else				//if x is greater than 600, changes value of clouds variable to "Dry"
 	{clouds = "Dry";} //changes value of clouds variable to "Wet"
-	alert("Weather is " + clouds);
+	alert("Weather is " + clouds); //temporary placeholder
 };
 
 var threshold = 600; //formerly "rainchance." The threshold between wet and dry (.6*1000)
@@ -241,18 +257,81 @@ function updateGame() {
 
 
 //5. "Weather realization screen": weather results are displayed.
+	//create two functions: displayRain and displaySun. 
+	//Use these also on the dialog boxes prompted by weather outcome.
+
+//Call this function to display weather results 
 function displayWeather () {
-	//change this to if else statements!
-	$(".weather").toggleClass("displayWeather");
-	$(".weather").toggleClass("hiddenWeather");
+
+	//remove seedpackets and buttons using .hidden
+$(".plant, .plant_img").fadeOut(function(){
+	$(this).addClass("hidden");
+	}); 
+
+	//reveal dry outcome with Crop A
+	if(cropchoice == "cropA" && clouds == "Dry")
+	{
+		displaySun();
+	}
+
+	//reveal dry outcome with Crop B
+	if(cropchoice == "cropB" && clouds == "Dry")
+	{
+		displaySun();
+	}
+
+	//reveal wet outcome with Crop A
+	if(cropchoice == "cropA" && clouds == "Wet")
+	{
+		displayRain();
+	}
+
+	//reveal wet outcome with Crop B
+	if(cropchoice =="cropB" && clouds == "Wet")
+	{
+		displayRain();
+	}
+	
+
 };
 
-$("#grow").on("click", displayWeather);
+//What is the correct order of functions?? (originally I had these "definition" functions 
+	//up at the top BEFORE displayWeather function)
 
-//Must change so that only EITHER #sun or #rain is chosen.
-//Do this by making two different functions: displayRain and displaySun,
-//and trigger each using if statements.
-//Need to know how to use Math.random before I can do this.
+
+//displays "Dry" results
+function displaySun () {
+	$("#sun").fadeIn(1000, function(){
+		$(this).addClass("displayWeather");
+	fadeWeather();
+	});
+};
+
+//displays "Wet" results
+function displayRain () {
+	$("#rain").fadeIn(1000, function(){
+		$(this).addClass("displayWeather");
+	fadeWeather();
+	});
+};
+
+//Fades out weather images and restores "choice screen" after certain period of time
+function fadeWeather () {
+	setTimeout(function() {   //setTimeout calls function after a certain time
+   	$("#sun, #rain").fadeOut(function(){
+   		$(this).removeClass("displayWeather").addClass("hidden");
+   		});
+   	$(".plant").removeClass("select");
+   	$("#grow").removeClass("highlight");
+   	$(".plant, .plant_img").fadeIn(function(){
+		$(this).removeClass("hidden");
+		});
+	}, 5000); //time in milliseconds (1000 ms = 1 s)
+};
+
+//Grow button calls the function displayWeather on click
+$("#grow").click(displayWeather);
+
 
 
 }); //End of .ready ()

@@ -1,11 +1,10 @@
 Title: Random discrete weather chosen
 Goals: Game selects "rain" or "dry" outcome.
-Later goals: DO Rain or Dry.
 
  
 User clicks "A" or "B":
 	choice is assigned to a variable
-	(variables = memory/storage conceptually)
+	(variables = memory/storage)
 
 On click "Grow":
 Game selects random number
@@ -15,4 +14,23 @@ IF > threshold,
 IF < threshold,
 	DRY
 Uses user choice (A or B) to inform outcome
+
+>>>>>>>>>>>>>>>>
+
+Title: Complete screen appearance with placeholders
+Goal: add all elements into screen in draft form.
+
+Elements: (except for crops)
+background image
+turn counter
+coin counter
+crop information
+seed packets
+buttons (grow, plant 1 plant 2)
+instructions
+
+
+wait on:
+dialog boxes
+crops
 
