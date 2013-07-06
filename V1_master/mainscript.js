@@ -16,24 +16,24 @@ $(document).ready(function(){
 
 	//this dialog should appear as soon as the whole DOM loads.
 
-setTimeout (function() {
-	$(".dialog .instructions").addClass("hidden");
-	}, 5000);
+//setTimeout (function() {
+//	$(".dialog .instructions").addClass("hidden");
+//	}, 5000);
 
 
 // Game instructions - toggle #instructions with nav button "Game instructions"
-$('nav a').click(function(event){
-  event.preventDefault;
-  $(this).closest("header").find("#instructions").toggle();
+//$('nav a').click(function(event){
+  //event.preventDefault;
+  //$(this).closest("header").find("#instructions").toggle();
 
-  });
+//  });
   
 //To hide #instructions
-$('#instructions a').click(function(event) {
-  event.preventDefault;
-  $(this).closest("header").find("#instructions").toggle();
+//$('#instructions a').click(function(event) {
+  //event.preventDefault;
+ // $(this).closest("header").find("#instructions").toggle();
 
-  });
+  //});
 
 
 //Code for game (taken from V0 (original))
