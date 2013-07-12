@@ -6,14 +6,18 @@
 		body {background-color: #fff;}
 		div {border: 1px solid #eae9e6; padding: 10px; margin: 10px 0 10px 0;}
 		img {margin: 5px 0 0 5px; padding: 5px; background-color: #fff; border: 1px solid #ddd; box-shadow: 0 0 2px 1px #ddd;}
+		.box-shadow {margin: 5px 0 0 5px; padding: 5px; background-color: #fff; border: 1px solid #ddd; box-shadow: 0 0 2px 1px #ddd;} /*same as img style rule*/
 		#caption {background-color: #f6f3e5;}
-		h2, h4, {color: #3f3c30; font-family: Georgia, Times, serif;}
-		h1 {font-family: Georgia, Times, serif; color: #565245;}
+		h1 {font-family: Georgia, Times, serif; color: #565245; font-size: 26px;}
+		h2 {color: #3f3c30; font-family: Georgia, Times, serif; font-size: 20px;}
 		h3 {font-family: Georgia, Times, serif; font-weight: 400; font-size: 20px; color: #820000;} /*Inspired by h3 in #news div of stanford.edu */
-		h5 {text-transform: uppercase; font-size: 12px; font-family: Arial, Helvetica, sans-serif; font-weight: 400; color: #820000;}
-		h6 {color: #3f3c30; font-family: Verdana, Helvetica,sans-serif; font-size: 15px; margin: 0; line-height: 17px; letter-spacing: normal; font-weight: normal; padding: .5em;} /*For subtitles and other emphasized paragraph text */
+		h4 {color: #3f3c30; font-family: Georgia, Times, serif; font-size: 15px;}
+		h5 {text-transform: uppercase; font-size: 13px; font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: 400; color: #820000;}
+		h6 {color: #3f3c30; font-family: Georgia, Times,sans-serif; font-size: 15px; margin: 0; line-height: 17px; letter-spacing: normal; font-weight: normal; padding: .5em;} /*For subtitles and other emphasized paragraph text */
 		p {color: #565347; font-family: Verdana, Helvetica,sans-serif; font-size: 12px; margin: 0; line-height: 14px; letter-spacing: normal; padding: .5em;} /*color: #585754*/
 			#colors p {color: white;} /*For styleguide purposes only */
+		.Acolor {color: #820000;} /*Same as Stanford red */
+		.Bcolor {color: #3811c9;} /*Blue RGB(56,17,201)*/
 	</style>
 </head>
 <body>
@@ -21,7 +25,7 @@
 		<p>This is a box for captions.</p>
 	</div>
 	<div id="colors">
-		<h2> Colors (h2) </h2>
+		<h3> Colors</h3>
 		<p> Separate divs with thin gray borders on one side (eg, border-right). Thin gray borders will run the length of the div, but margins on either side of the div create white space.</p>
 		<div style="display: inline-block; background-color: #820000; height: 20px">
 			<p>Stanford red #820000</p>
@@ -31,25 +35,33 @@
 		</div>
 
 		<div style="display: inline-block; background-color: #3f3c30; height: 20px">
-			<p>Significant text gray #3f3c30</p>
+			<p>Significant text gray #3f3c30 RGB(63, 60, 48)</p>
 		</div>
 		<div style="display: inline-block; background-color: #585754; height: 20px">
 			<p>Regular text color #585754</p>
 		</div>
 		<div style="display: inline-block; background-color: #eae9e6; height: 20px">
-			<p>Border color #eae9e6</p>
+			<p>Border color #eae9e6 RGB(234, 233, 230)</p>
 		</div>
+		<div style="display: inline-block; background-color: #ffcc33; height: 20px">
+			<p>Interior yellow color RGB(255, 204, 51)</p>
+		</div>
+		<p>Yellow is based on yellow background of seed packets, except translated to Web-only colors</p>
 
 	</div> <!-- end of Colors div -->
+
 	<div>
 		<ul>
-		<li><h1>Stanford h1 headline</h1> <p>font-family: Georgia,"Times New Roman",serif; color: #565245.</p><p> Why does this headline keep changing font depending on the order of the style rules??</p></li>
+		<li><h1>Stanford h1 headline </h1> <p>font-family: Georgia,"Times New Roman",serif; color: #565245.</p><p> Why does this headline keep changing font depending on the order of the style rules??</p></li>
 		<li><h2>Stanford h2 headline</h2></li>
-		<li><h3>Stanford h3 headline</h3> <p>in Stanford red (#820000) font-weight: 400; font-size: 20px;</p></li>
-		<li><h4>Stanford h4 headline</h4><p> font-weight: 500; font-size: 13px; color: #3f3c30</p></li>
-		<li><h5>Stanford h5 headline</h5><p> text-transform: uppercase; font-size: 12px; font-family: Arial, Helvetica, sans-serif; font-weight: 400; color: #820000</p></li>
-		<li><h6>Stanford h6 = emphasized paragraph text </h6></li>
-		<li><p>Stanford paragraph = standard text</p> <p>color: #565347; font-family: Verdana, Helvetica,sans-serif; font-size: 12px; margin: 0; padding: .5em; line-height: 14px; letter-spacing: -.05em</p></li>
+		<li><h3>Stanford h3 headline </h3> <p>in Stanford red (#820000) font-weight: 400; font-size: 20px;</p><h3>What crop will you plant?</h1></li>
+		<li><h4>Stanford h4 headline</h4><p> font-family: Georgia, Times, serif; font-weight: 500; font-size: 13px; color: #3f3c30 </p><p>Used for table headings: <h4>Wet</h4> and <h4>Dry</h4></p></li>
+		<li><h5>Stanford h5 headline - subtitles</h5><p> text-transform: uppercase; font-size: 12px; font-family: Arial, Helvetica, sans-serif; font-weight: 400; color: #820000</p>
+			<h5>Crop Information</h5><h5>Points Earned</h5></li>
+		<li><h6>Stanford h6 = narrative emphasis</h6>
+			<h6>The weather this year was rainy and wet. Used in 20px BOLD table crop labels <b>A</b> and <b>B</b>. Used in 24px regular font for crop payouts.</h6><h6 class="Acolor">Crop A is also denoted by the Stanford red.</h6><h6 class="Bcolor">Crop A is denoted by a classic blue.</h6>
+			</li>
+		<li><p>Stanford paragraph = standard</p> <p>color: #565347; font-family: Verdana, Helvetica,sans-serif; font-size: 12px; margin: 0; padding: .5em; line-height: 14px; letter-spacing: -.05em</p></li>
 		</ul>
 		<img src="images/seedpacketA.png" />
 	</div>
