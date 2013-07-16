@@ -28,7 +28,7 @@ time, mark, audio, video {
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-	vertical-align: baseline;
+	vertical-align: top;
 	font-family: Verdana, sans-serif;
 
 }
@@ -71,12 +71,48 @@ button, #grow {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-/* New CSS rules for V1 Master */
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>> New CSS rules for V1 Master <<<<<<<<<<<<<<<<<<<<<<<<<*/
 
+/*Universal Rules, from Styleguide >>>>>>>>>>>>>>>*/
+section {
+	border: 1px solid #eae9e6; 
+	padding: 10px; 
+	margin: 10px 0 10px 0;
+}
+
+img {
+	margin: 5px 0 0 5px; 
+	padding: 5px; 
+	background-color: #fff; 
+	border: 1px solid #ddd; 
+	box-shadow: 0 0 2px 1px #ddd;
+}
+		
+.box-shadow {
+	margin: 5px 0 0 5px; 
+	padding: 5px; 
+	background-color: #fff; 
+	border: 1px solid #ddd; 
+	box-shadow: 0 0 2px 1px #ddd;} /*same as img style rule*/
+		
+h1 {font-family: Georgia, Times, serif; color: #565245; font-size: 2em;}
+h2 {color: #3f3c30; font-family: Georgia, Times, serif; font-size: 1.7em;}
+h3 {font-family: Georgia, Times, serif; font-weight: 400; font-size: 1.5em; color: #820000;} /*Inspired by h3 in #news div of stanford.edu */
+h4 {color: #3f3c30; font-family: Georgia, Times, serif; font-size: 1.2em; font-weight: bold;}
+h5 {text-transform: uppercase; font-size: .75em; font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: 400; color: #820000;}
+h6 {color: #3f3c30; font-family: Georgia, Times,sans-serif; font-size: .75em; margin: 0; line-height: 17px; letter-spacing: normal; font-weight: normal; padding: .5em;} /*For subtitles and other emphasized paragraph text */
+p {color: #565347; font-family: Verdana, Helvetica,sans-serif; font-size: 1em; margin: 0; line-height: 14px; letter-spacing: normal; padding: .5em;} /*color: #585754*/
+
+.Acolor {color: #820000;} /*Same as Stanford red */
+.Bcolor {color: #3811c9;} /*Blue RGB(56,17,201)*/
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 header {
-	background-color: #363032;
+	background-color: #820000;
+	color: white;
 	width: auto;
+	height: 80px;
 	padding: 5px;
 }
 
@@ -97,10 +133,6 @@ nav a:hover {
 	text-decoration: underline;
 }
 
-h4 {
-	font-weight: bold;
-	font-size: 1.2em;
-}
 
 #instructions_dropdown { /*Unify this selector with .instructions */
 	display: none;
@@ -119,10 +151,9 @@ h4 {
 }
 
 
-h3 {
+header > h1 {
 	color: white;
 	text-align: center;
-	font-size: 1.3em;
 	font-weight: 500;
 	margin: 5px;
 }
@@ -130,53 +161,84 @@ h3 {
 /* >>>>>>>>> Parent (.container) - excluding header, footer <<<<<< */
 
 .container {
-	background-color: #363032;
+	background-color: white;
 	display: block;
 	min-height: 600px;
-	min-width: 800px;
-	overflow: hidden; /* In order to position .canvas and .dashboard divs 
-	next to each other, floated divs left; "overflow" property specifies what happens if content
-	overflows element box. Contain floated children using value "hidden" */
-	}
-
-/* >>>>>>>>>>>>Canvas Rules<<<<<<<<<<<<<<< */
-
-.canvas {
-	margin: 10px;
+	min-width: 1200px;
+	overflow: hidden;
+	text-align: center; 
 	position: relative;
 	/*Relative means it's now the point of reference coordinate system*/
+	/* "overflow" property specifies what happens if content
+	overflows element box. */
+	}
+
+
+
+/* >>>>>>>>>>>>>>>>> Givens (Crop Information) <<<<<<<<<<< */
+
+#givens {
 	display: inline-block;
+	width: 25%;
+	min-height: 100px;
 	float: left;
-	/* .canvas is currently 720px wide */
-	background: url("images/Default_background_medium.png") no-repeat;
-	min-width: 600px;
-	min-height: 600px;
+	text-align: center;
+
 }
 
-/*img .default { //FORMERLY THE "BACKGROUND IMAGE"
-	position: absolute;
-	top: 0;
+table, thead, td {
+	border: 1px solid black;
+	padding: 5px;
+}
+
+table td {
+	text-align: center;
+}
+
+th {
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>> Turn Counter >>>>>>>>>>>>>>*/
+
+#turns {
+	display: block;
+	margin-top: 10px;
+	width: 25%;
+	min-height: 100px;
+}
+
+
+/* >>>>>>>>>>>>>>>>> Choice Screen <<<<<<<<<<<<<<< */
+
+#choice_screen {
+	display: inline-block;
+	text-align: center;
+	background-color: white;
+	min-height: 600px;
+	width: 45%;
+	float: left;
+	position: relative;
+}
+
+#farm { /*using default_background_medium.png. formerly background image within choice_screen*/
 	margin-left: auto;
 	margin-right: auto;
-	width: auto;
-	display: none;
+	width: 690px;
+	z-index: 1;
 	}
-	NOTE: medium-sized default image width is 600px -- current version!
-	NOTE:; original default image width id 700 */
+	/*NOTE: medium-sized default image width =600px originally! Original default image width=700 */
 
 
 .hidden {
 	display: none;
 }
 
-/*z-index: 2;*/
-
-.displayWeather {
+.displayWeather { /*Class added to show weather outcome*/
 	position: absolute;
 	top: 0;
 	left: 0;
 	display: inline;
-	z-index: 2;
+	z-index: 3;
 }
 
 #seedpacketA {
@@ -188,7 +250,7 @@ h3 {
 	top: 5em;
 	left: 15%;
 	box-shadow: none;
-	z-index: 3;
+	z-index: 2;
 }
 
 #seedpacketB {
@@ -200,14 +262,14 @@ h3 {
 	top: 5em;
 	right: 15%;
 	box-shadow: none;
-	z-index: 3;
+	z-index: 2;
 }
 
 
 .plant {
 	margin: 0px 25px;
 	position: absolute;
-	top: 14em;
+	top: 15em;
 }
 
 button[name="PlantA"] {
@@ -226,39 +288,16 @@ button[name="PlantB"] {
 	border: 5px solid white;
 }
 
-/* >>>>>>>>>>>>>>>>>> Dialog boxes <<<<<<<<<<<<<< */
-.instructions {
-	background-color: white;
-	text-align: center;
-	border: 1px solid black;
-}
-
-.dialog > .instructions { /* WORK IN PROGRESS */
-	z-index: 4;
-	width: 70%;
-	height: 50%;
-}
-
-/* >>>>>>>>>>>>>>Dashboard <<<<<<<<<<<<<<< */
-
-.dashboard {
-	display: inline-block;
-	padding: 10px;
-	position: relative; /* Why does position relative change whether or not the 
-	GROW button appears in correct position or not? */
-	float: left;
-	min-width: 160px;
-	/*min-width: with _medium_ default image, .canvas (including padding) is 620px wide.
-	For .container min-width of 800px, .dashboard min-width (including padding) is 180px*/
-	min-height: 300px;
-	width: auto;
-}
-
 #grow {
 	display: block;
-	text-transform: uppercase;
+	position: absolute;
+	top: 24em;
+	left: 50%;
+	width: 150px;
+	margin: -75px;
 	text-align: center;
 	opacity: 0.6;
+
 }
 
 #grow:hover {
@@ -275,6 +314,28 @@ button[name="PlantB"] {
 	border: 6px solid white !important;
 }
 
+/* >>>>>>>>>>>>>>>>>> Dialog boxes <<<<<<<<<<<<<< */
+.instructions {
+	background-color: white;
+	text-align: center;
+	border: 1px solid black;
+}
+
+.dialog > .instructions { /* WORK IN PROGRESS */
+	z-index: 4;
+	width: 70%;
+	height: 50%;
+}
+
+/* >>>>>>>>>>>>>>Points Counter <<<<<<<<<<<<<<< */
+
+#points {
+	display: inline-block;
+	padding: 10px;
+	width: 25%;
+	min-height: 300px;
+}
+
 #coincounter {
 	display: block;
 	text-align: center;
@@ -289,47 +350,14 @@ button[name="PlantB"] {
 	
 }
 
-#turnflag {
-	background: url("images/turncounterflag.png"), no-repeat;
-	width: 95px;
-	height: 39px;
-	border: none;
-	box-shadow: none;
-	margin-right: 0;
-	float: right;
-}
-
-#turnbar {
-	margin-left: 0;
-	float: right;
-}
-
-/* >>>>>>>>>>>>>>>>> Givens (Information) <<<<<<<<<<< */
-
-.givens {
-	display: inline-block;
-	padding: 10px;
-	min-width: 160px;
-	min-height: 100px;
-	width: auto;
-	background-color: none;
-	position: relative;
-	top: 500px;
-	right: 180px;
-}
-
-table, th, td {
-	border: 1px solid black;
-	padding: 5px;
-}
-
-table td {
-	text-align: center;
-}
 
 /* >>>>>>>>>>>>>>>>> Footer <<<<<<<<<<<<<<< */
 
 footer {
 	width: 100%;
+	text-align: center;
+	background-image: url(images/grains2.jpeg);
+	background-repeat: repeat-x;
+	height: 100px;
 }
 
