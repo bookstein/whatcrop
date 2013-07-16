@@ -14,9 +14,9 @@
 	<body onkeydown="keydown(event)" onkeyup="keyup(event)" onclick="mouseclick(event)"> -->
 <header>
 	<nav>
-		<a href="#"> >>Game instructions</a>
-		<h3>Which crop will you plant?</h3>
+		<a href="#">Game instructions</a>
 	</nav>
+	<h1>Which crop will you plant?</h1>
 <br>
 	<div id="instructions_dropdown" class="instructions"> <!-- game instructions -->
 		<h4> How to play </h4><br>
@@ -29,48 +29,8 @@
 		//should I write one JS file for the whole thing, or mini JS files for specific purposes? Should I basically just externalize most of the code that the guy wrote? -->
 <div class="container"><!-- formerly simply the "canvas" element in original. Parent of all divs except header and footer -->
 	<!-- <p>Your browser does not support these images.</p>--> <!-- if background image fails to load, this message will appear -->
-	<div class="canvas"><!-- sibling of .dashboard and .givens, parent of .dialog. Named canvas to indicate area of screen with interactive visual elements -->
-		<!-- background image default, medium-width: see CSS "background" property -->
-
-		<!-- all weather images, CSS set to display: none -->
-		<img class="weather hidden" id="rain" src="images/rain.png" alt="Rain" />
-		<img class="weather hidden" id="sun" src="images/sun.png" alt="Sun" />
-
-		<!-- image files for all crops, display: none -->
-
-		<!-- "Plant" buttons -->
-		<button class="plant" id="cropA" type="button"  name="PlantA"> Plant A<!-- Plant "A" button --></button>
-		<button class="plant" id="cropB" type="button" name="PlantB"> Plant B <!-- Plant "B" button -->
-		<!-- seed packet images -->
-		<button class="plant_img" id="seedpacketA" type="button" name = "CropA" value="Seeds of A"><img src="images/SeedpacketA.png" alt="A"/></button>
-
-		<button class="plant_img" id="seedpacketB" type="button" name ="CropB" value="Seeds of B"><img src="images/SeedpacketB.png" alt="B"/></button>
-
-			<div class="dialog"> <!-- for dialog boxes, child of .canvas -->
-				<!-- div.dialog (space for dialog boxes to appear; placeholder only, write text in jQuery; use same class .dialog to style all dialog boxes in CSS) -->
-					<!-- dialog: game instructions -->
-					<div class="instructions hidden"> 
-						<h4>Thanks for playing WhatCrop!</h4>
-						<p>This game is part of a research project on agriculture and decision-making. By playing this game, you're helping advance the field of research on farmer decision-making.</p>
-						<p>To play, choose the crop you think will bring you the most money on the market -- either crop A or crop B. You don't know what the weather will be, but do your best to choose appropriately!</p>
-					</div>
-
-					<!-- dialog: Weather report -->
-					<!-- dialog: You made X coins -->
-					<!-- dialog: End of game + score + unique ID number -->
-
-			</div> <!-- end of .dialog (child) -->
-	</div> <!-- end of .canvas (parent) -->
-
-	<div class="dashboard"> <!-- sibling of .canvas. Contains coins counter, turn counter, grow button -->
-		<input type="submit" name="Grow" id="grow" value="Grow"></input>
-		<!-- Grow button -->
-		<button id="coincounter"><img id="coin" src="images/coin.png" alt="coins" /><span>0</span></button><br>
-		<img id="turnbar" src="images/turncounterbar.png" alt="turn counter" /><br>
-		<button id="turnflag">x/50</button><br>
-	</div> <!-- end of .dashboard -->
-	<div class="givens"> <!-- sibling of .canvas. Contains infographics explaining value of A and B, weather distribution (if any) -->
-		<!-- <table>
+	<section id="givens"> <!-- Contains infographics explaining value of A and B, weather distribution (if any) as well as turn counter -->
+		 <table>
 			<thead colspan="3"><tr><th>Crop</th><th>Weather</th><th>Payout</th></tr></thead>
 			<tbody>
 			<tr>
@@ -86,12 +46,64 @@
 				<td>Dry</td><td>50 coins</td>
 			</tr>
 			</tbody>
-		</table> -->
+		</table> 		
+
+	<div id="turns"> <!-- turn counter div, child of section #givens -->
 		
-	</div> <!-- end of .givens -->
+	</div>
+	</section> <!-- end of #givens -->
+
+	<section id="choice_screen"><!-- sibling of .dashboard and .givens, parent of .dialog. Named canvas to indicate area of screen with interactive visual elements -->
+		<!-- background image default, medium-width: see CSS "background" property -->
+
+		<img id="farm" src="images/default_background_medium.png" alt="Your farm" />
+
+		<!-- all weather images, CSS set to display: none -->
+		<img class="weather hidden" id="rain" src="images/rain.png" alt="Rain" />
+		<img class="weather hidden" id="sun" src="images/sun.png" alt="Sun" />
+
+		<!-- image files for all crops, display: none -->
+
+		<!-- Crop A button -->
+		<button class="plant" id="cropA" type="button"  name="PlantA"> Plant A</button>
+
+		<!-- Grow button -->
+		<input type="submit" name="Grow" id="grow" value="Grow this crop"></input>
+
+		<!-- Crop B button -->
+		<button class="plant" id="cropB" type="button" name="PlantB"> Plant B </button>
+
+		<!-- seed packet images -->
+		<button class="plant_img" id="seedpacketA" type="button" name = "CropA" value="Seeds of A"><img src="images/SeedpacketA.png" alt="A"/></button>
+
+		<button class="plant_img" id="seedpacketB" type="button" name ="CropB" value="Seeds of B"><img src="images/SeedpacketB.png" alt="B"/></button>
+
+
+			<div class="dialog"> <!-- for dialog boxes, child of #choice_screen -->
+				<!-- div.dialog (space for dialog boxes to appear; placeholder only, write text in jQuery; use same class .dialog to style all dialog boxes in CSS) -->
+					<!-- dialog: game instructions -->
+					<div class="instructions hidden"> 
+						<h4>Thanks for playing WhatCrop!</h4>
+						<p>This game is part of a research project on agriculture and decision-making. By playing this game, you're helping advance the field of research on farmer decision-making.</p>
+						<p>To play, choose the crop you think will bring you the most money on the market -- either crop A or crop B. You don't know what the weather will be, but do your best to choose appropriately!</p>
+					</div>
+
+					<!-- dialog: Weather report -->
+					<!-- dialog: You made X coins -->
+					<!-- dialog: End of game + score + unique ID number -->
+
+			</div> <!-- end of .dialog (child) -->
+	</section> <!-- end of #choice_screen (parent) -->
+
+	<section id="points"> <!-- sibling of .canvas. Contains points counter, real dollars counter -->
+		<button id="coincounter"><img id="coin" src="images/coin.png" alt="coins" /><span>0</span></button><br>
+	</section> <!-- end of #points -->
+	
+
 </div> <!-- end of parent .container -->
 
 <footer>
 	<!-- footer (extra info, link to whatcrop website) -->
+	<img src="images/FSElogo_full.jpeg" alt="Food Security and the Environment at Stanford University" />
 </footer>
 </html>
