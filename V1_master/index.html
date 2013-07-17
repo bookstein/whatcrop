@@ -102,10 +102,22 @@
 			</div> <!-- end of .dialog (child) -->
 	</section> <!-- end of #choice_screen (parent) -->
 
-	<section id="points"> <!-- sibling of #choice_screen. Contains points counter, real dollars counter -->
+	<section id="score"> <!-- sibling of #choice_screen. Contains points counter, real dollars counter -->
 		<h5>Points Earned </h5>
+
+		<div id="points_flag">
+			<div id="point_count"><!-- Target this div with jQuery updates -->
+				<h5>00</h5>
+			</div><!-- end of #points_count. -->
+		</div><!-- end of #points_flag -->
+
+		<div id="points_bar"><!-- this div is the vertical points bar and fills up with different images. -->
+			<div id="points_fill"><!-- this div is the "fill" that visually counts points earned. -->
+			</div> <!-- end of #points_fill -->
+		</div> <!-- end of #points_bar -->
+		
 			<div id="dollars"><!-- displays real dollars earned. Child of #points -->
-			<h4>Real Dollars Earned</h4><span id="dollars_counter">0</span></button>
+			<h4>Real Dollars Earned: $</h4><h5 id="dollars_counter">1.00</h5>
 			</div><!-- end of #dollars -->
 
 	</section> <!-- end of #points -->
