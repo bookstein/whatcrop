@@ -30,6 +30,8 @@
 <div class="container"><!-- formerly simply the "canvas" element in original. Parent of all divs except header and footer -->
 	<!-- <p>Your browser does not support these images.</p>--> <!-- if background image fails to load, this message will appear -->
 	<section id="givens"> <!-- Contains infographics explaining value of A and B, weather distribution (if any) as well as turn counter -->
+		<h5>Crop Information</h5>
+		<h6>Use this information to make your choice.</h6>
 		 <table>
 			<thead colspan="3"><tr><th>Crop</th><th>Weather</th><th>Payout</th></tr></thead>
 			<tbody>
@@ -49,7 +51,12 @@
 		</table> 		
 
 	<div id="turns"> <!-- turn counter div, child of section #givens -->
-		
+		<h5>Turns Taken</h5>
+		<div id="turns_counter">
+			<!-- this div contains the actual turn count -->
+			<h5>Number of turns</h5> 
+		</div>
+
 	</div>
 	</section> <!-- end of #givens -->
 
@@ -95,8 +102,12 @@
 			</div> <!-- end of .dialog (child) -->
 	</section> <!-- end of #choice_screen (parent) -->
 
-	<section id="points"> <!-- sibling of .canvas. Contains points counter, real dollars counter -->
-		<button id="coincounter"><img id="coin" src="images/coin.png" alt="coins" /><span>0</span></button><br>
+	<section id="points"> <!-- sibling of #choice_screen. Contains points counter, real dollars counter -->
+		<h5>Points Earned </h5>
+			<div id="dollars"><!-- displays real dollars earned. Child of #points -->
+			<h4>Real Dollars Earned</h4><span id="dollars_counter">0</span></button>
+			</div><!-- end of #dollars -->
+
 	</section> <!-- end of #points -->
 	
 

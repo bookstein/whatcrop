@@ -56,6 +56,7 @@ var playerchoices = [maxturn+1]; //creates an array containing "51".
 
 //sets up first turn
 var turn = 1; 
+$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
 var score = 0; //starting score is 0 
 var GameOver = false;
 var weather = Math.floor((Math.random()*1000)+1); //chooses random weather
@@ -158,7 +159,7 @@ function updateGame() {
 		playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
 		ajaxFunction(playerchoices[turn].string);
 		threshold -= climateChange[turn];
-		turn = turn + 1;
+		//turn = turn + 1;
 		keeptime = 0;
 		lastcloud = "Dry";
 		rweather = Math.floor((Math.random()*2)+1);
@@ -184,7 +185,7 @@ function updateGame() {
 		playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
 		ajaxFunction(playerchoices[turn].string);
 		threshold -= climateChange[turn];
-		turn = turn + 1;
+		//turn = turn + 1;
 		keeptime = 0;
 		lastcloud = "Wet";
 		rweather = Math.floor((Math.random()*2)+1);
@@ -210,7 +211,7 @@ function updateGame() {
 		playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
 		ajaxFunction(playerchoices[turn].string);
 		threshold -= climateChange[turn];
-		turn = turn + 1;
+		//turn = turn + 1;
 		keeptime = 0;
 		lastcloud = "Wet";
 		rweather = Math.floor((Math.random()*2)+1);
@@ -235,7 +236,7 @@ function updateGame() {
 		playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
 		ajaxFunction(playerchoices[turn].string);
 		threshold -= climateChange[turn];
-		turn = turn + 1;
+		//turn = turn + 1;
 		keeptime = 0;
 		lastcloud = "Dry";
 		rweather = Math.floor((Math.random()*2)+1);
@@ -316,18 +317,31 @@ function displayRain () {
 };
 
 //Fades out weather images and restores "choice screen" after certain period of time
+//Loops back to the beginning of the code
+
+
+function addTurn () {
+	turn = turn + 1;
+	console.log("Eek!");
+	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+};
+
 function fadeWeather () {
 	setTimeout(function() {   //setTimeout calls function after a certain time
-   	$("#sun, #rain").fadeOut(function(){
-   		$(this).removeClass("displayWeather").addClass("hidden");
-   		});
-   	$(".plant").removeClass("select");
-   	$("#grow").removeClass("highlight");
-   	$(".plant, .plant_img").fadeIn(function(){
-		$(this).removeClass("hidden");
-		});
-	}, 4000); //time in milliseconds (1000 ms = 1 s)
+	   	$("#sun, #rain").fadeOut(function(){
+	   		$(this).removeClass("displayWeather").addClass("hidden");
+	   		});
+	   	$(".plant").removeClass("select");
+	   	$("#grow").removeClass("highlight");
+	   	$(".plant, .plant_img").fadeIn(function(){
+			$(this).removeClass("hidden");
+			});
+		setTimeout(addTurn, 800); //Waits 800 ms after callback function to execute because fadeIn is done after 400ms 
+	}, 1000); //time in milliseconds (1000 ms = 1 s)
+
 };
+
+
 
 //Grow button calls the function displayWeather on click
 $("#grow").click(displayWeather);
