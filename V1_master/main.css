@@ -183,28 +183,43 @@ header > h1 {
 	min-height: 100px;
 	float: left;
 	text-align: center;
-
 }
 
 table {
 	background-image: url("images/table_background.jpg");
 	background-repeat: no-repeat;
-	background-size: 250px 400px;
+	background-size: 280px 400px;
 	background-position: right;
 	height: 400px;
 	width: 400px;
 }
 
-table, thead, td {
-	border: 1px solid black;
-	padding: 5px;
+table {
+	border: 5px solid #3f3c30;	
+}
+
+thead {
+	padding: 10px;
+	border-bottom: 1px solid #3f3c30;
+}
+
+#empty {
+	background-color: white;
 }
 
 table td {
 	text-align: center;
+	vertical-align: middle;
 }
 
-th {
+
+td.Acolor, td.Bcolor {
+	background-color: white;
+	border-right: 1px solid #3f3c30;
+}
+
+td {
+	border-bottom: 1px solid #3f3c30;
 }
 
 /*>>>>>>>>>>>>>>>>>>>>>>> Turn Counter >>>>>>>>>>>>>>*/
