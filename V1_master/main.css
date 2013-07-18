@@ -186,6 +186,15 @@ header > h1 {
 
 }
 
+table {
+	background-image: url("images/table_background.jpg");
+	background-repeat: no-repeat;
+	background-size: 250px 400px;
+	background-position: right;
+	height: 400px;
+	width: 400px;
+}
+
 table, thead, td {
 	border: 1px solid black;
 	padding: 5px;
