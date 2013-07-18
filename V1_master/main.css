@@ -76,24 +76,26 @@ button, #grow {
 /*Universal Rules, from Styleguide >>>>>>>>>>>>>>>*/
 section {
 	border: 1px solid #eae9e6; 
+	border-radius: 5px;
 	padding: 10px; 
-	margin: 10px 0 10px 0;
+	margin: 20px 10px;
+
 }
 
 img {
-	margin: 5px 0 0 5px; 
+	margin: 5px; 
 	padding: 5px; 
 	background-color: #fff; 
 	border: 1px solid #ddd; 
 	box-shadow: 0 0 2px 1px #ddd;
 }
 		
-.box-shadow {
-	margin: 5px 0 0 5px; 
+.box-shadow { /*same as img style rule*/
+	margin: 5px; 
 	padding: 5px; 
 	background-color: #fff; 
 	border: 1px solid #ddd; 
-	box-shadow: 0 0 2px 1px #ddd;} /*same as img style rule*/
+	box-shadow: 0 0 2px 1px #ddd;} 
 		
 		
 h1 {font-family: Georgia, Times, serif; color: #565245; font-size: 24px;}
@@ -108,12 +110,13 @@ p {color: #565347; font-family: Verdana, Helvetica,sans-serif; font-size: 10px; 
 .Acolor {color: #820000;} /*Same as Stanford red */
 .Bcolor {color: #3811c9;} /*Blue RGB(56,17,201)*/
 
+
 /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 header {
 	background-color: #820000;
 	color: white;
-	width: auto;
+	width: 100%;
 	height: 80px;
 	padding: 5px;
 }
@@ -160,30 +163,28 @@ header > h1 {
 	margin: 5px;
 }
 
-/* >>>>>>>>> Parent (.container) - excluding header, footer <<<<<< */
+/* >>>>>>>>>>>>>>>>>>>>>>>> Wrapper (.container) - excludes footer and header <<<<<< */
 
-.container {
+#container {
 	background-color: white;
-	display: block;
 	min-height: 600px;
-	min-width: 1200px;
+	width: 1200px;
 	overflow: hidden;
 	text-align: center; 
 	position: relative;
+	margin-left: auto;
+	margin-right: auto;
 	/*Relative means it's now the point of reference coordinate system*/
 	/* "overflow" property specifies what happens if content
 	overflows element box. */
 	}
 
-
-
 /* >>>>>>>>>>>>>>>>> Givens (Crop Information) <<<<<<<<<<< */
 
 #givens {
 	display: inline-block;
-	width: 25%;
+	max-width: 25%;
 	min-height: 100px;
-	float: left;
 	text-align: center;
 
 }
@@ -205,7 +206,7 @@ th {
 #turns {
 	display: block;
 	margin-top: 40px;
-	width: 100%;
+	width: auto;
 	height: auto;
 	text-align: center;
 }
@@ -225,19 +226,17 @@ th {
 	display: inline-block;
 	text-align: center;
 	background-color: white;
-	min-height: 600px;
-	width: 45%;
-	float: left;
+	min-height: auto;
 	position: relative;
 }
 
 #farm { /*using default_background_medium.png. formerly background image within choice_screen*/
-	margin-left: auto;
-	margin-right: auto;
-	width: 690px;
+	width: auto;
 	z-index: 1;
+	margin: 0 auto;
+	padding: 0;
 	}
-	/*NOTE: medium-sized default image width =600px originally! Original default image width=700 */
+	/*NOTE: medium-sized default image file width =600px! Original default image width=700 */
 
 
 .hidden {
@@ -343,7 +342,7 @@ button[name="PlantB"] {
 #points {
 	display: inline-block;
 	padding: 10px;
-	width: 25%;
+	max-width: 25%;
 	min-height: 300px;
 }
 
