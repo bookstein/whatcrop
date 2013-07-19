@@ -36,17 +36,26 @@ $(document).ready(function(){
   //});
 
 
-//Code for game (taken from V0 (original))
+//>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
-//VARIABLES THAT MIGHT NEED TO BE CHANGED
 //ADJUST MAXIMUM NUMBER OF TURNS HERE
 var maxturn = 50;
 
 //HERE ARE THE SCORES FOR THE PLANTS
 var payoutAwet = 70; //formerly named "aplantwet"
 var payoutAdry = 80; //formerly named "aplantdry"
-var payoutBwet = 100; //"bplantwet"
-var payoutBdry = 50; //"bplantdry"
+var payoutBwet = 100; //formerly "bplantwet"
+var payoutBdry = 50; //formerly "bplantdry"
+
+//These values are then plugged into the crop information table (discrete weather version)
+function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
+	$("table").find("td#payoutAwet").text(payoutAwet + " points");
+	$("table").find("td#payoutAdry").text(payoutAdry + " points");
+	$("table").find("td#payoutBwet").text(payoutBwet + " points");
+	$("table").find("td#payoutBdry").text(payoutBdry + " points");
+};
+
+writeCropPayout ("70", "80", "100", "50");
 
 //ADJUST MAXSCORE HERE
 var maxscore = 0; // ? 
