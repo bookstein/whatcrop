@@ -77,7 +77,7 @@ section {
 	border: 1px solid #eae9e6; 
 	border-radius: 5px;
 	padding: 10px; 
-	margin: 20px 10px;
+	margin: 10px;
 
 }
 
@@ -166,7 +166,7 @@ header > h1 {
 #container {
 	background-color: white;
 	min-height: 600px;
-	width: 1200px;
+	width: 1200px; /* This keeps the screen at a fixed width despite browser resizing */
 	overflow: hidden;
 	text-align: center; 
 	position: relative;
@@ -181,20 +181,21 @@ header > h1 {
 
 #givens {
 	display: inline-block;
-	max-width: 25%;
+	max-width: 20%;
 	min-height: 100px;
 	text-align: center;
 }
 
 table {
+	height: 300px;
+	width: 230px;
 	background-image: url("images/table_background.jpg");
 	background-repeat: no-repeat;
-	background-size: 300px 300px;
+	background-size: 220px 300px;
 	background-position: right;
-	height: 300px;
-	width: 300px;
 	border: 3px solid #3f3c30;	
-	margin: 1em 0 1em 0;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 thead {
@@ -218,7 +219,7 @@ td {
 	text-align: center;
 	vertical-align: middle;
 	border-bottom: 3px solid #3f3c30;
-	width: 150px;
+	width: auto;
 	color: #3f3c30; 
 	font-family: Georgia, Times,sans-serif; 
 	font-size: 15px; 
@@ -226,14 +227,14 @@ td {
 	line-height: 17px; 
 	letter-spacing: normal; 
 	font-weight: normal; 
-	padding: .3em;
+	padding: 2px;
 }
 
 
 td.Acolor, td.Bcolor {
 	background-color: white;
 	border-right: 1px solid #3f3c30;
-	width: 120px;
+	width: 70px;
 	font-size: 16px;
 	font-weight: bold;
 }
@@ -274,11 +275,12 @@ td img {
 	text-align: center;
 	background-color: white;
 	min-height: auto;
+	max-width: 48%;
 	position: relative;
 }
 
 #farm { /*using default_background_medium.png. formerly background image within choice_screen*/
-	width: auto;
+	width: 100%;
 	z-index: 1;
 	margin: 0 auto;
 	padding: 0;
@@ -389,10 +391,11 @@ button[name="PlantB"] {
 #score {
 	display: inline-block;
 	padding: 10px;
-	width: 25%;
+	min-width: 20%;
+	max-width: 25%;
 	min-height: 500px;
 	background-image: url('images/coinstack.png');
-	background-size: 250px;
+	background-size: 230px;
 	background-repeat: no-repeat;
 	background-position: center;
 	position: relative; /* #score is the coordinate reference system for #points_fill*/
