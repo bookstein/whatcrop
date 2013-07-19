@@ -182,7 +182,7 @@ header > h1 {
 #givens {
 	display: inline-block;
 	max-width: 20%;
-	min-height: 100px;
+	min-height: 550px;
 	text-align: center;
 }
 
@@ -393,7 +393,7 @@ button[name="PlantB"] {
 	padding: 10px;
 	min-width: 20%;
 	max-width: 25%;
-	min-height: 500px;
+	min-height: 550px;
 	background-image: url('images/coinstack.png');
 	background-size: 230px;
 	background-repeat: no-repeat;
@@ -408,12 +408,13 @@ button[name="PlantB"] {
 	width: 100px;
 	height: 40px;
 	margin-right: 0;
-	position: absolute; /*Use jQuery to change the absolute height of the points flag along with points_bar*/
-	right: 60%;
-	bottom: 10%;
 	display: inline-block;
 	vertical-align: middle;
 	padding: 0;
+	z-index: 3;
+	position: absolute; /*Use jQuery to change the absolute height of the points flag along with points_bar*/
+	right: 60%;
+	bottom: 15%;
 }
 
 #point_count {
@@ -435,6 +436,7 @@ button[name="PlantB"] {
 	display: inline-block;
 	position: absolute;
 	right: 50%;
+	z-index: 1;
 } 
 
 #points_fill {
@@ -444,15 +446,16 @@ button[name="PlantB"] {
 	position: absolute;
 	bottom: 0;
 	margin: 0;
+	z-index: 2;
 }
 
 
 #dollars {
 	background-color: #3f3c30;
-	height: 3em;
+	height: 15%;
 	width: 100%;
 	padding: 0px;
-	margin: 1em 0 0 0;
+	margin: 10px 0 0 0;
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -460,20 +463,17 @@ button[name="PlantB"] {
 
 #dollars h4 { /* "Real Dollars Earned" */
  	color: white;
-	display: inline;
-	margin-right: 10px;
-	position: relative;
-	top: 0.8em;
+	display: inline-block;
+	margin: 10px 0 0 0;
 }
 
-#dollars_counter { /* Contained in <h5>. Numerical counter within #dollars div */
+span#dollars_counter { /* Contained in <span>. Numerical counter within #dollars div. Target for bonuses */
 	text-align: right;
 	background-color: white;
 	border: 5px solid #ffcc33;
-	position: relative;
-	top: 1em;
 	padding: 2px 30px;
-	display: inline;
+	display: inline-block;
+	margin: 5px 0;
 }
 
 
