@@ -30,7 +30,6 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: top;
 	font-family: Verdana, sans-serif;
-
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -265,7 +264,6 @@ td img {
 	background-color: #fff;
 	height: 2em;
 	border: 5px solid #3f3c30;
-
 }
 
 
@@ -388,32 +386,91 @@ button[name="PlantB"] {
 
 /* >>>>>>>>>>>>>>Points Counter <<<<<<<<<<<<<<< */
 
-#points {
+#score {
 	display: inline-block;
 	padding: 10px;
-	max-width: 25%;
-	min-height: 300px;
+	width: 25%;
+	min-height: 500px;
+	background-image: url('images/coinstack.png');
+	background-size: 250px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: relative; /* #score is the coordinate reference system for #points_fill*/
 }
 
-#dollars_counter {
+
+#points_flag {
+	background-image: url("images/points_flag.png");
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 40px;
+	margin-right: 0;
+	position: absolute; /*Use jQuery to change the absolute height of the points flag along with points_bar*/
+	right: 60%;
+	bottom: 10%;
 	display: inline-block;
-	text-align: center;
-	margin-top: 10px;
+	vertical-align: middle;
+	padding: 0;
 }
 
-#coin {
-	float: left;
+#point_count {
+	display: inline-block;
 }
+
+#point_count h5 {
+	color: #ffcc33;
+	padding-top: .5em;
+}
+
+#points_bar {
+	width: 2em;
+	height: 400px;
+	background-color: #fff;
+	margin: 1em 0 1em 0;
+	border: 5px solid #3f3c30;
+	overflow: hidden;
+	display: inline-block;
+	position: absolute;
+	right: 50%;
+} 
+
+#points_fill {
+	width: inherit;
+	height: 5px;
+	background-color: #ffcc33;
+	position: absolute;
+	bottom: 0;
+	margin: 0;
+}
+
 
 #dollars {
 	background-color: #3f3c30;
-	height: 2em;
+	height: 3em;
+	width: 100%;
+	padding: 0px;
+	margin: 1em 0 0 0;
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
 
-#dollars h4 {
-	color: white;
-	padding: 5px;
-	text-align: left;
+#dollars h4 { /* "Real Dollars Earned" */
+ 	color: white;
+	display: inline;
+	margin-right: 10px;
+	position: relative;
+	top: 0.8em;
+}
+
+#dollars_counter { /* Contained in <h5>. Numerical counter within #dollars div */
+	text-align: right;
+	background-color: white;
+	border: 5px solid #ffcc33;
+	position: relative;
+	top: 1em;
+	padding: 2px 30px;
+	display: inline;
 }
 
 
