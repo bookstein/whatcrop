@@ -106,7 +106,6 @@ h5 {text-transform: uppercase; font-size: 16px; font-family: Verdana, Arial, Hel
 h6 {color: #3f3c30; font-family: Georgia, Times,sans-serif; font-size: 12px; margin: 0; line-height: 17px; letter-spacing: normal; font-weight: normal; padding: 3px;} /*For subtitles and other emphasized paragraph text */
 p {color: #565347; font-family: Verdana, Helvetica,sans-serif; font-size: 10px; margin: 0; line-height: 14px; letter-spacing: normal; padding: 3px;} /*color: #585754*/
 
-
 .Acolor {color: #820000;} /*Same as Stanford red */
 .Bcolor {color: #3811c9;} /*Blue RGB(56,17,201)*/
 
@@ -186,20 +185,70 @@ header > h1 {
 	max-width: 25%;
 	min-height: 100px;
 	text-align: center;
-
 }
 
-table, thead, td {
-	border: 1px solid black;
-	padding: 5px;
+table {
+	background-image: url("images/table_background.jpg");
+	background-repeat: no-repeat;
+	background-size: 380px 380px;
+	background-position: right;
+	height: 350px;
+	width: 400px;
+	border: 3px solid #3f3c30;	
+	margin: 1em 0 1em 0;
 }
 
-table td {
-	text-align: center;
+thead {
+	padding: 10px;
+	border-bottom: 1px solid #3f3c30;
 }
 
 th {
+	color: #3f3c30; 
+	font-family: Georgia, Times, serif; 
+	font-size: 16px; 
+	font-weight: bold;
+	padding: 5px 2px;
 }
+
+#empty {
+	background-color: white;
+}
+
+td {
+	text-align: center;
+	vertical-align: middle;
+	border-bottom: 3px solid #3f3c30;
+	width: 150px;
+	color: #3f3c30; 
+	font-family: Georgia, Times,sans-serif; 
+	font-size: 15px; 
+	margin: 0; 
+	line-height: 17px; 
+	letter-spacing: normal; 
+	font-weight: normal; 
+	padding: .3em;
+}
+
+
+td.Acolor, td.Bcolor {
+	background-color: white;
+	border-right: 1px solid #3f3c30;
+	width: 120px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+td img {
+	height: 60px;
+	box-shadow: none;
+	border: none;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
 
 /*>>>>>>>>>>>>>>>>>>>>>>> Turn Counter >>>>>>>>>>>>>>*/
 
