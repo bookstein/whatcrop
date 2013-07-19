@@ -190,10 +190,10 @@ header > h1 {
 table {
 	background-image: url("images/table_background.jpg");
 	background-repeat: no-repeat;
-	background-size: 380px 380px;
+	background-size: 300px 300px;
 	background-position: right;
-	height: 350px;
-	width: 400px;
+	height: 300px;
+	width: 300px;
 	border: 3px solid #3f3c30;	
 	margin: 1em 0 1em 0;
 }
