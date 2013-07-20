@@ -57,7 +57,7 @@ table {
 	border-spacing: 0;
 }
 
-button, #grow {
+button {
 	background-color: rgb(238, 200, 48);
 	color: black;
 	border: 2px solid white;
@@ -80,21 +80,13 @@ section {
 	margin: 10px;
 
 }
-
-img {
-	margin: 5px; 
-	padding: 5px; 
-	background-color: #fff; 
-	border: 1px solid #ddd; 
-	box-shadow: 0 0 2px 1px #ddd;
-}
 		
-.box-shadow { /*same as img style rule*/
+.box-shadow { /*To create a frame around any object */
 	margin: 5px; 
 	padding: 5px; 
 	background-color: #fff; 
-	border: 1px solid #ddd; 
-	box-shadow: 0 0 2px 1px #ddd;} 
+	border: 1px solid #eae9e6; 
+	box-shadow: 0 0 2px 1px #eae9e6;} 
 		
 		
 h1 {font-family: Georgia, Times, serif; color: #565245; font-size: 24px;}
@@ -301,35 +293,33 @@ td img {
 	z-index: 3;
 }
 
-#seedpacketA {
-	height: 150px;
-	width: 150px;
-	background: none;
-	border: none;
-	position: absolute;
-	top: 5em;
-	left: 15%;
-	box-shadow: none;
-	z-index: 2;
-}
-
-#seedpacketB {
-	height: 150px;
-	width: 150px;
-	background: none;
-	border: none;
-	position: absolute;
-	top: 5em;
-	right: 15%;
-	box-shadow: none;
-	z-index: 2;
-}
-
 
 .plant {
-	margin: 0px 25px;
-	position: absolute;
-	top: 15em;
+	height: auto;
+	width: auto;
+	border: none;
+	z-index: 2;
+	position: relative;
+	top: 10%;
+
+	-webkit-box-shadow:
+    0 0 0 5px #ffcc33,
+    0 0 0 8px #fff
+  ;
+
+  -moz-box-shadow:
+   0 0 0 5px #ffcc33,
+    0 0 0 8px #fff
+  ;
+  -o-box-shadow:
+  0 0 0 5px #ffcc33,
+    0 0 0 8px #fff
+  ;
+  box-shadow:
+    0 0 0 5px #ffcc33,
+    0 0 0 8px #fff
+  ;
+
 }
 
 button[name="PlantA"] {
@@ -337,42 +327,149 @@ button[name="PlantA"] {
 }
 
 button[name="PlantB"] {
-	right: 13%;
+	right: 15%;
 }
 
 .plant:hover {
-	text-decoration: underline;
+	border: 5px solid white;
+	
 }
 
 .select { /*For when a Crop has been selected */
-	border: 5px solid white;
+	font-weight: bold;
+	-webkit-box-shadow:
+    0 0 0 6px #ffcc33,
+    0 0 0 10px #fff
+  ;
+
+  -moz-box-shadow:
+    0 0 0 6px #ffcc33,
+    0 0 0 10px #fff
+  ;
+  -o-box-shadow:
+    0 0 0 6px #ffcc33,
+    0 0 0 10px #fff
+  ;
+  box-shadow:
+    0 0 0 6px #ffcc33,
+    0 0 0 10px #fff
+  ;
 }
 
-#grow {
-	display: block;
+input#grow {
+	display: inline-block;
 	position: absolute;
-	top: 24em;
+	top: 75%;
 	left: 50%;
-	width: 150px;
+	width: auto;
 	margin: -75px;
 	text-align: center;
-	opacity: 0.6;
+	border-radius: 3px;
+	padding: 5px 10px;
+	font-size: 18px;
+	/*-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);*/
+    /*box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.4), 0 2px 2px rgba(0, 0, 0, 0.2);*/
+}
+
+.disabled { /*The following rules specify the disabled appearance of the #grow button, pre-crop choice*/
+	opacity: 0.8;
+	background-color: #eae9e6;
+	color: #3f3c30;
+	font-style: italic;
+	font-weight: 300;
+
+/*Multiple borders*/
+
+	-webkit-box-shadow:
+    0 0 0 2px #3f3c30,
+    0 0 0 3px #eae9e6
+    ;
+  -moz-box-shadow:
+    0 0 0 2px #3f3c30,
+    0 0 0 3px #eae9e6
+  ;
+  -o-box-shadow:
+    0 0 0 2px #3f3c30,
+    0 0 0 3px #eae9e6
+  ;
+  box-shadow:
+    0 0 0 2px #3f3c30,
+    0 0 0 3px #eae9e6
+  ;
 
 }
 
-#grow:hover {
-	text-decoration: underline;
-}
-
-#grow:active {
-	/*Make button look "pushed"*/
+.disabled:hover {
+	-webkit-box-shadow:
+    0 0 0 3px #3f3c30,
+    0 0 0 4px #eae9e6
+    ;
+  -moz-box-shadow:
+    0 0 0 3px #3f3c30,
+    0 0 0 4px #eae9e6
+  ;
+  -o-box-shadow:
+    0 0 0 3px #3f3c30,
+    0 0 0 4px #eae9e6
+  ;
+  box-shadow:
+    0 0 0 3px #3f3c30,
+    0 0 0 4px #eae9e6
+  ;
 }
 
 .highlight { /* Highlight class specifically for #grow button */
-	padding: 7px !important;
-	opacity: 1 !important;
-	border: 6px solid white !important;
+	opacity: 1;
+	background-color: #fff;
+	color: #3f3c30;
+	font-weight: 500;
+
+	/*Multiple borders*/
+
+	-webkit-box-shadow:
+    0 0 0 5px #ffcc33,
+    0 0 0 8px #fff
+  ;
+
+  -moz-box-shadow:
+   0 0 0 5px #ffcc33,
+    0 0 0 8px #fff
+  ;
+  -o-box-shadow:
+  0 0 0 5px #ffcc33,
+    0 0 0 8px #fff
+  ;
+  box-shadow:
+    0 0 0 5px #ffcc33,
+    0 0 0 8px #fff
+  ;
 }
+
+
+.highlight:hover {
+	font-weight: bold;
+	-webkit-box-shadow:
+    0 0 0 6px #ffcc33,
+    0 0 0 10px #fff
+  ;
+
+  -moz-box-shadow:
+    0 0 0 6px #ffcc33,
+    0 0 0 10px #fff
+  ;
+  -o-box-shadow:
+    0 0 0 6px #ffcc33,
+    0 0 0 10px #fff
+  ;
+  box-shadow:
+    0 0 0 6px #ffcc33,
+    0 0 0 10px #fff
+  ;
+	
+}
+
+
 
 /* >>>>>>>>>>>>>>>>>> Dialog boxes <<<<<<<<<<<<<< */
 .instructions {

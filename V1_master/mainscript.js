@@ -95,10 +95,27 @@ cropchoice = ""; //formerly seedchosen; formerly bevent
 
 
 //>>>>>>>>>>>>>>>>>>>>>> 2. User chooses crop. 
-					//   3. Grow button is highlighted after choice.
+
+//Choice time (From dialog "Okay" to click "Grow")
+/*var start = null;
+            $(window).load(function(event) {
+                start = event.timeStamp;
+            });
+            $(window).unload(function(event) {
+                var time = event.timeStamp - start;
+                $.post('/collect-user-time/ajax-backend.php', {time: time});
+*/
+
+//>>>>>>>>>>>>>>>>>>>>> 3. Grow button is highlighted after choice.
+
+function hoverGrow () {
+	$("input").attr('value', $(this).replace('Grow this crop','Please choose a crop'));
+};
+
+$("input, .disabled").on("hover", hoverGrow);
 
 function highlightGrow () {
-	$("#grow").addClass("highlight");
+	$("#grow").addClass("highlight").removeClass("disabled");
 };
 
 function userclickedA () {
@@ -123,11 +140,22 @@ $("#cropA").on("click", userclickedA);
 $("#cropB").on("click", userclickedB);
 
 
-//>>>>>>>>>>>>>>>>>> 4. Weather is randomly chosen. 
+//>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Weather is randomly chosen. 
 
-$("#grow").on("click", function () {
-	weather = Math.floor((Math.random()*1000)+1);
-	setclouds(weather);
+
+$("#grow").on("click", function (event) {
+
+	if ($("input").hasClass("disabled"))
+	{
+		alert("Please choose a crop first!");
+		event.stopPropagation();
+	}
+
+	else if ($("input").hasClass("highlight"))
+	{
+		weather = Math.floor((Math.random()*1000)+1);
+		setclouds(weather);
+	}
 });
 
 var climateChange = //formerly "pollution"
