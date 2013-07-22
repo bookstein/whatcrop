@@ -38,14 +38,32 @@ $(document).ready(function(){
 
 //>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
+//Should these be inside an object?
+
+	maxturn = 50;
+	payoutAwet = 70;
+	payoutAdry = 80;
+	payoutBwet = 100;
+	payoutBdry = 50;
+	maxscore = 0;
+	climateArray = [];
+	climateChange = function () {
+		for (var i =0; i < maxturn+1; i++)
+			{
+				climateArray[i]=5;
+				console.log(climateArray);
+			}
+		};
+	
+
 //ADJUST MAXIMUM NUMBER OF TURNS HERE
-var maxturn = 50;
+//var maxturn = 50;
 
 //HERE ARE THE SCORES FOR THE PLANTS
-var payoutAwet = 70; //formerly named "aplantwet"
-var payoutAdry = 80; //formerly named "aplantdry"
-var payoutBwet = 100; //formerly "bplantwet"
-var payoutBdry = 50; //formerly "bplantdry"
+//var payoutAwet = 70; //formerly named "aplantwet"
+//var payoutAdry = 80; //formerly named "aplantdry"
+//var payoutBwet = 100; //formerly "bplantwet"
+//var payoutBdry = 50; //formerly "bplantdry"
 
 //These values are then plugged into the crop information table (discrete weather version)
 function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
@@ -58,7 +76,7 @@ function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 writeCropPayout ("70", "80", "100", "50");
 
 //ADJUST MAXSCORE HERE
-var maxscore = 0; // ? 
+//var maxscore = 0; 
 
 
 var playerchoices = [maxturn+1]; //creates an array containing "51". 
@@ -140,7 +158,7 @@ $("#cropA").on("click", userclickedA);
 $("#cropB").on("click", userclickedB);
 
 
-//>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Weather is randomly chosen. 
+//>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. 
 
 
 $("#grow").on("click", function (event) {
@@ -158,9 +176,9 @@ $("#grow").on("click", function (event) {
 	}
 });
 
-var climateChange = //formerly "pollution"
-[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
-5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]; //creates a new array with 51 "5"s.
+//var climateChange = //formerly "pollution"
+//[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+//5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]; //creates a new array with 51 "5"s.
 //Fran needs to be able to modify each of these numbers easily
 
 
