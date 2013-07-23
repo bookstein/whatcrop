@@ -53,23 +53,18 @@ $(document).ready(function(){
 			{
 				climateArray[i]=10; //change climateArray here
 			}
-			return climateArray; //returns new value of climateArray
+			return climateArray; //assigns value of climateArray to function climateChange
 		};
+	cropchoice = ""; //formerly seedchosen; formerly bevent
+	//"var" is local; removed var to make variable global
+	//the first time JS sees variable, it will declare it. (without var)
 	
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-//ADJUST MAXIMUM NUMBER OF TURNS HERE
-//var maxturn = 50;
 
-//HERE ARE THE SCORES FOR THE PLANTS
-//var payoutAwet = 70; //formerly named "aplantwet"
-//var payoutAdry = 80; //formerly named "aplantdry"
-//var payoutBwet = 100; //formerly "bplantwet"
-//var payoutBdry = 50; //formerly "bplantdry"
+//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-//>>>>>>>>> 1. Game generates weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-climateChange(); //sets climateArray to new value
+climateChange(); //runs function climateChange, sets climateArray to new value
 
 // -------
 
@@ -106,40 +101,33 @@ makeThresholdArray(); //sets thresholdArray to new value
 
 gameWeather = [];
 
-function makeGameWeather(x) //makeGameWeather takes empty variable "clouds" and gives it value depending on parameter x
+function makeGameWeather(x) //makeGameWeather takes empty variable "turnWeather" and gives it value depending on parameter x
 {
 
 for (var i = 0; i < maxturn+1; i++) {
 	if (weatherArray[i] < thresholdArray[i])
 		{
-			clouds = "Wet";
-			gameWeather[i] = clouds;
+			turnWeather = "Wet";
+			gameWeather[i] = turnWeather;
 		}
 
 	if (weatherArray[i] > thresholdArray[i])
 		{
-			clouds = "Dry";
-			gameWeather[i] = clouds;
+			turnWeather = "Dry";
+			gameWeather[i] = turnWeather;
 		}
 		
 		} //end of for loop
 
-	alert("Weather is " + clouds); //temporary placeholder
+	alert("Weather is " + turnWeather); //temporary placeholder
 	return gameWeather;
 };
 
+makeGameWeather(); //sets value of gameWeather (weather for length of game)
 
-function chooseWeather() {
-	
-	setclouds(weather); //calling function setclouds within function updateGame
-						//"weather" is actually the Clark Kent of x (x on the inside)
-};
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>2. Game sets up game values >>>>>>>>>>>>>>>>>>>>>>
 
-
-
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-//These values are then plugged into the crop information table (discrete weather version)
+//Crop Information Table
 function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 	$("table").find("td#payoutAwet").text(payoutAwet + " points");
 	$("table").find("td#payoutAdry").text(payoutAdry + " points");
@@ -149,26 +137,26 @@ function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 
 writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
 
-//ADJUST MAXSCORE HERE
-//var maxscore = 0; 
+//Turn Counter
 
-
-var playerchoices = [maxturn+1]; //creates an array containing "51". 
-
-//sets up first turn
-var turn = 1; 
+var turn = 1;
 $("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
-var score = 0; //starting score is 0 
 var GameOver = false;
-var weather = Math.floor((Math.random()*1000)+1); //chooses random weather
-var rweather = Math.floor((Math.random()*2)+1); //rweather chooses random # between 0 and 3
-var clouds = ""; //"Empty" global variable called "clouds"
-var lastcloud = "Dry"; //What is lastcloud??
+
+//Points Counter
+
+var score = 0;
+
+//var playerchoices = [maxturn+1]; //creates an array containing "51". 
+
+
+//var weather = Math.floor((Math.random()*1000)+1); //chooses random weather
+//var rweather = Math.floor((Math.random()*2)+1); //rweather chooses random # between 0 and 3
+//var clouds = ""; //"Empty" global variable called "clouds"
+//var lastcloud = "Dry"; //What is lastcloud??
 //var water = false;
 var plantstatus = "";
-cropchoice = ""; //formerly seedchosen; formerly bevent
-//"var" is local; removed var to make variable global
-//the first time JS sees variable, it will declare it. (without var)
+
 
 //var timerbar = -1;
 
@@ -186,7 +174,7 @@ cropchoice = ""; //formerly seedchosen; formerly bevent
 //var bordery = daybary - daybarrate*maxturn;
 
 
-//>>>>>>>>>>>>>>>>>>>>>> 2. User chooses crop. 
+// >>>>>>>>>>>>>>>>>>3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
 //Choice time (From dialog "Okay" to click "Grow")
 /*var start = null;
@@ -198,11 +186,10 @@ cropchoice = ""; //formerly seedchosen; formerly bevent
                 $.post('/collect-user-time/ajax-backend.php', {time: time});
 */
 
-//>>>>>>>>>>>>>>>>>>>>> 3. Grow button is highlighted after choice.
 
 function hoverGrow () {
 	$("input").attr('value', $(this).replace('Grow this crop','Please choose a crop'));
-};
+}; //this still doesn't work!
 
 $("input, .disabled").on("hover", hoverGrow);
 
@@ -232,40 +219,40 @@ $("#cropA").on("click", userclickedA);
 $("#cropB").on("click", userclickedB);
 
 
-//>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. 
+//>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. >>>>>>>>>>>>>>>>>>>>>>>>
 
 //"Weather realization screen": weather results are displayed.
 	//create two functions: displayRain and displaySun. 
 	//Use these also on the dialog boxes prompted by weather outcome.
 
-//Call this function to display weather results 
+//Call this function to display weather results graphically 
 function displayWeather () {
 
-	//remove seedpackets and buttons using .hidden
+	//remove seedpackets and buttons using class .hidden
 $(".plant, .plant_img").fadeOut(function(){
 	$(this).addClass("hidden");
 	}); 
 
 	//reveal dry outcome with Crop A
-	if(cropchoice == "cropA" && clouds == "Dry")
+	if(cropchoice == "cropA" && turnWeather == "Dry")
 	{
 		displaySun();
 	}
 
 	//reveal dry outcome with Crop B
-	if(cropchoice == "cropB" && clouds == "Dry")
+	if(cropchoice == "cropB" && turnWeather == "Dry")
 	{
 		displaySun();
 	}
 
 	//reveal wet outcome with Crop A
-	if(cropchoice == "cropA" && clouds == "Wet")
+	if(cropchoice == "cropA" && turnWeather == "Wet")
 	{
 		displayRain();
 	}
 
 	//reveal wet outcome with Crop B
-	if(cropchoice =="cropB" && clouds == "Wet")
+	if(cropchoice =="cropB" && turnWeather == "Wet")
 	{
 		displayRain();
 	}
@@ -314,40 +301,19 @@ function fadeWeather () {
 			$(this).removeClass("hidden");
 			});
 		setTimeout(addTurn, 800); //Waits 800 ms after callback function to execute because fadeIn is done after 400ms 
-	}, 1000); //time in milliseconds (1000 ms = 1 s)
+	}, 3000); //time in milliseconds (1000 ms = 1 s)
 
 };
 
-$("#grow").on("click", function (event) {
+//Grow button only calls displayWeather() if a crop has been chosen
+$("#grow").on("click", function () {
 
-	if ($("input").hasClass("disabled"))
-	{
+	if ($("input").hasClass("disabled")) {
 		alert("Please choose a crop first!");
-	}
-
-	else if ($("input").hasClass("highlight"))
-	{
+	} else if ($("input").hasClass("highlight")) {
 		displayWeather(); //call a function with parentheses
 	}
 });
-
-//var climateChange = //formerly "pollution"
-//[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
-//5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]; //creates a new array with 51 "5"s.
-//Fran needs to be able to modify each of these numbers easily
-
-
-//function setclouds(x) //setclouds takes empty variable "clouds" and gives it value depending on parameter x
-//{
-//	if (x<=threshold) //if x is less than or equal to 600, clouds = "Wet"
-//	{clouds = "Wet";} //changes value of clouds variable to "Wet"
-//	else				//if x is greater than 600, changes value of clouds variable to "Dry"
-//	{clouds = "Dry";} //changes value of clouds variable to "Wet"
-//	alert("Weather is " + clouds); //temporary placeholder
-//};
-
-//var threshold = 600; //formerly "rainchance." The threshold between wet and dry (.6*1000)
-//Be able to modify this number easily.
 
 
 
@@ -357,113 +323,116 @@ function updateGame() {
 //	setclouds(weather); //calling function setclouds within function updateGame
 						//"weather" is actually the Clark Kent of x (x on the inside)
 	
-	if (cropchoice == "cropA" && clouds == "Dry") //&& water) //if user chooses A *and* clouds are equal to dry
+	if (cropchoice == "cropA" && turnWeather == "Dry")  //if user chooses crop A *and* weather is dry
 	{
-		//Dry Season
-		//water = false;
-		cropchoice = "";
-		//Sets "weather" equal to random number between 0 and 999 (+1= 1000)
-		score += payoutAdry; //sets score = score + aplantdry
-		playerchoices[turn] = {Turn: turn, Seed: "cropA", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
-		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
-		playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
-		ajaxFunction(playerchoices[turn].string);
-		threshold -= climateChange[turn];
-		//turn = turn + 1;
-		keeptime = 0;
-		lastcloud = "Dry";
-		rweather = Math.floor((Math.random()*2)+1);
+		score += payoutAdry; //sets score = score + payoutAdry	
 		plantstatus = "dead";
-		cropchoice = "cropA";
-		updatedaybar();
-		timerbar = wait;
-		sunsound.currenttime=0;
-		sunsound.play();
-		wmessage = sunmessage;
-		cmessage = aplantdrymessage;
+		cropChosen = "cropA"; //records the crop that was chosen for this turn
+		cropchoice = ""; // resets value of cropchoice to ""
+		
+				//>>>> Data collection<<<
+
+		//playerchoices[turn] = {Turn: turn, Seed: "cropA", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		//playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
+		//playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
+		//ajaxFunction(playerchoices[turn].string);
+		
+				//>>>> Add in later <<<<
+		//lastcloud = "Dry";
+		//updatedaybar();
+		//timerbar = wait;
+		//wmessage = sunmessage;
+		//cmessage = aplantdrymessage;
+		//sunsound.currenttime=0;
+		//sunsound.play();
+		//keeptime = 0;
 	}
 	
-	if (cropchoice == "cropA" && clouds == "Wet") //&& water)
+	if (cropchoice == "cropA" && turnWeather == "Wet") 
 	{
-		//Wet Season
-		//water = false;
-		cropchoice = "";
-		weather = Math.floor((Math.random()*1000)+1);
-		score += payoutAwet;
-		playerchoices[turn] = {Turn: turn, Seed: "cropA", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
-		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
-		playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
-		ajaxFunction(playerchoices[turn].string);
-		threshold -= climateChange[turn];
-		//turn = turn + 1;
-		keeptime = 0;
-		lastcloud = "Wet";
-		rweather = Math.floor((Math.random()*2)+1);
+		score += payoutAwet; //sets score = score + payoutAwet	
 		plantstatus = "healthy";
-		cropchoice = "cropA";
-		updatedaybar();
-		timerbar = wait;
-		rainsound.currenttime=0;
-		rainsound.play();
-		wmessage = rainmessage;
-		cmessage = aplantwetmessage;
+		cropChosen = "cropA";
+		cropchoice = ""; 
+		
+		//>>>> Data collection<<<
+
+		//playerchoices[turn] = {Turn: turn, Seed: "cropA", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		//playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
+		//playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
+		//ajaxFunction(playerchoices[turn].string);
+
+
+		//>>>> Add in later <<<<
+
+		//keeptime = 0;
+		//lastcloud = "Wet";
+		//updatedaybar();
+		//timerbar = wait;
+		//wmessage = rainmessage;
+		//cmessage = aplantwetmessage;
+		//rainsound.currenttime=0;
+		//rainsound.play();
+		//keeptime = 0;
 	}
 	
-	if (cropchoice == "cropB" && clouds == "Wet") //&& water)
+	if (cropchoice == "cropB" && turnWeather == "Wet") 
 	{
-		//Wet Season
-		//water = false;
-		cropchoice = "";
-		weather = Math.floor((Math.random()*1000)+1);
-		score += payoutBwet;
-		playerchoices[turn] = {Turn: turn, Seed: "cropB", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
-		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
-		playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
-		ajaxFunction(playerchoices[turn].string);
-		threshold -= climateChange[turn];
-		//turn = turn + 1;
-		keeptime = 0;
-		lastcloud = "Wet";
-		rweather = Math.floor((Math.random()*2)+1);
+		score += payoutBwet; //sets score = score + payoutBwet	
 		plantstatus = "healthy";
-		seedchosen = "cropB";
-		updatedaybar();
-		timerbar = wait;
-		rainsound.currenttime=0;
-		rainsound.play();
-		wmessage = rainmessage;
-		cmessage = bplantwetmessage;
+		cropChosen = "cropB";
+		cropchoice = ""; 
+		
+		
+			//>>>> Data collection<<<
+		//playerchoices[turn] = {Turn: turn, Seed: "cropB", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		//playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
+		//playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
+		//ajaxFunction(playerchoices[turn].string);
+		
+			//>>>> Add in later <<<<
+		//keeptime = 0;
+		//lastcloud = "Wet";
+		//updatedaybar();
+		//timerbar = wait;
+		//wmessage = rainmessage;
+		//cmessage = bplantwetmessage;
+		//rainsound.currenttime=0;
+		//rainsound.play();
+		//keeptime = 0;
 	}
-	if (cropchoice == "cropB" && clouds == "Dry") //&& water)
+
+	if (cropchoice == "cropB" && turnWeather == "Dry") 
 	{
-		//Dry Season
-		//water = false;
-		cropchoice = "";
-		weather = Math.floor((Math.random()*1000)+1);
-		score += payoutBdry;
-		playerchoices[turn] = {Turn: turn, Seed: "cropB", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
-		playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
-		playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
-		ajaxFunction(playerchoices[turn].string);
-		threshold -= climateChange[turn];
-		//turn = turn + 1;
-		keeptime = 0;
-		lastcloud = "Dry";
-		rweather = Math.floor((Math.random()*2)+1);
+		
+		score += payoutBdry; //sets score = score + payoutBdry	
 		plantstatus = "dead";
-		cropchoice = "cropB";
-		updatedaybar();
-		timerbar = wait;
-		sunsound.currenttime=0;
-		sunsound.play();
-		wmessage = sunmessage;
-		cmessage = bplantdrymessage;
+		cropChosen = "cropB";
+		cropchoice = ""; 
+		
+		
+			//>>>> Data collection<<<
+		
+		//playerchoices[turn] = {Turn: turn, Seed: "cropB", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
+		//playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
+		//playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
+		//ajaxFunction(playerchoices[turn].string);
+		
+			//>>>> Add in later <<<<
+		//lastcloud = "Dry";
+		//updatedaybar();
+		//timerbar = wait;
+		//wmessage = sunmessage;
+		//cmessage = bplantdrymessage;
 	}
 	
-	//water = false;
-	keeptime +=1;
-	if (timerbar > -1) timerbar--;
-	if (turn > maxturn) GameOver=true;
+	////>>>> Add in later <<<<
+	//keeptime +=1;
+	//if (timerbar > -1) timerbar--;
+	//if (turn > maxturn) GameOver=true;
+	//sunsound.currenttime=0;
+	//sunsound.play();
+	//keeptime = 0;
 };
 
 
