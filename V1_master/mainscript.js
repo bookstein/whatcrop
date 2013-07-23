@@ -45,7 +45,6 @@ $(document).ready(function(){
 	payoutAdry = 80;
 	payoutBwet = 100;
 	payoutBdry = 50;
-	maxscore = 0;
 	threshold = 600; //formerly "rainchance"
 	climateArray = [];
 	function climateChange () {
@@ -55,11 +54,11 @@ $(document).ready(function(){
 			}
 			return climateArray; //assigns value of climateArray to function climateChange
 		};
-	cropchoice = ""; //formerly seedchosen; formerly bevent
+	cropchoice = ""; //formerly bevent
 	//"var" is local; removed var to make variable global
 	//the first time JS sees variable, it will declare it. (without var)
 	
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 
 
 //>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -125,7 +124,7 @@ for (var i = 0; i < maxturn+1; i++) {
 
 makeGameWeather(); //sets value of gameWeather (weather for length of game)
 
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>2. Game sets up game values >>>>>>>>>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>2. Game sets up initial game values >>>>>>>>>>>>>>>>>>>>>>
 
 //Crop Information Table
 function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
@@ -139,16 +138,57 @@ writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
 
 //Turn Counter
 
-var turn = 1;
+turn = 1;
 $("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
-var GameOver = false;
+GameOver = false;
 
 //Points Counter
 
-var score = 0;
+score = 0;
 
-//var playerchoices = [maxturn+1]; //creates an array containing "51". 
+//Calculate Max Score
 
+optimalCrops = []; //array of all optimal crops, by turn
+
+function calculateOptimalCrop () {
+	for (var i = 0; i < maxturn+1; i++) {
+
+		if (gameWeather[i] === "Wet" && payoutAwet > payoutBwet) 
+		{
+			optimalCrops[i] = payoutAwet;
+		} 
+		else if (gameWeather[i] === "Dry" && payoutAdry > payoutBdry)
+		{
+			optimalCrops[i] = payoutAdry;
+		}
+		else if (gameWeather[i] === "Wet" && payoutBwet > payoutAwet)
+		{
+			optimalCrops[i] = payoutBwet;
+		}
+		else if (gameWeather[i] === "Dry" && payoutBdry > payoutAdry)
+		{
+			optimalCrops[i] = payoutBdry;
+		}
+	} //end of for loop
+	
+	return optimalCrops;
+};
+
+calculateOptimalCrop(); //sets value of optimalCrops array
+
+maxScore = 0;
+
+function calculateMaxScore () {
+		for (var i=0; i < optimalCrops.length; i++)
+		{
+		maxScore += optimalCrops[i]
+		} //maxScore = maxScore + optimalTurnCrop[i]
+	return maxScore;
+};
+
+calculateMaxScore();
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 //var weather = Math.floor((Math.random()*1000)+1); //chooses random weather
 //var rweather = Math.floor((Math.random()*2)+1); //rweather chooses random # between 0 and 3
