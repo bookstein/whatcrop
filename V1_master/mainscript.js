@@ -46,15 +46,17 @@ $(document).ready(function(){
 	payoutBwet = 100;
 	payoutBdry = 50;
 	maxscore = 0;
+	threshold = 600; //formerly "rainchance"
 	climateArray = [];
-	climateChange = function () {
+	function climateChange () {
 		for (var i =0; i < maxturn+1; i++)
 			{
-				climateArray[i]=5;
-				console.log(climateArray);
+				climateArray[i]=10; //change climateArray here
 			}
+			return climateArray; //returns new value of climateArray
 		};
 	
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 //ADJUST MAXIMUM NUMBER OF TURNS HERE
 //var maxturn = 50;
@@ -65,6 +67,78 @@ $(document).ready(function(){
 //var payoutBwet = 100; //formerly "bplantwet"
 //var payoutBdry = 50; //formerly "bplantdry"
 
+//>>>>>>>>> 1. Game generates weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+climateChange(); //sets climateArray to new value
+
+// -------
+
+weatherArray = [];
+
+function makeWeatherArray() {
+	for (var i = 0; i < maxturn+1; i++)
+	{
+	weather = Math.floor((Math.random()*1000)+1); 
+	weatherArray[i] = weather; 
+	} 
+	return weatherArray; 
+}; 
+
+makeWeatherArray(); //sets weatherArray to new value
+
+// -------
+
+thresholdArray = [];
+
+function makeThresholdArray () {
+	for (var i = 0; i < maxturn+1; i++)
+	{
+	thresholdArray[i] = threshold + climateArray[i];
+	}
+	
+	return thresholdArray; 
+};
+
+makeThresholdArray(); //sets thresholdArray to new value
+
+
+// -------
+
+gameWeather = [];
+
+function makeGameWeather(x) //makeGameWeather takes empty variable "clouds" and gives it value depending on parameter x
+{
+
+for (var i = 0; i < maxturn+1; i++) {
+	if (weatherArray[i] < thresholdArray[i])
+		{
+			clouds = "Wet";
+			gameWeather[i] = clouds;
+		}
+
+	if (weatherArray[i] > thresholdArray[i])
+		{
+			clouds = "Dry";
+			gameWeather[i] = clouds;
+		}
+		
+		} //end of for loop
+
+	alert("Weather is " + clouds); //temporary placeholder
+	return gameWeather;
+};
+
+
+function chooseWeather() {
+	
+	setclouds(weather); //calling function setclouds within function updateGame
+						//"weather" is actually the Clark Kent of x (x on the inside)
+};
+
+
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 //These values are then plugged into the crop information table (discrete weather version)
 function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 	$("table").find("td#payoutAwet").text(payoutAwet + " points");
@@ -73,7 +147,7 @@ function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 	$("table").find("td#payoutBdry").text(payoutBdry + " points");
 };
 
-writeCropPayout ("70", "80", "100", "50");
+writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
 
 //ADJUST MAXSCORE HERE
 //var maxscore = 0; 
@@ -160,19 +234,100 @@ $("#cropB").on("click", userclickedB);
 
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. 
 
+//"Weather realization screen": weather results are displayed.
+	//create two functions: displayRain and displaySun. 
+	//Use these also on the dialog boxes prompted by weather outcome.
+
+//Call this function to display weather results 
+function displayWeather () {
+
+	//remove seedpackets and buttons using .hidden
+$(".plant, .plant_img").fadeOut(function(){
+	$(this).addClass("hidden");
+	}); 
+
+	//reveal dry outcome with Crop A
+	if(cropchoice == "cropA" && clouds == "Dry")
+	{
+		displaySun();
+	}
+
+	//reveal dry outcome with Crop B
+	if(cropchoice == "cropB" && clouds == "Dry")
+	{
+		displaySun();
+	}
+
+	//reveal wet outcome with Crop A
+	if(cropchoice == "cropA" && clouds == "Wet")
+	{
+		displayRain();
+	}
+
+	//reveal wet outcome with Crop B
+	if(cropchoice =="cropB" && clouds == "Wet")
+	{
+		displayRain();
+	}
+	
+
+};
+
+//What is the correct order of functions?? (originally I had these "definition" functions 
+	//up at the top BEFORE displayWeather function)
+
+
+//displays "Dry" results
+function displaySun () {
+	$("#sun").fadeIn(1000, function(){
+		$(this).addClass("displayWeather");
+	fadeWeather();
+	});
+};
+
+//displays "Wet" results
+function displayRain () {
+	$("#rain").fadeIn(1000, function(){
+		$(this).addClass("displayWeather");
+	fadeWeather();
+	});
+};
+
+//Fades out weather images and restores "choice screen" after certain period of time
+//Loops back to the beginning of the code
+
+
+function addTurn () {
+	turn = turn + 1;
+	console.log("Eek!");
+	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+};
+
+function fadeWeather () {
+	setTimeout(function() {   //setTimeout calls function after a certain time
+	   	$("#sun, #rain").fadeOut(function(){
+	   		$(this).removeClass("displayWeather").addClass("hidden");
+	   		});
+	   	$(".plant").removeClass("select");
+	   	$("#grow").removeClass("highlight");
+	   	$(".plant, .plant_img").fadeIn(function(){
+			$(this).removeClass("hidden");
+			});
+		setTimeout(addTurn, 800); //Waits 800 ms after callback function to execute because fadeIn is done after 400ms 
+	}, 1000); //time in milliseconds (1000 ms = 1 s)
+
+};
 
 $("#grow").on("click", function (event) {
 
 	if ($("input").hasClass("disabled"))
 	{
 		alert("Please choose a crop first!");
-		event.stopPropagation();
 	}
 
 	else if ($("input").hasClass("highlight"))
 	{
-		weather = Math.floor((Math.random()*1000)+1);
-		setclouds(weather);
+		displayWeather(); //call a function with parentheses
 	}
 });
 
@@ -182,24 +337,24 @@ $("#grow").on("click", function (event) {
 //Fran needs to be able to modify each of these numbers easily
 
 
-function setclouds(x) //setclouds takes empty variable "clouds" and gives it value depending on parameter x
-{
-	if (x<=threshold) //if x is less than or equal to 600, clouds = "Wet"
-	{clouds = "Wet";} //changes value of clouds variable to "Wet"
-	else				//if x is greater than 600, changes value of clouds variable to "Dry"
-	{clouds = "Dry";} //changes value of clouds variable to "Wet"
-	alert("Weather is " + clouds); //temporary placeholder
-};
+//function setclouds(x) //setclouds takes empty variable "clouds" and gives it value depending on parameter x
+//{
+//	if (x<=threshold) //if x is less than or equal to 600, clouds = "Wet"
+//	{clouds = "Wet";} //changes value of clouds variable to "Wet"
+//	else				//if x is greater than 600, changes value of clouds variable to "Dry"
+//	{clouds = "Dry";} //changes value of clouds variable to "Wet"
+//	alert("Weather is " + clouds); //temporary placeholder
+//};
 
-var threshold = 600; //formerly "rainchance." The threshold between wet and dry (.6*1000)
+//var threshold = 600; //formerly "rainchance." The threshold between wet and dry (.6*1000)
 //Be able to modify this number easily.
 
 
 
 function updateGame() {
-	alert("Updating!");
-	weather = Math.floor((Math.random()*1000)+1); 
-	setclouds(weather); //calling function setclouds within function updateGame
+	//alert("Updating!");
+//	weather = Math.floor((Math.random()*1000)+1); 
+//	setclouds(weather); //calling function setclouds within function updateGame
 						//"weather" is actually the Clark Kent of x (x on the inside)
 	
 	if (cropchoice == "cropA" && clouds == "Dry") //&& water) //if user chooses A *and* clouds are equal to dry
@@ -312,94 +467,11 @@ function updateGame() {
 };
 
 
-//5. "Weather realization screen": weather results are displayed.
-	//create two functions: displayRain and displaySun. 
-	//Use these also on the dialog boxes prompted by weather outcome.
-
-//Call this function to display weather results 
-function displayWeather () {
-
-	//remove seedpackets and buttons using .hidden
-$(".plant, .plant_img").fadeOut(function(){
-	$(this).addClass("hidden");
-	}); 
-
-	//reveal dry outcome with Crop A
-	if(cropchoice == "cropA" && clouds == "Dry")
-	{
-		displaySun();
-	}
-
-	//reveal dry outcome with Crop B
-	if(cropchoice == "cropB" && clouds == "Dry")
-	{
-		displaySun();
-	}
-
-	//reveal wet outcome with Crop A
-	if(cropchoice == "cropA" && clouds == "Wet")
-	{
-		displayRain();
-	}
-
-	//reveal wet outcome with Crop B
-	if(cropchoice =="cropB" && clouds == "Wet")
-	{
-		displayRain();
-	}
-	
-
-};
-
-//What is the correct order of functions?? (originally I had these "definition" functions 
-	//up at the top BEFORE displayWeather function)
-
-
-//displays "Dry" results
-function displaySun () {
-	$("#sun").fadeIn(1000, function(){
-		$(this).addClass("displayWeather");
-	fadeWeather();
-	});
-};
-
-//displays "Wet" results
-function displayRain () {
-	$("#rain").fadeIn(1000, function(){
-		$(this).addClass("displayWeather");
-	fadeWeather();
-	});
-};
-
-//Fades out weather images and restores "choice screen" after certain period of time
-//Loops back to the beginning of the code
-
-
-function addTurn () {
-	turn = turn + 1;
-	console.log("Eek!");
-	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
-};
-
-function fadeWeather () {
-	setTimeout(function() {   //setTimeout calls function after a certain time
-	   	$("#sun, #rain").fadeOut(function(){
-	   		$(this).removeClass("displayWeather").addClass("hidden");
-	   		});
-	   	$(".plant").removeClass("select");
-	   	$("#grow").removeClass("highlight");
-	   	$(".plant, .plant_img").fadeIn(function(){
-			$(this).removeClass("hidden");
-			});
-		setTimeout(addTurn, 800); //Waits 800 ms after callback function to execute because fadeIn is done after 400ms 
-	}, 1000); //time in milliseconds (1000 ms = 1 s)
-
-};
 
 
 
 //Grow button calls the function displayWeather on click
-$("#grow").click(displayWeather);
+//$("#grow").click(displayWeather); 
 
 
 
