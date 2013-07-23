@@ -532,7 +532,7 @@ input#grow {
 	z-index: 3;
 	position: absolute; /*Use jQuery to change the absolute height of the points flag along with points_bar*/
 	right: 60%;
-	bottom: 15%;
+	bottom: 110px;
 }
 
 #point_count {
