@@ -118,7 +118,6 @@ for (var i = 0; i < maxturn+1; i++) {
 		
 		} //end of for loop
 
-	alert("Weather is " + turnWeather); //temporary placeholder
 	return gameWeather;
 };
 
@@ -269,7 +268,7 @@ $("#cropB").on("click", userclickedB);
 function displayWeather () {
 
 	//remove seedpackets and buttons using class .hidden
-$(".plant, .plant_img").fadeOut(function(){
+$(".plant, .plant_img, #grow").fadeOut(function(){
 	$(this).addClass("hidden");
 	}); 
 
@@ -326,7 +325,6 @@ function displayRain () {
 
 function addTurn () {
 	turn = turn + 1;
-	console.log("Eek!");
 	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
 };
 
@@ -337,7 +335,7 @@ function fadeWeather () {
 	   		});
 	   	$(".plant").removeClass("select");
 	   	$("#grow").removeClass("highlight");
-	   	$(".plant, .plant_img").fadeIn(function(){
+	   	$(".plant, .plant_img, #grow").fadeIn(function(){
 			$(this).removeClass("hidden");
 			});
 		setTimeout(addTurn, 800); //Waits 800 ms after callback function to execute because fadeIn is done after 400ms 
