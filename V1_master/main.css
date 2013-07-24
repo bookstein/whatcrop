@@ -528,6 +528,18 @@ input#grow {
 	position: relative; /* #score is the coordinate reference system for #points_fill*/
 }
 
+#points_bar {
+	width: 2em;
+	height: 400px;
+	background-color: #fff;
+	margin: 1em 0 1em 0;
+	border: 5px solid #3f3c30;
+	overflow: visible;
+	display: inline-block;
+	position: absolute;
+	right: 50%;
+	z-index: 1;
+} 
 
 #points_flag {
 	background-image: url("images/points_flag.png");
@@ -541,7 +553,7 @@ input#grow {
 	z-index: 3;
 	position: absolute; /*Use jQuery to change the absolute height of the points flag along with points_bar*/
 	right: 60%;
-	bottom: 110px;
+	bottom: -15px;
 }
 
 #point_count {
@@ -553,18 +565,6 @@ input#grow {
 	padding-top: .5em;
 }
 
-#points_bar {
-	width: 2em;
-	height: 400px;
-	background-color: #fff;
-	margin: 1em 0 1em 0;
-	border: 5px solid #3f3c30;
-	overflow: hidden;
-	display: inline-block;
-	position: absolute;
-	right: 50%;
-	z-index: 1;
-} 
 
 #points_fill {
 	width: inherit;
