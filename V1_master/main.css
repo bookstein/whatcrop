@@ -384,7 +384,6 @@ button.plant {
 }
 
 input#grow {
-	display: inline-block;
 	position: absolute;
 	top: 60%;
 	left: 50%;
@@ -406,6 +405,7 @@ input#grow {
 	color: #3f3c30;
 	font-style: italic;
 	font-weight: 300;
+	display: inline-block;
 
 /*Multiple borders*/
 
@@ -452,6 +452,7 @@ input#grow {
 	background-color: #fff;
 	color: #3f3c30;
 	font-weight: 500;
+	display: inline-block;
 
 	/*Multiple borders*/
 

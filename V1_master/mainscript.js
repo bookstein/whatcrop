@@ -306,7 +306,6 @@ function fadeWeather () {
 		//setTimeout calls function after a certain time; currently 3000 ms
 	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
 	   	$(".plant").removeClass("select");
-	   	$("#grow").removeClass("highlight");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden");
 		setTimeout(addTurn, 400); //Waits 400 ms after callback function to execute because fadeIn is done after 400ms 
 	}; 
@@ -338,6 +337,7 @@ function displayWeather () {
 
 	//remove seedpackets and buttons using class .hidden
 	$(".plant, .plant_img, #grow").addClass("hidden"); //originally used .fadeOut(function{}) 
+	$("#grow").removeClass("highlight");
 
 	//reveal dry outcome with Crop A
 	if(cropchoice === "cropA" && turnWeather === "Dry")
