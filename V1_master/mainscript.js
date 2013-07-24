@@ -39,6 +39,7 @@ $(document).ready(function(){
 //>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
 	cropchoice = "";
+
 // Set number of turns per game
 	maxturn = 50;
 
@@ -60,7 +61,8 @@ $(document).ready(function(){
 			}
 			return climateArray; //assigns value of climateArray to function climateChange
 		};
-		climateChange(); //runs function climateChange, sets climateArray to new value
+
+	climateChange(); // Sets climateArray to new value
 
 
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -110,9 +112,12 @@ makeWeatherArray(); //sets weatherArray to new value
 thresholdArray = [];
 
 function makeThresholdArray () {
-	for (var i = 0; i < maxturn+1; i++)
+	
+	thresholdArray[0] = threshold; //sets first value equal to threshold
+
+	for (var i = 1; i < maxturn+1; i++)
 	{
-	thresholdArray[i] = threshold + climateArray[i];
+	thresholdArray[i] = thresholdArray[0] + (climateArray[i]*i);
 	}
 	
 	return thresholdArray; 
@@ -154,11 +159,12 @@ makeGameWeather(); //sets value of gameWeather (array containing weather for len
 turnWeather = "";
 
 function assignTurnWeather() {
-	turnWeather=gameWeather[turn];
+	turnWeather = gameWeather[turn];
+	//alert("Value of turnWeather is now " + gameWeather[turn]);
 	return turnWeather;
 };
 
-assignTurnWeather();
+assignTurnWeather(); //sets value of turnWeather for the first turn and each turn thereafter
 
 
 //Calculate Max Score -------
@@ -364,17 +370,6 @@ function fadeWeather () {
 
 };
 
-//Grow button calls displayWeather() ONLY if a crop has been chosen (if "input" has the "highlight" class)
-$("#grow").on("click", function () {
-
-	if ($("input").hasClass("disabled")) {
-		alert("Please choose a crop first!");
-	} else if ($("input").hasClass("highlight")) {
-		displayWeather(); //calls displayWeather function
-		updateGame(); //calls updateGame function
-	}
-});
-
 //Score updates, and point flag height changes
 
 function newScore () {
@@ -409,7 +404,7 @@ function updateGame() {
 		plantstatus = "dead";
 		cropChosen = "cropA"; //records the crop that was chosen for this turn
 		cropchoice = ""; // resets value of cropchoice to ""
-
+		assignTurnWeather(); //updates turnWeather
 		
 	}
 				//>>>> Data collection<<<
@@ -437,6 +432,7 @@ function updateGame() {
 		plantstatus = "healthy";
 		cropChosen = "cropA";
 		cropchoice = ""; 
+		assignTurnWeather(); //updates turnWeather
 	}
 		
 		//>>>> Data collection<<<
@@ -467,6 +463,7 @@ function updateGame() {
 		plantstatus = "healthy";
 		cropChosen = "cropB";
 		cropchoice = ""; 
+		assignTurnWeather(); //updates turnWeather
 	}
 		
 			//>>>> Data collection<<<
@@ -495,6 +492,7 @@ function updateGame() {
 		plantstatus = "dead";
 		cropChosen = "cropB";
 		cropchoice = ""; 
+		assignTurnWeather(); //updates turnWeather
 	}	
 		
 			//>>>> Data collection<<<
@@ -524,11 +522,16 @@ function updateGame() {
 
 
 
+//Grow button calls displayWeather() ONLY if a crop has been chosen (if "input" has the "highlight" class)
+$("#grow").on("click", function () {
 
-
-//Grow button calls the function displayWeather on click
-//$("#grow").click(displayWeather); 
-
+	if ($("input").hasClass("disabled")) {
+		alert("Please choose a crop first!");
+	} else if ($("input").hasClass("highlight")) {
+		displayWeather(); //calls displayWeather function
+		updateGame(); //calls updateGame function
+	}
+});
 
 
 }); //End of .ready ()
