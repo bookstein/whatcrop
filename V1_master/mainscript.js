@@ -121,7 +121,8 @@ for (var i = 0; i < maxturn+1; i++) {
 	return gameWeather;
 };
 
-makeGameWeather(); //sets value of gameWeather (weather for length of game)
+makeGameWeather(); //sets value of gameWeather (array containing weather for length of game)
+
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>2. Game sets up initial game values >>>>>>>>>>>>>>>>>>>>>>
 
@@ -137,7 +138,7 @@ writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
 
 //Turn Counter
 
-turn = 1;
+turn = 0;
 $("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
 GameOver = false;
 
@@ -187,6 +188,10 @@ function calculateMaxScore () {
 };
 
 calculateMaxScore();
+
+//Weather for first turn
+
+turnWeather = gameWeather[turn];
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
