@@ -306,17 +306,20 @@ $(".plant, .plant_img, #grow").fadeOut(function(){
 
 //displays "Dry" results
 function displaySun () {
-	$("#sun").fadeIn(5000, function(){
+	$("#sun").fadeIn(1000, function(){
 		$(this).addClass("displayWeather");
-	fadeWeather();
+		$(this).removeClass("hidden");
+		fadeWeather();
 	});
+	
 };
 
 //displays "Wet" results
 function displayRain () {
-	$("#rain").fadeIn(5000, function(){
+	$("#rain").fadeIn(1000, function(){
 		$(this).addClass("displayWeather");
-	fadeWeather();
+		$(this).removeClass("hidden");
+		fadeWeather();
 	});
 };
 
@@ -340,7 +343,7 @@ function fadeWeather () {
 			$(this).removeClass("hidden");
 			});
 		setTimeout(addTurn, 400); //Waits 400 ms after callback function to execute because fadeIn is done after 400ms 
-	}, 1000); //time in milliseconds (1000 ms = 1 s)
+	}, 3000); //time in milliseconds (1000 ms = 1 s)
 
 };
 
