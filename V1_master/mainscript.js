@@ -154,19 +154,17 @@ for (var i = 0; i < maxturn+1; i++) {
 
 makeGameWeather(); //sets value of gameWeather (array containing weather for length of game)
 
-//!!!!!!!!!!!!!!!Everything works up until this point. The graphics aren't in line with turnWeather.
-
 // Assign turnWeather (weather per turn) -------
 
-turnWeather = "";
+//turnWeather = "";
 
-function assignTurnWeather() {
-	turnWeather = gameWeather[turn];
-	//alert("Value of turnWeather is now " + gameWeather[turn]);
-	return turnWeather;
-};
+//function assignTurnWeather() {
+//	turnWeather = gameWeather[turn];
+//	alert("Value of turnWeather is now " + gameWeather[turn]);
+//	return turnWeather;
+//};
 
-assignTurnWeather(); //sets value of turnWeather for the first turn (and each turn thereafter as part of updateGame)
+//assignTurnWeather(); //sets value of turnWeather for the first turn (and each turn thereafter as part of updateGame)
 
 
 //Calculate Max Score -------
@@ -289,16 +287,16 @@ $("#cropB").on("click", userclickedB);
 	//create two functions: displayRain and displaySun. 
 	//Use these also on the dialog boxes prompted by weather outcome.
 
-//TEST
+//TEST -- removing fadeIn and fadeOut
 function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
 	$("#sun").addClass("displayWeather").removeClass("hidden");
-		alert("This is sun and game weather is "+ turnWeather);
+		alert("This is sun and game weather is "+ gameWeather[turn]);
 		setTimeout(fadeWeather, 4000);
 };
 
 function displayRain () {
 	$("#rain").addClass("displayWeather").removeClass("hidden");
-		alert("This is rain and game weather is " + turnWeather);
+		alert("This is rain and game weather is " + gameWeather[turn]);
 		setTimeout(fadeWeather, 4000);
 };
 
@@ -307,7 +305,7 @@ function fadeWeather () {
 	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden");
-		setTimeout(addTurn, 400); //Waits 400 ms after callback function to execute because fadeIn is done after 400ms 
+	   	setTimeout(addTurn, 200);
 	}; 
 
 
@@ -336,32 +334,32 @@ function fadeWeather () {
 function displayWeather () {
 
 	//remove seedpackets and buttons using class .hidden
-	$(".plant, .plant_img, #grow").addClass("hidden"); //originally used .fadeOut(function{}) 
+	$(".plant, .plant_img, #grow").addClass("hidden"); //removed .fadeOut(function{}) 
 	$("#grow").removeClass("highlight");
 
 	//reveal dry outcome with Crop A
-	if(cropchoice === "cropA" && turnWeather === "Dry")
+	if(cropchoice === "cropA" && gameWeather[turn] === "Dry")
 	{
 		displaySun();
 		//crop graphics
 	}
 
 	//reveal dry outcome with Crop B
-	else if(cropchoice === "cropB" && turnWeather === "Dry")
+	else if(cropchoice === "cropB" && gameWeather[turn] === "Dry")
 	{
 		displaySun();
 		//crop graphics
 	}
 
 	//reveal wet outcome with Crop A
-	else if(cropchoice === "cropA" && turnWeather === "Wet")
+	else if(cropchoice === "cropA" && gameWeather[turn] === "Wet")
 	{
 		displayRain();
 		//crop graphics
 	}
 
 	//reveal wet outcome with Crop B
-	else if(cropchoice ==="cropB" && turnWeather === "Wet")
+	else if(cropchoice ==="cropB" && gameWeather[turn] === "Wet")
 	{
 		displayRain();
 		//crop graphics
@@ -391,7 +389,8 @@ function displayWeather () {
 function addTurn () {
 	turn = turn + 1;
 	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
-	return turn;
+	//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
+	alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
 };
 
 
@@ -429,7 +428,6 @@ function updateGame() {
 		plantstatus = "dead";
 		cropChosen = "cropA"; //records the crop that was chosen for this turn
 		cropchoice = ""; // resets value of cropchoice to ""
-		assignTurnWeather(); //updates turnWeather
 		
 	}
 				//>>>> Data collection<<<
@@ -450,14 +448,13 @@ function updateGame() {
 		//keeptime = 0;
 	
 	
-	if (cropchoice == "cropA" && gameWeather[turn] == "Wet") 
+	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") 
 	{
 		score += payoutAwet; //sets score = score + payoutAwet	
 		newScore();
 		plantstatus = "healthy";
 		cropChosen = "cropA";
 		cropchoice = ""; 
-		assignTurnWeather(); //runs function assignTurnWeather with new turn value
 	}
 		
 		//>>>> Data collection<<<
@@ -481,14 +478,14 @@ function updateGame() {
 		//keeptime = 0;
 	
 	
-	if (cropchoice == "cropB" && gameWeather[turn] == "Wet") 
+	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet") 
 	{
 		score += payoutBwet; //sets score = score + payoutBwet
 		newScore();	
 		plantstatus = "healthy";
 		cropChosen = "cropB";
 		cropchoice = ""; 
-		assignTurnWeather(); //updates turnWeather
+		
 	}
 		
 			//>>>> Data collection<<<
@@ -509,7 +506,7 @@ function updateGame() {
 		//keeptime = 0;
 	
 
-	if (cropchoice == "cropB" && gameWeather[turn] == "Dry") 
+	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") 
 	{
 		
 		score += payoutBdry; //sets score = score + payoutBdry
@@ -517,7 +514,7 @@ function updateGame() {
 		plantstatus = "dead";
 		cropChosen = "cropB";
 		cropchoice = ""; 
-		assignTurnWeather(); //updates turnWeather
+		
 	}	
 		
 			//>>>> Data collection<<<
@@ -554,7 +551,7 @@ $("#grow").on("click", function () {
 		alert("Please choose a crop first!");
 	} else if ($("input").hasClass("highlight")) {
 		displayWeather(); //calls displayWeather function
-		updateGame(); //calls updateGame function
+		setTimeout(updateGame, 400); //callsback updateGame function 200ms after displayWeather
 	}
 });
 
