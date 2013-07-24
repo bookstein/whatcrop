@@ -290,13 +290,13 @@ $("#cropB").on("click", userclickedB);
 //TEST -- removing fadeIn and fadeOut
 function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
 	$("#sun").addClass("displayWeather").removeClass("hidden");
-		alert("This is sun and game weather is "+ gameWeather[turn]);
+		//alert("This is sun and game weather is "+ gameWeather[turn]);
 		setTimeout(fadeWeather, 4000);
 };
 
 function displayRain () {
 	$("#rain").addClass("displayWeather").removeClass("hidden");
-		alert("This is rain and game weather is " + gameWeather[turn]);
+		//alert("This is rain and game weather is " + gameWeather[turn]);
 		setTimeout(fadeWeather, 4000);
 };
 
@@ -390,7 +390,7 @@ function addTurn () {
 	turn = turn + 1;
 	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
 	//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
-	alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
+	//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
 };
 
 
@@ -410,11 +410,15 @@ function newScore () {
 	//Current CSS height for #points_flag "bottom" as an integer
 	flagHeight = parseInt($("#points_flag").css("bottom"));
 
+	//!!!!! apply this same height to the height of the yellow bar!!!!
+
+
+
 function movePointsFlag () {
-	
-	$("#points_flag").css("bottom", ((flagHeight + perTurnHeight) + "px"));
-	return flagHeight; //!!!!! apply this same height to the height of the yellow bar!!!!
+	flagHeight+=perTurnHeight;
+	$("#points_flag").css("bottom", flagHeight) // Sets value of style rule "bottom" to flagHeight
 };
+	// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
 //Game updates given cropchoice and game weather for this turn
 
