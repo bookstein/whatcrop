@@ -57,7 +57,8 @@ $(document).ready(function(){
 	function climateChange () {
 		for (var i =0; i < maxturn+1; i++)
 			{
-				climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change
+				climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change.
+	
 			}
 			return climateArray; //assigns value of climateArray to function climateChange
 		};
@@ -107,7 +108,7 @@ function makeWeatherArray() {
 
 makeWeatherArray(); //sets weatherArray to new value
 
-// Set game rain thresholds as modified by climate change -------
+// Set rain thresholds as modified by climate change over course of game -------
 
 thresholdArray = [];
 
@@ -117,20 +118,20 @@ function makeThresholdArray () {
 
 	for (var i = 1; i < maxturn+1; i++)
 	{
-	thresholdArray[i] = thresholdArray[0] + (climateArray[i]*i);
+	thresholdArray[i] = thresholdArray[0] - (climateArray[i]*i);
 	}
 	
 	return thresholdArray; 
 };
 
-makeThresholdArray(); //sets thresholdArray to new value
+makeThresholdArray(); //sets thresholdArray to new value based on climate change
 
 
 // Set game weather -------
 
 gameWeather = [];
 
-function makeGameWeather(x) //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
+function makeGameWeather() //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
 {
 
 for (var i = 0; i < maxturn+1; i++) {
