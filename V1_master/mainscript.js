@@ -362,20 +362,20 @@ function newScore () {
 	return score;
 };
 
-//Points counter moves this amount per turn
-perTurnHeight = ((maxScore/maxturn)/100)+1;
 
-//Current CSS for #points_flag "bottom" (height)
-flagHeight = $("#points_flag").css("bottom");
+	//Height of #points_bar as an integer
+	totalHeight = parseInt($("#points_bar").css("height"));
 
-//Turns CSS value for #points_flag "bottom" into an integer
-heightInteger = parseInt(flagHeight);
+	//Points counter moves this amount per turn
+	perTurnHeight = (totalHeight/maxturn); 
+
+	//Current CSS height for #points_flag "bottom" as an integer
+	flagHeight = parseInt($("#points_flag").css("bottom"));
 
 function movePointsFlag () {
-	newHeight = heightInteger*perTurnHeight
-	$("#points_flag").css("bottom", (newHeight)+"px");
-	newHeight = flagHeight;
-	return flagHeight;
+	
+	$("#points_flag").css("bottom", ((flagHeight + perTurnHeight) + "px"));
+	return flagHeight; //!!!!! apply this same height to the height of the yellow bar!!!!
 };
 
 //Game updates given cropchoice and game weather for this turn
