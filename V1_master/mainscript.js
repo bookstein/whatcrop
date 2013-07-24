@@ -416,7 +416,9 @@ function newScore () {
 
 function movePointsFlag () {
 	flagHeight+=perTurnHeight;
-	$("#points_flag").css("bottom", flagHeight) // Sets value of style rule "bottom" to flagHeight
+	$("#points_flag").css("bottom", flagHeight); // Sets value of style rule "bottom" to flagHeight
+	return flagHeight;
+	alert("You moved " + flagHeight +" pixels!");
 };
 	// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
@@ -432,6 +434,7 @@ function updateGame() {
 		plantstatus = "dead";
 		cropChosen = "cropA"; //records the crop that was chosen for this turn
 		cropchoice = ""; // resets value of cropchoice to ""
+		alert("The game just updated!");
 		
 	}
 				//>>>> Data collection<<<
@@ -456,9 +459,11 @@ function updateGame() {
 	{
 		score += payoutAwet; //sets score = score + payoutAwet	
 		newScore();
+		movePointsFlag();
 		plantstatus = "healthy";
 		cropChosen = "cropA";
 		cropchoice = ""; 
+		alert("The game just updated!");
 	}
 		
 		//>>>> Data collection<<<
@@ -486,9 +491,11 @@ function updateGame() {
 	{
 		score += payoutBwet; //sets score = score + payoutBwet
 		newScore();	
+		movePointsFlag();
 		plantstatus = "healthy";
 		cropChosen = "cropB";
 		cropchoice = ""; 
+		alert("The game just updated!");
 		
 	}
 		
@@ -515,9 +522,11 @@ function updateGame() {
 		
 		score += payoutBdry; //sets score = score + payoutBdry
 		newScore();	
+		movePointsFlag();
 		plantstatus = "dead";
 		cropChosen = "cropB";
 		cropchoice = ""; 
+		alert("The game just updated!");
 		
 	}	
 		
