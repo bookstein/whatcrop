@@ -154,6 +154,7 @@ for (var i = 0; i < maxturn+1; i++) {
 
 makeGameWeather(); //sets value of gameWeather (array containing weather for length of game)
 
+//!!!!!!!!!!!!!!!Everything works up until this point. The graphics aren't in line with turnWeather.
 
 // Assign turnWeather (weather per turn) -------
 
@@ -165,7 +166,7 @@ function assignTurnWeather() {
 	return turnWeather;
 };
 
-assignTurnWeather(); //sets value of turnWeather for the first turn and each turn thereafter
+assignTurnWeather(); //sets value of turnWeather for the first turn (and each turn thereafter as part of updateGame)
 
 
 //Calculate Max Score -------
@@ -218,7 +219,7 @@ calculateMaxScore();
 //var clouds = ""; //"Empty" global variable called "clouds"
 //var lastcloud = "Dry"; //What is lastcloud??
 //var water = false;
-var plantstatus = "";
+//var plantstatus = "";
 
 
 //var timerbar = -1;
@@ -262,7 +263,7 @@ function highlightGrow () {
 
 function userclickedA () {
 	$("#cropA").toggleClass("select");
-	cropchoice = "cropA"; //var declares NEW variables
+	cropchoice = "cropA"; 
 	$("#cropB").removeClass("select");
 	//$("#grow").toggleClass("highlight");
 	highlightGrow();
@@ -288,63 +289,101 @@ $("#cropB").on("click", userclickedB);
 	//create two functions: displayRain and displaySun. 
 	//Use these also on the dialog boxes prompted by weather outcome.
 
+//TEST
+function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
+	$("#sun").addClass("displayWeather").removeClass("hidden");
+		alert("This is sun and game weather is "+ turnWeather);
+		setTimeout(fadeWeather, 4000);
+};
+
+function displayRain () {
+	$("#rain").addClass("displayWeather").removeClass("hidden");
+		alert("This is rain and game weather is " + turnWeather);
+		setTimeout(fadeWeather, 4000);
+};
+
+function fadeWeather () {
+		//setTimeout calls function after a certain time; currently 3000 ms
+	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
+	   	$(".plant").removeClass("select");
+	   	$("#grow").removeClass("highlight");
+	   	$(".plant, .plant_img, #grow").removeClass("hidden");
+		setTimeout(addTurn, 400); //Waits 400 ms after callback function to execute because fadeIn is done after 400ms 
+	}; 
+
+
+//displays "Dry" weather
+//function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
+//	$("#sun").fadeIn(1000, function(){
+//		$(this).addClass("displayWeather");
+//		$(this).removeClass("hidden");
+//		alert("This is sun and game weather is "+ turnWeather);
+//		fadeWeather();
+//	});
+	
+//};
+
+//displays "Wet" weather
+//function displayRain () {
+//	$("#rain").fadeIn(1000, function(){
+//		$(this).addClass("displayWeather");
+//		$(this).removeClass("hidden");
+//		alert("This is rain and game weather is " + turnWeather);
+//		fadeWeather();
+//	});
+//};
+
 //Call this function to display weather results graphically 
 function displayWeather () {
 
 	//remove seedpackets and buttons using class .hidden
-$(".plant, .plant_img, #grow").fadeOut(function(){
-	$(this).addClass("hidden");
-	}); 
+	$(".plant, .plant_img, #grow").addClass("hidden"); //originally used .fadeOut(function{}) 
 
 	//reveal dry outcome with Crop A
-	if(cropchoice == "cropA" && turnWeather == "Dry")
+	if(cropchoice === "cropA" && turnWeather === "Dry")
 	{
 		displaySun();
+		//crop graphics
 	}
 
 	//reveal dry outcome with Crop B
-	if(cropchoice == "cropB" && turnWeather == "Dry")
+	else if(cropchoice === "cropB" && turnWeather === "Dry")
 	{
 		displaySun();
+		//crop graphics
 	}
 
 	//reveal wet outcome with Crop A
-	if(cropchoice == "cropA" && turnWeather == "Wet")
+	else if(cropchoice === "cropA" && turnWeather === "Wet")
 	{
 		displayRain();
+		//crop graphics
 	}
 
 	//reveal wet outcome with Crop B
-	if(cropchoice =="cropB" && turnWeather == "Wet")
+	else if(cropchoice ==="cropB" && turnWeather === "Wet")
 	{
 		displayRain();
+		//crop graphics
 	}
-	
-
 };
 
-//What is the correct order of functions?? (originally I had these "definition" functions 
-	//up at the top BEFORE displayWeather function)
+//Fades out weather images and restores "choice screen" after setTimeout-specified period
+//function fadeWeather () {
+//	setTimeout(function() {   //setTimeout calls function after a certain time; currently 3000 ms
+//	   	$("#sun, #rain").fadeOut(function(){
+//	   		$(this).removeClass("displayWeather").addClass("hidden");
+//	   		});
+//	   	$(".plant").removeClass("select");
+//	   	$("#grow").removeClass("highlight");
+//	   	$(".plant, .plant_img, #grow").fadeIn(function(){
+//			$(this).removeClass("hidden");
+//			});
+//		setTimeout(addTurn, 400); //Waits 400 ms after callback function to execute because fadeIn is done after 400ms 
+//	}, 3000); //time in milliseconds (1000 ms = 1 s)
 
+//};
 
-//displays "Dry" results
-function displaySun () {
-	$("#sun").fadeIn(1000, function(){
-		$(this).addClass("displayWeather");
-		$(this).removeClass("hidden");
-		fadeWeather();
-	});
-	
-};
-
-//displays "Wet" results
-function displayRain () {
-	$("#rain").fadeIn(1000, function(){
-		$(this).addClass("displayWeather");
-		$(this).removeClass("hidden");
-		fadeWeather();
-	});
-};
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
@@ -352,24 +391,9 @@ function displayRain () {
 function addTurn () {
 	turn = turn + 1;
 	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+	return turn;
 };
 
-
-//Fades out weather images and restores "choice screen" after certain period of time
-function fadeWeather () {
-	setTimeout(function() {   //setTimeout calls function after a certain time; currently 3000 ms
-	   	$("#sun, #rain").fadeOut(function(){
-	   		$(this).removeClass("displayWeather").addClass("hidden");
-	   		});
-	   	$(".plant").removeClass("select");
-	   	$("#grow").removeClass("highlight");
-	   	$(".plant, .plant_img, #grow").fadeIn(function(){
-			$(this).removeClass("hidden");
-			});
-		setTimeout(addTurn, 400); //Waits 400 ms after callback function to execute because fadeIn is done after 400ms 
-	}, 3000); //time in milliseconds (1000 ms = 1 s)
-
-};
 
 //Score updates, and point flag height changes
 
@@ -433,7 +457,7 @@ function updateGame() {
 		plantstatus = "healthy";
 		cropChosen = "cropA";
 		cropchoice = ""; 
-		assignTurnWeather(); //updates turnWeather
+		assignTurnWeather(); //runs function assignTurnWeather with new turn value
 	}
 		
 		//>>>> Data collection<<<
