@@ -407,19 +407,27 @@ function newScore () {
 	//Points counter moves this amount per turn
 	perTurnHeight = (totalHeight/maxturn); 
 
-	//Current CSS height for #points_flag "bottom" as an integer
+	//Current CSS position for #points_flag "bottom" as an integer
 	flagHeight = parseInt($("#points_flag").css("bottom"));
 
-	//!!!!! apply this same height to the height of the yellow bar!!!!
-
+	//Current CSS height of #points_fill with "height" as an integer
+	fillHeight = parseInt($("#points_fill").css("height"));
 
 
 function movePointsFlag () {
+	//increase position of #points_flag
 	flagHeight+=perTurnHeight;
 	$("#points_flag").css("bottom", flagHeight); // Sets value of style rule "bottom" to flagHeight
 	return flagHeight;
-	alert("You moved " + flagHeight +" pixels!");
-};
+	};
+
+function movePointsFill () {
+	//increase height of yellow #points_fill
+	fillHeight+=perTurnHeight;
+	$("#points_fill").css("height", fillHeight); // Sets value of style rule "bottom" to flagHeight
+	return fillHeight;
+	};
+
 	// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
 //Game updates given cropchoice and game weather for this turn
@@ -431,6 +439,7 @@ function updateGame() {
 		score += payoutAdry; //sets score = score + payoutAdry	
 		newScore();
 		movePointsFlag();
+		movePointsFill();
 		plantstatus = "dead";
 		cropChosen = "cropA"; //records the crop that was chosen for this turn
 		cropchoice = ""; // resets value of cropchoice to ""
@@ -460,6 +469,7 @@ function updateGame() {
 		score += payoutAwet; //sets score = score + payoutAwet	
 		newScore();
 		movePointsFlag();
+		movePointsFill();
 		plantstatus = "healthy";
 		cropChosen = "cropA";
 		cropchoice = ""; 
@@ -492,6 +502,7 @@ function updateGame() {
 		score += payoutBwet; //sets score = score + payoutBwet
 		newScore();	
 		movePointsFlag();
+		movePointsFill();
 		plantstatus = "healthy";
 		cropChosen = "cropB";
 		cropchoice = ""; 
@@ -523,6 +534,7 @@ function updateGame() {
 		score += payoutBdry; //sets score = score + payoutBdry
 		newScore();	
 		movePointsFlag();
+		movePointsFill();
 		plantstatus = "dead";
 		cropChosen = "cropB";
 		cropchoice = ""; 
