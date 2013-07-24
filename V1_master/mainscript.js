@@ -38,95 +38,35 @@ $(document).ready(function(){
 
 //>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
-//Should these be inside an object?
-
+	cropchoice = "";
+// Set number of turns per game
 	maxturn = 50;
+
+// Set crop payouts
 	payoutAwet = 70;
 	payoutAdry = 80;
 	payoutBwet = 100;
 	payoutBdry = 50;
+
+// Set rain threshold
 	threshold = 600; //formerly "rainchance"
+
+// Set climate change by altering value inside function climateChange below
 	climateArray = [];
 	function climateChange () {
 		for (var i =0; i < maxturn+1; i++)
 			{
-				climateArray[i]=10; //change climateArray here
+				climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change
 			}
 			return climateArray; //assigns value of climateArray to function climateChange
 		};
-	cropchoice = ""; //formerly bevent
-	//"var" is local; removed var to make variable global
-	//the first time JS sees variable, it will declare it. (without var)
-	
+		climateChange(); //runs function climateChange, sets climateArray to new value
 
 
+// >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// Crop Information table
 
-climateChange(); //runs function climateChange, sets climateArray to new value
-
-// -------
-
-weatherArray = [];
-
-function makeWeatherArray() {
-	for (var i = 0; i < maxturn+1; i++)
-	{
-	weather = Math.floor((Math.random()*1000)+1); 
-	weatherArray[i] = weather; 
-	} 
-	return weatherArray; 
-}; 
-
-makeWeatherArray(); //sets weatherArray to new value
-
-// -------
-
-thresholdArray = [];
-
-function makeThresholdArray () {
-	for (var i = 0; i < maxturn+1; i++)
-	{
-	thresholdArray[i] = threshold + climateArray[i];
-	}
-	
-	return thresholdArray; 
-};
-
-makeThresholdArray(); //sets thresholdArray to new value
-
-
-// -------
-
-gameWeather = [];
-
-function makeGameWeather(x) //makeGameWeather takes empty variable "turnWeather" and gives it value depending on parameter x
-{
-
-for (var i = 0; i < maxturn+1; i++) {
-	if (weatherArray[i] < thresholdArray[i])
-		{
-			turnWeather = "Wet";
-			gameWeather[i] = turnWeather;
-		}
-
-	if (weatherArray[i] > thresholdArray[i])
-		{
-			turnWeather = "Dry";
-			gameWeather[i] = turnWeather;
-		}
-		
-		} //end of for loop
-
-	return gameWeather;
-};
-
-makeGameWeather(); //sets value of gameWeather (array containing weather for length of game)
-
-
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>2. Game sets up initial game values >>>>>>>>>>>>>>>>>>>>>>
-
-//Crop Information Table
 function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 	$("table").find("td#payoutAwet").text(payoutAwet + " points");
 	$("table").find("td#payoutAdry").text(payoutAdry + " points");
@@ -147,7 +87,81 @@ GameOver = false;
 score = 0; //starting score is 0
 $("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points counter
 
-//Calculate Max Score
+
+//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+// Create list of random numbers that will become weather-------
+
+weatherArray = [];
+
+function makeWeatherArray() {
+	for (var i = 0; i < maxturn+1; i++)
+	{
+	weather = Math.floor((Math.random()*1000)+1); 
+	weatherArray[i] = weather; 
+	} 
+	return weatherArray; 
+}; 
+
+makeWeatherArray(); //sets weatherArray to new value
+
+// Set game rain thresholds as modified by climate change -------
+
+thresholdArray = [];
+
+function makeThresholdArray () {
+	for (var i = 0; i < maxturn+1; i++)
+	{
+	thresholdArray[i] = threshold + climateArray[i];
+	}
+	
+	return thresholdArray; 
+};
+
+makeThresholdArray(); //sets thresholdArray to new value
+
+
+// Set game weather -------
+
+gameWeather = [];
+
+function makeGameWeather(x) //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
+{
+
+for (var i = 0; i < maxturn+1; i++) {
+	if (weatherArray[i] < thresholdArray[i])
+		{
+			var perTurnWeather = "Wet";
+			gameWeather[i] = perTurnWeather;
+		}
+
+	if (weatherArray[i] > thresholdArray[i])
+		{
+			var perTurnWeather = "Dry";
+			gameWeather[i] = perTurnWeather;
+		}
+		
+		} //end of for loop
+
+	return gameWeather;
+};
+
+makeGameWeather(); //sets value of gameWeather (array containing weather for length of game)
+
+
+// Assign turnWeather (weather per turn) -------
+
+turnWeather = "";
+
+function assignTurnWeather() {
+	turnWeather=gameWeather[turn];
+	return turnWeather;
+};
+
+assignTurnWeather();
+
+
+//Calculate Max Score -------
 
 optimalCrops = []; //array of all optimal crops, by turn
 
@@ -175,7 +189,7 @@ function calculateOptimalCrop () {
 	return optimalCrops;
 };
 
-calculateOptimalCrop(); //sets value of optimalCrops array
+calculateOptimalCrop(); //sets value of optimalCrops array -------
 
 maxScore = 0;
 
@@ -189,9 +203,6 @@ function calculateMaxScore () {
 
 calculateMaxScore();
 
-//Weather for first turn
-
-turnWeather = gameWeather[turn];
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -219,7 +230,7 @@ var plantstatus = "";
 //var bordery = daybary - daybarrate*maxturn;
 
 
-// >>>>>>>>>>>>>>>>>>3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
 //Choice time (From dialog "Okay" to click "Grow")
 /*var start = null;
@@ -264,7 +275,7 @@ $("#cropA").on("click", userclickedA);
 $("#cropB").on("click", userclickedB);
 
 
-//>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. >>>>>>>>>>>>>>>>>>>>>>>>
+//>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
 
 //"Weather realization screen": weather results are displayed.
 	//create two functions: displayRain and displaySun. 
@@ -328,8 +339,7 @@ function displayRain () {
 	});
 };
 
-//Fades out weather images and restores "choice screen" after certain period of time
-//Loops back to the beginning of the code
+// >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
 
 function addTurn () {
@@ -337,6 +347,8 @@ function addTurn () {
 	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
 };
 
+
+//Fades out weather images and restores "choice screen" after certain period of time
 function fadeWeather () {
 	setTimeout(function() {   //setTimeout calls function after a certain time; currently 3000 ms
 	   	$("#sun, #rain").fadeOut(function(){
@@ -370,7 +382,6 @@ function newScore () {
 	return score;
 };
 
-
 	//Height of #points_bar as an integer
 	totalHeight = parseInt($("#points_bar").css("height"));
 
@@ -398,6 +409,7 @@ function updateGame() {
 		plantstatus = "dead";
 		cropChosen = "cropA"; //records the crop that was chosen for this turn
 		cropchoice = ""; // resets value of cropchoice to ""
+
 		
 	}
 				//>>>> Data collection<<<
