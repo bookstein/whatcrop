@@ -541,40 +541,38 @@ input#grow {
 	z-index: 1;
 } 
 
-#points_flag {
-	background-image: url("images/points_flag.png");
-	background-repeat: no-repeat;
-	width: 100px;
-	height: 40px;
-	margin-right: 0;
-	display: inline-block;
-	vertical-align: middle;
-	padding: 0;
-	z-index: 3;
-	position: absolute; /*Use jQuery to change the absolute height of the points flag along with points_bar*/
-	right: 60%;
-	bottom: -15px;
-}
+	#points_fill {
+		width: inherit;
+		height: 5px;
+		background-color: #ffcc33;
+		position: absolute;
+		bottom: 0;
+		margin: 0;
+		z-index: 2;
+	}
 
-#point_count {
-	display: inline-block;
-}
+	#points_flag {
+		background-image: url("images/points_flag.png");
+		background-repeat: no-repeat;
+		width: 100px;
+		height: 40px;
+		margin-right: 0;
+		/*display: inline-block;*/
+		vertical-align: middle;
+		position: absolute; /*Use jQuery to change the absolute height of the points flag along with points_bar*/
+		right: 60%;
+		bottom: -15px;
+		z-index: 3;
+	}
 
-#point_count h5 {
-	color: #ffcc33;
-	padding-top: .5em;
-}
+		#point_count {
+			display: inline-block;
+		}
 
-
-#points_fill {
-	width: inherit;
-	height: 5px;
-	background-color: #ffcc33;
-	position: absolute;
-	bottom: 0;
-	margin: 0;
-	z-index: 2;
-}
+			#point_count h5 {
+				color: #ffcc33;
+				padding-top: .5em;
+			}
 
 
 #dollars {
@@ -588,20 +586,20 @@ input#grow {
 	left: 0;
 }
 
-#dollars h4 { /* "Real Dollars Earned" */
- 	color: white;
-	display: inline-block;
-	margin: 10px 0 0 0;
-}
+	#dollars h4 { /* "Real Dollars Earned" */
+	 	color: white;
+		display: inline-block;
+		margin: 10px 0 0 0;
+	}
 
-span#dollars_counter { /* Contained in <span>. Numerical counter within #dollars div. Target for bonuses */
-	text-align: right;
-	background-color: white;
-	border: 5px solid #ffcc33;
-	padding: 2px 30px;
-	display: inline-block;
-	margin: 5px 0;
-}
+	span#dollars_counter { /* Contained in <span>. Numerical counter within #dollars div. Target for bonuses */
+		text-align: right;
+		background-color: white;
+		border: 5px solid #ffcc33;
+		padding: 2px 30px;
+		display: inline-block;
+		margin: 5px 0;
+	}
 
 
 
