@@ -451,9 +451,7 @@ function updateGame() {
 		plantstatus = "dead";
 		cropChosen = "cropA"; //records the crop that was chosen for this turn
 		cropchoice = ""; // resets value of cropchoice to ""
-		$("#deadA").addClass("hidden");
-		
-		
+		setTimeout(function () {$("#deadA").addClass("hidden");}, 3500);
 	}
 				//>>>> Data collection<<<
 
@@ -482,8 +480,7 @@ function updateGame() {
 		plantstatus = "healthy";
 		cropChosen = "cropA";
 		cropchoice = ""; 
-		$("#rowsCropA").addClass("hidden");
-		
+		setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
 	}
 		
 		//>>>> Data collection<<<
@@ -517,8 +514,7 @@ function updateGame() {
 		cropChosen = "cropB";
 		cropchoice = ""; 
 		$("#rowsCropB").addClass("hidden");
-		
-		
+		setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
 	}
 		
 			//>>>> Data collection<<<
@@ -550,8 +546,7 @@ function updateGame() {
 		cropChosen = "cropB";
 		cropchoice = "";
 		$("#deadB").addClass("hidden"); 
-
-		
+		setTimeout(function () {$("#deadA").addClass("hidden");}, 3500);		
 	}	
 		
 			//>>>> Data collection<<<
