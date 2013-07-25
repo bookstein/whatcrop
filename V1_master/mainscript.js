@@ -346,6 +346,7 @@ function displayWeather () {
 	{
 		displaySun();
 		//crop graphics
+		$("#deadA").removeClass("hidden");
 	}
 
 	//reveal dry outcome with Crop B
@@ -353,6 +354,7 @@ function displayWeather () {
 	{
 		displaySun();
 		//crop graphics
+		$("#deadB").removeClass("hidden");
 	}
 
 	//reveal wet outcome with Crop A
@@ -360,6 +362,7 @@ function displayWeather () {
 	{
 		displayRain();
 		//crop graphics
+		$("#rowsCropA").removeClass("hidden");
 	}
 
 	//reveal wet outcome with Crop B
@@ -367,6 +370,7 @@ function displayWeather () {
 	{
 		displayRain();
 		//crop graphics
+		$("#rowsCropB").removeClass("hidden");
 	}
 };
 
@@ -447,7 +451,8 @@ function updateGame() {
 		plantstatus = "dead";
 		cropChosen = "cropA"; //records the crop that was chosen for this turn
 		cropchoice = ""; // resets value of cropchoice to ""
-		alert("The game just updated!");
+		$("#deadA").addClass("hidden");
+		
 		
 	}
 				//>>>> Data collection<<<
@@ -477,7 +482,8 @@ function updateGame() {
 		plantstatus = "healthy";
 		cropChosen = "cropA";
 		cropchoice = ""; 
-		alert("The game just updated!");
+		$("#rowsCropA").addClass("hidden");
+		
 	}
 		
 		//>>>> Data collection<<<
@@ -510,7 +516,8 @@ function updateGame() {
 		plantstatus = "healthy";
 		cropChosen = "cropB";
 		cropchoice = ""; 
-		alert("The game just updated!");
+		$("#rowsCropB").addClass("hidden");
+		
 		
 	}
 		
@@ -541,8 +548,9 @@ function updateGame() {
 		movePointsFill();
 		plantstatus = "dead";
 		cropChosen = "cropB";
-		cropchoice = ""; 
-		alert("The game just updated!");
+		cropchoice = "";
+		$("#deadB").addClass("hidden"); 
+
 		
 	}	
 		
@@ -579,8 +587,13 @@ $("#grow").on("click", function () {
 	if ($("input").hasClass("disabled")) {
 		alert("Please choose a crop first!");
 	} else if ($("input").hasClass("highlight")) {
-		displayWeather(); //calls displayWeather function
-		setTimeout(updateGame, 400); //callsback updateGame function 200ms after displayWeather
+		// hide crop sprout graphics
+		$("#sproutA").addClass("hidden");
+		$("#sproutB").addClass("hidden");
+		//call displayWeather function
+		displayWeather(); 
+		//callsback updateGame function 200ms after displayWeather
+		setTimeout(updateGame, 400); 
 	}
 });
 
