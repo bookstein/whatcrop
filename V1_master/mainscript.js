@@ -260,16 +260,20 @@ function highlightGrow () {
 };
 
 function userclickedA () {
-	$("#cropA").toggleClass("select");
+	$("#cropA").addClass("select");
 	cropchoice = "cropA"; 
+	$("#sproutA").removeClass("hidden");
+	$("#sproutB").addClass("hidden"); 
 	$("#cropB").removeClass("select");
 	//$("#grow").toggleClass("highlight");
 	highlightGrow();
 };
 
 function userclickedB () {
-	$("#cropB").toggleClass("select");
+	$("#cropB").addClass("select");
 	cropchoice = "cropB";
+	$("#sproutB").removeClass("hidden");
+	$("#sproutA").addClass("hidden"); 
 	$("#cropA").removeClass("select");
 	//$("#grow").toggleClass("highlight");
 	highlightGrow();
