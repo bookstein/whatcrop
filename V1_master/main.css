@@ -82,7 +82,7 @@ h3 {font-family: Georgia, Times, serif; font-weight: 400; font-size: 18px; color
 h4 {color: #3f3c30; font-family: Georgia, Times, serif; font-size: 16px; font-weight: bold;}
 h5 {text-transform: uppercase; font-size: 16px; font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: 400; color: #820000;}
 h6 {color: #3f3c30; font-family: Georgia, Times,sans-serif; font-size: 12px; margin: 0; line-height: 17px; letter-spacing: normal; font-weight: normal; padding: 3px;} /*For subtitles and other emphasized paragraph text */
-p {color: #565347; font-family: Verdana, Helvetica,sans-serif; font-size: 10px; margin: 0; line-height: 14px; letter-spacing: normal; padding: 3px;} /*color: #585754*/
+p {color: #565347; font-family: Verdana, Helvetica,sans-serif; font-size: 12px; margin: 0; line-height: 14px; letter-spacing: normal; padding: 3px;} /*color: #585754*/
 
 .Acolor {color: #820000;} /*Same as Stanford red */
 .Bcolor {color: #3811c9;} /*Blue RGB(56,17,201)*/
@@ -143,7 +143,10 @@ header > h1 {
 /* >>>>>>>>>>>>>>>>>>>>>>>> Game introduction dialog boxes <<<<<<<<<<<<<<<<< */
 
 .dialog-message {
-
+	position: absolute;
+	top: 60px;
+	left: 460px;
+	display: block;
 }
 
 .dialog-message span {
