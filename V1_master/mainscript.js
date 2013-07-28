@@ -10,7 +10,8 @@
 
 $(document).ready(function(){
 
-//>>>>>>>>>>>>> 1. Introduction screen and set-up code for game
+
+
 
 //Welcome dialog pop-up "Introduction screen"
 
@@ -233,6 +234,12 @@ calculateMaxScore();
 //var daybarrate = daybarmax / maxturn;
 //var bordery = daybary - daybarrate*maxturn;
 
+// >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
+
+	//Populate "turns_instructions" span in opening dialog
+
+	$("#turncount_instructions").text(maxturn + " turns");
+
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
@@ -245,9 +252,6 @@ calculateMaxScore();
                 var time = event.timeStamp - start;
                 $.post('/collect-user-time/ajax-backend.php', {time: time});
 */
-
-
-
 
 function enableGrowButton () {
 	$("#grow")

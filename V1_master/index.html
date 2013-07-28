@@ -40,13 +40,43 @@
 	</div> -->
 
 
-		<div id="dialog-message" class="ui-dialog" title="Game instructions">
-		  <p>
-		    Thanks for playing What Crop.
-		  </p>
-		  <p>
-		    This game will take approximately <b>12 minutes</b> to play.
-		  </p>
+		<div class="dialog-message ui-dialog" id="first-message" title="Game instructions">
+			<p>
+			    Thank you for playing What Crop.
+			</p>
+			<p>
+			  	By playing, you are contributing the scientific understanding of farmer decisionmaking in the United States.
+			</p>
+			<p>
+				You will be paid for participating based on your score on this game.
+			</p>
+			<p>
+			  	Please play without stopping for <span id="turncount_instructions"></span>. This may take about 12 minutes to complete.
+			</p>
+		</div>
+
+		<!-- add dialog-message ui-dialog classes to next dialog box -->
+
+		<div class="hidden" id="second-message" title="Game instructions">
+		<!-- highlight table -->
+			<p>
+			  	Use the table on the left to decide to plant either Crop A or Crop B.
+			</p>
+			<p>
+				Historically, the weather has been dry <span id="weather_instructions"></span> of the time.
+			</p>
+		</div>
+
+		<div class="hidden" id="third-message" title="Game instructions">
+		<!-- highlight points counter -->
+			<p>
+				You can see your score, and how much money you've earned, on the right-hand side.
+			</p>
+			<p>
+				You will earn bonuses when you reach <span id="bonus_instructions"></span> levels of points!
+			</p>
+			<img src= "images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" />
+
 		</div>
 
 

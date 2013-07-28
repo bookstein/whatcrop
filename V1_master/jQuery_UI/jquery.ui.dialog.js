@@ -15,7 +15,7 @@
  */
 
 $(function() {
-    $( "#dialog-message" ).dialog({
+    $( ".dialog-message" ).dialog({
       modal: true,
       buttons: {
         Ok: function() {

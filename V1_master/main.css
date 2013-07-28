@@ -5,7 +5,7 @@
 */
 
 
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -19,8 +19,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -33,7 +33,7 @@ time, mark, audio, video {
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -61,21 +61,21 @@ table {
 
 /*Universal Rules, from Styleguide >>>>>>>>>>>>>>>*/
 section {
-	border: 1px solid #eae9e6; 
+	border: 1px solid #eae9e6;
 	border-radius: 5px;
-	padding: 10px; 
+	padding: 10px;
 	margin: 10px;
 
 }
-		
+
 .box-shadow { /*To create a frame around any object */
-	margin: 5px; 
-	padding: 5px; 
-	background-color: #fff; 
-	border: 1px solid #eae9e6; 
-	box-shadow: 0 0 2px 1px #eae9e6;} 
-		
-		
+	margin: 5px;
+	padding: 5px;
+	background-color: #fff;
+	border: 1px solid #eae9e6;
+	box-shadow: 0 0 2px 1px #eae9e6;}
+
+
 h1 {font-family: Georgia, Times, serif; color: #565245; font-size: 24px;}
 h2 {color: #3f3c30; font-family: Georgia, Times, serif; font-size: 20px;}
 h3 {font-family: Georgia, Times, serif; font-weight: 400; font-size: 18px; color: #820000;} /*Inspired by h3 in #news div of stanford.edu */
@@ -140,6 +140,17 @@ header > h1 {
 	margin: 5px;
 }
 
+/* >>>>>>>>>>>>>>>>>>>>>>>> Game introduction dialog boxes <<<<<<<<<<<<<<<<< */
+
+.dialog-message {
+
+}
+
+.dialog-message span {
+	font-weight: bold;
+}
+
+
 /* >>>>>>>>>>>>>>>>>>>>>>>> Wrapper (.container) - excludes footer and header <<<<<< */
 
 #container {
@@ -147,7 +158,7 @@ header > h1 {
 	min-height: 600px;
 	width: 1200px; /* This keeps the screen at a fixed width despite browser resizing */
 	overflow: hidden;
-	text-align: center; 
+	text-align: center;
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
@@ -172,7 +183,7 @@ table {
 	background-repeat: no-repeat;
 	background-size: 220px 300px;
 	background-position: right;
-	border: 3px solid #3f3c30;	
+	border: 3px solid #3f3c30;
 	margin-right: auto;
 	margin-left: auto;
 }
@@ -183,9 +194,9 @@ thead {
 }
 
 th {
-	color: #3f3c30; 
-	font-family: Georgia, Times, serif; 
-	font-size: 16px; 
+	color: #3f3c30;
+	font-family: Georgia, Times, serif;
+	font-size: 16px;
 	font-weight: bold;
 	padding: 5px 2px;
 }
@@ -199,13 +210,13 @@ td {
 	vertical-align: middle;
 	border-bottom: 3px solid #3f3c30;
 	width: auto;
-	color: #3f3c30; 
-	font-family: Georgia, Times,sans-serif; 
-	font-size: 15px; 
-	margin: 0; 
-	line-height: 17px; 
-	letter-spacing: normal; 
-	font-weight: normal; 
+	color: #3f3c30;
+	font-family: Georgia, Times,sans-serif;
+	font-size: 15px;
+	margin: 0;
+	line-height: 17px;
+	letter-spacing: normal;
+	font-weight: normal;
 	padding: 2px;
 }
 
@@ -345,7 +356,7 @@ button.plant {
 
 .plant:hover {
 	border: 3px solid white;
-	
+
 	-webkit-box-shadow:
     0 0 0 6px #ffcc33,
     0 0 0 9px #fff,
@@ -506,7 +517,7 @@ button.plant {
     0 0 0 6px #ffcc33,
     0 0 0 10px #fff
   ;
-	
+
 }
 
 
@@ -550,7 +561,7 @@ button.plant {
 	position: absolute;
 	right: 50%;
 	z-index: 1;
-} 
+}
 
 	#points_fill {
 		width: inherit;
