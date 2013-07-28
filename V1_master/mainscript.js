@@ -240,6 +240,12 @@ calculateMaxScore();
 
 	$("#turncount_instructions").text(maxturn + " turns");
 
+	//Display dialog boxes in sequence
+	$("button").on("click", function () {
+		$(this).closest("#first-message").addClass("hidden").removeClass("ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable");
+		$("#second-message").removeClass("hidden").addClass("ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable");
+	});
+
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
