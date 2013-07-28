@@ -42,6 +42,7 @@ $(document).ready(function(){
 
 	// Set number of turns per game
     maxturn = 50;
+    endOfGame = false;
 
 	// Set crop payouts
 	payoutAwet = 70;
@@ -579,10 +580,17 @@ function updateGame() {
 }; //end of updateGame function
 
 
+function endGame () {
+	//call end-of-game dialog box
+	endOfGame = true;
+	return endOfGame;
+	$("button #grow").addClass("hidden");
+};
+
 
 //Grow button calls displayWeather() ONLY if a crop has been chosen (if "input" has the "highlight" class)
 $("#grow").on("click", function () {
-	if ($(this).hasClass("highlight")) {
+	if ($(this).hasClass("highlight") && turns < maxturn) {
 		// hide crop sprout graphics
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
@@ -590,6 +598,17 @@ $("#grow").on("click", function () {
 		displayWeather();
 		//callsback updateGame function 200ms after displayWeather
 		setTimeout(updateGame, 400);
+	}
+
+	else if ($(this).hasClass("highlight") && turns == maxturn) {
+		//summon end-of-game dialog instead of update
+		$("#sproutA").addClass("hidden");
+		$("#sproutB").addClass("hidden");
+		//call displayWeather function
+		displayWeather();
+		//callsback updateGame function 200ms after displayWeather
+		setTimeout(updateGame, 400);
+		setTimeout(endGame, 1000);
 	}
 });
 
