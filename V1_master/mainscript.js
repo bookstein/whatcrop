@@ -259,7 +259,7 @@ function highlightGrow () {
 	$("#grow").addClass("highlight").removeClass("disabled");
 };
 
-function userclickedA () {
+function userClickedA () {
 	$("#cropA").addClass("select");
 	cropchoice = "cropA"; 
 	$("#sproutA").removeClass("hidden");
@@ -269,7 +269,7 @@ function userclickedA () {
 	highlightGrow();
 };
 
-function userclickedB () {
+function userClickedB () {
 	$("#cropB").addClass("select");
 	cropchoice = "cropB";
 	$("#sproutB").removeClass("hidden");
@@ -280,9 +280,9 @@ function userclickedB () {
 };
 
 
-$("#cropA").on("click", userclickedA);
+$("#cropA").on("click", userClickedA);
 
-$("#cropB").on("click", userclickedB);
+$("#cropB").on("click", userClickedB);
 
 
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
