@@ -13,6 +13,18 @@
  *	jquery.ui.mouse.js
  *	jquery.ui.widget.js
  */
+
+$(function() {
+    $( "#dialog-message" ).dialog({
+      modal: true,
+      buttons: {
+        Ok: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  });
+
 (function( $, undefined ) {
 
 $.widget("ui.draggable", $.ui.mouse, {
