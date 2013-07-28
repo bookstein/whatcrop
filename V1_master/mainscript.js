@@ -27,7 +27,7 @@ $(document).ready(function(){
   //$(this).closest("header").find("#instructions").toggle();
 
 //  });
-  
+
 //To hide #instructions
 //$('#instructions a').click(function(event) {
   //event.preventDefault;
@@ -38,30 +38,30 @@ $(document).ready(function(){
 
 //>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
-	cropchoice = "";
+	 cropchoice = "";
 
-// Set number of turns per game
-	maxturn = 50;
+	// Set number of turns per game
+    maxturn = 50;
 
-// Set crop payouts
+	// Set crop payouts
 	payoutAwet = 70;
 	payoutAdry = 80;
 	payoutBwet = 100;
 	payoutBdry = 50;
 
-// Set rain threshold
+	// Set rain threshold
 	threshold = 600; //formerly "rainchance"
 
-// Set climate change by altering value inside function climateChange below
+	// Set climate change by altering value inside function climateChange below
 	climateArray = [];
+
+
 	function climateChange () {
-		for (var i =0; i < maxturn+1; i++)
-			{
-				climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change.
-	
-			}
-			return climateArray; //assigns value of climateArray to function climateChange
-		};
+		for (var i =0; i < maxturn+1; i++) {
+			climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change.
+		}
+		return climateArray; //assigns value of climateArray to function climateChange
+	};
 
 	climateChange(); // Sets climateArray to new value
 
@@ -98,13 +98,12 @@ $("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points c
 weatherArray = [];
 
 function makeWeatherArray() {
-	for (var i = 0; i < maxturn+1; i++)
-	{
-	weather = Math.floor((Math.random()*1000)+1); 
-	weatherArray[i] = weather; 
-	} 
-	return weatherArray; 
-}; 
+	for (var i = 0; i < maxturn+1; i++) {
+		weather = Math.floor((Math.random()*1000)+1);
+		weatherArray[i] = weather;
+	}
+	return weatherArray;
+};
 
 makeWeatherArray(); //sets weatherArray to new value
 
@@ -113,15 +112,15 @@ makeWeatherArray(); //sets weatherArray to new value
 thresholdArray = [];
 
 function makeThresholdArray () {
-	
+
 	thresholdArray[0] = threshold; //sets first value equal to threshold
 
 	for (var i = 1; i < maxturn+1; i++)
 	{
-	thresholdArray[i] = thresholdArray[0] - (climateArray[i]*i);
+		thresholdArray[i] = thresholdArray[0] - (climateArray[i]*i);
 	}
-	
-	return thresholdArray; 
+
+	return thresholdArray;
 };
 
 makeThresholdArray(); //sets thresholdArray to new value based on climate change
@@ -146,7 +145,7 @@ for (var i = 0; i < maxturn+1; i++) {
 			var perTurnWeather = "Dry";
 			gameWeather[i] = perTurnWeather;
 		}
-		
+
 		} //end of for loop
 
 	return gameWeather;
@@ -174,10 +173,10 @@ optimalCrops = []; //array of all optimal crops, by turn
 function calculateOptimalCrop () {
 	for (var i = 0; i < maxturn+1; i++) {
 
-		if (gameWeather[i] === "Wet" && payoutAwet > payoutBwet) 
+		if (gameWeather[i] === "Wet" && payoutAwet > payoutBwet)
 		{
 			optimalCrops[i] = payoutAwet;
-		} 
+		}
 		else if (gameWeather[i] === "Dry" && payoutAdry > payoutBdry)
 		{
 			optimalCrops[i] = payoutAdry;
@@ -191,7 +190,7 @@ function calculateOptimalCrop () {
 			optimalCrops[i] = payoutBdry;
 		}
 	} //end of for loop
-	
+
 	return optimalCrops;
 };
 
@@ -249,46 +248,52 @@ calculateMaxScore();
 */
 
 
-function hoverGrow () {
-	$("input").attr('value', $(this).replace('Grow this crop','Please choose a crop'));
-}; //this still doesn't work!
 
-$("input, .disabled").on("hover", hoverGrow);
 
-function highlightGrow () {
-	$("#grow").addClass("highlight").removeClass("disabled");
+function enableGrowButton () {
+	$("#grow")
+		.addClass("highlight")
+		.removeClass("disabled")
+		.val("Grow this crop");
 };
 
-function userclickedA () {
+function disableGrowButton () {
+	$("#grow")
+		.removeClass("highlight")
+		.addClass("disabled")
+		.val("Choose a crop");
+};
+
+function userClickedA () {
 	$("#cropA").addClass("select");
-	cropchoice = "cropA"; 
+	cropchoice = "cropA";
 	$("#sproutA").removeClass("hidden");
-	$("#sproutB").addClass("hidden"); 
+	$("#sproutB").addClass("hidden");
 	$("#cropB").removeClass("select");
 	//$("#grow").toggleClass("highlight");
-	highlightGrow();
+	enableGrowButton();
 };
 
-function userclickedB () {
+function userClickedB () {
 	$("#cropB").addClass("select");
 	cropchoice = "cropB";
 	$("#sproutB").removeClass("hidden");
-	$("#sproutA").addClass("hidden"); 
+	$("#sproutA").addClass("hidden");
 	$("#cropA").removeClass("select");
 	//$("#grow").toggleClass("highlight");
-	highlightGrow();
+	enableGrowButton();
 };
 
 
-$("#cropA").on("click", userclickedA);
+$("#cropA").on("click", userClickedA);
 
-$("#cropB").on("click", userclickedB);
+$("#cropB").on("click", userClickedB);
 
 
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
 
 //"Weather realization screen": weather results are displayed.
-	//create two functions: displayRain and displaySun. 
+	//create two functions: displayRain and displaySun.
 	//Use these also on the dialog boxes prompted by weather outcome.
 
 //TEST -- removing fadeIn and fadeOut
@@ -310,7 +315,7 @@ function fadeWeather () {
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden");
 	   	setTimeout(addTurn, 200);
-	}; 
+	};
 
 
 //displays "Dry" weather
@@ -321,7 +326,7 @@ function fadeWeather () {
 //		alert("This is sun and game weather is "+ turnWeather);
 //		fadeWeather();
 //	});
-	
+
 //};
 
 //displays "Wet" weather
@@ -334,12 +339,13 @@ function fadeWeather () {
 //	});
 //};
 
-//Call this function to display weather results graphically 
+//Call this function to display weather results graphically
 function displayWeather () {
 
 	//remove seedpackets and buttons using class .hidden
-	$(".plant, .plant_img, #grow").addClass("hidden"); //removed .fadeOut(function{}) 
-	$("#grow").removeClass("highlight");
+	disableGrowButton();
+	$(".plant, .plant_img, #grow").addClass("hidden"); //removed .fadeOut(function{})
+	//$("#grow").removeClass("highlight");
 
 	//reveal dry outcome with Crop A
 	if(cropchoice === "cropA" && gameWeather[turn] === "Dry")
@@ -385,7 +391,7 @@ function displayWeather () {
 //	   	$(".plant, .plant_img, #grow").fadeIn(function(){
 //			$(this).removeClass("hidden");
 //			});
-//		setTimeout(addTurn, 400); //Waits 400 ms after callback function to execute because fadeIn is done after 400ms 
+//		setTimeout(addTurn, 400); //Waits 400 ms after callback function to execute because fadeIn is done after 400ms
 //	}, 3000); //time in milliseconds (1000 ms = 1 s)
 
 //};
@@ -413,7 +419,7 @@ function newScore () {
 	totalHeight = parseInt($("#points_bar").css("height"));
 
 	//Points counter moves this amount per turn
-	perTurnHeight = (totalHeight/maxturn); 
+	perTurnHeight = (totalHeight/maxturn);
 
 	//Current CSS position for #points_flag "bottom" as an integer
 	flagHeight = parseInt($("#points_flag").css("bottom"));
@@ -441,17 +447,17 @@ function movePointsFill () {
 //Game updates given cropchoice and game weather for this turn
 
 function updateGame() {
-	
+
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry")  //if user chooses crop A *and* weather is dry
 	{
-		score += payoutAdry; //sets score = score + payoutAdry	
+		score += payoutAdry; //sets score = score + payoutAdry
 		newScore();
 		movePointsFlag();
 		movePointsFill();
 		plantstatus = "dead";
 		cropChosen = "cropA"; //records the crop that was chosen for this turn
 		cropchoice = ""; // resets value of cropchoice to ""
-		setTimeout(function () {$("#deadA").addClass("hidden");}, 3500);
+		setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
 	}
 				//>>>> Data collection<<<
 
@@ -459,7 +465,7 @@ function updateGame() {
 		//playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
 		//playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
 		//ajaxFunction(playerchoices[turn].string);
-		
+
 				//>>>> Add in later <<<<
 		//lastcloud = "Dry";
 		//updatedaybar();
@@ -469,20 +475,20 @@ function updateGame() {
 		//sunsound.currenttime=0;
 		//sunsound.play();
 		//keeptime = 0;
-	
-	
-	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") 
+
+
+	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet")
 	{
-		score += payoutAwet; //sets score = score + payoutAwet	
+		score += payoutAwet; //sets score = score + payoutAwet
 		newScore();
 		movePointsFlag();
 		movePointsFill();
 		plantstatus = "healthy";
 		cropChosen = "cropA";
-		cropchoice = ""; 
+		cropchoice = "";
 		setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
 	}
-		
+
 		//>>>> Data collection<<<
 
 		//playerchoices[turn] = {Turn: turn, Seed: "cropA", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
@@ -502,27 +508,26 @@ function updateGame() {
 		//rainsound.currenttime=0;
 		//rainsound.play();
 		//keeptime = 0;
-	
-	
-	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet") 
+
+
+	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet")
 	{
 		score += payoutBwet; //sets score = score + payoutBwet
-		newScore();	
+		newScore();
 		movePointsFlag();
 		movePointsFill();
 		plantstatus = "healthy";
 		cropChosen = "cropB";
-		cropchoice = ""; 
-		$("#rowsCropB").addClass("hidden");
+		cropchoice = "";
 		setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
 	}
-		
+
 			//>>>> Data collection<<<
 		//playerchoices[turn] = {Turn: turn, Seed: "cropB", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
 		//playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
 		//playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
 		//ajaxFunction(playerchoices[turn].string);
-		
+
 			//>>>> Add in later <<<<
 		//keeptime = 0;
 		//lastcloud = "Wet";
@@ -533,37 +538,36 @@ function updateGame() {
 		//rainsound.currenttime=0;
 		//rainsound.play();
 		//keeptime = 0;
-	
 
-	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") 
+
+	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry")
 	{
-		
+
 		score += payoutBdry; //sets score = score + payoutBdry
-		newScore();	
+		newScore();
 		movePointsFlag();
 		movePointsFill();
 		plantstatus = "dead";
 		cropChosen = "cropB";
 		cropchoice = "";
-		$("#deadB").addClass("hidden"); 
-		setTimeout(function () {$("#deadA").addClass("hidden");}, 3500);		
-	}	
-		
+		setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
+	}
+
 			//>>>> Data collection<<<
-		
+
 		//playerchoices[turn] = {Turn: turn, Seed: "cropB", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
 		//playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
 		//playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
 		//ajaxFunction(playerchoices[turn].string);
-		
+
 			//>>>> Add in later <<<<
 		//lastcloud = "Dry";
 		//updatedaybar();
 		//timerbar = wait;
 		//wmessage = sunmessage;
 		//cmessage = bplantdrymessage;
-	
-		
+
+
 		////>>>> Add in later <<<<
 		//keeptime +=1;
 		//if (timerbar > -1) timerbar--;
@@ -578,17 +582,14 @@ function updateGame() {
 
 //Grow button calls displayWeather() ONLY if a crop has been chosen (if "input" has the "highlight" class)
 $("#grow").on("click", function () {
-
-	if ($("input").hasClass("disabled")) {
-		alert("Please choose a crop first!");
-	} else if ($("input").hasClass("highlight")) {
+	if ($(this).hasClass("highlight")) {
 		// hide crop sprout graphics
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
 		//call displayWeather function
-		displayWeather(); 
+		displayWeather();
 		//callsback updateGame function 200ms after displayWeather
-		setTimeout(updateGame, 400); 
+		setTimeout(updateGame, 400);
 	}
 });
 
