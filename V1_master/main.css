@@ -280,7 +280,7 @@ td img {
 }
 
 .hidden {
-	display: none;
+	display: none !important;
 }
 
 .displayWeather { /*Class added to show weather outcome*/
@@ -417,7 +417,6 @@ button.plant {
 	color: #3f3c30;
 	font-style: italic;
 	font-weight: 300;
-	display: inline-block;
 
 /*Multiple borders*/
 

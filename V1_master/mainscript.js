@@ -249,14 +249,20 @@ calculateMaxScore();
 */
 
 
-function hoverGrow () {
-	$("input").attr('value', $(this).replace('Grow this crop','Please choose a crop'));
-}; //this still doesn't work!
 
-$("input, .disabled").on("hover", hoverGrow);
 
-function highlightGrow () {
-	$("#grow").addClass("highlight").removeClass("disabled");
+function enableGrowButton () {
+	$("#grow")
+		.addClass("highlight")
+		.removeClass("disabled")
+		.val("Grow this crop");
+};
+
+function disableGrowButton () {
+	$("#grow")
+		.removeClass("highlight")
+		.addClass("disabled")
+		.val("Choose a crop");		
 };
 
 function userClickedA () {
@@ -266,7 +272,7 @@ function userClickedA () {
 	$("#sproutB").addClass("hidden"); 
 	$("#cropB").removeClass("select");
 	//$("#grow").toggleClass("highlight");
-	highlightGrow();
+	enableGrowButton();
 };
 
 function userClickedB () {
@@ -276,7 +282,7 @@ function userClickedB () {
 	$("#sproutA").addClass("hidden"); 
 	$("#cropA").removeClass("select");
 	//$("#grow").toggleClass("highlight");
-	highlightGrow();
+	enableGrowButton();
 };
 
 
@@ -338,8 +344,9 @@ function fadeWeather () {
 function displayWeather () {
 
 	//remove seedpackets and buttons using class .hidden
+	disableGrowButton();
 	$(".plant, .plant_img, #grow").addClass("hidden"); //removed .fadeOut(function{}) 
-	$("#grow").removeClass("highlight");
+	//$("#grow").removeClass("highlight");
 
 	//reveal dry outcome with Crop A
 	if(cropchoice === "cropA" && gameWeather[turn] === "Dry")
@@ -578,10 +585,7 @@ function updateGame() {
 
 //Grow button calls displayWeather() ONLY if a crop has been chosen (if "input" has the "highlight" class)
 $("#grow").on("click", function () {
-
-	if ($("input").hasClass("disabled")) {
-		alert("Please choose a crop first!");
-	} else if ($("input").hasClass("highlight")) {
+	if ($(this).hasClass("highlight")) {
 		// hide crop sprout graphics
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
