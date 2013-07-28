@@ -20,7 +20,6 @@ $(document).ready(function(){
 //	$(".dialog .instructions").addClass("hidden");
 //	}, 5000);
 
-
 // Game instructions - toggle #instructions with nav button "Game instructions"
 //$('nav a').click(function(event){
   //event.preventDefault;
