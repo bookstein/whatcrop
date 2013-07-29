@@ -585,6 +585,7 @@ function endGame () {
 	endOfGame = true;
 	return endOfGame;
 	$("button #grow").addClass("hidden");
+	//inclusive of last turn (50)
 };
 
 
