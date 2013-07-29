@@ -40,13 +40,13 @@
 			<!-- table row 1 --><tr><td class="Acolor">Crop A <img src="images/cropAicon.png" /></td><td id="payoutAwet"></td><td id="payoutAdry"></td></tr>
 			<!-- table row 2 --><tr><td class="Bcolor">Crop B <img src="images/cropBicon.png" /></td><td id="payoutBwet"></td><td id="payoutBdry"></td></tr>
 			</tbody>
-		</table> 		
+		</table>
 
 	<div id="turns"> <!-- turn counter div, child of section #givens -->
 		<h5>Turns Taken</h5>
 		<div id="turns_counter">
 			<!-- this div contains the actual turn count -->
-			<h5>Number of turns</h5> 
+			<h5>Number of turns</h5>
 		</div>
 
 	</div>
@@ -61,19 +61,19 @@
 		<img class="weather hidden" id="sun" src="images/sun.png" alt="Sun" />
 
 		<!-- crop sprout images -->
-		<img id="sproutA" class="croprows hidden" src="images/crops/cropAsprouts.png" /> 
-		<img id="sproutB" class="croprows hidden" src="images/crops/cropBsprouts.png" /> 
+		<img id="sproutA" class="croprows hidden" src="images/crops/cropAsprouts.png" />
+		<img id="sproutB" class="croprows hidden" src="images/crops/cropBsprouts.png" />
 
 		<!-- healthy crop images -->
-		<img id="rowsCropA" class="croprows hidden" src="images/crops/cropArows.png" /> 
-		<img id="rowsCropB" class="croprows hidden" src="images/crops/cropBrows.png" /> 
+		<img id="rowsCropA" class="croprows hidden" src="images/crops/cropArows.png" />
+		<img id="rowsCropB" class="croprows hidden" src="images/crops/cropBrows.png" />
 
 		<!-- dead crop images -->
 		<img id="deadA" class="croprows hidden" src="images/crops/cropAdead.png" />
 		<img id="deadB" class="croprows hidden" src="images/crops/cropBdead.png" />
 
 		<!-- Crop A button -->
-		<button class="plant" id="cropA" type="button"  name="PlantA"> 
+		<button class="plant" id="cropA" type="button"  name="PlantA">
 			<img src="images/SeedpacketA.png" alt="A"/>
 			<h4 class="Acolor">Crop A</h4>
 		</button>
@@ -86,12 +86,12 @@
 
 
 		<!-- Crop B button -->
-		<button class="plant" id="cropB" type="button" name="PlantB"> 
+		<button class="plant" id="cropB" type="button" name="PlantB">
 			<img src="images/SeedpacketB.png" alt="B"/>
 			<h4 class="Bcolor">Crop B </h4>
 		</button>
 
-		<!-- seed packet images 
+		<!-- seed packet images
 		<button class="plant_img" id="seedpacketA" type="button" name = "CropA" value="Seeds of A"><img src="images/SeedpacketA.png" alt="A"/></button>
 
 		<button class="plant_img" id="seedpacketB" type="button" name ="CropB" value="Seeds of B"><img src="images/SeedpacketB.png" alt="B"/></button> -->
@@ -100,7 +100,7 @@
 			<div class="dialog"> <!-- for dialog boxes, child of #choice_screen -->
 				<!-- div.dialog (space for dialog boxes to appear; placeholder only, write text in jQuery; use same class .dialog to style all dialog boxes in CSS) -->
 					<!-- dialog: game instructions -->
-					<div class="instructions hidden"> 
+					<div class="instructions hidden">
 						<h4>Thanks for playing WhatCrop!</h4>
 						<p>This game is part of a research project on agriculture and decision-making. By playing this game, you're helping advance the field of research on farmer decision-making.</p>
 						<p>To play, choose the crop you think will bring you the most money on the market -- either crop A or crop B. You don't know what the weather will be, but do your best to choose appropriately!</p>
@@ -121,16 +121,16 @@
 
 			<div id="points_flag"> <!-- Target this div with jQuery css height update -->
 			<div id="point_count"><!-- Target this div with jQuery score updates -->
-				
+
 			</div><!-- end of #points_count. -->
 		</div><!-- end of #points_flag -->
 
 			<div id="points_fill"><!-- this div is the "fill" that visually counts points earned. -->
 			</div> <!-- end of #points_fill -->
 		</div> <!-- end of #points_bar -->
-		
+
 			<div id="dollars"><!-- displays real dollars earned. Child of #points -->
-			<h4>Real Dollars Earned:</h4><h5><span id="dollars_counter">$1.00</span></h5>
+			<h4>Real Dollars Earned:</h4><h5><span id="dollars_counter">0</span></h5>
 			</div><!-- end of #dollars -->
 
 	</section> <!-- end of #points -->
