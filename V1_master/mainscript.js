@@ -166,6 +166,19 @@ $("#dollars_counter").html("$"+realDollars); //writes initial realDollars to dol
 
 // Calculate bonus thresholds
 
+		// Calculate indifference point
+		function calculateIndifferencePoint () {
+			var indifferencePoint = (payoutBwet - payoutAwet)/(payoutAdry - payoutAwet + payoutBwet - payoutBdry);
+			return indifferencePoint;
+
+			if (indifferencePoint >=1 || indifferencePoint <=0) {
+				alert("The indifference point between A and B is " + indifferencePoint + "!");
+			}
+
+		};
+
+
+
 
 //>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
