@@ -174,8 +174,9 @@ $("#dollars_counter").html("$"+realDollars); //writes initial realDollars to dol
 			if (indifferencePoint >=1 || indifferencePoint <=0) {
 				alert("The indifference point between A and B is " + indifferencePoint + "!");
 			}
-
 		};
+
+		calculateIndifferencePoint();
 
 
 
@@ -701,5 +702,22 @@ $("#grow").on("click", function () {
 	}
 });
 
+//For Fran: test functionality of game in advance
+
+function test (testValue) {
+	if (testValue == null) {
+		console.log("Enter climateArray or indifferencePoint to see the value of the variable");
+	}
+
+	else if (testValue == climateArray) {
+		climateChange();
+		return climateArray;
+	}
+
+	else if (testValue == indifferencePoint) {
+		calculateIndifferencePoint();
+		return indifferencePoint;
+	}
+};
 
 }); //End of .ready ()
