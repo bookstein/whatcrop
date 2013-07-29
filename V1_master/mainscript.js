@@ -38,7 +38,7 @@ $(document).ready(function(){
 
 //>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
-	 cropchoice = "";
+	cropchoice = "";
 
 	// Set number of turns per game
     maxturn = 50;
@@ -53,7 +53,11 @@ $(document).ready(function(){
 	// Set rain threshold
 	threshold = 600; //formerly "rainchance"
 
-	// Set climate change, either using "for loop" or manually
+	// Set bonus payments
+	bonusOne = 1.25;
+	bonusTwo = 075;
+
+	// Set climate change, either using "for loop" or manually; choose using autoFillClimateChange variable
 
 	function climateChange () {
 
