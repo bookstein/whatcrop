@@ -164,22 +164,6 @@ $("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points c
 realDollars = 0; //real earnings in dollars start at 0
 $("#dollars_counter").html("$"+realDollars); //writes initial realDollars to dollars counter
 
-// Calculate bonus thresholds
-
-		// Calculate indifference point
-		function calculateIndifferencePoint () {
-			var indifferencePoint = (payoutBwet - payoutAwet)/(payoutAdry - payoutAwet + payoutBwet - payoutBdry);
-			return indifferencePoint;
-
-			if (indifferencePoint >=1 || indifferencePoint <=0) {
-				alert("The indifference point between A and B is " + indifferencePoint + "!");
-			}
-		};
-
-		calculateIndifferencePoint();
-
-
-
 
 //>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -297,6 +281,45 @@ function calculateMaxScore () {
 };
 
 calculateMaxScore();
+
+// Calculate bonus thresholds
+
+		// A. Calculate indifference point
+
+indifferencePoint = (payoutBwet - payoutAwet)/(payoutAdry - payoutAwet + payoutBwet - payoutBdry);
+turnProbability = [];
+
+function checkIndifferencePoint () {
+	if (indifferencePoint >=1 || indifferencePoint <=0) {
+		alert("The indifference point between A and B is " + indifferencePoint + "!");
+	}
+};
+
+checkIndifferencePoint();
+
+function turnAtIndifferencePoint () {
+	//return indifferencePoint; //indifference point is the probablity of dry weather -- double-check!!!
+		// return thresholdArray; //how do I "summon" thresholdArray if it's not a global variable?
+	for (var i = 0; i < maxturn+1 ; i++) {
+			turnProbability[i] = thresholdArray[i]/1000;
+	}
+
+	console.log(turnProbability);
+
+	if ( (turnProbability[i] == indifferencePoint) || ((turnProbability[i+1] > indifferencePoint && turnProbability[i-1] < indifferencePoint) ) {
+
+
+	}
+
+
+
+};
+
+
+		//on which turn does the probability of dry weather = indifference point?
+
+
+
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
