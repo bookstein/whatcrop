@@ -164,6 +164,8 @@ $("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points c
 realDollars = 0; //real earnings in dollars start at 0
 $("#dollars_counter").html("$"+realDollars); //writes initial realDollars to dollars counter
 
+// Calculate bonus thresholds
+
 
 //>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -191,7 +193,7 @@ function makeThresholdArray () {
 
 	for (var i = 1; i < maxturn+1; i++)
 	{
-		thresholdArray[i] = thresholdArray[0] - (climateArray[i]*i);
+		thresholdArray[i] = thresholdArray[i-1] - (climateArray[i]);
 	}
 
 	return thresholdArray;
