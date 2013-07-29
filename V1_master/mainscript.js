@@ -159,6 +159,11 @@ GameOver = false;
 score = 0; //starting score is 0
 $("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points counter
 
+// Real Dollars Earned
+
+realDollars = 0; //real earnings in dollars start at 0
+$("#dollars_counter").html("$"+realDollars); //writes initial realDollars to dollars counter
+
 
 //>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
