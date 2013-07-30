@@ -245,7 +245,7 @@ makeGameWeather(); //sets value of gameWeather (array containing weather for len
 optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
 
 function calculateOptimalCrop () {
-	for (var i = 0; i < maxturn+1; i++) {
+	for (var i = 0; i < maxturn + 1; i++) {
 
 		if (gameWeather[i] === "Wet" && payoutAwet > payoutBwet)
 		{
@@ -281,7 +281,7 @@ function calculateMaxScore () { //adds up the value of optimal crop to calculate
 };
 
 calculateMaxScore();
-
+console.log("The maximum possible score is " + maxScore + " points")
 
 // Calculate Random Play bonus threshold ---------------------------------
 
@@ -355,7 +355,7 @@ function calculateRandomPlayPoints () { //expected points earned by picking A or
 };
 
 calculateRandomPlayPoints();
-console.log(totalRandomPoints);
+console.log("The first bonus will trigger at " + totalRandomPoints + " points");
 
 // Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
 
@@ -416,8 +416,6 @@ function calculateOptimalPlayPoints () {
 		secondOptimalChoiceA();
 	}
 
-	alert("Done with if else");
-
 	totalOptimalChoice1 = 0;
 
 	function total1 () {
@@ -450,7 +448,7 @@ function calculateOptimalPlayPoints () {
 };
 
 calculateOptimalPlayPoints();
-
+console.log("The second bonus will trigger at " + totalOptimalPoints + " points");
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
