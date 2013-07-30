@@ -334,14 +334,18 @@ function calculateProbabilityDry () { // Creates an array, pDry, that lists the 
 
 totalRandomPoints = 0;
 
+//Run all previous functions
+checkIndifferencePoint();
+findTurnAtIndifferencePoint();
+calculateProbabilityDry();
+
 function calculateRandomPlayPoints () { //expected points earned by picking A or B randomly
+
 	randomPoints = [];
 	for (var i = 0; i < maxturn + 1; i++) {
 		randomPoints[i] = .5*pDry[i]*payoutAdry + .5*pWet[i]*payoutAwet +
 		 .5*pDry[i]*payoutBdry + .5*pWet[i]*payoutBwet;
 	}
-
-	alert("You made "+randomPoints);
 
 	for (var i = 0; i < maxturn + 1; i++) {
 		totalRandomPoints += randomPoints[i];
@@ -350,70 +354,103 @@ function calculateRandomPlayPoints () { //expected points earned by picking A or
 	return totalRandomPoints;
 };
 
-function assignBonusOnePoints() { //playing by chance until indifferentTurn
-	checkIndifferencePoint();
-	findTurnAtIndifferencePoint();
-	calculateProbabilityDry();
-	calculateRandomPlayPoints();
-
-};
+calculateRandomPlayPoints();
+console.log(totalRandomPoints);
 
 // Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
 
+optimalChoice1 = [];
+optimalChoice2 = [];
+
+function firstOptimalChoiceA () {
+	for (var i = 0; i <= indifferentTurn; i++) {
+		optimalChoice1[i] = pDry[i]*payoutAdry + pWet[i]*payoutAwet;  //choose A first
+	}
+	return optimalChoice1;
+};
+function secondOptimalChoiceB () {
+
+	for (var i = 0; i > indifferentTurn, i < maxturn + 1; i++) {
+		optimalChoice2[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet;  //choose B second -- assuming that A and B switched!! Ask Fran
+	}
+	return optimalChoice2;
+};
+
+function firstOptimalChoiceB() {
+	for (var i = 0; i <= indifferentTurn; i++) {
+		optimalChoice1[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet; //choose B first
+	}
+	return optimalChoice1;
+};
+
+function secondOptimalChoiceA () {
+	for (var i = 0; i > indifferentTurn, i < maxturn + 1; i++) {
+		optimalChoice2[i] = pDry[i]*payoutAdry + pWet[i]*payoutAwet;  //choose A second -- assuming that A and B switched!! Ask Fran
+	}
+	return optimalChoice2;
+};
+
 function calculateOptimalPlayPoints () {
-	optimalChoice1 = [];
-	optimalChoice2 = [];
-	optimalPoints = 0; //optimalPoints is the sum of optimal choice 1 + optimal choice 2
 
-//First optimal choice, up until indifferentTurn
 	if (payoutAwet > payoutBwet && pWet[turn] > pDry[turn]) { //higher payout of A(wet), greater chance of rain
-		for (var i = 0; i <= indifferentTurn; i++) {
-			optimalChoice1[i] = pDry[i]*payoutAdry + pWet[i]*payoutAwet;  //choose A
-		}
-		return optimalChoice1;
-
-		for (var i = 0; i > indifferentTurn && i < maxturn + 1; i++) {
-			optimalChoice2[i] = pDry[i]* payoutBdry + pWet[i]*payoutBwet;  //choose B -- assuming that A and B switched!! Ask Fran
-		}
-		return optimalChoice2;
+		alert("first case");
+		firstOptimalChoiceA();
+		secondOptimalChoiceB();
 	}
 
 	else if (payoutAwet < payoutBwet && pWet[turn] > pDry[turn]) { //higher payout of B(wet), greater chance of rain
-		for (var i = 0; i <= indifferentTurn; i++) {
-			optimalChoice1[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet; //choose B
-		}
-		return optimalChoice1;
-
-		for (var i = 0; i > indifferentTurn && i < maxturn + 1; i++) {
-			optimalChoice2[i] = pDry[i]* payoutAdry + pWet[i]*payoutAwet;  //choose A -- assuming that A and B switched!! Ask Fran
-		}
-		return optimalChoice2;
+		alert("second case");
+		firstOptimalChoiceB();
+		secondOptimalChoiceA();
 	}
 
 	else if (payoutAdry > payoutBdry && pWet[turn] < pDry[turn]) { //higher payout of A(dry), greater chance of sun
-		for (var i = 0; i <= indifferentTurn; i++) {
-			optimalChoice1[i] = pDry[i]*payoutAdry + pWet[i]*payoutAwet; //choose A
-		}
-		return optimalChoice1;
-
-		for (var i = 0; i > indifferentTurn && i < maxturn + 1; i++) {
-			optimalChoice2[i] = pDry[i]* payoutBdry + pWet[i]*payoutBwet;  //choose B -- assuming that A and B switched!! Ask Fran
-		}
-		return optimalChoice2;
+		alert("third case");
+		firstOptimalChoiceA();
+		secondOptimalChoiceB();
 	}
 
 	else if (payoutAdry < payoutBdry && pWet[turn] < pDry[turn]) { //higher payout of B(dry), greater chance of sun
-		for (var i = 0; i <= indifferentTurn; i++) {
-			optimalChoice1[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet;  //choose B
-		}
-		return optimalChoice1;
-
-		for (var i = 0; i > indifferentTurn && i < maxturn + 1; i++) {
-			optimalChoice2[i] = pDry[i]* payoutAdry + pWet[i]*payoutAwet;  //choose A -- assuming that A and B switched!! Ask Fran
-		}
-		return optimalChoice2;
+		alert("fourth case");
+		firstOptimalChoiceB();
+		secondOptimalChoiceA();
 	}
+
+	alert("Done with if else");
+
+	totalOptimalChoice1 = 0;
+
+	function total1 () {
+		for (var i = 0; i <= indifferentTurn; i++) {
+			totalOptimalChoice1 += optimalChoice1[i];
+		}
+		return totalOptimalChoice1;
+		alert("total optimal choice 1 calculated" + totalOptimalChoice1);
+	};
+
+	total1();
+
+	totalOptimalChoice2 = 0;
+
+	function total2 () {
+		for (var i = 0; i > indifferentTurn, i < maxturn + 1; i++) {
+			totalOptimalChoice2 += optimalChoice2[i];
+		}
+		//return totalOptimalChoice2;
+		alert("total optimal choice 2 calculated" + totalOptimalChoice2);
+	};
+
+	total2();
+	//totalOptimalPoints is the sum of total optimal choice 1 + total optimal choice 2
+
+	totalOptimalPoints = totalOptimalChoice1 + totalOptimalChoice2;
+	alert("total optimal points now calculated!!!!" + totalOptimalPoints);
+
+	return totalOptimalPoints;
 };
+
+calculateOptimalPlayPoints();
+
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
