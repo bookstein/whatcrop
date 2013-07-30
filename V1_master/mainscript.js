@@ -51,11 +51,11 @@ $(document).ready(function(){
 	payoutBdry = 50;
 
 	// Set rain threshold
-	threshold = 600; //formerly "rainchance"
+	threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
 
 	// Set bonus payments
-	bonusOne = 1.25;
-	bonusTwo = 075;
+	bonusOneDollars = 1.25;
+	bonusTwoDollars = 075;
 
 	// Set climate change, either using "for loop" or manually; choose using autoFillClimateChange variable
 
@@ -240,9 +240,9 @@ makeGameWeather(); //sets value of gameWeather (array containing weather for len
 //assignTurnWeather(); //sets value of turnWeather for the first turn (and each turn thereafter as part of updateGame)
 
 
-//Calculate Max Score -------
+//Calculate Max Score --------------------------------------
 
-optimalCrops = []; //array of all optimal crops, by turn
+optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
 
 function calculateOptimalCrop () {
 	for (var i = 0; i < maxturn+1; i++) {
@@ -268,11 +268,11 @@ function calculateOptimalCrop () {
 	return optimalCrops;
 };
 
-calculateOptimalCrop(); //sets value of optimalCrops array -------
+calculateOptimalCrop(); //sets value of optimalCrops array
 
 maxScore = 0;
 
-function calculateMaxScore () {
+function calculateMaxScore () { //adds up the value of optimal crop to calculate the maximum possible score given the game weather
 		for (var i=0; i < optimalCrops.length; i++)
 		{
 		maxScore += optimalCrops[i]
@@ -282,7 +282,8 @@ function calculateMaxScore () {
 
 calculateMaxScore();
 
-// Calculate bonus thresholds
+
+// Calculate Random Play bonus threshold ---------------------------------
 
 		// A. Calculate indifference point
 
@@ -293,33 +294,73 @@ function checkIndifferencePoint () {
 	if (indifferencePoint >=1 || indifferencePoint <=0) {
 		alert("The indifference point between A and B is " + indifferencePoint + "!");
 	}
+
+	console.log(indifferencePoint);
 };
 
-checkIndifferencePoint();
+		// B. on which turn does the probability of dry weather = indifference point?
 
-function turnAtIndifferencePoint () {
-	//return indifferencePoint; //indifference point is the probablity of dry weather -- double-check!!!
-		// return thresholdArray; //how do I "summon" thresholdArray if it's not a global variable?
-	for (var i = 0; i < maxturn+1 ; i++) {
+function findTurnAtIndifferencePoint () { //calculates the turn at which the probability of wet weather equals the indiff point
+
+	for (var i = 0; i < maxturn + 1 ; i++) {
 			turnProbability[i] = thresholdArray[i]/1000;
 	}
 
-	console.log(turnProbability);
+		console.log(turnProbability);
 
-	if ( (turnProbability[i] == indifferencePoint) || ((turnProbability[i+1] > indifferencePoint && turnProbability[i-1] < indifferencePoint) ) {
-
-
+	for (var i = 0; i < maxturn + 1; i++) {
+		if ((turnProbability[i] == indifferencePoint) || (turnProbability[i+1] > indifferencePoint && turnProbability[i-1] < indifferencePoint)) {
+			indifferentTurn = i;
+			return indifferentTurn;
+			break;
+		}
 	}
 
+	alert("There is no turn at which the probability of dry weather equals the indifference point!");
+};
 
+		// C. Calculate probability of dry weather for all turns.
+		//How many points would you make playing by random chance as of the indifferentTurn?
+
+pDry=[];
+
+function calculateProbabilityDry () { // Creates an array, pDry, that lists the probability of dry weather for all turns.
+	for (var i = 0; i < maxturn + 1; i++) {
+		pDry[i] = (1-turnProbability[i]);
+	}
+
+	return pDry;
+};
+
+totalRandomPoints = 0;
+
+function calculateRandomPlayPoints () { //expected points earned by picking A or B randomly
+	randomPoints = [];
+	for (var i = 0; i < maxturn + 1; i++) {
+		randomPoints[i] = .5*pDry[i]*payoutAdry + .5*turnProbability[i]*payoutAwet +
+		 .5*pDry[i]*payoutBdry + .5*turnProbability[i]*payoutBwet;
+	}
+
+	alert("You made "+randomPoints);
+
+	for (var i = 0; i < maxturn + 1; i++) {
+		totalRandomPoints += randomPoints[i];
+	}
+
+	return totalRandomPoints;
+};
+
+function assignBonusOnePoints() {
+	checkIndifferencePoint();
+	findTurnAtIndifferencePoint();
+	calculateProbabilityDry();
+	calculateRandomPlayPoints();
 
 };
 
 
-		//on which turn does the probability of dry weather = indifference point?
 
-
-
+//playing by chance until indifferentTurn
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
