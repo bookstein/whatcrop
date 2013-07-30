@@ -370,7 +370,7 @@ function firstOptimalChoiceA () {
 };
 function secondOptimalChoiceB () {
 
-	for (var i = 0; i > indifferentTurn, i < maxturn + 1; i++) {
+	for (var i = 0; i > indifferentTurn && i < maxturn + 1; i++) {
 		optimalChoice2[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet;  //choose B second -- assuming that A and B switched!! Ask Fran
 	}
 	return optimalChoice2;
@@ -384,7 +384,7 @@ function firstOptimalChoiceB() {
 };
 
 function secondOptimalChoiceA () {
-	for (var i = 0; i > indifferentTurn, i < maxturn + 1; i++) {
+	for (var i = 0; i > indifferentTurn && i < maxturn + 1; i++) {
 		optimalChoice2[i] = pDry[i]*payoutAdry + pWet[i]*payoutAwet;  //choose A second -- assuming that A and B switched!! Ask Fran
 	}
 	return optimalChoice2;
