@@ -288,7 +288,7 @@ calculateMaxScore();
 		// A. Calculate indifference point
 
 indifferencePoint = (payoutBwet - payoutAwet)/(payoutAdry - payoutAwet + payoutBwet - payoutBdry);
-turnProbability = [];
+pWet = [];
 
 function checkIndifferencePoint () {
 	if (indifferencePoint >=1 || indifferencePoint <=0) {
@@ -303,13 +303,13 @@ function checkIndifferencePoint () {
 function findTurnAtIndifferencePoint () { //calculates the turn at which the probability of wet weather equals the indiff point
 
 	for (var i = 0; i < maxturn + 1 ; i++) {
-			turnProbability[i] = thresholdArray[i]/1000;
+			pWet[i] = thresholdArray[i]/1000;
 	}
 
-		console.log(turnProbability);
+		console.log(pWet);
 
 	for (var i = 0; i < maxturn + 1; i++) {
-		if ((turnProbability[i] == indifferencePoint) || (turnProbability[i+1] > indifferencePoint && turnProbability[i-1] < indifferencePoint)) {
+		if ((pWet[i] == indifferencePoint) || (pWet[i+1] > indifferencePoint && pWet[i-1] < indifferencePoint)) {
 			indifferentTurn = i;
 			return indifferentTurn;
 			break;
@@ -326,7 +326,7 @@ pDry=[];
 
 function calculateProbabilityDry () { // Creates an array, pDry, that lists the probability of dry weather for all turns.
 	for (var i = 0; i < maxturn + 1; i++) {
-		pDry[i] = (1-turnProbability[i]);
+		pDry[i] = (1-pWet[i]);
 	}
 
 	return pDry;
@@ -337,8 +337,8 @@ totalRandomPoints = 0;
 function calculateRandomPlayPoints () { //expected points earned by picking A or B randomly
 	randomPoints = [];
 	for (var i = 0; i < maxturn + 1; i++) {
-		randomPoints[i] = .5*pDry[i]*payoutAdry + .5*turnProbability[i]*payoutAwet +
-		 .5*pDry[i]*payoutBdry + .5*turnProbability[i]*payoutBwet;
+		randomPoints[i] = .5*pDry[i]*payoutAdry + .5*pWet[i]*payoutAwet +
+		 .5*pDry[i]*payoutBdry + .5*pWet[i]*payoutBwet;
 	}
 
 	alert("You made "+randomPoints);
@@ -350,7 +350,7 @@ function calculateRandomPlayPoints () { //expected points earned by picking A or
 	return totalRandomPoints;
 };
 
-function assignBonusOnePoints() {
+function assignBonusOnePoints() { //playing by chance until indifferentTurn
 	checkIndifferencePoint();
 	findTurnAtIndifferencePoint();
 	calculateProbabilityDry();
@@ -358,9 +358,39 @@ function assignBonusOnePoints() {
 
 };
 
+// Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
 
+function calculateOptimalPlayPoints () {
+	optimalPoints = [];
 
-//playing by chance until indifferentTurn
+	if (payoutAwet > payoutBwet && pWet[turn] > pDry[turn]) { //greater chance of rain
+		for (var i = 0; i <= indifferentTurn; i++) {
+			optimalPoints[i] = pDry[i]*payoutAdry + pWet[i]*payoutAwet;  //choose A
+		}
+		return optimalPoints;
+	}
+
+	else if (payoutAwet < payoutBwet && pWet[turn] > pDry[turn]) { //greater chance of rain
+		for (var i = 0; i <= indifferentTurn; i++) {
+			optimalPoints[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet; //choose B
+		}
+		return optimalPoints;
+	}
+
+	else if (payoutAdry > payoutBdry && pWet[turn] < pDry[turn]) { //greater chance of sun
+		for (var i = 0; i <= indifferentTurn; i++) {
+			optimalPoints[i] = pDry[i]*payoutAdry + pWet[i]*payoutAwet; //choose A
+		}
+		return optimalPoints;
+	}
+
+	else if (payoutAdry < payoutBdry && pWet[turn] < pDry[turn]) { //greater chance of sun
+		for (var i = 0; i <= indifferentTurn; i++) {
+			optimalPoints[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet;  //choose B
+		}
+		return optimalPoints;
+	}
+};
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
