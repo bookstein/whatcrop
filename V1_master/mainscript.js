@@ -38,7 +38,7 @@ $(document).ready(function(){
 
 //>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
-	 cropchoice = "";
+	cropchoice = "";
 
 	// Set number of turns per game
     maxturn = 50;
@@ -236,15 +236,36 @@ calculateMaxScore();
 
 // >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
 
-	//Populate "turns_instructions" span in opening dialog
+// Open first dialog; keep other dialogs hidden
 
-	$("#turncount_instructions").text(maxturn + " turns");
+$(function () {
 
-	//Display dialog boxes in sequence
-	$("button").on("click", function () {
-		$(this).closest("#first-message").addClass("hidden").removeClass("ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable");
-		$("#second-message").removeClass("hidden").addClass("ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable");
+	$( "#first-message" ).dialog({
+		autoOpen: true,
+		modal: true,
+		buttons: [ { text: "Next",
+			click: function() { $( this ).dialog( "close" );}
+		} ]
 	});
+
+	$( "#second-message #third-message #fourth-message" ).dialog({
+		 autoOpen: false });
+
+});
+
+$("button").on("click", function () {
+	$( "#second-message" ).dialog( "open" ).find("div").removeClass("hidden");
+});
+
+//Populate "turns_instructions" span in opening dialog
+
+$("#turncount_instructions").text(maxturn + " turns");
+
+//Display dialog boxes in sequence
+$("button").on("click", function () {
+	$(this).closest("#first-message").addClass("hidden").removeClass("ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable");
+	$("#second-message").removeClass("hidden").addClass("ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable");
+});
 
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
@@ -604,3 +625,5 @@ $("#grow").on("click", function () {
 
 
 }); //End of .ready ()
+
+
