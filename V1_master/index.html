@@ -164,37 +164,39 @@
 
 		<button class="plant_img" id="seedpacketB" type="button" name ="CropB" value="Seeds of B"><img src="images/SeedpacketB.png" alt="B"/></button> -->
 
-		<!-- dialogs: Weather report and points earned -->
-		<div class="results dialog-message ui-dialog" id="normal_results" title="Results">
-				<p>
-				  	The weather was <span id="weather_outcome"></span>. You made <span id="new_score"></span> points!
-				</p>
-		</div>
+		<div id="results_dialogs" class="hidden"> <!-- div containing all results dialogs for the game -->
+			<!-- dialog: Weather report and points earned -->
+			<div class="results dialog-message ui-dialog" id="normal_results" title="Results">
+					<p>
+					  	The weather was <span id="weather_outcome"></span>. You made <span id="new_score"></span> points!
+					</p>
+			</div>
 
-		<!-- dialog: Bonus earned -->
-		<div class="results dialog-message ui-dialog" id="bonus_results" title="Results">
-				<p>
-				  	The weather was <span id="weather_outcome"></span>. You made <span id="new_score"></span> points!
-				</p>
-				<p>
-					You also earned a bonus of <span id="bonus_count"><span>!
-				</p>
-		</div>
+			<!-- dialog: Bonus earned -->
+			<div class="results dialog-message ui-dialog" id="bonus_results" title="Results">
+					<p>
+					  	The weather was <span id="weather_outcome"></span>. You made <span id="new_score"></span> points!
+					</p>
+					<p>
+						You also earned a bonus of <span id="bonus_count"><span>!
+					</p>
+			</div>
 
-		<!-- dialog: End of game + score + unique ID number -->
+			<!-- dialog: End of game + score + unique ID number -->
 
-		<div class="dialog-message ui-dialog" id="end_results" title="Game Over">
-				<p>
-				  	You made it to <span class="turncount_instructions"></span> turns! This ends the game. With your score of <span id="total_score"></span>, you earned <span id="total_dollars"></span>.
-				</p>
-				<p>
-					Your Player ID is: <span id="playerID"></span> Use this ID number to receive your payment.
-				</p>
-				<p>
-					Thanks again for playing.
-					<img src= "images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" />
-				</p>
-		</div>
+			<div class="dialog-message ui-dialog" id="end_results" title="Game Over">
+					<p>
+					  	You made it to <span class="turncount_instructions"></span> turns! This ends the game. With your score of <span id="total_score"></span>, you earned <span id="total_dollars"></span>.
+					</p>
+					<p>
+						Your Player ID is: <span id="playerID"></span> Use this ID number to receive your payment.
+					</p>
+					<p>
+						Thanks again for playing.
+						<img src= "images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" />
+					</p>
+			</div>
+		</div> <!-- end of dialogs div-->
 
 	</section> <!-- end of #choice_screen (parent) -->
 
