@@ -72,7 +72,7 @@
 		<div class="instructions dialog-message ui-dialog" id="third-message" title="Game instructions">
 
 				<p>
-					Historically, the weather has been dry <span id="weather_instructions">25%<!-- placeholder --></span> of the time.
+					Historically, the weather has been rainy <span id="weather_instructions"></span> of the time.
 				</p>
 
 		</div>
@@ -84,7 +84,7 @@
 					You can see your score, and how much money you've earned, on the right-hand side.
 				</p>
 				<p>
-					You will earn bonuses when you reach <span id="bonus_instructions"></span> levels of points!
+					You will earn bonuses when you reach <span id="bonus_one_instructions"></span> and <span id="bonus_two_instructions"></span> levels of points!
 				</p>
 				<img src= "images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" />
 
@@ -164,14 +164,14 @@
 		<button class="plant_img" id="seedpacketB" type="button" name ="CropB" value="Seeds of B"><img src="images/SeedpacketB.png" alt="B"/></button> -->
 
 		<!-- dialogs: Weather report and points earned -->
-		<div class="instructions dialog-message ui-dialog" id="normal_results" title="Results">
+		<div class="results dialog-message ui-dialog" id="normal_results" title="Results">
 				<p>
 				  	The weather was <span id="weather_outcome"></span>. You made <span id="new_score"></span> points!
 				</p>
 		</div>
 
 		<!-- dialog: Bonus earned -->
-		<div class="instructions dialog-message ui-dialog" id="bonus_results" title="Results">
+		<div class="results dialog-message ui-dialog" id="bonus_results" title="Results">
 				<p>
 				  	The weather was <span id="weather_outcome"></span>. You made <span id="new_score"></span> points!
 				</p>
@@ -182,7 +182,7 @@
 
 		<!-- dialog: End of game + score + unique ID number -->
 
-		<div class="instructions dialog-message ui-dialog" id="end_results" title="Results">
+		<div class="dialog-message ui-dialog" id="end_results" title="Game Over">
 				<p>
 				  	You made it to <span class="turncount_instructions"></span> turns! This ends the game. With your score of <span id="total_score"></span>, you earned <span id="total_dollars"></span>.
 				</p>

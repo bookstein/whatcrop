@@ -526,17 +526,18 @@ button.plant {
 
 
 /* >>>>>>>>>>>>>>>>>> Dialog boxes <<<<<<<<<<<<<< */
-.instructions {
+/*.instructions {
 	background-color: white;
 	text-align: center;
 	border: 1px solid black;
 }
 
-.dialog > .instructions { /* WORK IN PROGRESS */
+.dialog > .instructions {
 	z-index: 4;
 	width: 70%;
 	height: 50%;
 }
+*/
 
 /* >>>>>>>>>>>>>>Points Counter <<<<<<<<<<<<<<< */
 

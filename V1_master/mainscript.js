@@ -308,21 +308,13 @@ $(function () {
 
 });
 
-//or, $( ".selector" ).dialog( "moveToTop" ); ??
-//$( "#dialog" ).dialog({ autoOpen: false });
-//$( "#opener" ).click(function() {
-  //$( "#dialog" ).dialog( "open" );
-//});
+//Populate spans in opening and ending dialogs
 
-//Populate "turns_instructions" span in opening dialog
+$(".turncount_instructions").text(maxturn + " turns");
+$("#weather_instructions").text((threshold/1000)*100 + "%");
+$("#bonus_one_instructions").text()
+$("#bonus_two_instructions").text()
 
-$("#turncount_instructions").text(maxturn + " turns");
-
-//Display dialog boxes in sequence
-$("button").on("click", function () {
-	$(this).closest("#first-message").addClass("hidden").removeClass("ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable");
-	$("#second-message").removeClass("hidden").addClass("ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable");
-});
 
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
@@ -466,6 +458,65 @@ function displayWeather () {
 		$("#rowsCropB").removeClass("hidden");
 	}
 };
+
+//This function displays the results in a dialog box
+
+function displayResults () {
+
+	$( "#normal_results" ).dialog({
+		autoOpen: true,
+		modal: true,
+		closeOnEscape: false,
+        resizable: false,
+        position: 'center',
+        stack: true,
+        height: 'auto',
+        width: 'auto',
+		buttons: [ { text: "Next",
+			click: function() {
+				$( this ).dialog( "close" );
+				$( "#second-message" ).dialog( "open" );
+			}
+		} ]
+	});
+
+	$("#bonus_results").dialog({
+		autoOpen: false,
+		modal: true,
+		closeOnEscape: false,
+        resizable: false,
+        position: 'center',
+        stack: true,
+        height: 'auto',
+        width: 'auto',
+		buttons: [ { text: "Next",
+			click: function() {
+				$( this ).dialog( "close" );
+				$( "#third-message" ).dialog( "open" );
+			}
+		} ]
+	});
+
+
+	$("#end_results").dialog({
+		autoOpen: false,
+		modal: true,
+		closeOnEscape: false,
+        resizable: false,
+        position: 'center',
+        stack: true,
+        height: 'auto',
+        width: 'auto',
+		buttons: [ { text: "Next",
+			click: function() {
+				$( this ).dialog( "close" );
+				$( "#fourth-message" ).dialog( "open" );
+			}
+		} ]
+	});
+
+};
+
 
 //Fades out weather images and restores "choice screen" after setTimeout-specified period
 //function fadeWeather () {
