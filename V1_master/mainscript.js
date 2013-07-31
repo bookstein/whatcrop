@@ -243,19 +243,27 @@ $(function () {
 	$( "#first-message" ).dialog({
 		autoOpen: true,
 		modal: true,
+		closeOnEscape: false,
 		buttons: [ { text: "Next",
 			click: function() { $( this ).dialog( "close" );}
 		} ]
 	});
 
 	$( "#second-message #third-message #fourth-message" ).dialog({
-		 autoOpen: false });
+		 autoOpen: false,
+		 modal: true,
+		 closeOnEscape: false,
+		 buttons: [ { text: "Next",
+			click: function() { $( this ).dialog( "close" );
+	});
 
 });
 
 $("button").on("click", function () {
 	$( "#second-message" ).dialog( "open" ).find("div").removeClass("hidden");
 });
+
+//or, $( ".selector" ).dialog( "moveToTop" ); ??
 
 //Populate "turns_instructions" span in opening dialog
 
