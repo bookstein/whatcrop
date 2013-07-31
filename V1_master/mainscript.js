@@ -468,7 +468,7 @@ function displayResultsDialog () {
 
 	$("#bonus_results").dialog({
 		autoOpen: false,
-		modal: true,
+		modal: false,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
@@ -479,7 +479,7 @@ function displayResultsDialog () {
 
 	$("#end_results").dialog({
 		autoOpen: false,
-		modal: true,
+		modal: false,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
@@ -490,7 +490,7 @@ function displayResultsDialog () {
 
 	$( "#normal_results" ).dialog({
 		autoOpen: false,
-		modal: true,
+		modal: false,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
