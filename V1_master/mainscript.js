@@ -311,9 +311,9 @@ $(function () {
 //Populate spans in opening and ending dialogs
 
 $(".turncount_instructions").text(maxturn + " turns");
-$("#weather_instructions").text((threshold/1000)*100 + "%");
-$("#bonus_one_instructions").text()
-$("#bonus_two_instructions").text()
+$("#weather_instructions").text(1-((threshold/1000)*100) + "%");
+$("#bonus_one_instructions").text("totalRandomPoints");
+$("#bonus_two_instructions").text("FILL IN WHEN COMPLETE");
 
 
 
@@ -459,26 +459,10 @@ function displayWeather () {
 	}
 };
 
-//This function displays the results in a dialog box
+//This function displays one of 3 results in a dialog box
 
-function displayResults () {
+function displayResultsDialog () {
 
-	$( "#normal_results" ).dialog({
-		autoOpen: true,
-		modal: true,
-		closeOnEscape: false,
-        resizable: false,
-        position: 'center',
-        stack: true,
-        height: 'auto',
-        width: 'auto',
-		buttons: [ { text: "Next",
-			click: function() {
-				$( this ).dialog( "close" );
-				$( "#second-message" ).dialog( "open" );
-			}
-		} ]
-	});
 
 	$("#bonus_results").dialog({
 		autoOpen: false,
@@ -486,17 +470,10 @@ function displayResults () {
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
-        stack: true,
+
         height: 'auto',
         width: 'auto',
-		buttons: [ { text: "Next",
-			click: function() {
-				$( this ).dialog( "close" );
-				$( "#third-message" ).dialog( "open" );
-			}
-		} ]
 	});
-
 
 	$("#end_results").dialog({
 		autoOpen: false,
@@ -504,16 +481,34 @@ function displayResults () {
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
-        stack: true,
+
         height: 'auto',
         width: 'auto',
-		buttons: [ { text: "Next",
-			click: function() {
-				$( this ).dialog( "close" );
-				$( "#fourth-message" ).dialog( "open" );
-			}
-		} ]
 	});
+
+	$( "#normal_results" ).dialog({
+		autoOpen: false,
+		modal: true,
+		closeOnEscape: false,
+        resizable: false,
+        position: 'center',
+
+        height: 'auto',
+        width: 'auto',
+	});
+
+
+	if (score === "totalRandomPoints" || score === "optimalplaypoints") {
+		$("#bonus_results").dialog("open");
+	}
+
+	else if (turn == maxturn) {
+		$("#end_results").dialog("open");
+	}
+
+	else {
+		$("#normal_results").dialog("open");
+	}
 
 };
 
