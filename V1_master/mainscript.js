@@ -359,8 +359,24 @@ console.log("The first bonus will trigger at " + totalRandomPoints + " points");
 
 // Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
 
+		function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
+			var result = [];
+			for (var i = min; i < max; i++) {
+				result[i] = probDry[i] * payoutDry + probWet[i] * payoutWet;
+			}
+			return result;
+		};
+
+		optimalChoice1 = optimalChoice(0, indifferntTurn, pDry, pWet, payoutAdry, payoutAwet)
+
+
 optimalChoice1 = [];
 optimalChoice2 = [];
+
+for (var i = 0; i < 50; ++i) {
+	optimalChoice1[i] = 0;
+	optimalChoice2[i] = 0;
+}
 
 function firstOptimalChoiceA () {
 	for (var i = 0; i <= indifferentTurn; i++) {
@@ -368,13 +384,16 @@ function firstOptimalChoiceA () {
 	}
 	return optimalChoice1;
 };
-function secondOptimalChoiceB () {
+			function secondOptimalChoiceB () { indifferentTurn < i < maxturn
 
-	for (var i = 0; i > indifferentTurn && i < maxturn + 1; i++) {
-		optimalChoice2[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet;  //choose B second -- assuming that A and B switched!! Ask Fran
-	}
-	return optimalChoice2;
-};
+				console.log(indifferentTurn, maxturn)
+				for (var i = indifferentTurn; i < maxturn; i++) {
+				console.log(i);
+
+					optimalChoice2[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet;  //choose B second -- assuming that A and B switched!! Ask Fran
+				}
+				return optimalChoice2;
+			};
 
 function firstOptimalChoiceB() {
 	for (var i = 0; i <= indifferentTurn; i++) {
