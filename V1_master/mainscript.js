@@ -249,6 +249,7 @@ $(function () {
         stack: true,
         height: 'auto',
         width: 'auto',
+        dialogClass: "no-close",
 		buttons: [ { text: "Next",
 			click: function() {
 				$( this ).dialog( "close" );
@@ -266,6 +267,7 @@ $(function () {
         stack: true,
         height: 'auto',
         width: 'auto',
+        dialogClass: "no-close",
 		buttons: [ { text: "Next",
 			click: function() {
 				$( this ).dialog( "close" );
@@ -284,6 +286,7 @@ $(function () {
         stack: true,
         height: 'auto',
         width: 'auto',
+        dialogClass: "no-close",
 		buttons: [ { text: "Next",
 			click: function() {
 				$( this ).dialog( "close" );
@@ -296,11 +299,12 @@ $(function () {
 		autoOpen: false,
 		modal: true,
 		closeOnEscape: false,
-		resizable: false,
+        resizable: false,
         position: 'center',
         stack: true,
         height: 'auto',
         width: 'auto',
+        dialogClass: "no-close",
 		buttons: [ { text: "Start Game",
 			click: function() { $( this ).dialog( "close" );}
 		} ]
@@ -465,8 +469,18 @@ function displayWeather () {
 
 function displayResultsDialog () {
 
+	$(".results").dialog({
+		autoOpen: true,
+		modal: false,
+		closeOnEscape: false,
+        resizable: false,
+        position: 'center',
+        stack: true,
+        height: 'auto',
+        width: 'auto'
+    });
 
-	$("#bonus_results").dialog({
+	/*$("#bonus_results").dialog({
 		autoOpen: false,
 		modal: false,
 		closeOnEscape: false,
@@ -498,6 +512,7 @@ function displayResultsDialog () {
         height: 'auto',
         width: 'auto',
 	});
+*/
 
 
 	if (score === "totalRandomPoints" || score === "optimalplaypoints") {
