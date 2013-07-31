@@ -457,6 +457,8 @@ function displayWeather () {
 		//crop graphics
 		$("#rowsCropB").removeClass("hidden");
 	}
+
+	displayResultsDialog();
 };
 
 //This function displays one of 3 results in a dialog box
@@ -580,6 +582,8 @@ function movePointsFill () {
 //Game updates given cropchoice and game weather for this turn
 
 function updateGame() {
+
+	setTimeout(function() {$( ".results" ).dialog( "close" )}, 2500);
 
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry")  //if user chooses crop A *and* weather is dry
 	{
