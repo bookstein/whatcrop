@@ -244,26 +244,75 @@ $(function () {
 		autoOpen: true,
 		modal: true,
 		closeOnEscape: false,
+        resizable: false,
+        position: 'center',
+        stack: true,
+        height: 'auto',
+        width: 'auto',
 		buttons: [ { text: "Next",
+			click: function() {
+				$( this ).dialog( "close" );
+				$( "#second-message" ).dialog( "open" );
+			}
+		} ]
+	});
+
+	$("#second-message").dialog({
+		autoOpen: false,
+		modal: true,
+		closeOnEscape: false,
+        resizable: false,
+        position: 'center',
+        stack: true,
+        height: 'auto',
+        width: 'auto',
+		buttons: [ { text: "Next",
+			click: function() {
+				$( this ).dialog( "close" );
+				$( "#third-message" ).dialog( "open" );
+			}
+		} ]
+	});
+
+
+	$("#third-message").dialog({
+		autoOpen: false,
+		modal: true,
+		closeOnEscape: false,
+        resizable: false,
+        position: 'center',
+        stack: true,
+        height: 'auto',
+        width: 'auto',
+		buttons: [ { text: "Next",
+			click: function() {
+				$( this ).dialog( "close" );
+				$( "#fourth-message" ).dialog( "open" );
+			}
+		} ]
+	});
+
+	$( "#fourth-message" ).dialog({
+		autoOpen: false,
+		modal: true,
+		closeOnEscape: false,
+		resizable: false,
+        position: 'center',
+        stack: true,
+        height: 'auto',
+        width: 'auto',
+		buttons: [ { text: "Start Game",
 			click: function() { $( this ).dialog( "close" );}
 		} ]
 	});
 
-	$( "#second-message #third-message #fourth-message" ).dialog({
-		 autoOpen: false,
-		 modal: true,
-		 closeOnEscape: false,
-		 buttons: [ { text: "Next",
-			click: function() { $( this ).dialog( "close" );
-	});
-
-});
-
-$("button").on("click", function () {
-	$( "#second-message" ).dialog( "open" ).find("div").removeClass("hidden");
 });
 
 //or, $( ".selector" ).dialog( "moveToTop" ); ??
+//$( "#dialog" ).dialog({ autoOpen: false });
+//$( "#opener" ).click(function() {
+  //$( "#dialog" ).dialog( "open" );
+//});
 
 //Populate "turns_instructions" span in opening dialog
 
