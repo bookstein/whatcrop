@@ -367,7 +367,7 @@ console.log("The first bonus will trigger at " + totalRandomPoints + " points");
 			return result;
 		};
 
-		optimalChoice1 = optimalChoice(0, indifferntTurn, pDry, pWet, payoutAdry, payoutAwet)
+		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet)
 
 
 optimalChoice1 = [];
