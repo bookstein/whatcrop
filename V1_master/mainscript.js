@@ -364,7 +364,7 @@ console.log("The first bonus will trigger at " + totalRandomPoints + " points");
 optimalChoice1 = [];
 optimalChoice2 = [];
 
-for (var i = 0; i < maxturn; ++i) {
+for (var i = 0; i == maxturn; ++i) {
 	optimalChoice1[i] = 0;
 	optimalChoice2[i] = 0;
 }
