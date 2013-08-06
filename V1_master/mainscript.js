@@ -410,30 +410,31 @@ function calculateOptimalPlayPoints () {
 	var totalOptimalChoice2 = 0;
 
 //try var totalOptimalChoice1 = function
-	function total1 () {
+	var total1 = function sumtotal1 () {
 		for (var i = 0; i == optimalChoice1.length; i++) {
 			totalOptimalChoice1 += optimalChoice1[i];
 		}
 		//return totalOptimalChoice1;
-		alert("total optimal choice 1 calculated" + totalOptimalChoice1);
+
+		sumtotal1();
+		console.log("total optimal choice 1 calculated: " + totalOptimalChoice1);
 	};
 
-	total1();
 
-	function total2 () {
+	var total2 = function sumtotal2 () {
 		for (var i = 0; i > indifferentTurn, i < maxturn; i++) {
 			totalOptimalChoice2 += optimalChoice2[i];
 		}
 
 		//return totalOptimalChoice2;
-		alert("total optimal choice 2 calculated" + totalOptimalChoice2);
+		sumtotal2();
+		console.log("total optimal choice 2 calculated: " + totalOptimalChoice2);
 	};
 
-	total2();
 	//totalOptimalPoints is the sum of total optimal choice 1 + total optimal choice 2
 
 	var totalOptimalPoints = totalOptimalChoice1 + totalOptimalChoice2;
-	alert("total optimal points now calculated!!!!" + totalOptimalPoints);
+	alert("total optimal points now calculated!!!! " + totalOptimalPoints);
 
 	return totalOptimalPoints;
 	console.log("The second bonus will trigger at " + totalOptimalPoints + " points");
