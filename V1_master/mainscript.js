@@ -288,6 +288,7 @@ console.log("The maximum possible score is " + maxScore + " points")
 		// A. Calculate indifference point
 
 indifferencePoint = (payoutBwet - payoutAwet)/(payoutAdry - payoutAwet + payoutBwet - payoutBdry);
+
 pWet = [];
 
 function checkIndifferencePoint () {
@@ -379,52 +380,54 @@ function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
 				result[i] = probDry[i] * payoutDry + probWet[i] * payoutWet;
 			};
 
-			return result;
+			return result; //exit point
 		};
 
 
+optimalScenario = function optimalScenario () {
 
-function firstOptimalChoiceA () {
-	optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
+	if (payoutAwet > payoutBwet && turn <= indifferentTurn) {
+		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
+	}
+
+	else if (payoutAwet < payoutBwet && turn <= indifferentTurn) {
+		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
+	}
+
+	else if (payoutAdry > payoutBdry && turn >= indifferentTurn) {
+		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutBdry, payoutBwet);
+	}
+
+	else if (payoutAdry < payoutBdry && turn >= indifferentTurn) {
+		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutAdry, payoutAwet);
+	}
 };
 
-function secondOptimalChoiceB () {
-	optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
-};
+		/*1. payout A is higher
+		2. the chance rain is higher
 
-function firstOptimalChoiceB() {
-	optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutBdry, payoutBwet);
-};
+		//optimal choice 1 is A
 
-function secondOptimalChoiceA () {
-	optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutAdry, payoutAwet);
-};
+		1. payout B is higher
+		2. chance of rain is higher
+
+		//optimal choice 1 is B
+
+		1. payout of A is higher
+		2. chance of rain is lower
+
+		//optimal choice 2 is B
+
+		1. payout of B is higher
+		2. chance of rain is lower
+
+		//optimal choice 2 is A*/
+
+
+
 
 function calculateOptimalPlayPoints () {
 
-	if (payoutAwet > payoutBwet && pWet[turn] > pDry[turn]) { //higher payout of A(wet), greater chance of rain
-		alert("first case");
-		firstOptimalChoiceA();
-		secondOptimalChoiceB();
-	}
-
-	else if (payoutAwet < payoutBwet && pWet[turn] > pDry[turn]) { //higher payout of B(wet), greater chance of rain
-		alert("second case");
-		firstOptimalChoiceB();
-		secondOptimalChoiceA();
-	}
-
-	else if (payoutAdry > payoutBdry && pWet[turn] < pDry[turn]) { //higher payout of A(dry), greater chance of sun
-		alert("third case");
-		firstOptimalChoiceA();
-		secondOptimalChoiceB();
-	}
-
-	else if (payoutAdry < payoutBdry && pWet[turn] < pDry[turn]) { //higher payout of B(dry), greater chance of sun
-		alert("fourth case");
-		firstOptimalChoiceB();
-		secondOptimalChoiceA();
-	}
 
 	totalOptimalChoice1 = 0;
 
