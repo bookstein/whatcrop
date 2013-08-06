@@ -401,7 +401,6 @@ function optimalScenario () {
 };
 
 
-
 function calculateOptimalPlayPoints () {
 
 	optimalScenario();
@@ -410,11 +409,12 @@ function calculateOptimalPlayPoints () {
 	var totalOptimalChoice1 = 0;
 	var totalOptimalChoice2 = 0;
 
+//try var totalOptimalChoice1 = function
 	function total1 () {
-		for (var i = 0; i <= indifferentTurn; i++) {
+		for (var i = 0; i == optimalChoice1.length; i++) {
 			totalOptimalChoice1 += optimalChoice1[i];
 		}
-		return totalOptimalChoice1;
+		//return totalOptimalChoice1;
 		alert("total optimal choice 1 calculated" + totalOptimalChoice1);
 	};
 
@@ -424,6 +424,7 @@ function calculateOptimalPlayPoints () {
 		for (var i = 0; i > indifferentTurn, i < maxturn; i++) {
 			totalOptimalChoice2 += optimalChoice2[i];
 		}
+
 		//return totalOptimalChoice2;
 		alert("total optimal choice 2 calculated" + totalOptimalChoice2);
 	};
@@ -436,6 +437,7 @@ function calculateOptimalPlayPoints () {
 
 	return totalOptimalPoints;
 	console.log("The second bonus will trigger at " + totalOptimalPoints + " points");
+
 };
 
 calculateOptimalPlayPoints();
