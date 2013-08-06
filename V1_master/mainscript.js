@@ -568,8 +568,8 @@ $(function () {
 
 $(".turncount_instructions").text(maxturn + " turns");
 $("#weather_instructions").text((1000-threshold)/1000*100 + "%");
-$("#bonus_one_instructions").text("totalRandomPoints");
-$("#bonus_two_instructions").text("FILL IN WHEN COMPLETE");
+$("#bonus_one_instructions").text(totalRandomPoints);
+$("#bonus_two_instructions").text("totalOptimalPoints");
 
 
 
