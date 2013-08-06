@@ -904,7 +904,7 @@ function updateGame() {
 
 
 //Grow button calls displayWeather() ONLY if a crop has been chosen (if "input" has the "highlight" class)
-$("#grow").on("click", function () {
+/*$("#grow").on("click", function () {
 	if ($(this).hasClass("highlight")) {
 		// hide crop sprout graphics
 		$("#sproutA").addClass("hidden");
@@ -914,6 +914,19 @@ $("#grow").on("click", function () {
 		//callsback updateGame function 200ms after displayWeather
 		setTimeout(updateGame, 400);
 	}
+});*/
+
+$("#grow").on("click", function () {
+	if (($(this).hasClass("highlight"))&& turn<maxturn) {
+		// hide crop sprout graphics
+		$("#sproutA").addClass("hidden");
+		$("#sproutB").addClass("hidden");
+		//call displayWeather function
+		displayWeather();
+		//callsback updateGame function 200ms after displayWeather
+		setTimeout(updateGame, 400);
+	}
+
 });
 
 
