@@ -752,6 +752,18 @@ function movePointsFill () {
 	};
 
 	// WARNING: .css modifies the element's <style> property, not the CSS sheet!
+function addDollars () {
+//adds to realDollars when bonusOne or bonusTwo is triggered
+	if (score == totalRandomPoints) {
+		realDollars += bonusOneDollars;
+		$("#dollars_counter").html("$"+realDollars);
+	}
+
+	else if (score == totalOptimalPoints) {
+		realDollars += bonusTwoDollars;
+		$("#dollars_counter").html("$"+realDollars);
+	}
+};
 
 //Game updates given cropchoice and game weather for this turn
 
