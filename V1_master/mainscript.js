@@ -359,7 +359,16 @@ console.log("The first bonus will trigger at " + totalRandomPoints + " points");
 
 // Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
 
-		function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
+
+optimalChoice1 = [];
+optimalChoice2 = [];
+
+for (var i = 0; i < maxturn; ++i) {
+	optimalChoice1[i] = 0;
+	optimalChoice2[i] = 0;
+}
+
+function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
 			var result = [];
 			for (var i = min; i < max; i++) {
 				result[i] = probDry[i] * payoutDry + probWet[i] * payoutWet;
@@ -367,16 +376,16 @@ console.log("The first bonus will trigger at " + totalRandomPoints + " points");
 			return result;
 		};
 
-		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet)
+//When A is the first optimal choice -- connect if-statement to threshold and probability
+		/* optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
+		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
+
+		optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
+
+//When B is first optimal choice */
 
 
-optimalChoice1 = [];
-optimalChoice2 = [];
 
-for (var i = 0; i < 50; ++i) {
-	optimalChoice1[i] = 0;
-	optimalChoice2[i] = 0;
-}
 
 function firstOptimalChoiceA () {
 	for (var i = 0; i <= indifferentTurn; i++) {
@@ -384,16 +393,17 @@ function firstOptimalChoiceA () {
 	}
 	return optimalChoice1;
 };
-			function secondOptimalChoiceB () { indifferentTurn < i < maxturn
 
-				console.log(indifferentTurn, maxturn)
-				for (var i = indifferentTurn; i < maxturn; i++) {
-				console.log(i);
+function secondOptimalChoiceB () { indifferentTurn < i < maxturn
 
-					optimalChoice2[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet;  //choose B second -- assuming that A and B switched!! Ask Fran
-				}
-				return optimalChoice2;
-			};
+	console.log(indifferentTurn, maxturn)
+	for (var i = indifferentTurn; i < maxturn; i++) {
+	console.log(i);
+
+		optimalChoice2[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet;  //choose B second -- assuming that A and B switched!! Ask Fran
+	}
+	return optimalChoice2;
+};
 
 function firstOptimalChoiceB() {
 	for (var i = 0; i <= indifferentTurn; i++) {
