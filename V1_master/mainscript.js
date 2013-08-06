@@ -364,7 +364,7 @@ console.log("The first bonus will trigger at " + totalRandomPoints + " points");
 optimalChoice1 = [];
 optimalChoice2 = [];
 
-for (var i = 0; i == maxturn; ++i) {
+for (var i = 0; i <= maxturn; ++i) {
 	optimalChoice1[i] = 0;
 	optimalChoice2[i] = 0;
 }
@@ -372,11 +372,11 @@ for (var i = 0; i == maxturn; ++i) {
 function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
 			var result = [];
 
-			for (var i = 0; i < min; i++) {
+			for (var i = 0; i <= min; i++) {
 				result[i]=0;
 			};
 
-			for (var i = min; i == max; i++) {
+			for (var i = min+1; i == max; i++) {
 				result[i] = probDry[i] * payoutDry + probWet[i] * payoutWet;
 			};
 
@@ -388,7 +388,9 @@ function optimalScenario () {
 
 	// A is first optimal choice, starting condition is pWet > pDry
 	if (payoutAwet > payoutBwet) {
+		//optimalChoice1 contains payout of A from 0 to indifferentTurn
 		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
+		//optimalChoice2 contains payout of B from indifferentTurn to maxturn
 		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
 	}
 
