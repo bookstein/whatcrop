@@ -372,11 +372,14 @@ for (var i = 0; i <= maxturn; ++i) {
 function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
 			var result = [];
 
-			for (var i = 0; i <= min; i++) {
+			for (var i = 0; i < min; i++) {
 				result[i]=0;
 			};
 
-			for (var i = min+1; i <= max; i++) {
+			//for optimalChoice1, we don't want any zeroes.
+			//for optimalChoice2, we want indifferentTurn number of zeroes.
+
+			for (var i = min; i <= max; i++) {
 				result[i] = probDry[i] * payoutDry + probWet[i] * payoutWet;
 			};
 
@@ -388,16 +391,18 @@ function optimalScenario () {
 
 	// A is first optimal choice, starting condition is pWet > pDry
 	if (payoutAwet > payoutBwet) {
-		//optimalChoice1 contains payout of A from 0 to indifferentTurn
 		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
-		//optimalChoice2 contains payout of B from indifferentTurn to maxturn
+		console.log("OptimalChoice1 is " + optimalChoice1);
 		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
+		console.log("OptimalChoice2 is " + optimalChoice2);
 	}
 
 	// B is first optimal choice, starting condition is pWet > pDry
 	else if (payoutBwet > payoutAwet) {
 		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutBdry, payoutBwet);
+		console.log("Advantage to B, OptimalChoice1 is " + optimalChoice1);
 		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutAdry, payoutAwet);
+		console.log("OptimalChoice2 is " + optimalChoice2);
 	}
 
 };
@@ -406,14 +411,13 @@ function optimalScenario () {
 function calculateOptimalPlayPoints () {
 
 	optimalScenario();
-	optimalChoice();
 
 	var totalOptimalChoice1 = 0;
 	var totalOptimalChoice2 = 0;
 
 
 	function sumtotal1 () {
-		for (var i = 0; i == optimalChoice1.length; i++) {
+		for (var i = 0; i <= indifferentTurn; i++) {
 			totalOptimalChoice1 += optimalChoice1[i];
 		}
 		return totalOptimalChoice1;
