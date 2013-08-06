@@ -199,6 +199,22 @@
 			</div>
 		</div> <!-- end of dialogs div-->
 
+
+			<div class="dialog"> <!-- for dialog boxes, child of #choice_screen -->
+				<!-- div.dialog (space for dialog boxes to appear; placeholder only, write text in jQuery; use same class .dialog to style all dialog boxes in CSS) -->
+					<!-- dialog: game instructions -->
+					<div class="instructions hidden">
+						<h4>Thanks for playing WhatCrop!</h4>
+						<p>This game is part of a research project on agriculture and decision-making. By playing this game, you're helping advance the field of research on farmer decision-making.</p>
+						<p>To play, choose the crop you think will bring you the most money on the market -- either crop A or crop B. You don't know what the weather will be, but do your best to choose appropriately!</p>
+					</div>
+
+					<!-- dialog: Weather report -->
+					<!-- dialog: You made X coins -->
+					<!-- dialog: End of game + score + unique ID number -->
+
+			</div> <!-- end of .dialog (child) -->
+
 	</section> <!-- end of #choice_screen (parent) -->
 
 	<section id="score"> <!-- sibling of #choice_screen. Contains points counter, real dollars counter -->
@@ -218,7 +234,9 @@
 		</div> <!-- end of #points_bar -->
 
 			<div id="dollars"><!-- displays real dollars earned. Child of #points -->
+
 			<h4>Real Dollars Earned:</h4><h5><span id="dollars_counter">$0</span></h5>
+
 			</div><!-- end of #dollars -->
 
 	</section> <!-- end of #points -->
