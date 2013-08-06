@@ -39,6 +39,7 @@ $(document).ready(function(){
 
 	// Set number of turns per game
     maxturn = 50;
+    endOfGame = false;
 
 	// Set crop payouts
 	payoutAwet = 70;
@@ -47,20 +48,90 @@ $(document).ready(function(){
 	payoutBdry = 50;
 
 	// Set rain threshold
-	threshold = 600; //formerly "rainchance"
+	threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
 
-	// Set climate change by altering value inside function climateChange below
-	climateArray = [];
+	// Set bonus payments
+	bonusOneDollars = 1.25;
+	bonusTwoDollars = 075;
 
+	// Set climate change, either using "for loop" or manually; choose using autoFillClimateChange variable
 
 	function climateChange () {
-		for (var i =0; i < maxturn+1; i++) {
+
+		var autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
+										//If false, then manually enter the climate change values you wish to use below under "else".
+		climateArray = [];
+		manualClimateArray = [];
+
+		if (autoFillClimateChange == true) {
+
+			for (var i =0; i < maxturn+1; i++) {
 			climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change.
+			}
+			return climateArray; //assigns value of climateArray to function climateChange
 		}
-		return climateArray; //assigns value of climateArray to function climateChange
+
+		else {
+			manualClimateArray[0] = 5;
+			manualClimateArray[1] = 5;
+			manualClimateArray[2] = 5;
+			manualClimateArray[3] = 5;
+			manualClimateArray[4] = 5;
+			manualClimateArray[5] = 5;
+			manualClimateArray[6] = 5;
+			manualClimateArray[7] = 5;
+			manualClimateArray[8] = 5;
+			manualClimateArray[9] = 5;
+			manualClimateArray[10] = 5;
+			manualClimateArray[11] = 5;
+			manualClimateArray[12] = 7;
+			manualClimateArray[13] = 7;
+			manualClimateArray[14] = 7;
+			manualClimateArray[15] = 7;
+			manualClimateArray[16] = 7;
+			manualClimateArray[17] = 10;
+			manualClimateArray[18] = 10;
+			manualClimateArray[19] = 10;
+			manualClimateArray[20] = 10;
+			manualClimateArray[21] = 10;
+			manualClimateArray[22] = 10;
+			manualClimateArray[23] = 10;
+			manualClimateArray[24] = 5;
+			manualClimateArray[25] = 5;
+			manualClimateArray[26] = 5;
+			manualClimateArray[27] = 5;
+			manualClimateArray[28] = 5;
+			manualClimateArray[29] = 5;
+			manualClimateArray[30] = 5;
+			manualClimateArray[31] = 5;
+			manualClimateArray[32] = 5;
+			manualClimateArray[33] = 5;
+			manualClimateArray[34] = 5;
+			manualClimateArray[35] = 5;
+			manualClimateArray[36] = 5;
+			manualClimateArray[37] = 5;
+			manualClimateArray[38] = 5;
+			manualClimateArray[39] = 5;
+			manualClimateArray[40] = 5;
+			manualClimateArray[41] = 5;
+			manualClimateArray[42] = 5;
+			manualClimateArray[43] = 5;
+			manualClimateArray[44] = 5;
+			manualClimateArray[45] = 5;
+			manualClimateArray[46] = 5;
+			manualClimateArray[47] = 5;
+			manualClimateArray[48] = 5;
+			manualClimateArray[49] = 5;
+			manualClimateArray[50] = 5;
+
+			climateArray = manualClimateArray; //assigns value of manualClimateArray to climateArray.
+			return climateArray;
+			}
 	};
 
 	climateChange(); // Sets climateArray to new value
+
+
 
 
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
