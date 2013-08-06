@@ -276,7 +276,6 @@ calculateOptimalCrop(); //sets value of optimalCrops array
 
 maxScore = 0;
 
-<<<<<<< HEAD
 function calculateMaxScore () {
 		for (var i=0; i < maxturn; i++)
 
