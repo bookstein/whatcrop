@@ -370,9 +370,15 @@ for (var i = 0; i < maxturn; ++i) {
 
 function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
 			var result = [];
+
+			for (var i = 0; i < min; i++) {
+				result[i]=0;
+			};
+
 			for (var i = min; i < max; i++) {
 				result[i] = probDry[i] * payoutDry + probWet[i] * payoutWet;
-			}
+			};
+
 			return result;
 		};
 
