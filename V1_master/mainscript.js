@@ -39,7 +39,6 @@ $(document).ready(function(){
 
 	// Set number of turns per game
     maxturn = 50;
-    endOfGame = false;
 
 	// Set crop payouts
 	payoutAwet = 70;
@@ -294,6 +293,82 @@ function tellServerWhatsUp() {
 }
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+// Calculate Random Play bonus threshold ---------------------------------
+
+		// A. Calculate indifference point
+
+indifferencePoint = (payoutBwet - payoutAwet)/(payoutAdry - payoutAwet + payoutBwet - payoutBdry);
+pWet = [];
+
+function checkIndifferencePoint () {
+	if (indifferencePoint >=1 || indifferencePoint <=0) {
+		alert("The indifference point between A and B is " + indifferencePoint + "!");
+	}
+
+	console.log(indifferencePoint);
+};
+
+		// B. on which turn does the probability of dry weather = indifference point?
+
+function findTurnAtIndifferencePoint () { //calculates the turn at which the probability of wet weather equals the indiff point
+
+	for (var i = 0; i < maxturn + 1 ; i++) {
+			pWet[i] = thresholdArray[i]/1000;
+	}
+
+		console.log(pWet);
+
+	for (var i = 0; i < maxturn + 1; i++) {
+		if ((pWet[i] == indifferencePoint) || (pWet[i+1] > indifferencePoint && pWet[i-1] < indifferencePoint)) {
+			indifferentTurn = i;
+			return indifferentTurn;
+			break;
+		}
+	}
+
+	alert("There is no turn at which the probability of dry weather equals the indifference point!");
+};
+
+		// C. Calculate probability of dry weather for all turns.
+		//How many points would you make playing by random chance as of the indifferentTurn?
+
+pDry=[];
+
+function calculateProbabilityDry () { // Creates an array, pDry, that lists the probability of dry weather for all turns.
+	for (var i = 0; i < maxturn + 1; i++) {
+		pDry[i] = (1-pWet[i]);
+	}
+
+	return pDry;
+};
+
+totalRandomPoints = 0;
+
+//Run all previous functions
+checkIndifferencePoint();
+findTurnAtIndifferencePoint();
+calculateProbabilityDry();
+
+function calculateRandomPlayPoints () { //expected points earned by picking A or B randomly
+
+	randomPoints = [];
+	for (var i = 0; i < maxturn + 1; i++) {
+		randomPoints[i] = .5*pDry[i]*payoutAdry + .5*pWet[i]*payoutAwet +
+		 .5*pDry[i]*payoutBdry + .5*pWet[i]*payoutBwet;
+	}
+
+	for (var i = 0; i < maxturn + 1; i++) {
+		totalRandomPoints += randomPoints[i];
+	}
+
+	return totalRandomPoints;
+};
+
+calculateRandomPlayPoints();
+console.log("The first bonus will trigger at " + totalRandomPoints + " points");
+
+
 
 //var weather = Math.floor((Math.random()*1000)+1); //chooses random weather
 //var rweather = Math.floor((Math.random()*2)+1); //rweather chooses random # between 0 and 3
