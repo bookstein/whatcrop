@@ -376,7 +376,7 @@ function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
 				result[i]=0;
 			};
 
-			for (var i = min; i < max; i++) {
+			for (var i = min; i == max; i++) {
 				result[i] = probDry[i] * payoutDry + probWet[i] * payoutWet;
 			};
 
