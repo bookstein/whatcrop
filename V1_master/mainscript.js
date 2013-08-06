@@ -381,26 +381,23 @@ function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
 			};
 
 			return result; //exit point
-		};
+};
 
 
 function optimalScenario () {
 
-	if (payoutAwet > payoutBwet && turn <= indifferentTurn) {
+	// A is first optimal choice, pWet > pDry
+	if (payoutAwet > payoutBwet) {
 		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
-	}
-
-	else if (payoutAwet < payoutBwet && turn <= indifferentTurn) {
 		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
 	}
 
-	else if (payoutAdry > payoutBdry && turn >= indifferentTurn) {
+	// B is first optimal choice, pWet > pDry
+	else if (payoutBwet > payoutAwet) {
 		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutBdry, payoutBwet);
+		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
 	}
 
-	else if (payoutAdry < payoutBdry && turn >= indifferentTurn) {
-		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutAdry, payoutAwet);
-	}
 };
 
 		/*1. payout A is higher
@@ -428,6 +425,8 @@ function optimalScenario () {
 
 function calculateOptimalPlayPoints () {
 
+	optimalScenario();
+	optimalChoice();
 
 	var totalOptimalChoice1 = 0;
 	var totalOptimalChoice2 = 0;
