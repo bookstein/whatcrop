@@ -10,9 +10,6 @@
 
 $(document).ready(function(){
 
-
-
-
 //Welcome dialog pop-up "Introduction screen"
 
 	//this dialog should appear as soon as the whole DOM loads.
@@ -208,6 +205,22 @@ function calculateMaxScore () {
 
 calculateMaxScore();
 
+
+/* Contact the server and tell it what's up */
+function tellServerWhatsUp() {
+	$.ajax({
+			url: 'http://someserver.com/game',
+			type: 'POST',
+			async: false,
+			data: {
+				probablityOfRain: 0.7
+			}
+		}).done(function() {
+			// continue processing, set up game world
+		}).failure(function() {
+			// alert the user, bail out
+		});
+}
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
