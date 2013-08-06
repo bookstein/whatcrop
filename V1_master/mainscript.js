@@ -376,54 +376,22 @@ function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
 			return result;
 		};
 
-//When A is the first optimal choice -- connect if-statement to threshold and probability
-		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
-		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
-
-
-//When B is first optimal choice
-
-
 
 
 function firstOptimalChoiceA () {
 	optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
-	//optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
-
-	for (var i = 0; i <= indifferentTurn; i++) {
-		optimalChoice1[i] = pDry[i]*payoutAdry + pWet[i]*payoutAwet;  //choose A first
-	}
-	return optimalChoice1;
 };
 
-function secondOptimalChoiceB () { indifferentTurn < i < maxturn
-
-optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
-
-	console.log(indifferentTurn, maxturn)
-	for (var i = indifferentTurn; i < maxturn; i++) {
-	console.log(i);
-
-		optimalChoice2[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet;  //choose B second -- assuming that A and B switched!! Ask Fran
-	}
-	return optimalChoice2;
+function secondOptimalChoiceB () {
+	optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
 };
 
 function firstOptimalChoiceB() {
 	optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutBdry, payoutBwet);
-	for (var i = 0; i <= indifferentTurn; i++) {
-		optimalChoice1[i] = pDry[i]*payoutBdry + pWet[i]*payoutBwet; //choose B first
-	}
-	return optimalChoice1;
 };
 
 function secondOptimalChoiceA () {
 	optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutAdry, payoutAwet);
-
-	for (var i = 0; i > indifferentTurn && i < maxturn + 1; i++) {
-		optimalChoice2[i] = pDry[i]*payoutAdry + pWet[i]*payoutAwet;  //choose A second -- assuming that A and B switched!! Ask Fran
-	}
-	return optimalChoice2;
 };
 
 function calculateOptimalPlayPoints () {
