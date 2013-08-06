@@ -386,40 +386,19 @@ function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
 
 function optimalScenario () {
 
-	// A is first optimal choice, pWet > pDry
+	// A is first optimal choice, starting condition is pWet > pDry
 	if (payoutAwet > payoutBwet) {
 		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
 		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
 	}
 
-	// B is first optimal choice, pWet > pDry
+	// B is first optimal choice, starting condition is pWet > pDry
 	else if (payoutBwet > payoutAwet) {
 		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutBdry, payoutBwet);
-		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
+		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutAdry, payoutAwet);
 	}
 
 };
-
-		/*1. payout A is higher
-		2. the chance rain is higher
-
-		//optimal choice 1 is A
-
-		1. payout B is higher
-		2. chance of rain is higher
-
-		//optimal choice 1 is B
-
-		1. payout of A is higher
-		2. chance of rain is lower
-
-		//optimal choice 2 is B
-
-		1. payout of B is higher
-		2. chance of rain is lower
-
-		//optimal choice 2 is A*/
-
 
 
 
