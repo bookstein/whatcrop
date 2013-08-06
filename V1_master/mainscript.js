@@ -384,7 +384,7 @@ function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
 		};
 
 
-optimalScenario = function optimalScenario () {
+function optimalScenario () {
 
 	if (payoutAwet > payoutBwet && turn <= indifferentTurn) {
 		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
@@ -429,7 +429,8 @@ optimalScenario = function optimalScenario () {
 function calculateOptimalPlayPoints () {
 
 
-	totalOptimalChoice1 = 0;
+	var totalOptimalChoice1 = 0;
+	var totalOptimalChoice2 = 0;
 
 	function total1 () {
 		for (var i = 0; i <= indifferentTurn; i++) {
@@ -441,10 +442,8 @@ function calculateOptimalPlayPoints () {
 
 	total1();
 
-	totalOptimalChoice2 = 0;
-
 	function total2 () {
-		for (var i = 0; i > indifferentTurn, i < maxturn + 1; i++) {
+		for (var i = 0; i > indifferentTurn, i < maxturn; i++) {
 			totalOptimalChoice2 += optimalChoice2[i];
 		}
 		//return totalOptimalChoice2;
@@ -454,14 +453,14 @@ function calculateOptimalPlayPoints () {
 	total2();
 	//totalOptimalPoints is the sum of total optimal choice 1 + total optimal choice 2
 
-	totalOptimalPoints = totalOptimalChoice1 + totalOptimalChoice2;
+	var totalOptimalPoints = totalOptimalChoice1 + totalOptimalChoice2;
 	alert("total optimal points now calculated!!!!" + totalOptimalPoints);
 
 	return totalOptimalPoints;
+	console.log("The second bonus will trigger at " + totalOptimalPoints + " points");
 };
 
 calculateOptimalPlayPoints();
-console.log("The second bonus will trigger at " + totalOptimalPoints + " points");
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
