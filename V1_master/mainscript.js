@@ -927,6 +927,17 @@ $("#grow").on("click", function () {
 		setTimeout(updateGame, 400);
 	}
 
+		else if (($(this).hasClass("highlight")) && turns == maxturn) {
+		//summon end-of-game dialog instead of update
+		$("#sproutA").addClass("hidden");
+		$("#sproutB").addClass("hidden");
+		//call displayWeather function
+		displayWeather();
+		//callsback updateGame function 200ms after displayWeather
+		setTimeout(updateGame, 400);
+		setTimeout(endGame, 1000);
+	}
+
 });
 
 
