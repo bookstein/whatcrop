@@ -409,31 +409,31 @@ function calculateOptimalPlayPoints () {
 	var totalOptimalChoice1 = 0;
 	var totalOptimalChoice2 = 0;
 
-//try var totalOptimalChoice1 = function
-	var total1 = function sumtotal1 () {
+
+	function sumtotal1 () {
 		for (var i = 0; i == optimalChoice1.length; i++) {
 			totalOptimalChoice1 += optimalChoice1[i];
 		}
-		//return totalOptimalChoice1;
-
-		sumtotal1();
-		console.log("total optimal choice 1 calculated: " + totalOptimalChoice1);
+		return totalOptimalChoice1;
 	};
 
+	var total1 = sumtotal1();
+	console.log("total optimal choice 1 calculated: " + totalOptimalChoice1);
 
-	var total2 = function sumtotal2 () {
+	function sumtotal2 () {
 		for (var i = 0; i > indifferentTurn, i < maxturn; i++) {
 			totalOptimalChoice2 += optimalChoice2[i];
 		}
 
-		//return totalOptimalChoice2;
-		sumtotal2();
-		console.log("total optimal choice 2 calculated: " + totalOptimalChoice2);
+		return totalOptimalChoice2;
 	};
+
+	var total2 = sumtotal2();
+	console.log("total optimal choice 2 calculated: " + totalOptimalChoice2);
 
 	//totalOptimalPoints is the sum of total optimal choice 1 + total optimal choice 2
 
-	var totalOptimalPoints = totalOptimalChoice1 + totalOptimalChoice2;
+	var totalOptimalPoints = total1 + total2;
 	alert("total optimal points now calculated!!!! " + totalOptimalPoints);
 
 	return totalOptimalPoints;
