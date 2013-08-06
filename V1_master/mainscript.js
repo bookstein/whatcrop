@@ -64,7 +64,7 @@ $(document).ready(function(){
 
 		if (autoFillClimateChange == true) {
 
-			for (var i =0; i < maxturn+1; i++) {
+			for (var i =0; i < maxturn; i++) {
 			climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change.
 			}
 			return climateArray; //assigns value of climateArray to function climateChange
@@ -165,7 +165,7 @@ $("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points c
 weatherArray = [];
 
 function makeWeatherArray() {
-	for (var i = 0; i < maxturn+1; i++) {
+	for (var i = 0; i < maxturn; i++) {
 		weather = Math.floor((Math.random()*1000)+1);
 		weatherArray[i] = weather;
 	}
@@ -182,7 +182,7 @@ function makeThresholdArray () {
 
 	thresholdArray[0] = threshold; //sets first value equal to threshold
 
-	for (var i = 1; i < maxturn+1; i++)
+	for (var i = 1; i < maxturn; i++)
 	{
 		thresholdArray[i] = thresholdArray[0] - (climateArray[i]*i);
 	}
@@ -200,7 +200,7 @@ gameWeather = [];
 function makeGameWeather() //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
 {
 
-for (var i = 0; i < maxturn+1; i++) {
+for (var i = 0; i < maxturn; i++) {
 	if (weatherArray[i] < thresholdArray[i])
 		{
 			var perTurnWeather = "Wet";
@@ -238,7 +238,7 @@ makeGameWeather(); //sets value of gameWeather (array containing weather for len
 optimalCrops = []; //array of all optimal crops, by turn
 
 function calculateOptimalCrop () {
-	for (var i = 0; i < maxturn+1; i++) {
+	for (var i = 0; i < maxturn; i++) {
 
 		if (gameWeather[i] === "Wet" && payoutAwet > payoutBwet)
 		{
@@ -266,7 +266,7 @@ calculateOptimalCrop(); //sets value of optimalCrops array -------
 maxScore = 0;
 
 function calculateMaxScore () {
-		for (var i=0; i < optimalCrops.length; i++)
+		for (var i=0; i < maxturn; i++)
 		{
 		maxScore += optimalCrops[i]
 		} //maxScore = maxScore + optimalTurnCrop[i]
@@ -313,13 +313,13 @@ function checkIndifferencePoint () {
 
 function findTurnAtIndifferencePoint () { //calculates the turn at which the probability of wet weather equals the indiff point
 
-	for (var i = 0; i < maxturn + 1 ; i++) {
+	for (var i = 0; i < maxturn ; i++) {
 			pWet[i] = thresholdArray[i]/1000;
 	}
 
 		console.log(pWet);
 
-	for (var i = 0; i < maxturn + 1; i++) {
+	for (var i = 0; i < maxturn; i++) {
 		if ((pWet[i] == indifferencePoint) || (pWet[i+1] > indifferencePoint && pWet[i-1] < indifferencePoint)) {
 			indifferentTurn = i;
 			return indifferentTurn;
@@ -336,7 +336,7 @@ function findTurnAtIndifferencePoint () { //calculates the turn at which the pro
 pDry=[];
 
 function calculateProbabilityDry () { // Creates an array, pDry, that lists the probability of dry weather for all turns.
-	for (var i = 0; i < maxturn + 1; i++) {
+	for (var i = 0; i < maxturn; i++) {
 		pDry[i] = (1-pWet[i]);
 	}
 
@@ -353,12 +353,12 @@ calculateProbabilityDry();
 function calculateRandomPlayPoints () { //expected points earned by picking A or B randomly
 
 	randomPoints = [];
-	for (var i = 0; i < maxturn + 1; i++) {
+	for (var i = 0; i < maxturn; i++) {
 		randomPoints[i] = .5*pDry[i]*payoutAdry + .5*pWet[i]*payoutAwet +
 		 .5*pDry[i]*payoutBdry + .5*pWet[i]*payoutBwet;
 	}
 
-	for (var i = 0; i < maxturn + 1; i++) {
+	for (var i = 0; i < maxturn; i++) {
 		totalRandomPoints += randomPoints[i];
 	}
 
