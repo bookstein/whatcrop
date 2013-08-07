@@ -809,18 +809,22 @@ function displayResultsDialog () {
 function setParameters () { //set parameters for updateGame -- payout
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
 		updateGame(payoutAdry);
+		setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
 	}
 
 	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
 		updateGame(payoutAwet);
+		setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
 	}
 
 	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
 		updateGame(payoutBdry);
+		setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
 	}
 
 	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
 		updateGame(payoutBwet);
+		setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
 	}
 
 	else {
@@ -829,6 +833,8 @@ function setParameters () { //set parameters for updateGame -- payout
 };
 
 function updateGame(payout) { //why put function (addDollars) as param?
+
+	cropchoice = ""; // resets value of cropchoice to ""
 	var oldscore = score;
 	var newscore = oldscore + payout;
 
@@ -891,139 +897,7 @@ function updateGame(payout) { //why put function (addDollars) as param?
 	};
 
 
-
-
-
-	if (cropchoice == "cropA" && gameWeather[turn] == "Dry")  //if user chooses crop A *and* weather is dry
-	{
-		score += payoutAdry; //sets score = score + payoutAdry
-		newScore();
-		movePointsFlag();
-		movePointsFill();
-		plantstatus = "dead";
-		cropChosen = "cropA"; //records the crop that was chosen for this turn
-		cropchoice = ""; // resets value of cropchoice to ""
-		setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
-	}
-				//>>>> Data collection<<<
-
-		//playerchoices[turn] = {Turn: turn, Seed: "cropA", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
-		//playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
-		//playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
-		//ajaxFunction(playerchoices[turn].string);
-
-				//>>>> Add in later <<<<
-		//lastcloud = "Dry";
-		//updatedaybar();
-		//timerbar = wait;
-		//wmessage = sunmessage;
-		//cmessage = aplantdrymessage;
-		//sunsound.currenttime=0;
-		//sunsound.play();
-		//keeptime = 0;
-
-
-	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet")
-	{
-		score += payoutAwet; //sets score = score + payoutAwet
-		newScore();
-		movePointsFlag();
-		movePointsFill();
-		plantstatus = "healthy";
-		cropChosen = "cropA";
-		cropchoice = "";
-		setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
-	}
-
-		//>>>> Data collection<<<
-
-		//playerchoices[turn] = {Turn: turn, Seed: "cropA", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
-		//playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
-		//playerchoices[turn].string = "Turn;" + turn + ":Seed;A:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
-		//ajaxFunction(playerchoices[turn].string);
-
-
-		//>>>> Add in later <<<<
-
-		//keeptime = 0;
-		//lastcloud = "Wet";
-		//updatedaybar();
-		//timerbar = wait;
-		//wmessage = rainmessage;
-		//cmessage = aplantwetmessage;
-		//rainsound.currenttime=0;
-		//rainsound.play();
-		//keeptime = 0;
-
-
-	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet")
-	{
-		score += payoutBwet; //sets score = score + payoutBwet
-		newScore();
-		movePointsFlag();
-		movePointsFill();
-		plantstatus = "healthy";
-		cropChosen = "cropB";
-		cropchoice = "";
-		setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
-	}
-
-			//>>>> Data collection<<<
-		//playerchoices[turn] = {Turn: turn, Seed: "cropB", Weather: "Wet", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
-		//playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
-		//playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Wet:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
-		//ajaxFunction(playerchoices[turn].string);
-
-			//>>>> Add in later <<<<
-		//keeptime = 0;
-		//lastcloud = "Wet";
-		//updatedaybar();
-		//timerbar = wait;
-		//wmessage = rainmessage;
-		//cmessage = bplantwetmessage;
-		//rainsound.currenttime=0;
-		//rainsound.play();
-		//keeptime = 0;
-
-
-	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry")
-	{
-
-		score += payoutBdry; //sets score = score + payoutBdry
-		newScore();
-		movePointsFlag();
-		movePointsFill();
-		plantstatus = "dead";
-		cropChosen = "cropB";
-		cropchoice = "";
-		setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
-	}
-
-			//>>>> Data collection<<<
-
-		//playerchoices[turn] = {Turn: turn, Seed: "cropB", Weather: "Dry", Time: (keeptime-wait)/60, Score: score, GameID: gameID};
-		//playerchoices[turn].Time = Math.round(playerchoices[turn].Time*10)/10;
-		//playerchoices[turn].string = "Turn;" + turn + ":Seed;B:Weather;Dry:Time;" + playerchoices[turn].Time+";Score:" + score + ";PlayerID:" + gameID;
-		//ajaxFunction(playerchoices[turn].string);
-
-			//>>>> Add in later <<<<
-		//lastcloud = "Dry";
-		//updatedaybar();
-		//timerbar = wait;
-		//wmessage = sunmessage;
-		//cmessage = bplantdrymessage;
-
-
-		////>>>> Add in later <<<<
-		//keeptime +=1;
-		//if (timerbar > -1) timerbar--;
-		//if (turn > maxturn) GameOver=true;
-		//sunsound.currenttime=0;
-		//sunsound.play();
-		//keeptime = 0;
-
-	addDollars();
-}; //end of updateGame function
+};
 
 
 function endGame () {
