@@ -657,47 +657,7 @@ $("#cropB").on("click", userClickedB);
 //};
 
 //Call this function to display weather results graphically
-function displayWeather () {
 
-	//remove seedpackets and buttons using class .hidden
-	disableGrowButton();
-	$(".plant, .plant_img, #grow").addClass("hidden"); //removed .fadeOut(function{})
-	//$("#grow").removeClass("highlight");
-
-	//reveal dry outcome with Crop A
-	if(cropchoice === "cropA" && gameWeather[turn] === "Dry")
-	{
-		displaySun();
-		//crop graphics
-		$("#deadA").removeClass("hidden");
-	}
-
-	//reveal dry outcome with Crop B
-	else if(cropchoice === "cropB" && gameWeather[turn] === "Dry")
-	{
-		displaySun();
-		//crop graphics
-		$("#deadB").removeClass("hidden");
-	}
-
-	//reveal wet outcome with Crop A
-	else if(cropchoice === "cropA" && gameWeather[turn] === "Wet")
-	{
-		displayRain();
-		//crop graphics
-		$("#rowsCropA").removeClass("hidden");
-	}
-
-	//reveal wet outcome with Crop B
-	else if(cropchoice ==="cropB" && gameWeather[turn] === "Wet")
-	{
-		displayRain();
-		//crop graphics
-		$("#rowsCropB").removeClass("hidden");
-	}
-
-	displayResultsDialog();
-};
 
 //This function displays one of 3 results in a dialog box
 
@@ -814,7 +774,7 @@ function setParameters () { //set parameters for updateGame -- payout
 	}
 };
 
-function updateGame(payout, weatherResults) {
+function updateGame(payout, weatherResults) { //how to make weatherResults work this way?
 
 	cropchoice = ""; // resets value of cropchoice to ""
 	var oldscore = score;
@@ -835,17 +795,67 @@ function updateGame(payout, weatherResults) {
 	//Current CSS height of #points_fill with "height" as an integer
 	var fillHeight = parseInt($("#points_fill").css("height"));
 
-	function weatherResults(weather) {
-		function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
+//run weatherResults as weatherResults(something, objectX)
+
+
+	function weatherResults(crop, weather) {
+
+		if (weather === "Dry") {
+			function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
 			$("#sun").addClass("displayWeather").removeClass("hidden");
 				//alert("This is sun and game weather is "+ gameWeather[turn]);
 			setTimeout(fadeWeather, 4000);
-		};
+			};
+		}
 
-		function displayRain () {
-			$("#rain").addClass("displayWeather").removeClass("hidden");
-			//alert("This is rain and game weather is " + gameWeather[turn]);
-			setTimeout(fadeWeather, 4000);
+		else if (weather === "Wet") {
+			function displayRain () {
+				$("#rain").addClass("displayWeather").removeClass("hidden");
+				//alert("This is rain and game weather is " + gameWeather[turn]);
+				setTimeout(fadeWeather, 4000);
+			};
+		}
+
+		function displayWeather () {
+
+			//remove seedpackets and buttons using class .hidden
+			disableGrowButton();
+			$(".plant, .plant_img, #grow").addClass("hidden"); //removed .fadeOut(function{})
+			//$("#grow").removeClass("highlight");
+
+			//reveal dry outcome with Crop A
+			if(cropchoice === "cropA" && gameWeather[turn] === "Dry")
+			{
+				displaySun();
+				//crop graphics
+				$("#deadA").removeClass("hidden");
+			}
+
+			//reveal dry outcome with Crop B
+			else if(cropchoice === "cropB" && gameWeather[turn] === "Dry")
+			{
+				displaySun();
+				//crop graphics
+				$("#deadB").removeClass("hidden");
+			}
+
+			//reveal wet outcome with Crop A
+			else if(cropchoice === "cropA" && gameWeather[turn] === "Wet")
+			{
+				displayRain();
+				//crop graphics
+				$("#rowsCropA").removeClass("hidden");
+			}
+
+			//reveal wet outcome with Crop B
+			else if(cropchoice ==="cropB" && gameWeather[turn] === "Wet")
+			{
+				displayRain();
+				//crop graphics
+				$("#rowsCropB").removeClass("hidden");
+			}
+
+			displayResultsDialog();
 		};
 
 		function fadeWeather () {
