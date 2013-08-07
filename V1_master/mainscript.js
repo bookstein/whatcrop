@@ -798,13 +798,13 @@ function updateGame(payout, weatherResults) { //how to make weatherResults work 
 //run weatherResults as weatherResults(something, objectX)
 
 
-	function weatherResults(crop, weather) {
+	function weatherResults(crop, weather) { //now try creating objects
 
 		if (weather === "Dry") {
 			function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
-			$("#sun").addClass("displayWeather").removeClass("hidden");
+				$("#sun").addClass("displayWeather").removeClass("hidden");
 				//alert("This is sun and game weather is "+ gameWeather[turn]);
-			setTimeout(fadeWeather, 4000);
+
 			};
 		}
 
@@ -812,11 +812,13 @@ function updateGame(payout, weatherResults) { //how to make weatherResults work 
 			function displayRain () {
 				$("#rain").addClass("displayWeather").removeClass("hidden");
 				//alert("This is rain and game weather is " + gameWeather[turn]);
-				setTimeout(fadeWeather, 4000);
+
 			};
 		}
 
 		function displayWeather () {
+
+			setTimeout(fadeWeather, 4000);
 
 			//remove seedpackets and buttons using class .hidden
 			disableGrowButton();
