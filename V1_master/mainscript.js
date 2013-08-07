@@ -747,14 +747,15 @@ function displayResultsDialog () {
 
 var arguments = setParameters(); //stores "args" object from setParameters, makes it global var
 
-function setParameters () { //set parameters for updateGame
+function setArguments () { //determine arguments to be passed into updateGame
+
 	var args = {}; //creates empty object for arguments
 
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
 		args.crop = "A";
 		args.state = "dead";
 		args.weather = "sunny";
-		updateGame(payoutAdry);
+		updateGame(payoutAdry, args.weather);
 		//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
 	}
 
@@ -762,7 +763,7 @@ function setParameters () { //set parameters for updateGame
 		args.crop = "A";
 		args.state = "healthy";
 		args.weather =  "rainy";
-		updateGame(payoutAwet);
+		updateGame(payoutAwet, args.weather);
 		//setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
 	}
 
@@ -770,7 +771,7 @@ function setParameters () { //set parameters for updateGame
 		args.crop = "B";
 		args.state = "dead";
 		args.weather = "sunny";
-		updateGame(payoutBdry);
+		updateGame(payoutBdry, args.weather);
 		//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
 	}
 
@@ -778,7 +779,7 @@ function setParameters () { //set parameters for updateGame
 		args.crop = "B";
 		args.state = "healthy";
 		args.weather = "rainy";
-		updateGame(payoutBwet);
+		updateGame(payoutBwet, args.weather);
 		//setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
 	}
 
