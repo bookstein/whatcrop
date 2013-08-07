@@ -10,28 +10,6 @@
 
 $(document).ready(function(){
 
-//Welcome dialog pop-up "Introduction screen"
-
-	//this dialog should appear as soon as the whole DOM loads.
-
-//setTimeout (function() {
-//	$(".dialog .instructions").addClass("hidden");
-//	}, 5000);
-
-// Game instructions - toggle #instructions with nav button "Game instructions"
-//$('nav a').click(function(event){
-  //event.preventDefault;
-  //$(this).closest("header").find("#instructions").toggle();
-
-//  });
-
-//To hide #instructions
-//$('#instructions a').click(function(event) {
-  //event.preventDefault;
- // $(this).closest("header").find("#instructions").toggle();
-
-  //});
-
 
 //>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
@@ -228,18 +206,6 @@ for (var i = 0; i < maxturn; i++) {
 };
 
 makeGameWeather(); //sets value of gameWeather (array containing weather for length of game)
-
-// Assign turnWeather (weather per turn) -------
-
-//turnWeather = "";
-
-//function assignTurnWeather() {
-//	turnWeather = gameWeather[turn];
-//	alert("Value of turnWeather is now " + gameWeather[turn]);
-//	return turnWeather;
-//};
-
-//assignTurnWeather(); //sets value of turnWeather for the first turn (and each turn thereafter as part of updateGame)
 
 
 //Calculate Max Score --------------------------------------
@@ -459,32 +425,6 @@ function tellServerWhatsUp() {
 		});
 }
 
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-
-//var weather = Math.floor((Math.random()*1000)+1); //chooses random weather
-//var rweather = Math.floor((Math.random()*2)+1); //rweather chooses random # between 0 and 3
-//var clouds = ""; //"Empty" global variable called "clouds"
-//var lastcloud = "Dry"; //What is lastcloud??
-//var water = false;
-//var plantstatus = "";
-
-
-//var timerbar = -1;
-
-//ADJUST THIS VARIABLE TO DETEMINE PAUSE BETWEEN TURNS. PAUSE = X/60 SO FOR 2 SECONDS PUT IN 120
-//var wait = 120;
-//var keeptime = wait;
-
-//var daybarx = 800;
-//var daybary = 450;
-//var daybarwidth = 10;
-//var daybarheight = 0;
-
-//var daybarmax = 250;
-//var daybarrate = daybarmax / maxturn;
-//var bordery = daybary - daybarrate*maxturn;
 
 // >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
 
@@ -575,15 +515,7 @@ $("#bonus_two_instructions").text("totalOptimalPoints");
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
-//Choice time (From dialog "Okay" to click "Grow")
-/*var start = null;
-            $(window).load(function(event) {
-                start = event.timeStamp;
-            });
-            $(window).unload(function(event) {
-                var time = event.timeStamp - start;
-                $.post('/collect-user-time/ajax-backend.php', {time: time});
-*/
+
 
 function enableGrowButton () {
 	$("#grow")
@@ -627,38 +559,6 @@ $("#cropB").on("click", userClickedB);
 
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
 
-//"Weather realization screen": weather results are displayed.
-	//create two functions: displayRain and displaySun.
-	//Use these also on the dialog boxes prompted by weather outcome.
-
-//TEST -- removing fadeIn and fadeOut
-
-
-
-//displays "Dry" weather
-//function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
-//	$("#sun").fadeIn(1000, function(){
-//		$(this).addClass("displayWeather");
-//		$(this).removeClass("hidden");
-//		alert("This is sun and game weather is "+ turnWeather);
-//		fadeWeather();
-//	});
-
-//};
-
-//displays "Wet" weather
-//function displayRain () {
-//	$("#rain").fadeIn(1000, function(){
-//		$(this).addClass("displayWeather");
-//		$(this).removeClass("hidden");
-//		alert("This is rain and game weather is " + turnWeather);
-//		fadeWeather();
-//	});
-//};
-
-//Call this function to display weather results graphically
-
-
 //This function displays one of 3 results in a dialog box
 
 function displayResultsDialog () {
@@ -674,42 +574,8 @@ function displayResultsDialog () {
         width: 'auto'
     });
 
-	/*$("#bonus_results").dialog({
-		autoOpen: false,
-		modal: false,
-		closeOnEscape: false,
-        resizable: false,
-        position: 'center',
 
-        height: 'auto',
-        width: 'auto',
-	});
-
-	$("#end_results").dialog({
-		autoOpen: false,
-		modal: false,
-		closeOnEscape: false,
-        resizable: false,
-        position: 'center',
-
-        height: 'auto',
-        width: 'auto',
-	});
-
-	$( "#normal_results" ).dialog({
-		autoOpen: false,
-		modal: false,
-		closeOnEscape: false,
-        resizable: false,
-        position: 'center',
-
-        height: 'auto',
-        width: 'auto',
-	});
-*/
-
-
-	if (score === "totalRandomPoints" || score === "optimalplaypoints") {
+	if (score === totalRandomPoints || score === totalOptimalPoints) { //this doesn't work yet
 		$("#bonus_results").dialog("open");
 	}
 
@@ -724,26 +590,8 @@ function displayResultsDialog () {
 };
 
 
-//Fades out weather images and restores "choice screen" after setTimeout-specified period
-//function fadeWeather () {
-//	setTimeout(function() {   //setTimeout calls function after a certain time; currently 3000 ms
-//	   	$("#sun, #rain").fadeOut(function(){
-//	   		$(this).removeClass("displayWeather").addClass("hidden");
-//	   		});
-//	   	$(".plant").removeClass("select");
-//	   	$("#grow").removeClass("highlight");
-//	   	$(".plant, .plant_img, #grow").fadeIn(function(){
-//			$(this).removeClass("hidden");
-//			});
-//		setTimeout(addTurn, 400); //Waits 400 ms after callback function to execute because fadeIn is done after 400ms
-//	}, 3000); //time in milliseconds (1000 ms = 1 s)
-
-//};
-
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
-
-//run weatherResults as weatherResults(something, objectX)
 
 function weatherResults () { //determine arguments to be passed into updateGame
 
@@ -760,7 +608,6 @@ function weatherResults () { //determine arguments to be passed into updateGame
 	function displayRain () {
 		$("#rain").addClass("displayWeather").removeClass("hidden");
 		//alert("This is rain and game weather is " + gameWeather[turn]);
-
 	};
 
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
@@ -813,8 +660,7 @@ function weatherResults () { //determine arguments to be passed into updateGame
 
 //Game updates given cropchoice and game weather for this turn
 
-//updateGame is a ** template **. Values (arguments) will be filled in by later function
-function updateGame(payout) { //how to make weatherResults work as a parameter?
+function updateGame(payout) { //this function is called inside weatherResults function
 
 	alert("Running updateGame now using arguments " + arguments)
 	cropchoice = ""; // resets value of cropchoice to ""
@@ -901,22 +747,7 @@ function endGame () {
 	//inclusive of last turn (50)
 };
 
-
-//Grow button calls displayWeather() ONLY if a crop has been chosen (if "input" has the "highlight" class)
-
-/*$("#grow").on("click", function () {
-	if ($(this).hasClass("highlight")) {
-
-		// hide crop sprout graphics
-		$("#sproutA").addClass("hidden");
-		$("#sproutB").addClass("hidden");
-		//call displayWeather function
-		displayWeather();
-		//callsback updateGame function 200ms after displayWeather
-		setTimeout(updateGame, 400);
-	}
-
-});*/
+//>>>>>>>>>>>>>>>>>>>>> Clicking #grow button triggers updateGame <<<<<<<<<<<<<
 
 $("#grow").on("click", function () {
 	if (($(this).hasClass("highlight"))&& turn<maxturn) {
