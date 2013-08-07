@@ -632,25 +632,7 @@ $("#cropB").on("click", userClickedB);
 	//Use these also on the dialog boxes prompted by weather outcome.
 
 //TEST -- removing fadeIn and fadeOut
-function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
-	$("#sun").addClass("displayWeather").removeClass("hidden");
-		//alert("This is sun and game weather is "+ gameWeather[turn]);
-		setTimeout(fadeWeather, 4000);
-};
 
-function displayRain () {
-	$("#rain").addClass("displayWeather").removeClass("hidden");
-		//alert("This is rain and game weather is " + gameWeather[turn]);
-		setTimeout(fadeWeather, 4000);
-};
-
-function fadeWeather () {
-		//setTimeout calls function after a certain time; currently 3000 ms
-	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
-	   	$(".plant").removeClass("select");
-	   	$(".plant, .plant_img, #grow").removeClass("hidden");
-	   	setTimeout(addTurn, 200);
-	};
 
 
 //displays "Dry" weather
@@ -832,7 +814,7 @@ function setParameters () { //set parameters for updateGame -- payout
 	}
 };
 
-function updateGame(payout) { //why put function (addDollars) as param?
+function updateGame(payout, weatherResults) {
 
 	cropchoice = ""; // resets value of cropchoice to ""
 	var oldscore = score;
@@ -853,6 +835,27 @@ function updateGame(payout) { //why put function (addDollars) as param?
 	//Current CSS height of #points_fill with "height" as an integer
 	var fillHeight = parseInt($("#points_fill").css("height"));
 
+	function weatherResults(weather) {
+		function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
+			$("#sun").addClass("displayWeather").removeClass("hidden");
+				//alert("This is sun and game weather is "+ gameWeather[turn]);
+			setTimeout(fadeWeather, 4000);
+		};
+
+		function displayRain () {
+			$("#rain").addClass("displayWeather").removeClass("hidden");
+			//alert("This is rain and game weather is " + gameWeather[turn]);
+			setTimeout(fadeWeather, 4000);
+		};
+
+		function fadeWeather () {
+			//setTimeout calls function after a certain time; currently 3000 ms
+		   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
+		   	$(".plant").removeClass("select");
+		   	$(".plant, .plant_img, #grow").removeClass("hidden");
+		   	setTimeout(addTurn, 200);
+		};
+	};
 
 	function addTurn () {
 		turn = turn + 1;
@@ -886,7 +889,7 @@ function updateGame(payout) { //why put function (addDollars) as param?
 			//add bonusOne, give special message
 		}
 
-		if else (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
+		else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
 			//add bonusTwo, give special message
 		}
 
@@ -896,7 +899,8 @@ function updateGame(payout) { //why put function (addDollars) as param?
 		}
 	};
 
-
+	score += payout;
+	return score; //this updates the value of the global variable "score"
 };
 
 
