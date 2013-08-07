@@ -808,27 +808,27 @@ function displayResultsDialog () {
 
 function setParameters () { //set parameters for updateGame -- payout
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
-
+		updateGame(payoutAdry);
 	}
 
 	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
-
+		updateGame(payoutAwet);
 	}
 
 	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
-
+		updateGame(payoutBdry);
 	}
 
 	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
-
+		updateGame(payoutBwet);
 	}
 
 	else {
-
+		alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
 	}
-}
+};
 
-function updateGame(payout, score, addDollars) { //why put function (addDollars) as param?
+function updateGame(payout) { //why put function (addDollars) as param?
 	var oldscore = score;
 	var newscore = oldscore + payout;
 
