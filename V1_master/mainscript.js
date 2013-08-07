@@ -749,23 +749,45 @@ function displayResultsDialog () {
 //Game updates given cropchoice and game weather for this turn
 
 function setParameters () { //set parameters for updateGame -- payout
+	var args = {};
+
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
-		updateGame(payoutAdry);
+		args = {
+			crop: "A",
+			status: "dead",
+			weather: "sunny"
+		};
+		updateGame(payoutAdry, args);
 		setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
 	}
 
 	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
-		updateGame(payoutAwet);
+		args = {
+			crop: "A",
+			status: "healthy",
+			weather: "rainy"
+		};
+		updateGame(payoutAwet, args);
 		setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
 	}
 
 	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
-		updateGame(payoutBdry);
+		args = {
+			crop: "B",
+			status: "dead",
+			weather: "sunny"
+		};
+		updateGame(payoutBdry, args);
 		setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
 	}
 
 	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
-		updateGame(payoutBwet);
+		args = {
+			crop: "B",
+			status: "healthy",
+			weather: "rainy"
+		};
+		updateGame(payoutBwet, args);
 		setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
 	}
 
@@ -774,11 +796,12 @@ function setParameters () { //set parameters for updateGame -- payout
 	}
 };
 
-function updateGame(payout, weatherResults) { //how to make weatherResults work this way?
+function updateGame(payout, argumentsObj) { //how to make weatherResults work this way?
 
 	cropchoice = ""; // resets value of cropchoice to ""
 	var oldscore = score;
 	var newscore = oldscore + payout;
+	var turnweather = weather;
 
 	//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
 	var pixelHeight = parseInt($("#points_bar").css("height"));
@@ -798,17 +821,18 @@ function updateGame(payout, weatherResults) { //how to make weatherResults work 
 //run weatherResults as weatherResults(something, objectX)
 
 
-	function weatherResults(crop, weather) { //now try creating objects
 
-		if (weather === "Dry") {
+
+	function weatherResults() {
+
+		if (turnweather === "Dry") {
 			function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
 				$("#sun").addClass("displayWeather").removeClass("hidden");
 				//alert("This is sun and game weather is "+ gameWeather[turn]);
-
 			};
 		}
 
-		else if (weather === "Wet") {
+		else if (turnweather === "Wet") {
 			function displayRain () {
 				$("#rain").addClass("displayWeather").removeClass("hidden");
 				//alert("This is rain and game weather is " + gameWeather[turn]);
