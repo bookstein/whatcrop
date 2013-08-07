@@ -745,8 +745,6 @@ function displayResultsDialog () {
 
 //run weatherResults as weatherResults(something, objectX)
 
-var arguments = setParameters(); //stores "args" object from setParameters, makes it global var
-
 function weatherResults () { //determine arguments to be passed into updateGame
 
 	disableGrowButton();
@@ -928,7 +926,7 @@ $("#grow").on("click", function () {
 		//call displayWeather function
 		//displayWeather();
 		//callsback updateGame function 200ms after displayWeather
-		setTimeout(setParameters, 400);
+		setTimeout(weatherResults, 400);
 	}
 
 		else if (($(this).hasClass("highlight")) && turns == maxturn) {
@@ -939,7 +937,7 @@ $("#grow").on("click", function () {
 		//call displayWeather function
 		//displayWeather();
 		//callsback updateGame function 200ms after displayWeather
-		setTimeout(setParameters, 400);
+		setTimeout(weatherResults, 400);
 		setTimeout(endGame, 1000);
 	}
 
