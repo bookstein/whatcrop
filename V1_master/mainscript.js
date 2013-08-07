@@ -745,6 +745,8 @@ function displayResultsDialog () {
 
 //run weatherResults as weatherResults(something, objectX)
 
+var arguments = setParameters(); //stores "args" object from setParameters, makes it global var
+
 function setParameters () { //set parameters for updateGame
 	var args = {}; //creates empty object for arguments
 
@@ -752,7 +754,7 @@ function setParameters () { //set parameters for updateGame
 		args.crop = "A";
 		args.state = "dead";
 		args.weather = "sunny";
-		//updateGame(payoutAdry, args);
+		updateGame(payoutAdry);
 		//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
 	}
 
@@ -760,8 +762,7 @@ function setParameters () { //set parameters for updateGame
 		args.crop = "A";
 		args.state = "healthy";
 		args.weather =  "rainy";
-
-		//updateGame(payoutAwet, args);
+		updateGame(payoutAwet);
 		//setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
 	}
 
@@ -769,8 +770,7 @@ function setParameters () { //set parameters for updateGame
 		args.crop = "B";
 		args.state = "dead";
 		args.weather = "sunny";
-
-		//updateGame(payoutBdry, args);
+		updateGame(payoutBdry);
 		//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
 	}
 
@@ -778,7 +778,7 @@ function setParameters () { //set parameters for updateGame
 		args.crop = "B";
 		args.state = "healthy";
 		args.weather = "rainy";
-		//updateGame(payoutBwet, args);
+		updateGame(payoutBwet);
 		//setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
 	}
 
@@ -789,12 +789,12 @@ function setParameters () { //set parameters for updateGame
 	return args;
 };
 
-var arguments = setParameters(); //stores "args" object from setParameters, makes it global var
-
 //Game updates given cropchoice and game weather for this turn
 
-function updateGame(payout, argumentsObj) { //how to make weatherResults work this way?
+//updateGame is a ** template **. Values (arguments) will be filled in by later function
+function updateGame(payout, weather) { //how to make weatherResults work as a parameter?
 
+	alert("Running updateGame now using arguments " + arguments)
 	cropchoice = ""; // resets value of cropchoice to ""
 	var oldscore = score;
 	var newscore = oldscore + payout;
@@ -817,14 +817,14 @@ function updateGame(payout, argumentsObj) { //how to make weatherResults work th
 
 	function weatherResults() {
 
-		if (args.weather === "sunny") {
+		if (arguments.weather === "sunny") {
 			function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
 				$("#sun").addClass("displayWeather").removeClass("hidden");
 				//alert("This is sun and game weather is "+ gameWeather[turn]);
 			};
 		}
 
-		else if (args.weather === "rainy") {
+		else if (arguments.weather === "rainy") {
 			function displayRain () {
 				$("#rain").addClass("displayWeather").removeClass("hidden");
 				//alert("This is rain and game weather is " + gameWeather[turn]);
