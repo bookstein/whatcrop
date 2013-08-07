@@ -778,8 +778,8 @@ function updateGame(payout, argumentsObj) { //how to make weatherResults work th
 			args.crop = "A";
 			args.state = "dead";
 			args.weather = "sunny";
-			updateGame(payoutAdry, args);
-			setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
+			//updateGame(payoutAdry, args);
+			//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
 		}
 
 		else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
@@ -788,36 +788,36 @@ function updateGame(payout, argumentsObj) { //how to make weatherResults work th
 				status: "healthy",
 				weather: "rainy"
 			};
-			updateGame(payoutAwet, args);
-			setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
+			//updateGame(payoutAwet, args);
+			//setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
+		}
+
+		else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
+			args = {
+				crop: "B",
+				status: "dead",
+				weather: "sunny"
+			};
+			//updateGame(payoutBdry, args);
+			//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
+		}
+
+		else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
+			args = {
+				crop: "B",
+				status: "healthy",
+				weather: "rainy"
+			};
+			//updateGame(payoutBwet, args);
+			//setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
+		}
+
+		else {
+			alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
+		}
+
+		return args;
 	};
-
-	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
-		args = {
-			crop: "B",
-			status: "dead",
-			weather: "sunny"
-		};
-		updateGame(payoutBdry, args);
-		setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
-	}
-
-	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
-		args = {
-			crop: "B",
-			status: "healthy",
-			weather: "rainy"
-		};
-		updateGame(payoutBwet, args);
-		setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
-	}
-
-	else {
-		alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
-	}
-
-	return args;
-};
 
 var arguments = setParameters(); //gets "args" object from setParameters, makes it global var
 //unnecessary?
