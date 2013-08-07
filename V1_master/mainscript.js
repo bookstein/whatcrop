@@ -745,50 +745,51 @@ function displayResultsDialog () {
 
 //run weatherResults as weatherResults(something, objectX)
 
-	function setParameters () { //set parameters for updateGame
-		var args = {}; //creates empty object for arguments
+function setParameters () { //set parameters for updateGame
+	var args = {}; //creates empty object for arguments
 
-		if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
-			args.crop = "A";
-			args.state = "dead";
-			args.weather = "sunny";
-			//updateGame(payoutAdry, args);
-			//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
-		}
+	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
+		args.crop = "A";
+		args.state = "dead";
+		args.weather = "sunny";
+		//updateGame(payoutAdry, args);
+		//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
+	}
 
-		else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
-			args.crop = "A";
-			args.state = "healthy";
-			args.weather =  "rainy";
+	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
+		args.crop = "A";
+		args.state = "healthy";
+		args.weather =  "rainy";
 
-			//updateGame(payoutAwet, args);
-			//setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
-		}
+		//updateGame(payoutAwet, args);
+		//setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
+	}
 
-		else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
-			args.crop = "B";
-			args.state = "dead";
-			args.weather = "sunny";
+	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
+		args.crop = "B";
+		args.state = "dead";
+		args.weather = "sunny";
 
-			//updateGame(payoutBdry, args);
-			//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
-		}
+		//updateGame(payoutBdry, args);
+		//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
+	}
 
-		else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
-			args.crop = "B";
-			args.state = "healthy";
-			args.weather = "rainy";
-			//updateGame(payoutBwet, args);
-			//setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
-		}
+	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
+		args.crop = "B";
+		args.state = "healthy";
+		args.weather = "rainy";
+		//updateGame(payoutBwet, args);
+		//setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
+	}
 
-		else {
-			alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
-		}
+	else {
+		alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
+	}
 
-		return args;
-	};
+	return args;
+};
 
+var arguments = setParameters(); //stores "args" object from setParameters, makes it global var
 
 //Game updates given cropchoice and game weather for this turn
 
@@ -813,8 +814,6 @@ function updateGame(payout, argumentsObj) { //how to make weatherResults work th
 	//Current CSS height of #points_fill with "height" as an integer
 	var fillHeight = parseInt($("#points_fill").css("height"));
 
-var arguments = setParameters(); //gets "args" object from setParameters, makes it global var
-//unnecessary?
 
 	function weatherResults() {
 
