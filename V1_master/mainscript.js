@@ -852,11 +852,12 @@ function addDollars () {
 		$("#dollars_counter").html("$"+realDollars);
 	}
 
-	/*else if (score == totalOptimalPoints) {
+	else if (score == totalOptimalPoints) {
 		realDollars += bonusTwoDollars;
 		$("#dollars_counter").html("$"+realDollars);
-	}*/
+	}
 };
+
 
 //Game updates given cropchoice and game weather for this turn
 
