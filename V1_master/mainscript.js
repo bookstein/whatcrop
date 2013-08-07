@@ -747,15 +747,31 @@ function displayResultsDialog () {
 
 var arguments = setParameters(); //stores "args" object from setParameters, makes it global var
 
-function setArguments () { //determine arguments to be passed into updateGame
+function weatherResults () { //determine arguments to be passed into updateGame
+
+	disableGrowButton();
+	$(".plant, .plant_img, #grow").addClass("hidden");
 
 	var args = {}; //creates empty object for arguments
+
+	function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
+		$("#sun").addClass("displayWeather").removeClass("hidden");
+		//alert("This is sun and game weather is "+ gameWeather[turn]);
+	};
+
+	function displayRain () {
+		$("#rain").addClass("displayWeather").removeClass("hidden");
+		//alert("This is rain and game weather is " + gameWeather[turn]);
+
+	};
 
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
 		args.crop = "A";
 		args.state = "dead";
 		args.weather = "sunny";
-		updateGame(payoutAdry, args.weather);
+		displaySun();
+		$("#deadA").removeClass("hidden");
+		updateGame(payoutAdry);
 		//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
 	}
 
@@ -763,7 +779,9 @@ function setArguments () { //determine arguments to be passed into updateGame
 		args.crop = "A";
 		args.state = "healthy";
 		args.weather =  "rainy";
-		updateGame(payoutAwet, args.weather);
+		displayRain();
+		$("#rowsCropA").removeClass("hidden");
+		updateGame(payoutAwet);
 		//setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
 	}
 
@@ -771,7 +789,9 @@ function setArguments () { //determine arguments to be passed into updateGame
 		args.crop = "B";
 		args.state = "dead";
 		args.weather = "sunny";
-		updateGame(payoutBdry, args.weather);
+		displaySun();
+		$("#deadB").removeClass("hidden");
+		updateGame(payoutBdry);
 		//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
 	}
 
@@ -779,7 +799,9 @@ function setArguments () { //determine arguments to be passed into updateGame
 		args.crop = "B";
 		args.state = "healthy";
 		args.weather = "rainy";
-		updateGame(payoutBwet, args.weather);
+		displayRain();
+		$("#rowsCropB").removeClass("hidden");
+		updateGame(payoutBwet);
 		//setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
 	}
 
@@ -787,6 +809,7 @@ function setArguments () { //determine arguments to be passed into updateGame
 		alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
 	}
 
+	displayResultsDialog();
 	return args;
 };
 
@@ -815,77 +838,16 @@ function updateGame(payout, weather) { //how to make weatherResults work as a pa
 	//Current CSS height of #points_fill with "height" as an integer
 	var fillHeight = parseInt($("#points_fill").css("height"));
 
+	setTimeout(fadeWeather, 4000);
 
-	function weatherResults() {
 
-		if (arguments.weather === "sunny") {
-			function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
-				$("#sun").addClass("displayWeather").removeClass("hidden");
-				//alert("This is sun and game weather is "+ gameWeather[turn]);
-			};
-		}
 
-		else if (arguments.weather === "rainy") {
-			function displayRain () {
-				$("#rain").addClass("displayWeather").removeClass("hidden");
-				//alert("This is rain and game weather is " + gameWeather[turn]);
-
-			};
-		}
-
-		displayWeather();
-
-		function displayWeather () {
-
-			setTimeout(fadeWeather, 4000);
-
-			//remove seedpackets and buttons using class .hidden
-			disableGrowButton();
-			$(".plant, .plant_img, #grow").addClass("hidden"); //removed .fadeOut(function{})
-			//$("#grow").removeClass("highlight");
-
-			//reveal dry outcome with Crop A
-			if(cropchoice === "cropA" && gameWeather[turn] === "Dry")
-			{
-				displaySun();
-				//crop graphics
-				$("#deadA").removeClass("hidden");
-			}
-
-			//reveal dry outcome with Crop B
-			else if(cropchoice === "cropB" && gameWeather[turn] === "Dry")
-			{
-				displaySun();
-				//crop graphics
-				$("#deadB").removeClass("hidden");
-			}
-
-			//reveal wet outcome with Crop A
-			else if(cropchoice === "cropA" && gameWeather[turn] === "Wet")
-			{
-				displayRain();
-				//crop graphics
-				$("#rowsCropA").removeClass("hidden");
-			}
-
-			//reveal wet outcome with Crop B
-			else if(cropchoice ==="cropB" && gameWeather[turn] === "Wet")
-			{
-				displayRain();
-				//crop graphics
-				$("#rowsCropB").removeClass("hidden");
-			}
-
-			displayResultsDialog();
-		};
-
-		function fadeWeather () {
-			//setTimeout calls function after a certain time; currently 3000 ms
-		   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
-		   	$(".plant").removeClass("select");
-		   	$(".plant, .plant_img, #grow").removeClass("hidden");
-		   	setTimeout(addTurn, 200);
-		};
+	function fadeWeather () {
+		//setTimeout calls function after a certain time; currently 3000 ms
+	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
+	   	$(".plant").removeClass("select");
+	   	$(".plant, .plant_img, #grow").removeClass("hidden");
+	   	setTimeout(addTurn, 200);
 	};
 
 	function addTurn () {
