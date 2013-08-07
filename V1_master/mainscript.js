@@ -748,8 +748,8 @@ function displayResultsDialog () {
 
 //Game updates given cropchoice and game weather for this turn
 
-function setParameters () { //set parameters for updateGame -- payout
-	var args = {};
+function setParameters () { //set parameters for updateGame
+	var args = {}; //create empty object for arguments
 
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
 		args = {
@@ -794,14 +794,18 @@ function setParameters () { //set parameters for updateGame -- payout
 	else {
 		alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
 	}
+
+	return args;
 };
+
+var arguments = setParameters(); //gets "args" object from setParameters, makes it global var
+//unnecessary?
 
 function updateGame(payout, argumentsObj) { //how to make weatherResults work this way?
 
 	cropchoice = ""; // resets value of cropchoice to ""
 	var oldscore = score;
 	var newscore = oldscore + payout;
-	var turnweather = weather;
 
 	//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
 	var pixelHeight = parseInt($("#points_bar").css("height"));
@@ -821,18 +825,16 @@ function updateGame(payout, argumentsObj) { //how to make weatherResults work th
 //run weatherResults as weatherResults(something, objectX)
 
 
-
-
 	function weatherResults() {
 
-		if (turnweather === "Dry") {
+		if (args.weather === "sunny") {
 			function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
 				$("#sun").addClass("displayWeather").removeClass("hidden");
 				//alert("This is sun and game weather is "+ gameWeather[turn]);
 			};
 		}
 
-		else if (turnweather === "Wet") {
+		else if (args.weather === "rainy") {
 			function displayRain () {
 				$("#rain").addClass("displayWeather").removeClass("hidden");
 				//alert("This is rain and game weather is " + gameWeather[turn]);
