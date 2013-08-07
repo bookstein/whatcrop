@@ -743,32 +743,6 @@ function displayResultsDialog () {
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
-
-
-
-//Game updates given cropchoice and game weather for this turn
-
-function updateGame(payout, argumentsObj) { //how to make weatherResults work this way?
-
-	cropchoice = ""; // resets value of cropchoice to ""
-	var oldscore = score;
-	var newscore = oldscore + payout;
-
-	//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
-	var pixelHeight = parseInt($("#points_bar").css("height"));
-
-	//Ratio of points per pixel
-	var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
-
-	//Points_counter moves upward this number of pixels per turn
-	var perTurnHeight = payout/pointsPerPixelRatio;
-
-	//Current CSS position for #points_flag "bottom" as an integer
-	var flagHeight = parseInt($("#points_flag").css("bottom"));
-
-	//Current CSS height of #points_fill with "height" as an integer
-	var fillHeight = parseInt($("#points_fill").css("height"));
-
 //run weatherResults as weatherResults(something, objectX)
 
 	function setParameters () { //set parameters for updateGame
@@ -814,6 +788,30 @@ function updateGame(payout, argumentsObj) { //how to make weatherResults work th
 
 		return args;
 	};
+
+
+//Game updates given cropchoice and game weather for this turn
+
+function updateGame(payout, argumentsObj) { //how to make weatherResults work this way?
+
+	cropchoice = ""; // resets value of cropchoice to ""
+	var oldscore = score;
+	var newscore = oldscore + payout;
+
+	//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
+	var pixelHeight = parseInt($("#points_bar").css("height"));
+
+	//Ratio of points per pixel
+	var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
+
+	//Points_counter moves upward this number of pixels per turn
+	var perTurnHeight = payout/pointsPerPixelRatio;
+
+	//Current CSS position for #points_flag "bottom" as an integer
+	var flagHeight = parseInt($("#points_flag").css("bottom"));
+
+	//Current CSS height of #points_fill with "height" as an integer
+	var fillHeight = parseInt($("#points_fill").css("height"));
 
 var arguments = setParameters(); //gets "args" object from setParameters, makes it global var
 //unnecessary?
