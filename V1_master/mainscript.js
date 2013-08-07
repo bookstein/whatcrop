@@ -812,6 +812,8 @@ function addTurn () {
 
 //Score updates, and point flag height changes
 
+/*
+
 function newScore () {
 	$("#point_count").html("<h5>" + score + "</h5>");
 	return score;
@@ -829,6 +831,7 @@ function newScore () {
 	//Current CSS height of #points_fill with "height" as an integer
 	fillHeight = parseInt($("#points_fill").css("height"));
 
+*/
 
 function movePointsFlag () {
 	//increase position of #points_flag
@@ -849,9 +852,12 @@ function movePointsFill () {
 
 //Game updates given cropchoice and game weather for this turn
 
-function updateGame() {
+function updateGame(cropchoice, payout, weather, prevScore) {
 
-	setTimeout(function() {$( ".results" ).dialog( "close" )}, 2500);
+
+
+
+	//setTimeout(function() {$( ".results" ).dialog( "close" )}, 2500);
 
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry")  //if user chooses crop A *and* weather is dry
 	{
