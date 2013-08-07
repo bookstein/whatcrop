@@ -852,12 +852,52 @@ function movePointsFill () {
 
 //Game updates given cropchoice and game weather for this turn
 
-function updateGame(cropchoice, payout, weather, prevScore) {
+function setParameters () { //set parameters for updateGame -- payout
+	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
+
+	}
+
+	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
+
+	}
+
+	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
+
+	}
+
+	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
+
+	}
+
+	else {
+
+	}
+}
+
+function updateGame(payout, score, addDollars) { //why put function (addDollars) as param?
+	var oldscore = score;
+	var newscore = score + payout;
+
+
+
+	function addDollars(oldscore, newscore) {
+		if (oldscore < randomTotalPoints && newscore > randomTotalPoints) {
+			//add bonusOne, give special message
+		}
+
+		if else (){
+			//add bonusTwo, give special message
+		}
+
+		else {
+			//no bonus added - run default message
+		}
+	}
 
 
 
 
-	//setTimeout(function() {$( ".results" ).dialog( "close" )}, 2500);
+	setTimeout(function() {$( ".results" ).dialog( "close" )}, 2500);
 
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry")  //if user chooses crop A *and* weather is dry
 	{
