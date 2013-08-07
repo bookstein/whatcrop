@@ -772,7 +772,7 @@ function updateGame(payout, argumentsObj) { //how to make weatherResults work th
 //run weatherResults as weatherResults(something, objectX)
 
 	function setParameters () { //set parameters for updateGame
-		var args = {}; //create empty object for arguments
+		var args = {}; //creates empty object for arguments
 
 		if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
 			args.crop = "A";
@@ -783,31 +783,27 @@ function updateGame(payout, argumentsObj) { //how to make weatherResults work th
 		}
 
 		else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
-			args = {
-				crop: "A",
-				status: "healthy",
-				weather: "rainy"
-			};
+			args.crop = "A";
+			args.state = "healthy";
+			args.weather =  "rainy";
+
 			//updateGame(payoutAwet, args);
 			//setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
 		}
 
 		else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
-			args = {
-				crop: "B",
-				status: "dead",
-				weather: "sunny"
-			};
+			args.crop = "B";
+			args.state = "dead";
+			args.weather = "sunny";
+
 			//updateGame(payoutBdry, args);
 			//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
 		}
 
 		else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
-			args = {
-				crop: "B",
-				status: "healthy",
-				weather: "rainy"
-			};
+			args.crop = "B";
+			args.state = "healthy";
+			args.weather = "rainy";
 			//updateGame(payoutBwet, args);
 			//setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
 		}
