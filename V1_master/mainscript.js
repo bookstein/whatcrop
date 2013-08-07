@@ -816,7 +816,7 @@ function weatherResults () { //determine arguments to be passed into updateGame
 //Game updates given cropchoice and game weather for this turn
 
 //updateGame is a ** template **. Values (arguments) will be filled in by later function
-function updateGame(payout, weather) { //how to make weatherResults work as a parameter?
+function updateGame(payout) { //how to make weatherResults work as a parameter?
 
 	alert("Running updateGame now using arguments " + arguments)
 	cropchoice = ""; // resets value of cropchoice to ""
@@ -839,8 +839,6 @@ function updateGame(payout, weather) { //how to make weatherResults work as a pa
 	var fillHeight = parseInt($("#points_fill").css("height"));
 
 	setTimeout(fadeWeather, 4000);
-
-
 
 	function fadeWeather () {
 		//setTimeout calls function after a certain time; currently 3000 ms
