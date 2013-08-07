@@ -881,23 +881,23 @@ function updateGame(payout, score, addDollars) { //why put function (addDollars)
 
 
 	function addDollars(oldscore, newscore) {
-		if (oldscore < randomTotalPoints && newscore > randomTotalPoints) {
+		if (oldscore < randomTotalPoints && newscore >= randomTotalPoints) {
 			//add bonusOne, give special message
 		}
 
-		if else (){
+		if else (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
 			//add bonusTwo, give special message
 		}
 
 		else {
-			//no bonus added - run default message
+			//no bonus added - run default results message
+			setTimeout(function() {$( ".results" ).dialog( "close" )}, 2500);
 		}
 	}
 
 
 
 
-	setTimeout(function() {$( ".results" ).dialog( "close" )}, 2500);
 
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry")  //if user chooses crop A *and* weather is dry
 	{
