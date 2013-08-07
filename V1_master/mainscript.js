@@ -748,28 +748,49 @@ function displayResultsDialog () {
 
 //Game updates given cropchoice and game weather for this turn
 
-function setParameters () { //set parameters for updateGame
-	var args = {}; //create empty object for arguments
+function updateGame(payout, argumentsObj) { //how to make weatherResults work this way?
 
-	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
-		args = {
-			crop: "A",
-			status: "dead",
-			weather: "sunny"
-		};
-		updateGame(payoutAdry, args);
-		setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
-	}
+	cropchoice = ""; // resets value of cropchoice to ""
+	var oldscore = score;
+	var newscore = oldscore + payout;
 
-	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
-		args = {
-			crop: "A",
-			status: "healthy",
-			weather: "rainy"
-		};
-		updateGame(payoutAwet, args);
-		setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
-	}
+	//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
+	var pixelHeight = parseInt($("#points_bar").css("height"));
+
+	//Ratio of points per pixel
+	var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
+
+	//Points_counter moves upward this number of pixels per turn
+	var perTurnHeight = payout/pointsPerPixelRatio;
+
+	//Current CSS position for #points_flag "bottom" as an integer
+	var flagHeight = parseInt($("#points_flag").css("bottom"));
+
+	//Current CSS height of #points_fill with "height" as an integer
+	var fillHeight = parseInt($("#points_fill").css("height"));
+
+//run weatherResults as weatherResults(something, objectX)
+
+	function setParameters () { //set parameters for updateGame
+		var args = {}; //create empty object for arguments
+
+		if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
+			args.crop = "A";
+			args.state = "dead";
+			args.weather = "sunny";
+			updateGame(payoutAdry, args);
+			setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
+		}
+
+		else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
+			args = {
+				crop: "A",
+				status: "healthy",
+				weather: "rainy"
+			};
+			updateGame(payoutAwet, args);
+			setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
+	};
 
 	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
 		args = {
@@ -800,30 +821,6 @@ function setParameters () { //set parameters for updateGame
 
 var arguments = setParameters(); //gets "args" object from setParameters, makes it global var
 //unnecessary?
-
-function updateGame(payout, argumentsObj) { //how to make weatherResults work this way?
-
-	cropchoice = ""; // resets value of cropchoice to ""
-	var oldscore = score;
-	var newscore = oldscore + payout;
-
-	//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
-	var pixelHeight = parseInt($("#points_bar").css("height"));
-
-	//Ratio of points per pixel
-	var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
-
-	//Points_counter moves upward this number of pixels per turn
-	var perTurnHeight = payout/pointsPerPixelRatio;
-
-	//Current CSS position for #points_flag "bottom" as an integer
-	var flagHeight = parseInt($("#points_flag").css("bottom"));
-
-	//Current CSS height of #points_fill with "height" as an integer
-	var fillHeight = parseInt($("#points_fill").css("height"));
-
-//run weatherResults as weatherResults(something, objectX)
-
 
 	function weatherResults() {
 
