@@ -802,52 +802,6 @@ function displayResultsDialog () {
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
 
-function addTurn () {
-	turn = turn + 1;
-	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
-	//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
-	//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
-};
-
-
-//Score updates, and point flag height changes
-
-/*
-
-function newScore () {
-	$("#point_count").html("<h5>" + score + "</h5>");
-	return score;
-};
-
-	//Height of #points_bar as an integer
-	totalHeight = parseInt($("#points_bar").css("height"));
-
-	//Points counter moves this amount per turn
-	perTurnHeight = (totalHeight/maxturn);
-
-	//Current CSS position for #points_flag "bottom" as an integer
-	flagHeight = parseInt($("#points_flag").css("bottom"));
-
-	//Current CSS height of #points_fill with "height" as an integer
-	fillHeight = parseInt($("#points_fill").css("height"));
-
-*/
-
-function movePointsFlag () {
-	//increase position of #points_flag
-	flagHeight+=perTurnHeight;
-	$("#points_flag").css("bottom", flagHeight); // Sets value of style rule "bottom" to flagHeight
-	return flagHeight;
-	};
-
-function movePointsFill () {
-	//increase height of yellow #points_fill
-	fillHeight+=perTurnHeight;
-	$("#points_fill").css("height", fillHeight); // Sets value of style rule "bottom" to flagHeight
-	return fillHeight;
-	};
-
-	// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
 
 //Game updates given cropchoice and game weather for this turn
@@ -879,6 +833,44 @@ function updateGame(payout, score, addDollars) { //why put function (addDollars)
 	var newscore = score + payout;
 
 
+	function addTurn () {
+		turn = turn + 1;
+		$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
+		//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
+	};
+
+		function newScore () {
+		$("#point_count").html("<h5>" + newscore + "</h5>");
+	};
+
+		//Height of #points_bar as an integer
+		totalHeight = parseInt($("#points_bar").css("height"));
+
+		//Points counter moves this amount per turn
+		perTurnHeight = (totalHeight/maxturn);
+
+		//Current CSS position for #points_flag "bottom" as an integer
+		flagHeight = parseInt($("#points_flag").css("bottom"));
+
+		//Current CSS height of #points_fill with "height" as an integer
+		fillHeight = parseInt($("#points_fill").css("height"));
+
+	function movePointsFlag () {
+		//increase position of #points_flag
+		flagHeight+=perTurnHeight;
+		$("#points_flag").css("bottom", flagHeight); // Sets value of style rule "bottom" to flagHeight
+		return flagHeight;
+		};
+
+	function movePointsFill () {
+		//increase height of yellow #points_fill
+		fillHeight+=perTurnHeight;
+		$("#points_fill").css("height", fillHeight); // Sets value of style rule "bottom" to flagHeight
+		return fillHeight;
+		};
+
+		// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
 	function addDollars(oldscore, newscore) {
 		if (oldscore < randomTotalPoints && newscore >= randomTotalPoints) {
