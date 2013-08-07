@@ -559,46 +559,19 @@ $("#cropB").on("click", userClickedB);
 
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
 
-//This function displays one of 3 results in a dialog box
 
-function displayResultsDialog () {
-
-	$(".results").dialog({
-		autoOpen: true,
-		modal: false,
-		closeOnEscape: false,
-        resizable: false,
-        position: 'center',
-        stack: true,
-        height: 'auto',
-        width: 'auto'
-    });
-
-
-	if (score === totalRandomPoints || score === totalOptimalPoints) { //this doesn't work yet
-		$("#bonus_results").dialog("open");
-	}
-
-	else if (turn == maxturn) {
-		$("#end_results").dialog("open");
-	}
-
-	else {
-		$("#normal_results").dialog("open");
-	}
-
-};
 
 
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
-function weatherResults () { //determine arguments to be passed into updateGame
-
-	disableGrowButton();
-	$(".plant, .plant_img, #grow").addClass("hidden");
+function weatherResults () { //triggered by #grow click, runs updateGame with correct arguments
 
 	var args = {}; //creates empty object for arguments
+
+	disableGrowButton();
+
+	$(".plant, .plant_img, #grow").addClass("hidden");
 
 	function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
 		$("#sun").addClass("displayWeather").removeClass("hidden");
@@ -654,6 +627,36 @@ function weatherResults () { //determine arguments to be passed into updateGame
 		alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
 	}
 
+	function displayResultsDialog () {
+
+		$(".results").dialog({
+			autoOpen: true,
+			modal: false,
+			closeOnEscape: false,
+	        resizable: false,
+	        draggable: false,
+	        position: 'center',
+	        stack: false,
+	        height: 'auto',
+	        width: 'auto'
+	    });
+
+		if (score === totalRandomPoints || score === "totalOptimalPoints") { //this doesn't work yet
+			$("#bonus_results").dialog("open");
+		}
+
+		else if (turn == maxturn) {
+			$("#end_results").dialog("open");
+		}
+
+		else {
+			$("#normal_results").dialog("open");
+		}
+
+		setTimeout(function() {$( ".results" ).dialog( "close" )}, 2500);
+
+	};
+
 	displayResultsDialog();
 	return args;
 };
@@ -662,7 +665,7 @@ function weatherResults () { //determine arguments to be passed into updateGame
 
 function updateGame(payout) { //this function is called inside weatherResults function
 
-	alert("Running updateGame now using arguments " + arguments)
+	//alert("Running updateGame now using arguments " + arguments)
 	cropchoice = ""; // resets value of cropchoice to ""
 	var oldscore = score;
 	var newscore = oldscore + payout;
@@ -730,7 +733,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 		else {
 			//no bonus added - run default results message
-			setTimeout(function() {$( ".results" ).dialog( "close" )}, 2500);
+
 		}
 	};
 
