@@ -842,6 +842,8 @@ function updateGame(payout, argumentsObj) { //how to make weatherResults work th
 			};
 		}
 
+		displayWeather();
+
 		function displayWeather () {
 
 			setTimeout(fadeWeather, 4000);
@@ -973,9 +975,9 @@ $("#grow").on("click", function () {
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
 		//call displayWeather function
-		displayWeather();
+		//displayWeather();
 		//callsback updateGame function 200ms after displayWeather
-		setTimeout(updateGame, 400);
+		setTimeout(setParameters, 400);
 	}
 
 		else if (($(this).hasClass("highlight")) && turns == maxturn) {
@@ -984,9 +986,9 @@ $("#grow").on("click", function () {
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
 		//call displayWeather function
-		displayWeather();
+		//displayWeather();
 		//callsback updateGame function 200ms after displayWeather
-		setTimeout(updateGame, 400);
+		setTimeout(setParameters, 400);
 		setTimeout(endGame, 1000);
 	}
 
