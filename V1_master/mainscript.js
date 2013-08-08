@@ -417,8 +417,8 @@ $(function initializeGame () {
 			var pixelHeight = parseInt($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
 			var pointsPerPixelRatio = maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
 
-			$("#bonus1marker").css("bottom", (bonus1/pointsPerPixelRatio));
-			$("#bonus2marker").css("bottom", (bonus2/pointsPerPixelRatio));
+			$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
+			$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
 		};
 
 		bonusHeight(totalRandomPoints, totalOptimalPoints);
