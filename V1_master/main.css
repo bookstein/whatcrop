@@ -153,6 +153,17 @@ header > h1 {
 	font-weight: bold;
 }
 
+.glow {
+	/* outer shadows  (note the rgba is red, green, blue, alpha) */
+	-webkit-box-shadow: 0px 0px 12px rgba(255 204 51 0.4);
+	-moz-box-shadow: 0px 1px 6px rgba(255 204 51 .5);
+	box-shadow: 0px 1px 6px rgba(255 204 51 .5);
+	/* rounded corners */
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
 
 /* >>>>>>>>>>>>>>>>>>>>>>>> Wrapper (.container) - excludes footer and header <<<<<< */
 
@@ -458,46 +469,48 @@ button.plant {
     0 0 0 3px #3f3c30,
     0 0 0 4px #eae9e6
     ;
-  -moz-box-shadow:
+  	-moz-box-shadow:
     0 0 0 3px #3f3c30,
     0 0 0 4px #eae9e6
-  ;
-  -o-box-shadow:
+  	;
+  	-o-box-shadow:
     0 0 0 3px #3f3c30,
     0 0 0 4px #eae9e6
-  ;
-  box-shadow:
-    0 0 0 3px #3f3c30,
-    0 0 0 4px #eae9e6
-  ;
+  	;
+  	box-shadow:
+  	0 0 0 3px #3f3c30,
+ 	0 0 0 4px #eae9e6
+  	;
 }
 
-.highlight { /* Highlight class specifically for #grow button */
+.highlight { /*Highlight class special for #grow button*/
 	opacity: 1;
 	background-color: #fff;
 	color: #3f3c30;
 	font-weight: 500;
-	display: inline-block;
+	/*display: inline-block;*/
 
 	/*Multiple borders*/
 
 	-webkit-box-shadow:
-    0 0 0 5px #ffcc33,
-    0 0 0 8px #fff
-  ;
+	0 0 0 5px #ffcc33,
+	0 0 0 8px #fff
+	;
 
-  -moz-box-shadow:
-   0 0 0 5px #ffcc33,
-    0 0 0 8px #fff
-  ;
-  -o-box-shadow:
-  0 0 0 5px #ffcc33,
-    0 0 0 8px #fff
-  ;
-  box-shadow:
-    0 0 0 5px #ffcc33,
-    0 0 0 8px #fff
-  ;
+	-moz-box-shadow:
+	0 0 0 5px #ffcc33,
+	0 0 0 8px #fff
+	;
+
+	-o-box-shadow:
+	0 0 0 5px #ffcc33,
+	0 0 0 8px #fff
+	;
+
+	box-shadow:
+	0 0 0 5px #ffcc33,
+	0 0 0 8px #fff
+	;
 }
 
 
@@ -676,6 +689,30 @@ button.plant {
 		display: inline-block;
 		margin: 5px 0;
 	}
+
+
+/*EXAMPLE OF GRADIENT BOXES TO ANIMATE POINTS ADDITION */
+
+.gradientBoxesWithOuterShadows {
+height: 200px;
+width: 400px;
+padding: 20px;
+background-color: white;
+
+/* outer shadows  (note the rgba is red, green, blue, alpha) */
+-webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+-moz-box-shadow: 0px 1px 6px rgba(23, 69, 88, .5);
+
+/* rounded corners */
+-webkit-border-radius: 12px;
+-moz-border-radius: 7px;
+border-radius: 7px;
+
+/* gradients */
+background: -webkit-gradient(linear, left top, left bottom,
+color-stop(0%, white), color-stop(15%, white), color-stop(100%, #D7E9F5));
+background: -moz-linear-gradient(top, white 0%, white 55%, #D5E4F3 130%);
+}
 
 
 
