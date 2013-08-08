@@ -562,11 +562,6 @@ $("#cropB").on("click", userClickedB);
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
 
 
-
-
-
-// >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
-
 function weatherResults () { //triggered by #grow click, runs updateGame with correct arguments
 
 	var args = {}; //creates empty object for arguments
@@ -663,7 +658,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	return args;
 };
 
-//Game updates given cropchoice and game weather for this turn
+// >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
 function updateGame(payout) { //this function is called inside weatherResults function
 
@@ -692,6 +687,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	function fadeWeather () {
 		//setTimeout calls function after a certain time; currently 3000 ms
 	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
+	   	$(".croprows").addClass("hidden");
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden");
 	   	setTimeout(addTurn, 200);
