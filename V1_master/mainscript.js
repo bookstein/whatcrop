@@ -402,7 +402,7 @@ $(function initializeGame () {
 		var total2 = sumtotal2();
 
 		//totalOptimalPoints is the sum of total optimal choice 1 + total optimal choice 2
-		totalOptimalPoints = total1 + total2;
+		totalOptimalPoints = parseInt(total1 + total2);
 		//alert("total optimal points: " + totalOptimalPoints);
 
 		console.log("The second bonus will trigger at " + totalOptimalPoints + " points");
@@ -445,7 +445,7 @@ $(function initializeGame () {
 	$(".turncount_instructions").text(maxturn + " turns");
 	$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
 	$("#bonus_one_instructions").text(totalRandomPoints);
-	$("#bonus_two_instructions").text("totalOptimalPoints");
+	$("#bonus_two_instructions").text(totalOptimalPoints);
 
 }); //end of initialization function
 
