@@ -630,6 +630,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			autoOpen: true,
 			modal: false,
 			closeOnEscape: false,
+			dialogClass: "no-close",
 	        resizable: false,
 	        draggable: false,
 	        position: 'center',
@@ -638,7 +639,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	        width: 'auto'
 	    });
 
-		if (score === totalRandomPoints || score === "totalOptimalPoints") { //this doesn't work yet
+		if (score === "totalRandomPoints" || score === "totalOptimalPoints") { //this doesn't work yet
 			$("#bonus_results").dialog("open");
 		}
 
