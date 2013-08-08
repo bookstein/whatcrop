@@ -665,22 +665,21 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	    });
 
 		//populate spans inside all results dialogs
-	    $("#weather_outcome").text(gameWeather[turn]);
-		$("#new_score").text(payout);
+	    $(".results").find("#weather_outcome").text(gameWeather[turn]);
+	    $(".results").find("#new_score").text(payout);
 
 		// bonus dialogs
-		if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this doesn't work yet - need variable to transfer
+		if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
 			$("#bonus_results").dialog("open");
 			$("#bonus_count").text("$" + bonusOneDollars);
 			addBonus1();
 		}
 
-			//this dialog box was appearing at the same time as normal_results, for some reason
-		/*else if (oldscore < "totalOptimalPoints" || newscore >= "totalOptimalPoints") { //this doesn't work yet
+		else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
 			$("#bonus_results").dialog("open");
 			$("#bonus_count").text("$" + bonusTwoDollars);
 			addBonus2();
-		}*/
+		}
 
 		//end game dialog
 		else if (turn === maxturn) {
