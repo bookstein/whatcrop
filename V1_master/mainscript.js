@@ -31,6 +31,8 @@ $(document).ready(function(){
 	// Set bonus payments
 	bonusOneDollars = 1.25;
 	bonusTwoDollars = 0.75;
+	totalRandomPoints = 0;
+	totalOptimalPoints = 0;
 
 
 	//Turn Counter
@@ -303,13 +305,12 @@ $(function initializeGame () {
 		return pDry;
 	};
 
-	//the first bonus applies at totalRandomPoints (number of points expected with random play)
-	var totalRandomPoints = 0;
-
 	//Run all previous functions
 	checkIndifferencePoint();
 	findTurnAtIndifferencePoint();
 	calculateProbabilityDry();
+
+	//the first bonus applies at totalRandomPoints (number of points expected with random play)
 
 	function calculateRandomPlayPoints () { //expected points earned by picking A or B randomly
 
@@ -336,7 +337,6 @@ $(function initializeGame () {
 	optimalChoice2 = [];
 
 	//the second bonus applies at totalOptimalPoints (number of points expected with optimal play)
-	var totalOptimalPoints = 0;
 
 	for (var i = 0; i <= maxturn; ++i) {
 		optimalChoice1[i] = 0;
@@ -669,16 +669,16 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 		$("#new_score").text(payout);
 
 		// bonus dialogs
-		if (oldscore < "totalRandomPoints" || newscore >= "totalRandomPoints") { //this doesn't work yet - need variable to transfer
+		if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this doesn't work yet - need variable to transfer
 			$("#bonus_results").dialog("open");
-			$("#bonus_count").text(bonusOneDollars);
+			$("#bonus_count").text("$" + bonusOneDollars);
 			addBonus1();
 		}
 
 			//this dialog box was appearing at the same time as normal_results, for some reason
 		/*else if (oldscore < "totalOptimalPoints" || newscore >= "totalOptimalPoints") { //this doesn't work yet
 			$("#bonus_results").dialog("open");
-			$("#bonus_count").text(bonusTwoDollars);
+			$("#bonus_count").text("$" + bonusTwoDollars);
 			addBonus2();
 		}*/
 
@@ -755,12 +755,12 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 	//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
 	function addBonus1 () {
-		realDollars = bonusOne; //change value of realDollars to bonusOne
+		realDollars = bonusOneDollars; //change value of realDollars to bonusOne
 		$("#dollars_counter").html("$"+realDollars);
 	};
 
 	function addBonus2 () {
-		realDollars = bonusOne + bonusTwo;
+		realDollars = bonusOneDollars + bonusTwoDollars;
 		$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
 	};
 
