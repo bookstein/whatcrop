@@ -303,6 +303,7 @@ $(function initializeGame () {
 		return pDry;
 	};
 
+	//the first bonus applies at totalRandomPoints (number of points expected with random play)
 	var totalRandomPoints = 0;
 
 	//Run all previous functions
@@ -333,6 +334,9 @@ $(function initializeGame () {
 
 	optimalChoice1 = [];
 	optimalChoice2 = [];
+
+	//the second bonus applies at totalOptimalPoints (number of points expected with optimal play)
+	var totalOptimalPoints = 0;
 
 	for (var i = 0; i <= maxturn; ++i) {
 		optimalChoice1[i] = 0;
@@ -370,7 +374,6 @@ $(function initializeGame () {
 
 	};
 
-
 	function calculateOptimalPlayPoints () {
 
 		optimalScenario();
@@ -399,8 +402,7 @@ $(function initializeGame () {
 		var total2 = sumtotal2();
 
 		//totalOptimalPoints is the sum of total optimal choice 1 + total optimal choice 2
-
-		var totalOptimalPoints = total1 + total2;
+		totalOptimalPoints = total1 + total2;
 		//alert("total optimal points: " + totalOptimalPoints);
 
 		console.log("The second bonus will trigger at " + totalOptimalPoints + " points");
@@ -409,9 +411,19 @@ $(function initializeGame () {
 
 	calculateOptimalPlayPoints();
 
+	// Set height of bonus markers
+		function bonusHeight (bonus1, bonus2) {
 
+			var pixelHeight = parseInt($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
+			var pointsPerPixelRatio = maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
 
-	/* Contact the server and tell it what's up */
+			$("#bonus1marker").css("bottom", (bonus1/pointsPerPixelRatio));
+			$("#bonus2marker").css("bottom", (bonus2/pointsPerPixelRatio));
+		};
+
+		bonusHeight(totalRandomPoints, totalOptimalPoints);
+
+	// Contact the server and tell it what's up
 	function tellServerWhatsUp() {
 		$.ajax({
 				url: 'http://someserver.com/game',
@@ -712,6 +724,11 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 		//increase height of yellow #points_fill
 		$("#points_fill").css("height", fillHeight); // Sets value of style rule "bottom" to flagHeight
 		//return fillHeight;
+
+
+		//carve up post-second-bonus pixels into fixed amount between this turn and last turn
+		var remainderHeight = maxScore - totalOptimalPoints;
+
 	};
 
 		// WARNING: .css modifies the element's <style> property, not the CSS sheet!

@@ -565,6 +565,28 @@ button.plant {
 	z-index: 1;
 }
 
+	#bonus1marker {
+		display: block;
+		background-color: black;
+		position: absolute;
+		bottom: 100px;
+		width: 2em;
+		height: 2px;
+		border: 1px solid black;
+		z-index: 3;
+	}
+
+	#bonus2marker {
+		display: block;
+		background-color: black;
+		position: absolute;
+		bottom: 110px;
+		width: 2em;
+		height: 2px;
+		border: 1px solid black;
+		z-index: 3;
+	}
+
 	#points_fill {
 		width: inherit;
 		height: 5px;
