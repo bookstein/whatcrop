@@ -32,6 +32,42 @@ $(document).ready(function(){
 	bonusOneDollars = 1.25;
 	bonusTwoDollars = 075;
 
+
+	//Turn Counter
+
+	turn = 0;
+	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+	GameOver = false;
+
+	//Points Counter
+
+	score = 0; //starting score is 0
+	$("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points counter
+
+	// Real Dollars Earned
+
+	realDollars = 0; //real earnings in dollars start at 0
+	$("#dollars_counter").html("$"+realDollars); //writes initial realDollars to dollars counter
+
+
+// >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+$(function initializeGame () {
+	// Crop Information table
+
+	function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
+		$("table").find("td#payoutAwet").text(payoutAwet + " points");
+		$("table").find("td#payoutAdry").text(payoutAdry + " points");
+		$("table").find("td#payoutBwet").text(payoutBwet + " points");
+		$("table").find("td#payoutBdry").text(payoutBdry + " points");
+	};
+
+	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
+
+
+
+	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 	// Set climate change, either using "for loop" or manually; choose using autoFillClimateChange variable
 
 	function climateChange () {
@@ -112,327 +148,300 @@ $(document).ready(function(){
 
 	climateChange(); // Sets climateArray to new value
 
+	// Create list of random numbers that will become weather-------
+
+	weatherArray = [];
+
+	function makeWeatherArray() {
+		for (var i = 0; i < maxturn; i++) {
+			weather = Math.floor((Math.random()*1000)+1);
+			weatherArray[i] = weather;
+		}
+		return weatherArray;
+	};
+
+	makeWeatherArray(); //sets weatherArray to new value
+
+	// Set rain thresholds as modified by climate change over course of game -------
+
+	thresholdArray = [];
+
+	function makeThresholdArray () {
+
+		thresholdArray[0] = threshold; //sets first value equal to threshold
+
+		for (var i = 1; i < maxturn; i++)
+		{
+			thresholdArray[i] = thresholdArray[i-1] - (climateArray[i]);
+		}
+
+		return thresholdArray;
+	};
+
+	makeThresholdArray(); //sets thresholdArray to new value based on climate change
 
 
+	// Set game weather -------
 
-// >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	gameWeather = [];
 
-// Crop Information table
+	function makeGameWeather() { //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
 
-function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
-	$("table").find("td#payoutAwet").text(payoutAwet + " points");
-	$("table").find("td#payoutAdry").text(payoutAdry + " points");
-	$("table").find("td#payoutBwet").text(payoutBwet + " points");
-	$("table").find("td#payoutBdry").text(payoutBdry + " points");
-};
-
-writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
-
-//Turn Counter
-
-turn = 0;
-$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
-GameOver = false;
-
-//Points Counter
-
-score = 0; //starting score is 0
-$("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points counter
-
-// Real Dollars Earned
-
-realDollars = 0; //real earnings in dollars start at 0
-$("#dollars_counter").html("$"+realDollars); //writes initial realDollars to dollars counter
-
-
-//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-// Create list of random numbers that will become weather-------
-
-weatherArray = [];
-
-function makeWeatherArray() {
 	for (var i = 0; i < maxturn; i++) {
-		weather = Math.floor((Math.random()*1000)+1);
-		weatherArray[i] = weather;
-	}
-	return weatherArray;
-};
+		if (weatherArray[i] < thresholdArray[i])
+			{
+				var perTurnWeather = "Wet";
+				gameWeather[i] = perTurnWeather;
+			}
 
-makeWeatherArray(); //sets weatherArray to new value
+		if (weatherArray[i] > thresholdArray[i])
+			{
+				var perTurnWeather = "Dry";
+				gameWeather[i] = perTurnWeather;
+			}
 
-// Set rain thresholds as modified by climate change over course of game -------
+			} //end of for loop
 
-thresholdArray = [];
+		return gameWeather;
+	};
 
-function makeThresholdArray () {
-
-	thresholdArray[0] = threshold; //sets first value equal to threshold
-
-	for (var i = 1; i < maxturn; i++)
-	{
-		thresholdArray[i] = thresholdArray[i-1] - (climateArray[i]);
-	}
-
-	return thresholdArray;
-};
-
-makeThresholdArray(); //sets thresholdArray to new value based on climate change
+	makeGameWeather(); //sets value of gameWeather (array containing weather for length of game)
 
 
-// Set game weather -------
+	//Calculate Max Score --------------------------------------
 
-gameWeather = [];
+	optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
 
-function makeGameWeather() //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
-{
+	function calculateOptimalCrop () {
 
-for (var i = 0; i < maxturn; i++) {
-	if (weatherArray[i] < thresholdArray[i])
-		{
-			var perTurnWeather = "Wet";
-			gameWeather[i] = perTurnWeather;
-		}
+		for (var i = 0; i < maxturn; i++) {
 
-	if (weatherArray[i] > thresholdArray[i])
-		{
-			var perTurnWeather = "Dry";
-			gameWeather[i] = perTurnWeather;
-		}
 
+			if (gameWeather[i] === "Wet" && payoutAwet > payoutBwet)
+			{
+				optimalCrops[i] = payoutAwet;
+			}
+			else if (gameWeather[i] === "Dry" && payoutAdry > payoutBdry)
+			{
+				optimalCrops[i] = payoutAdry;
+			}
+			else if (gameWeather[i] === "Wet" && payoutBwet > payoutAwet)
+			{
+				optimalCrops[i] = payoutBwet;
+			}
+			else if (gameWeather[i] === "Dry" && payoutBdry > payoutAdry)
+			{
+				optimalCrops[i] = payoutBdry;
+			}
 		} //end of for loop
 
-	return gameWeather;
-};
-
-makeGameWeather(); //sets value of gameWeather (array containing weather for length of game)
-
-
-//Calculate Max Score --------------------------------------
-
-optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
-
-function calculateOptimalCrop () {
-
-	for (var i = 0; i < maxturn; i++) {
-
-
-		if (gameWeather[i] === "Wet" && payoutAwet > payoutBwet)
-		{
-			optimalCrops[i] = payoutAwet;
-		}
-		else if (gameWeather[i] === "Dry" && payoutAdry > payoutBdry)
-		{
-			optimalCrops[i] = payoutAdry;
-		}
-		else if (gameWeather[i] === "Wet" && payoutBwet > payoutAwet)
-		{
-			optimalCrops[i] = payoutBwet;
-		}
-		else if (gameWeather[i] === "Dry" && payoutBdry > payoutAdry)
-		{
-			optimalCrops[i] = payoutBdry;
-		}
-	} //end of for loop
-
-	return optimalCrops;
-};
-
-calculateOptimalCrop(); //sets value of optimalCrops array
-
-maxScore = 0;
-
-function calculateMaxScore () {
-		for (var i=0; i < maxturn; i++)
-
-		{
-		maxScore += optimalCrops[i]
-		} //maxScore = maxScore + optimalTurnCrop[i]
-	return maxScore;
-};
-
-calculateMaxScore();
-console.log("The maximum possible score is " + maxScore + " points")
-
-// Calculate Random Play bonus threshold ---------------------------------
-
-		// A. Calculate indifference point
-
-indifferencePoint = (payoutBwet - payoutAwet)/(payoutAdry - payoutAwet + payoutBwet - payoutBdry);
-pWet = [];
-
-function checkIndifferencePoint () {
-	if (indifferencePoint >=1 || indifferencePoint <=0) {
-		alert("The indifference point between A and B is " + indifferencePoint + "!");
-	}
-
-	console.log(indifferencePoint);
-};
-
-		// B. on which turn does the probability of dry weather = indifference point?
-
-function findTurnAtIndifferencePoint () { //calculates the turn at which the probability of wet weather equals the indiff point
-
-	for (var i = 0; i < maxturn ; i++) {
-			pWet[i] = thresholdArray[i]/1000;
-	}
-
-		console.log(pWet);
-
-	for (var i = 0; i < maxturn; i++) {
-		if ((pWet[i] == indifferencePoint) || (pWet[i+1] > indifferencePoint && pWet[i-1] < indifferencePoint)) {
-			indifferentTurn = i;
-			return indifferentTurn;
-			break;
-		}
-	}
-
-	alert("There is no turn at which the probability of dry weather equals the indifference point!");
-};
-
-		// C. Calculate probability of dry weather for all turns.
-		//How many points would you make playing by random chance as of the indifferentTurn?
-
-pDry=[];
-
-function calculateProbabilityDry () { // Creates an array, pDry, that lists the probability of dry weather for all turns.
-	for (var i = 0; i < maxturn; i++) {
-		pDry[i] = (1-pWet[i]);
-	}
-
-	return pDry;
-};
-
-var totalRandomPoints = 0;
-
-//Run all previous functions
-checkIndifferencePoint();
-findTurnAtIndifferencePoint();
-calculateProbabilityDry();
-
-function calculateRandomPlayPoints () { //expected points earned by picking A or B randomly
-
-	randomPoints = [];
-	for (var i = 0; i < maxturn; i++) {
-		randomPoints[i] = .5*pDry[i]*payoutAdry + .5*pWet[i]*payoutAwet +
-		 .5*pDry[i]*payoutBdry + .5*pWet[i]*payoutBwet;
-	}
-
-	for (var i = 0; i < maxturn; i++) {
-		totalRandomPoints += randomPoints[i];
-	}
-
-	return totalRandomPoints;
-};
-
-calculateRandomPlayPoints();
-console.log("The first bonus will trigger at " + totalRandomPoints + " points");
-
-// Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
-
-
-optimalChoice1 = [];
-optimalChoice2 = [];
-
-for (var i = 0; i <= maxturn; ++i) {
-	optimalChoice1[i] = 0;
-	optimalChoice2[i] = 0;
-}
-
-function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
-			var result = [];
-
-			for (var i = 0; i < min; i++) {
-				result[i]=0;
-			};
-
-			for (var i = min; i <= max; i++) {
-				result[i] = probDry[i] * payoutDry + probWet[i] * payoutWet;
-			};
-
-			return result; //exit point
-};
-
-
-function optimalScenario () {
-
-	// A is first optimal choice, starting condition is pWet > pDry
-	if (payoutAwet > payoutBwet) {
-		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
-		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
-	}
-
-	// B is first optimal choice, starting condition is pWet > pDry
-	else if (payoutBwet > payoutAwet) {
-		optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutBdry, payoutBwet);
-		optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutAdry, payoutAwet);
-	}
-
-};
-
-
-function calculateOptimalPlayPoints () {
-
-	optimalScenario();
-
-	var totalOptimalChoice1 = 0;
-	var totalOptimalChoice2 = 0;
-
-
-	function sumtotal1 () {
-		for (var i = 0; i <= indifferentTurn; i++) {
-			totalOptimalChoice1 += optimalChoice1[i];
-		}
-		return totalOptimalChoice1;
+		return optimalCrops;
 	};
 
-	var total1 = sumtotal1();
+	calculateOptimalCrop(); //sets value of optimalCrops array
 
-	function sumtotal2 () {
-		for (var i = 0; i > indifferentTurn, i < maxturn; i++) {
-			totalOptimalChoice2 += optimalChoice2[i];
-		}
+	maxScore = 0;
 
-		return totalOptimalChoice2;
+	function calculateMaxScore () {
+			for (var i=0; i < maxturn; i++)
+
+			{
+			maxScore += optimalCrops[i]
+			} //maxScore = maxScore + optimalTurnCrop[i]
+		return maxScore;
 	};
 
-	var total2 = sumtotal2();
+	calculateMaxScore();
+	console.log("The maximum possible score is " + maxScore + " points")
 
-	//totalOptimalPoints is the sum of total optimal choice 1 + total optimal choice 2
+	// Calculate Random Play bonus threshold ---------------------------------
 
-	var totalOptimalPoints = total1 + total2;
-	//alert("total optimal points: " + totalOptimalPoints);
+			// A. Calculate indifference point
 
-	console.log("The second bonus will trigger at " + totalOptimalPoints + " points");
-	return totalOptimalPoints;
-};
+	indifferencePoint = (payoutBwet - payoutAwet)/(payoutAdry - payoutAwet + payoutBwet - payoutBdry);
+	pWet = [];
 
-calculateOptimalPlayPoints();
+	function checkIndifferencePoint () {
+		if (indifferencePoint >=1 || indifferencePoint <=0) {
+			alert("The indifference point between A and B is " + indifferencePoint + "!");
+		}
 
+		console.log(indifferencePoint);
+	};
 
+			// B. on which turn does the probability of dry weather = indifference point?
 
-/* Contact the server and tell it what's up */
-function tellServerWhatsUp() {
-	$.ajax({
-			url: 'http://someserver.com/game',
-			type: 'POST',
-			async: false,
-			data: {
-				probablityOfRain: 0.7
+	function findTurnAtIndifferencePoint () { //calculates the turn at which the probability of wet weather equals the indiff point
+
+		for (var i = 0; i < maxturn ; i++) {
+				pWet[i] = thresholdArray[i]/1000;
+		}
+
+			console.log(pWet);
+
+		for (var i = 0; i < maxturn; i++) {
+			if ((pWet[i] == indifferencePoint) || (pWet[i+1] > indifferencePoint && pWet[i-1] < indifferencePoint)) {
+				indifferentTurn = i;
+				return indifferentTurn;
+				break;
 			}
-		}).done(function() {
-			// continue processing, set up game world
-		}).failure(function() {
-			// alert the user, bail out
-		});
-}
+		}
 
+		alert("There is no turn at which the probability of dry weather equals the indifference point!");
+	};
+
+			// C. Calculate probability of dry weather for all turns.
+			//How many points would you make playing by random chance as of the indifferentTurn?
+
+	pDry=[];
+
+	function calculateProbabilityDry () { // Creates an array, pDry, that lists the probability of dry weather for all turns.
+		for (var i = 0; i < maxturn; i++) {
+			pDry[i] = (1-pWet[i]);
+		}
+
+		return pDry;
+	};
+
+	var totalRandomPoints = 0;
+
+	//Run all previous functions
+	checkIndifferencePoint();
+	findTurnAtIndifferencePoint();
+	calculateProbabilityDry();
+
+	function calculateRandomPlayPoints () { //expected points earned by picking A or B randomly
+
+		randomPoints = [];
+		for (var i = 0; i < maxturn; i++) {
+			randomPoints[i] = .5*pDry[i]*payoutAdry + .5*pWet[i]*payoutAwet +
+			 .5*pDry[i]*payoutBdry + .5*pWet[i]*payoutBwet;
+		}
+
+		for (var i = 0; i < maxturn; i++) {
+			totalRandomPoints += randomPoints[i];
+		}
+
+		return totalRandomPoints;
+	};
+
+	calculateRandomPlayPoints();
+	console.log("The first bonus will trigger at " + totalRandomPoints + " points");
+
+	// Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
+
+
+	optimalChoice1 = [];
+	optimalChoice2 = [];
+
+	for (var i = 0; i <= maxturn; ++i) {
+		optimalChoice1[i] = 0;
+		optimalChoice2[i] = 0;
+	};
+
+	function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
+				var result = [];
+
+				for (var i = 0; i < min; i++) {
+					result[i]=0;
+				};
+
+				for (var i = min; i <= max; i++) {
+					result[i] = probDry[i] * payoutDry + probWet[i] * payoutWet;
+				};
+
+				return result; //exit point
+	};
+
+
+	function optimalScenario () {
+
+		// A is first optimal choice, starting condition is pWet > pDry
+		if (payoutAwet > payoutBwet) {
+			optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
+			optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutBdry, payoutBwet);
+		}
+
+		// B is first optimal choice, starting condition is pWet > pDry
+		else if (payoutBwet > payoutAwet) {
+			optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutBdry, payoutBwet);
+			optimalChoice2 = optimalChoice(indifferentTurn, maxturn, pDry, pWet, payoutAdry, payoutAwet);
+		}
+
+	};
+
+
+	function calculateOptimalPlayPoints () {
+
+		optimalScenario();
+
+		var totalOptimalChoice1 = 0;
+		var totalOptimalChoice2 = 0;
+
+
+		function sumtotal1 () {
+			for (var i = 0; i <= indifferentTurn; i++) {
+				totalOptimalChoice1 += optimalChoice1[i];
+			}
+			return totalOptimalChoice1;
+		};
+
+		var total1 = sumtotal1();
+
+		function sumtotal2 () {
+			for (var i = 0; i > indifferentTurn, i < maxturn; i++) {
+				totalOptimalChoice2 += optimalChoice2[i];
+			}
+
+			return totalOptimalChoice2;
+		};
+
+		var total2 = sumtotal2();
+
+		//totalOptimalPoints is the sum of total optimal choice 1 + total optimal choice 2
+
+		var totalOptimalPoints = total1 + total2;
+		//alert("total optimal points: " + totalOptimalPoints);
+
+		console.log("The second bonus will trigger at " + totalOptimalPoints + " points");
+		return totalOptimalPoints;
+	};
+
+	calculateOptimalPlayPoints();
+
+
+
+	/* Contact the server and tell it what's up */
+	function tellServerWhatsUp() {
+		$.ajax({
+				url: 'http://someserver.com/game',
+				type: 'POST',
+				async: false,
+				data: {
+					probablityOfRain: 0.7
+				}
+			}).done(function() {
+				// continue processing, set up game world
+			}).failure(function() {
+				// alert the user, bail out
+			});
+	};
+
+
+	//Populate spans in opening and ending dialogs
+
+	$(".turncount_instructions").text(maxturn + " turns");
+	$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
+	$("#bonus_one_instructions").text(totalRandomPoints);
+	$("#bonus_two_instructions").text("totalOptimalPoints");
+
+}); //end of initialization function
 
 // >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
 
 // Open first dialog; keep other dialogs hidden
 
-$(function () {
+$(function dialogIntro () {
 
 	$( "#first-message" ).dialog({
 		autoOpen: true,
@@ -505,15 +514,6 @@ $(function () {
 	});
 
 });
-
-//Populate spans in opening and ending dialogs
-
-$(".turncount_instructions").text(maxturn + " turns");
-$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
-$("#bonus_one_instructions").text(totalRandomPoints);
-$("#bonus_two_instructions").text("totalOptimalPoints");
-
-
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
