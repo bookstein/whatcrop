@@ -537,6 +537,15 @@ button.plant {
 	margin-left: auto;
 }
 
+/*Formatting font inside dialog boxes*/
+.dialog-message p {
+	color: #565347;
+	font-family: Verdana, Helvetica,sans-serif;
+	font-size: 12px; margin: 0;
+	line-height: 14px;
+	letter-spacing: normal;
+}
+
 /* >>>>>>>>>>>>>>Points Counter <<<<<<<<<<<<<<< */
 
 #score {
