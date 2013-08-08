@@ -668,17 +668,21 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	    $("#weather_outcome").text(gameWeather[turn]);
 		$("#new_score").text(payout);
 
+		// bonus dialogs
 		if (oldscore < "totalRandomPoints" || newscore >= "totalRandomPoints") { //this doesn't work yet - need variable to transfer
 			$("#bonus_results").dialog("open");
 			$("#bonus_count").text(bonusOneDollars);
+			addBonus1();
 		}
 
 			//this dialog box was appearing at the same time as normal_results, for some reason
 		/*else if (oldscore < "totalOptimalPoints" || newscore >= "totalOptimalPoints") { //this doesn't work yet
 			$("#bonus_results").dialog("open");
 			$("#bonus_count").text(bonusTwoDollars);
+			addBonus2();
 		}*/
 
+		//end game dialog
 		else if (turn === maxturn) {
 			$("#end_results").dialog("open");
 			$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
@@ -686,6 +690,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 			// $("#playerID") //need Tony's work on this
 		}
 
+		//normal results dialogs
 		else {
 			$("#normal_results").dialog("open");
 		}
@@ -748,25 +753,20 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 		// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
-	/*function addDollars(oldscore, newscore) {
-		if (oldscore < randomTotalPoints && newscore >= randomTotalPoints) {
-			//add bonusOne, give special message
-		}
+	//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
+	function addBonus1 () {
+		realDollars = bonusOne; //change value of realDollars to bonusOne
+		$("#dollars_counter").html("$"+realDollars);
+	};
 
-		else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
-			//add bonusTwo, give special message
-		}
-
-		else {
-			//no bonus added - run default results message
-
-		}
-	};*/
+	function addBonus2 () {
+		realDollars = bonusOne + bonusTwo;
+		$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
+	};
 
 	setTimeout(fadeWeather, 4000);
 	newScore();
 	movePointsFlag();
-	//addDollars();
 	setTimeout(addTurn, 4000);
 
 
