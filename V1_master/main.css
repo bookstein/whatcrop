@@ -550,7 +550,9 @@ button.plant {
 	background-repeat: no-repeat;
 	background-position: center;
 	position: relative; /* #score is the coordinate reference system for #points_fill*/
+	overflow: hidden;
 }
+
 
 #points_bar {
 	width: 2em;
@@ -564,6 +566,47 @@ button.plant {
 	right: 50%;
 	z-index: 1;
 }
+
+	#bonus1marker {
+		display: block;
+		background-color: black;
+		position: absolute;
+		bottom: 100px;
+		width: 2em;
+		height: 2px;
+		border: 1px solid black;
+		z-index: 3;
+	}
+
+	#bonus2marker {
+		display: block;
+		background-color: black;
+		position: absolute;
+		bottom: 110px;
+		width: 2em;
+		height: 2px;
+		border: 1px solid black;
+		z-index: 3;
+	}
+
+	#bonusLabel1 {
+		position: absolute;
+		bottom: 100px;
+		left: 2.7em;
+		width: 60px;
+		text-align: left;
+		padding-bottom: 0;
+	}
+
+	#bonusLabel2 {
+		position: absolute;
+		bottom: 110px;
+		left: 2.7em;
+		width: 60px;
+		text-align: left;
+		padding-bottom: 0;
+	}
+
 
 	#points_fill {
 		width: inherit;
