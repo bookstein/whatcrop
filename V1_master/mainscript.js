@@ -664,23 +664,6 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 	//alert("Running updateGame now using arguments " + arguments)
 	cropchoice = ""; // resets value of cropchoice to ""
-	var oldscore = score;
-	var newscore = oldscore + payout;
-
-	//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
-	var pixelHeight = parseInt($("#points_bar").css("height"));
-
-	//Ratio of points per pixel
-	var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
-
-	//Points_counter moves upward this number of pixels per turn
-	var perTurnHeight = payout/pointsPerPixelRatio;
-
-	//Current CSS position for #points_flag "bottom" as an integer
-	var flagHeight = parseInt($("#points_flag").css("bottom"));
-
-	//Current CSS height of #points_fill with "height" as an integer
-	var fillHeight = parseInt($("#points_fill").css("height"));
 
 	setTimeout(fadeWeather, 4000);
 
@@ -690,7 +673,6 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	   	$(".croprows").addClass("hidden");
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden");
-	   	setTimeout(addTurn, 200);
 	};
 
 	function addTurn () {
@@ -701,19 +683,32 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	};
 
 	function newScore () {
+		var oldscore = score;
+		var newscore = oldscore + payout;
 		$("#point_count").html("<h5>" + newscore + "</h5>");
 	};
 
-	function movePointsFlag () {
-		//increase position of #points_flag
+	function movePointsFlag () { //increase height of #points_flag using absolute positioning
+		//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
+		var pixelHeight = parseInt($("#points_bar").css("height"));
+
+		//Ratio of points per pixel
+		var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
+
+		//Points_counter moves upward this number of pixels per turn
+		var perTurnHeight = payout/pointsPerPixelRatio;
+
+		//Current CSS position for #points_flag "bottom" as an integer
+		var flagHeight = parseInt($("#points_flag").css("bottom"));
+
+		//Current CSS height of #points_fill with "height" as an integer
+		var fillHeight = parseInt($("#points_fill").css("height"));
+
 		flagHeight+=perTurnHeight;
 		$("#points_flag").css("bottom", flagHeight); // Sets value of style rule "bottom" to flagHeight
 		//return flagHeight;
-	};
 
-	function movePointsFill () {
 		//increase height of yellow #points_fill
-		fillHeight+=perTurnHeight;
 		$("#points_fill").css("height", fillHeight); // Sets value of style rule "bottom" to flagHeight
 		//return fillHeight;
 	};
@@ -734,6 +729,13 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 		}
 	};
+
+	setTimeout(addTurn, 200);
+	fadeWeather();
+	newScore();
+	movePointsFlag();
+	addDollars();
+
 
 	score += payout;
 	return score; //this updates the value of the global variable "score"
