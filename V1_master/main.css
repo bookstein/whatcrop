@@ -531,7 +531,7 @@ button.plant {
   display: none;
 }
 
-.dialog-message img {
+.dialog-message img { /* FSE Logo */
 	display: block;
 	margin-right: auto;
 	margin-left: auto;
@@ -594,7 +594,7 @@ button.plant {
 		bottom: 100px;
 		left: 2.7em;
 		width: 60px;
-		text-align: left;
+		text-align: center;
 		padding-bottom: 0;
 	}
 
@@ -603,7 +603,7 @@ button.plant {
 		bottom: 110px;
 		left: 2.7em;
 		width: 60px;
-		text-align: left;
+		text-align: center;
 		padding-bottom: 0;
 	}
 

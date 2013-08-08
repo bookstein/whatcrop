@@ -463,7 +463,7 @@ $(function dialogIntro () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '350',
+        width: '400',
         dialogClass: "no-close",
 		buttons: [ { text: "Next",
 			click: function() {
@@ -481,7 +481,7 @@ $(function dialogIntro () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '350',
+        width: '400',
         dialogClass: "no-close",
 		buttons: [ { text: "Next",
 			click: function() {
@@ -500,7 +500,7 @@ $(function dialogIntro () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '350',
+        width: '400',
         dialogClass: "no-close",
 		buttons: [ { text: "Next",
 			click: function() {
@@ -518,7 +518,7 @@ $(function dialogIntro () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '350',
+        width: '400',
         dialogClass: "no-close",
 		buttons: [ { text: "Start Game",
 			click: function() { $( this ).dialog( "close" );}
@@ -673,7 +673,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 			$("#bonus_count").text(bonusOneDollars);
 		}
 
-		//this dialog box was appearing at the same time as normal_results, for some reason
+			//this dialog box was appearing at the same time as normal_results, for some reason
 		/*else if (oldscore < "totalOptimalPoints" || newscore >= "totalOptimalPoints") { //this doesn't work yet
 			$("#bonus_results").dialog("open");
 			$("#bonus_count").text(bonusTwoDollars);
