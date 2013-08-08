@@ -303,7 +303,7 @@ function calculateProbabilityDry () { // Creates an array, pDry, that lists the 
 	return pDry;
 };
 
-totalRandomPoints = 0;
+var totalRandomPoints = 0;
 
 //Run all previous functions
 checkIndifferencePoint();
@@ -401,12 +401,14 @@ function calculateOptimalPlayPoints () {
 	//totalOptimalPoints is the sum of total optimal choice 1 + total optimal choice 2
 
 	var totalOptimalPoints = total1 + total2;
-	alert("total optimal points: " + totalOptimalPoints);
+	//alert("total optimal points: " + totalOptimalPoints);
 
+	console.log("The second bonus will trigger at " + totalOptimalPoints + " points");
 	return totalOptimalPoints;
 };
 
 calculateOptimalPlayPoints();
+
 
 
 /* Contact the server and tell it what's up */
