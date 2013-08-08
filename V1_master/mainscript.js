@@ -652,7 +652,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	function displayResultsDialog () {
 
 		$(".results").dialog({
-			autoOpen: true,
+			autoOpen: false,
 			modal: false,
 			closeOnEscape: false,
 			dialogClass: "no-close",
@@ -666,17 +666,18 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 		//populate spans inside all results dialogs
 	    $("#weather_outcome").text(gameWeather[turn]);
-		$("#new_score").text(newscore);
+		$("#new_score").text(payout);
 
 		if (oldscore < "totalRandomPoints" || newscore >= "totalRandomPoints") { //this doesn't work yet - need variable to transfer
 			$("#bonus_results").dialog("open");
 			$("#bonus_count").text(bonusOneDollars);
 		}
 
-		else if (oldscore < "totalOptimalPoints" || newscore >= "totalOptimalPoints") { //this doesn't work yet
+		//this dialog box was appearing at the same time as normal_results, for some reason
+		/*else if (oldscore < "totalOptimalPoints" || newscore >= "totalOptimalPoints") { //this doesn't work yet
 			$("#bonus_results").dialog("open");
 			$("#bonus_count").text(bonusTwoDollars);
-		}
+		}*/
 
 		else if (turn === maxturn) {
 			$("#end_results").dialog("open");
@@ -689,7 +690,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 			$("#normal_results").dialog("open");
 		}
 
-		setTimeout(function() {$( ".results" ).dialog( "close" )}, 2500);
+		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
 
 	};
 
@@ -742,7 +743,6 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 
 		//carve up post-second-bonus pixels into fixed amount between this turn and last turn
-		var remainderHeight = maxScore - totalOptimalPoints;
 
 	};
 
@@ -775,8 +775,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 };
 
 
-function endGame () {
-	//call end-of-game dialog box
+function endGame () { //call end-of-game dialog box
 	endOfGame = true;
 	return endOfGame;
 	$("button #grow").addClass("hidden");
@@ -796,7 +795,7 @@ $("#grow").on("click", function () {
 		setTimeout(weatherResults, 400);
 	}
 
-		else if (($(this).hasClass("highlight")) && turns == maxturn) {
+		else if (($(this).hasClass("highlight")) && turns === maxturn) {
 
 		//summon end-of-game dialog instead of update
 		$("#sproutA").addClass("hidden");
