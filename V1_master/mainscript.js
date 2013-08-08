@@ -30,7 +30,7 @@ $(document).ready(function(){
 
 	// Set bonus payments
 	bonusOneDollars = 1.25;
-	bonusTwoDollars = 075;
+	bonusTwoDollars = 0.75;
 
 	// Set climate change, either using "for loop" or manually; choose using autoFillClimateChange variable
 
@@ -624,6 +624,19 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
 	}
 
+
+	return args;
+};
+
+// >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
+
+function updateGame(payout) { //this function is called inside weatherResults function
+
+	//alert("Running updateGame now using arguments " + arguments)
+	cropchoice = ""; // resets value of cropchoice to ""
+	var oldscore = score;
+	var newscore = oldscore + payout;
+
 	function displayResultsDialog () {
 
 		$(".results").dialog({
@@ -638,12 +651,25 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	        width: 'auto'
 	    });
 
-		if (score === totalRandomPoints || score === "totalOptimalPoints") { //this doesn't work yet
+		//populate spans inside all results dialogs
+	    $("#weather_outcome").text(gameWeather[turn]);
+		$("#new_score").text(newscore);
+
+		if (oldscore < "totalRandomPoints" || newscore >= "totalRandomPoints") { //this doesn't work yet - need variable to transfer
 			$("#bonus_results").dialog("open");
+			$("#bonus_count").text(bonusOneDollars);
 		}
 
-		else if (turn == maxturn) {
+		else if (oldscore < "totalOptimalPoints" || newscore >= "totalOptimalPoints") { //this doesn't work yet
+			$("#bonus_results").dialog("open");
+			$("#bonus_count").text(bonusTwoDollars);
+		}
+
+		else if (turn === maxturn) {
 			$("#end_results").dialog("open");
+			$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
+			$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
+			// $("#playerID") //need Tony's work on this
 		}
 
 		else {
@@ -655,17 +681,6 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	};
 
 	displayResultsDialog();
-	return args;
-};
-
-// >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
-
-function updateGame(payout) { //this function is called inside weatherResults function
-
-	//alert("Running updateGame now using arguments " + arguments)
-	cropchoice = ""; // resets value of cropchoice to ""
-	var oldscore = score;
-	var newscore = oldscore + payout;
 
 	function fadeWeather () {
 		//setTimeout calls function after a certain time; currently 3000 ms
