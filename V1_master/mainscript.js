@@ -451,7 +451,7 @@ $(function dialogIntro () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: 'auto',
+        width: '350',
         dialogClass: "no-close",
 		buttons: [ { text: "Next",
 			click: function() {
@@ -469,7 +469,7 @@ $(function dialogIntro () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: 'auto',
+        width: '350',
         dialogClass: "no-close",
 		buttons: [ { text: "Next",
 			click: function() {
@@ -488,7 +488,7 @@ $(function dialogIntro () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: 'auto',
+        width: '350',
         dialogClass: "no-close",
 		buttons: [ { text: "Next",
 			click: function() {
@@ -506,7 +506,7 @@ $(function dialogIntro () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: 'auto',
+        width: '350',
         dialogClass: "no-close",
 		buttons: [ { text: "Start Game",
 			click: function() { $( this ).dialog( "close" );}
