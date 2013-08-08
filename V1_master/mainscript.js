@@ -664,8 +664,8 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 	//alert("Running updateGame now using arguments " + arguments)
 	cropchoice = ""; // resets value of cropchoice to ""
-
-	setTimeout(fadeWeather, 4000);
+	var oldscore = score;
+	var newscore = oldscore + payout;
 
 	function fadeWeather () {
 		//setTimeout calls function after a certain time; currently 3000 ms
@@ -683,8 +683,6 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	};
 
 	function newScore () {
-		var oldscore = score;
-		var newscore = oldscore + payout;
 		$("#point_count").html("<h5>" + newscore + "</h5>");
 	};
 
@@ -705,6 +703,8 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 		var fillHeight = parseInt($("#points_fill").css("height"));
 
 		flagHeight+=perTurnHeight;
+		fillHeight+=perTurnHeight;
+
 		$("#points_flag").css("bottom", flagHeight); // Sets value of style rule "bottom" to flagHeight
 		//return flagHeight;
 
@@ -715,7 +715,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 		// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
-	function addDollars(oldscore, newscore) {
+	/*function addDollars(oldscore, newscore) {
 		if (oldscore < randomTotalPoints && newscore >= randomTotalPoints) {
 			//add bonusOne, give special message
 		}
@@ -728,13 +728,13 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 			//no bonus added - run default results message
 
 		}
-	};
+	};*/
 
-	setTimeout(addTurn, 200);
-	fadeWeather();
+	setTimeout(fadeWeather, 4000);
 	newScore();
 	movePointsFlag();
-	addDollars();
+	//addDollars();
+	setTimeout(addTurn, 4000);
 
 
 	score += payout;
