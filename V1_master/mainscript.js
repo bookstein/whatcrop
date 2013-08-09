@@ -540,6 +540,7 @@ $(function introDialogs () {
 
 });
 
+
 /*function dialogIntroduction () {
 	$("#second-message")
 		.on("dialogopen", function () {
@@ -749,7 +750,11 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	function newScore () {
 
 		function animatePoints () {
-			$("#points_bar").toggleClass("glow");
+			//$("#points_bar").toggleClass("glow");
+
+
+			$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
+			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
 			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
   		};
 
@@ -785,7 +790,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 		$("#point_count").html("<h5>" + newscore + "</h5>");
 		animatePoints();
-		setTimeout(animatePoints, 4000);
+		//setTimeout(animatePoints, 4000);
 		movePointsFlag();
 	};
 
