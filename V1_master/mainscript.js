@@ -719,6 +719,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 		function animatePoints () {
 			$("#points_bar").toggleClass("glow");
+			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
   		};
 
 		function movePointsFlag () { //increase height of #points_flag using absolute positioning
@@ -753,6 +754,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 		$("#point_count").html("<h5>" + newscore + "</h5>");
 		animatePoints();
+		setTimeout(animatePoints, 4000);
 		movePointsFlag();
 	};
 

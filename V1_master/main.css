@@ -155,11 +155,11 @@ header > h1 {
 
 .glow {
 	/* outer shadows  (note the rgba is red, green, blue, alpha) */
-	-webkit-box-shadow: 0px 0px 12px rgba(255 204 51 0.4);
-	-moz-box-shadow: 0px 1px 6px rgba(255 204 51 .5);
-	box-shadow: 0px 1px 6px rgba(255 204 51 .5);
+	-webkit-box-shadow: 0 0 15px 10px rgba(255, 204, 51, 1);
+	-moz-box-shadow: 0 0 15px 10px rgba(255, 204, 51, 1);
+	box-shadow: 0 0 15px 10px rgba(255, 204, 51, 1);
 	/* rounded corners */
-	-webkit-border-radius: 12px;
+	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
