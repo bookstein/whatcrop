@@ -453,7 +453,7 @@ $(function initializeGame () {
 
 // Open first dialog; keep other dialogs hidden
 
-$(function dialogIntro () {
+$(function introDialogs () {
 
 	$( "#first-message" ).dialog({
 		autoOpen: true,
@@ -469,6 +469,8 @@ $(function dialogIntro () {
 			click: function() {
 				$( this ).dialog( "close" );
 				$( "#second-message" ).dialog( "open" );
+				$("#givens").addClass("glow");
+				$(".ui-widget-overlay").addClass("active-left");
 			}
 		} ]
 	});
@@ -486,11 +488,14 @@ $(function dialogIntro () {
 		buttons: [ { text: "Next",
 			click: function() {
 				$( this ).dialog( "close" );
+				//$(".ui-widget-overlay").addClass("active-left");
 				$( "#third-message" ).dialog( "open" );
+				$("#givens").removeClass("glow");
+				//$("table").addClass("glow");
+
 			}
 		} ]
 	});
-
 
 	$("#third-message").dialog({
 		autoOpen: false,
@@ -506,6 +511,10 @@ $(function dialogIntro () {
 			click: function() {
 				$( this ).dialog( "close" );
 				$( "#fourth-message" ).dialog( "open" );
+				$("table").removeClass("glow");
+				$("#points_bar, #points_flag").toggleClass("glow");
+				$(".ui-widget-overlay").removeClass("active-left");
+				$(".ui-widget-overlay").addClass("active-right");
 			}
 		} ]
 	});
@@ -521,11 +530,33 @@ $(function dialogIntro () {
         width: '400',
         dialogClass: "no-close",
 		buttons: [ { text: "Start Game",
-			click: function() { $( this ).dialog( "close" );}
+			click: function() {
+				$( this ).dialog( "close" );
+				$("#points_bar, #points_flag").toggleClass("glow");
+				$(".ui-widget-overlay").removeClass("active-right");
+			}
 		} ]
 	});
 
 });
+
+/*function dialogIntroduction () {
+	$("#second-message")
+		.on("dialogopen", function () {
+			$("#givens").toggleClass("glow")});
+		})
+		.on("dialogclose", function {
+			$("#givens table").toggleClass("glow");
+	});
+
+	$("#fourth-message").
+		.on("dialogopen", function {
+			$("#points_bar, #points_flag").toggleClass("glow");
+			$(this).on("dialogclose", function {
+			$("#points_bar, #points_flag").toggleClass("glow");
+			});
+	};
+};*/
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 

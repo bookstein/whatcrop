@@ -164,6 +164,19 @@ header > h1 {
 	border-radius: 5px;
 }
 
+.active-left { /* For moving modal gray-out to the right during intro */
+	position: fixed;
+	top: 0;
+	left: 25% !important;
+}
+
+.active-right { /* For moving modal gray-out to the left during intro */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 75% !important;
+}
+
 
 /* >>>>>>>>>>>>>>>>>>>>>>>> Wrapper (.container) - excludes footer and header <<<<<< */
 

@@ -45,7 +45,7 @@
 
 		<div class="instructions dialog-message ui-dialog" id="first-message" title="Game instructions">
 				<p>
-				    Thank you for playing What Crop.
+				    Thank you for playing "What Crop."
 				</p><br>
 				<p>
 				  	By playing, you are contributing the scientific understanding of farmer decisionmaking in the United States.
@@ -62,33 +62,35 @@
 
 		<div class="instructions dialog-message ui-dialog" id="second-message" title="Game instructions">
 		<!-- highlight table -->
-
+			<br>
 				<p>
 				  	Use the table on the left to decide to plant either <span class="Acolor">Crop A</span> or <span class="Bcolor">Crop B</span>.
 				</p>
+			<br>
 
 		</div>
 
 		<div class="instructions dialog-message ui-dialog" id="third-message" title="Game instructions">
-
+			<br>
 				<p>
 					Historically, the weather has been dry <span id="weather_instructions"></span> of the time.
 				</p>
-
+			<br>
 		</div>
 
 		<div class="instructions dialog-message ui-dialog" id="fourth-message" title="Game instructions">
 		<!-- highlight points counter -->
-
+			<br>
 				<p>
 					You can see your score, and how much money you've earned, on the right-hand side.
 				</p>
+				<br>
 				<p>
 					You will earn bonuses when you reach <span id="bonus_one_instructions"></span> and <span id="bonus_two_instructions"></span> levels of points!
 				</p>
 				<br>
 				<img src= "images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" />
-
+			<br>
 		</div>
 
 
@@ -101,7 +103,8 @@
 		//should I write one JS file for the whole thing, or mini JS files for specific purposes? Should I basically just externalize most of the code that the guy wrote? -->
 	<section id="givens"> <!-- Contains infographics explaining value of A and B, weather distribution (if any) as well as turn counter -->
 		<h5>Crop Information</h5>
-		<h6>Use this information to make your choice.</h6>
+		<br>
+		<!-- <h6>Use this information to make your choice.</h6> -->
 		 <table>
 			<thead colspan="3"><tr><th id="empty"><!--empty--></th><th>if Wet:</th><th>if Dry:</th></tr></thead>
 			<tbody>
