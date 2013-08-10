@@ -612,7 +612,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 	disableGrowButton();
 
-	$(".plant, .plant_img, #grow").addClass("hidden");
+	$(".plant, .plant_img, #grow").addClass("hidden").css("opacity", 0);
 
 	function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
 		$("#sun").addClass("displayWeather").removeClass("hidden");
@@ -737,7 +737,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
 	   	$(".croprows").addClass("hidden");
 	   	$(".plant").removeClass("select");
-	   	$(".plant, .plant_img, #grow").removeClass("hidden");
+	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
 	};
 
 	function addTurn () {
