@@ -18,6 +18,9 @@
 	<link href="jQuery_UI/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet"> <!-- custom-theme css overrode the general jquery-ui.css -->
 	<script src="jQuery_UI/custom-theme/jquery-ui-1.10.3.custom.js" type="text/javascript"></script> <!-- custome-theme js -->
 
+	<!-- Edwin Martin's jQuery plugin for shadow animation -->
+	<script src="jquery_animate_shadow.js"></script>
+
 	<!-- <script src="jQuery_UI/jquery-ui-1.10.3.custom.js"></script> -->
 
 	<!-- other local files -->
@@ -45,14 +48,14 @@
 
 		<div class="instructions dialog-message ui-dialog" id="first-message" title="Game instructions">
 				<p>
-				    Thank you for playing What Crop.
-				</p>
+				    Thank you for playing "What Crop."
+				</p><br>
 				<p>
 				  	By playing, you are contributing the scientific understanding of farmer decisionmaking in the United States.
-				</p>
+				</p><br>
 				<p>
 					You will be paid for participating based on your score on this game.
-				</p>
+				</p><br>
 				<p>
 				  	Please play without stopping for <span class="turncount_instructions"></span>. This may take about 12 minutes to complete.
 				</p>
@@ -62,33 +65,35 @@
 
 		<div class="instructions dialog-message ui-dialog" id="second-message" title="Game instructions">
 		<!-- highlight table -->
-
+			<br>
 				<p>
-				  	Use the table on the left to decide to plant either Crop A or Crop B.
+				  	Use the table on the left to decide to plant either <span class="Acolor">Crop A</span> or <span class="Bcolor">Crop B</span>.
 				</p>
+			<br>
 
 		</div>
 
 		<div class="instructions dialog-message ui-dialog" id="third-message" title="Game instructions">
-
+			<br>
 				<p>
 					Historically, the weather has been dry <span id="weather_instructions"></span> of the time.
 				</p>
-
+			<br>
 		</div>
 
 		<div class="instructions dialog-message ui-dialog" id="fourth-message" title="Game instructions">
 		<!-- highlight points counter -->
-
+			<br>
 				<p>
 					You can see your score, and how much money you've earned, on the right-hand side.
 				</p>
+				<br>
 				<p>
 					You will earn bonuses when you reach <span id="bonus_one_instructions"></span> and <span id="bonus_two_instructions"></span> levels of points!
 				</p>
 				<br>
 				<img src= "images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" />
-
+			<br>
 		</div>
 
 
@@ -101,7 +106,8 @@
 		//should I write one JS file for the whole thing, or mini JS files for specific purposes? Should I basically just externalize most of the code that the guy wrote? -->
 	<section id="givens"> <!-- Contains infographics explaining value of A and B, weather distribution (if any) as well as turn counter -->
 		<h5>Crop Information</h5>
-		<h6>Use this information to make your choice.</h6>
+		<br>
+		<!-- <h6>Use this information to make your choice.</h6> -->
 		 <table>
 			<thead colspan="3"><tr><th id="empty"><!--empty--></th><th>if Wet:</th><th>if Dry:</th></tr></thead>
 			<tbody>
@@ -116,8 +122,8 @@
 			<!-- this div contains the actual turn count -->
 			<h5>Number of turns</h5>
 		</div>
-
 	</div>
+
 	</section> <!-- end of #givens -->
 
 	<section id="choice_screen"><!-- sibling of .dashboard and .givens, parent of .dialog. Named canvas to indicate area of screen with interactive visual elements -->
@@ -220,17 +226,29 @@
 	<section id="score"> <!-- sibling of #choice_screen. Contains points counter, real dollars counter -->
 		<h5>Points Earned </h5>
 
-
 		<div id="points_bar"><!-- this div is the vertical points bar and fills up with different images. -->
 
+			<!-- bonus marker divs -->
+			<p id="bonusLabel1">Bonus 1</p>
+
+			<div id="bonus1marker">
+			</div>
+
+			<p id="bonusLabel2">Bonus 2</p>
+
+			<div id="bonus2marker">
+			</div>
+
+			<!-- points flag and counter -->
 			<div id="points_flag"> <!-- Target this div with jQuery css height update -->
-			<div id="point_count"><!-- Target this div with jQuery score updates -->
+				<div id="point_count"><!-- Target this div with jQuery score updates -->
+				</div><!-- end of #points_count. -->
+			</div><!-- end of #points_flag -->
 
-			</div><!-- end of #points_count. -->
-		</div><!-- end of #points_flag -->
-
-			<div id="points_fill"><!-- this div is the "fill" that visually counts points earned. -->
+			<!-- yellow fill in points bar -->
+			<div id="points_fill"><!-- Target this div with jQuery points fill updates. -->
 			</div> <!-- end of #points_fill -->
+
 		</div> <!-- end of #points_bar -->
 
 			<div id="dollars"><!-- displays real dollars earned. Child of #points -->
