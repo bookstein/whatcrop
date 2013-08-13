@@ -19,14 +19,16 @@ $(document).ready(function(){
     maxturn = 50;
     endOfGame = false;
 
-	// Set crop payouts
-	payoutAwet = 70;
-	payoutAdry = 80;
-	payoutBwet = 100;
-	payoutBdry = 50;
+	// Set crop payouts using equation Payout = beta(w-w*) + P*
+	beta = 1;
+	maxApayout = 80; //P*(A)
+	maxBpayout = 100; //P*(B)
+	maxAweather = 1.9; //w*(A)
+	maxBweather = 2.3; //w*(B)
+
 
 	// Set rain threshold
-	threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
+	//threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
 
 	// Set bonus payments
 	bonusOneDollars = 1.25;
@@ -70,7 +72,14 @@ $(function initializeGame () {
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+	// Initial weather conditions
+
+	mean
+	std_dev
+
 	// Set climate change, either using "for loop" or manually; choose using autoFillClimateChange variable
+
+
 
 	function climateChange () {
 
