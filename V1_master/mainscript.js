@@ -25,7 +25,14 @@ $(document).ready(function(){
 	maxBpayout = 100; //P*(B)
 	maxAweather = 1.9; //w*(A)
 	maxBweather = 2.3; //w*(B)
+	payoutA = 0; //modified depending on weather w
+	payoutB = 0; //modified depending on weather w
 
+	// Initial weather conditions
+	mean = 0; //initial value of mean weather
+	std_dev = 0 //initial value of standard deviations
+	autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
+										//If false, then manually enter the climate change values you wish to use, below.
 
 	// Set rain threshold
 	//threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
@@ -57,25 +64,22 @@ $(document).ready(function(){
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 $(function initializeGame () {
-	// Crop Information table
 
-	function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
+
+	/*function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 		$("table").find("td#payoutAwet").text(payoutAwet + " points");
 		$("table").find("td#payoutAdry").text(payoutAdry + " points");
 		$("table").find("td#payoutBwet").text(payoutBwet + " points");
 		$("table").find("td#payoutBdry").text(payoutBdry + " points");
 	};
 
-	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
+	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);*/
 
 
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-	// Initial weather conditions
 
-	mean
-	std_dev
 
 	// Set climate change, either using "for loop" or manually; choose using autoFillClimateChange variable
 
@@ -83,8 +87,6 @@ $(function initializeGame () {
 
 	function climateChange () {
 
-		var autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
-										//If false, then manually enter the climate change values you wish to use below under "else".
 		climateArray = [];
 		manualClimateArray = [];
 
