@@ -109,65 +109,65 @@ $(function initializeGame () {
 		}
 
 
-		else { //each array contains [mean, std_dev]
-			manualClimateArray[0, 0] = [5, 0];
-			manualClimateArray[1] = 5;
-			manualClimateArray[2] = 5;
-			manualClimateArray[3] = 5;
-			manualClimateArray[4] = 5;
-			manualClimateArray[5] = 5;
-			manualClimateArray[6] = 5;
-			manualClimateArray[7] = 5;
-			manualClimateArray[8] = 5;
-			manualClimateArray[9] = 5;
-			manualClimateArray[10] = 5;
-			manualClimateArray[11] = 5;
-			manualClimateArray[12] = 7;
-			manualClimateArray[13] = 7;
-			manualClimateArray[14] = 7;
-			manualClimateArray[15] = 7;
-			manualClimateArray[16] = 7;
-			manualClimateArray[17] = 10;
-			manualClimateArray[18] = 10;
-			manualClimateArray[19] = 10;
-			manualClimateArray[20] = 10;
-			manualClimateArray[21] = 10;
-			manualClimateArray[22] = 10;
-			manualClimateArray[23] = 10;
-			manualClimateArray[24] = 5;
-			manualClimateArray[25] = 5;
-			manualClimateArray[26] = 5;
-			manualClimateArray[27] = 5;
-			manualClimateArray[28] = 5;
-			manualClimateArray[29] = 5;
-			manualClimateArray[30] = 5;
-			manualClimateArray[31] = 5;
-			manualClimateArray[32] = 5;
-			manualClimateArray[33] = 5;
-			manualClimateArray[34] = 5;
-			manualClimateArray[35] = 5;
-			manualClimateArray[36] = 5;
-			manualClimateArray[37] = 5;
-			manualClimateArray[38] = 5;
-			manualClimateArray[39] = 5;
-			manualClimateArray[40] = 5;
-			manualClimateArray[41] = 5;
-			manualClimateArray[42] = 5;
-			manualClimateArray[43] = 5;
-			manualClimateArray[44] = 5;
-			manualClimateArray[45] = 5;
-			manualClimateArray[46] = 5;
-			manualClimateArray[47] = 5;
-			manualClimateArray[48] = 5;
-			manualClimateArray[49] = 5;
-			manualClimateArray[50] = 5;
+		else { //manualClimateArray contains maxturn number of arrays of length 1: [mean, std_dev]
+			manualClimateArray[0] = [5, 0];
+			manualClimateArray[1] = [5, 0];
+			manualClimateArray[2] = [5, 0];
+			manualClimateArray[3] = [5, 0];
+			manualClimateArray[4] = [5, 0];
+			manualClimateArray[5] = [5, 0];
+			manualClimateArray[6] = [5, 0];
+			manualClimateArray[7] = [5, 0];
+			manualClimateArray[8] = [5, 0];
+			manualClimateArray[9] = [5, 0];
+			manualClimateArray[10] = [5, 0];
+			manualClimateArray[11] = [5, 0];
+			manualClimateArray[12] = [7, 0];
+			manualClimateArray[13] = [7, 0];
+			manualClimateArray[14] = [7, 0];
+			manualClimateArray[15] = [7, 0];
+			manualClimateArray[16] = [7, 0];
+			manualClimateArray[17] = [7, 0];
+			manualClimateArray[18] = [7, 0];
+			manualClimateArray[19] = [7, 0];
+			manualClimateArray[20] = [10, 0];
+			manualClimateArray[21] = [10, 0];
+			manualClimateArray[22] = [10, 0];
+			manualClimateArray[23] = [10, 0];
+			manualClimateArray[24] = [10, 0];
+			manualClimateArray[25] = [10, 0];
+			manualClimateArray[26] = [10, 0];
+			manualClimateArray[27] = [10, 0];
+			manualClimateArray[28] = [10, 0];
+			manualClimateArray[29] = [10, 0];
+			manualClimateArray[30] = [10, 0];
+			manualClimateArray[31] = [10, 0];
+			manualClimateArray[32] = [10, 0];
+			manualClimateArray[33] = [5, 0];
+			manualClimateArray[34] = [5, 0];
+			manualClimateArray[35] = [5, 0];
+			manualClimateArray[36] = [5, 0];
+			manualClimateArray[37] = [5, 0];
+			manualClimateArray[38] = [5, 0];
+			manualClimateArray[39] = [5, 0];
+			manualClimateArray[40] = [5, 0];
+			manualClimateArray[41] = [5, 0];
+			manualClimateArray[42] = [5, 0];
+			manualClimateArray[43] = [5, 0];
+			manualClimateArray[44] = [5, 0];
+			manualClimateArray[45] = [5, 0];
+			manualClimateArray[46] = [5, 0];
+			manualClimateArray[47] = [5, 0];
+			manualClimateArray[48] = [5, 0];
+			manualClimateArray[49] = [5, 0];
+			manualClimateArray[50] = [5, 0];
 
 			climateArray = manualClimateArray; //assigns value of manualClimateArray to climateArray.
 			return climateArray;
 			}
 	};
 
-	climateChange(); // Sets climateArray to new value
+	//climateChange(); // Sets climateArray to new value
 
 	// Create list of random numbers that will become weather-------
 
