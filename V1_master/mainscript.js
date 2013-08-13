@@ -156,7 +156,7 @@ $(function initializeGame () {
 
 	function makeWeatherArray() {
 		for (var i = 0; i < maxturn; i++) {
-			weather = Math.floor((Math.random()*1000)+1);
+			weather = Math.floor((Math.random());
 			weatherArray[i] = weather;
 		}
 		return weatherArray;
