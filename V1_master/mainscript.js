@@ -29,8 +29,11 @@ $(document).ready(function(){
 	payoutB = 0; //modified depending on weather w
 
 	// Initial weather conditions
-	meanWeather = 0; //initial mean value of weather probability distribution
-	std_devWeather = 0 //initial standard deviation of weather probability distribution
+	var initialClimate = {
+		mean: 1,
+		std_dev: 0
+	};
+
 	autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
 										//If false, then manually enter the climate change values you wish to use, below.
 
@@ -83,24 +86,26 @@ $(function initializeGame () {
 
 	// Set climate change, either using "for loop" or manually; choose using above autoFillClimateChange variable
 
-	function climateChange (mean, stddev) {
+	function climateChange () {
 
-		climateArray = [[i,j]];
-		manualClimateArray = [[i,j]];
+		climateArray = [];
+		manualClimateArray = [];
 
 
 		if (autoFillClimateChange == true) {
 
-
 			for (var i =0; i < maxturn; i++) {
-				climateArray[i] = meanWeather;
+				var k = .1; //k is any constant increasing the mean
+				var j = .5; //j is any constant increasing the standard deviation
+				var climateChange = {
+					newMean: initialClimate.mean + k*i,
+					newStd_dev: initialClimate.std_dev + j*i
+				};
+
+				climateArray.push(climateChange);
 			};
 
-			for (var i =0; i < maxturn; i++) {
-				climateArray[j] = std_devWeather;
-			}
-
-			return climateArray; //assigns value of climateArray to function climateChange
+			//return climateArray; //assigns value of climateArray to function climateChange
 		}
 
 
