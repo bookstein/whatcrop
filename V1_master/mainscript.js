@@ -194,17 +194,19 @@ $(function initializeGame () {
 
 			//Apply climateChange to normalizedArray in the form of mean + Z0 * std_dev
 
-		function
-
+		function applyClimateChange () {
+			weatherArray = [];
+			for (var i = 0; i < maxturn; i++) {
+				weatherArray[i] = climateArray[i].mean + (normalizedArray[i]*climateArray[i].std_dev);
+			}
+		};
 	};
 
-
-
-
+makeWeatherArray();
 
 	// Set game weather -------
 
-	gameWeather = [];
+	/*gameWeather = [];
 
 	function makeGameWeather() { //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
 
@@ -464,7 +466,7 @@ $(function initializeGame () {
 	$(".turncount_instructions").text(maxturn + " turns");
 	$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
 	$("#bonus_one_instructions").text(totalRandomPoints);
-	$("#bonus_two_instructions").text(totalOptimalPoints);
+	$("#bonus_two_instructions").text(totalOptimalPoints); */
 
 }); //end of initialization function
 
