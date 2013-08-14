@@ -108,7 +108,6 @@ $(function initializeGame () {
 			//return climateArray; //assigns value of climateArray to function climateChange
 		}
 
-
 		else { //manualClimateArray[i] = [mean, std_dev]
 			manualClimateArray[0] = [5, 0];
 			manualClimateArray[1] = [5, 0];
@@ -163,15 +162,14 @@ $(function initializeGame () {
 			manualClimateArray[50] = [5, 0];
 
 			climateArray = manualClimateArray; //assigns value of manualClimateArray to climateArray.
-			return climateArray;
-			}
-	};
+		}
 
-	//climateChange(); // Sets climateArray to new value
+		return climateArray;
+	};
 
 	// Create array of Z0s
 
-	function makeRandomVariable () {
+	function makeWeatherArray () {
 		randomPairs = { //randomPairs is an object containing two random numbers picked from a uniform distribution
 			x: undefined,
 			y: undefined
@@ -191,10 +189,15 @@ $(function initializeGame () {
 				normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y);
 			}
 
-			return normalizedArray;
+			//return normalizedArray;  -- necessary?
 		};
 
+			//Apply climateChange to normalizedArray in the form of mean + Z0 * std_dev
+
+		function
+
 	};
+
 
 
 
