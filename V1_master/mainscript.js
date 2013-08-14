@@ -183,48 +183,20 @@ $(function initializeGame () {
 				x: Math.random(),
 				y: Math.random()
 			}
-			randomPairArray[i] = randomPairs; //creates an array of random number pairs
+			randomPairArray[i] = randomPairs; //creates an array of objects containing random number pairs
 		}
 
 		function boxMullerTransformation () {
 			for (var i = 0; i < maxturn; i++) {
-				normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y)
+				normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y);
 			}
+
+			return normalizedArray;
 		};
 
-	}
-
-	// Create list of random numbers that will become weather-------
-
-	weatherArray = [];
-
-	function makeWeatherArray() {
-		for (var i = 0; i < maxturn; i++) {
-			weather = Math.floor((Math.random());
-			weatherArray[i] = weather;
-		}
-		return weatherArray;
 	};
 
-	makeWeatherArray(); //sets weatherArray to new value
 
-	// Set rain thresholds as modified by climate change over course of game -------
-
-	thresholdArray = [];
-
-	function makeThresholdArray () {
-
-		thresholdArray[0] = threshold; //sets first value equal to threshold
-
-		for (var i = 1; i < maxturn; i++)
-		{
-			thresholdArray[i] = thresholdArray[i-1] - (climateArray[i]);
-		}
-
-		return thresholdArray;
-	};
-
-	makeThresholdArray(); //sets thresholdArray to new value based on climate change
 
 
 	// Set game weather -------
