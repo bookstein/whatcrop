@@ -167,6 +167,8 @@ $(function initializeGame () {
 		return climateArray;
 	};
 
+	climateChange();
+
 	// Create array of Z0s
 
 	function makeWeatherArray () {
@@ -176,6 +178,7 @@ $(function initializeGame () {
 		};
 		randomPairArray = [];
 		normalizedArray = [];
+		weatherArray = [];
 		for (var i = 0; i < maxturn; i++) {
 			randomPairs = {
 				x: Math.random(),
@@ -192,17 +195,22 @@ $(function initializeGame () {
 			//return normalizedArray;  -- necessary?
 		};
 
+		boxMullerTransformation();
+
 			//Apply climateChange to normalizedArray in the form of mean + Z0 * std_dev
 
 		function applyClimateChange () {
-			weatherArray = [];
 			for (var i = 0; i < maxturn; i++) {
-				weatherArray[i] = climateArray[i].mean + (normalizedArray[i]*climateArray[i].std_dev);
+				weatherArray[i] = climateArray[i].newMean + (normalizedArray[i]*climateArray[i].newStd_dev);
 			}
 		};
+
+		applyClimateChange();
+
+		return weatherArray;
 	};
 
-makeWeatherArray();
+	makeWeatherArray();
 
 	// Set game weather -------
 
