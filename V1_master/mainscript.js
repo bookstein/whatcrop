@@ -92,7 +92,7 @@ $(function initializeGame () {
 		manualClimateArray = [];
 
 
-		if (autoFillClimateChange == true) {
+		if (autoFillClimateChange == true) { //set autoFillClimateChange at top of code
 
 			for (var i =0; i < maxturn; i++) {
 				var k = .1; //k is any constant increasing the mean
@@ -109,7 +109,7 @@ $(function initializeGame () {
 		}
 
 
-		else { //manualClimateArray contains maxturn number of arrays of length 1: [mean, std_dev]
+		else { //manualClimateArray[i] = [mean, std_dev]
 			manualClimateArray[0] = [5, 0];
 			manualClimateArray[1] = [5, 0];
 			manualClimateArray[2] = [5, 0];
@@ -168,6 +168,31 @@ $(function initializeGame () {
 	};
 
 	//climateChange(); // Sets climateArray to new value
+
+	// Create array of Z0s
+
+	function makeRandomVariable () {
+		randomPairs = { //randomPairs is an object containing two random numbers picked from a uniform distribution
+			x: undefined,
+			y: undefined
+		};
+		randomPairArray = [];
+		normalizedArray = [];
+		for (var i = 0; i < maxturn; i++) {
+			randomPairs = {
+				x: Math.random(),
+				y: Math.random()
+			}
+			randomPairArray[i] = randomPairs; //creates an array of random number pairs
+		}
+
+		function boxMullerTransformation () {
+			for (var i = 0; i < maxturn; i++) {
+				normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y)
+			}
+		};
+
+	}
 
 	// Create list of random numbers that will become weather-------
 
