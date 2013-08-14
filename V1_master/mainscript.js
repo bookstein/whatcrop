@@ -19,14 +19,26 @@ $(document).ready(function(){
     maxturn = 50;
     endOfGame = false;
 
-	// Set crop payouts
-	payoutAwet = 70;
-	payoutAdry = 80;
-	payoutBwet = 100;
-	payoutBdry = 50;
+	// Set crop payouts using equation Payout = beta(w-w*) + P*
+	beta = 1;
+	maxApayout = 80; //P*(A)
+	maxBpayout = 100; //P*(B)
+	maxAweather = 1.9; //w*(A)
+	maxBweather = 2.3; //w*(B)
+	payoutA = 0; //modified depending on weather w
+	payoutB = 0; //modified depending on weather w
+
+	// Initial weather conditions
+	var initialClimate = {
+		mean: 1,
+		std_dev: 0
+	};
+
+	autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
+										//If false, then manually enter the climate change values you wish to use, below.
 
 	// Set rain threshold
-	threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
+	//threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
 
 	// Set bonus payments
 	bonusOneDollars = 1.25;
@@ -55,137 +67,154 @@ $(document).ready(function(){
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 $(function initializeGame () {
-	// Crop Information table
 
-	function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
+
+	/*function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 		$("table").find("td#payoutAwet").text(payoutAwet + " points");
 		$("table").find("td#payoutAdry").text(payoutAdry + " points");
 		$("table").find("td#payoutBwet").text(payoutBwet + " points");
 		$("table").find("td#payoutBdry").text(payoutBdry + " points");
 	};
 
-	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
+	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);*/
 
 
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-	// Set climate change, either using "for loop" or manually; choose using autoFillClimateChange variable
+
+
+	// Set climate change, either using "for loop" or manually; choose using above autoFillClimateChange variable
 
 	function climateChange () {
 
-		var autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
-										//If false, then manually enter the climate change values you wish to use below under "else".
 		climateArray = [];
 		manualClimateArray = [];
 
-		if (autoFillClimateChange == true) {
 
+		if (autoFillClimateChange == true) { //set autoFillClimateChange at top of code
 
 			for (var i =0; i < maxturn; i++) {
+				var k = .1; //k is any constant increasing the mean
+				var j = .5; //j is any constant increasing the standard deviation
+				var climateChange = {
+					newMean: initialClimate.mean + k*i,
+					newStd_dev: initialClimate.std_dev + j*i
+				};
 
-			climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change.
-			}
+				climateArray.push(climateChange);
+			};
 
-			return climateArray; //assigns value of climateArray to function climateChange
+			//return climateArray; //assigns value of climateArray to function climateChange
 		}
 
-		else {
-			manualClimateArray[0] = 5;
-			manualClimateArray[1] = 5;
-			manualClimateArray[2] = 5;
-			manualClimateArray[3] = 5;
-			manualClimateArray[4] = 5;
-			manualClimateArray[5] = 5;
-			manualClimateArray[6] = 5;
-			manualClimateArray[7] = 5;
-			manualClimateArray[8] = 5;
-			manualClimateArray[9] = 5;
-			manualClimateArray[10] = 5;
-			manualClimateArray[11] = 5;
-			manualClimateArray[12] = 7;
-			manualClimateArray[13] = 7;
-			manualClimateArray[14] = 7;
-			manualClimateArray[15] = 7;
-			manualClimateArray[16] = 7;
-			manualClimateArray[17] = 10;
-			manualClimateArray[18] = 10;
-			manualClimateArray[19] = 10;
-			manualClimateArray[20] = 10;
-			manualClimateArray[21] = 10;
-			manualClimateArray[22] = 10;
-			manualClimateArray[23] = 10;
-			manualClimateArray[24] = 5;
-			manualClimateArray[25] = 5;
-			manualClimateArray[26] = 5;
-			manualClimateArray[27] = 5;
-			manualClimateArray[28] = 5;
-			manualClimateArray[29] = 5;
-			manualClimateArray[30] = 5;
-			manualClimateArray[31] = 5;
-			manualClimateArray[32] = 5;
-			manualClimateArray[33] = 5;
-			manualClimateArray[34] = 5;
-			manualClimateArray[35] = 5;
-			manualClimateArray[36] = 5;
-			manualClimateArray[37] = 5;
-			manualClimateArray[38] = 5;
-			manualClimateArray[39] = 5;
-			manualClimateArray[40] = 5;
-			manualClimateArray[41] = 5;
-			manualClimateArray[42] = 5;
-			manualClimateArray[43] = 5;
-			manualClimateArray[44] = 5;
-			manualClimateArray[45] = 5;
-			manualClimateArray[46] = 5;
-			manualClimateArray[47] = 5;
-			manualClimateArray[48] = 5;
-			manualClimateArray[49] = 5;
-			manualClimateArray[50] = 5;
+		else { //manualClimateArray[i] = [mean, std_dev]
+			manualClimateArray[0] = [5, 0];
+			manualClimateArray[1] = [5, 0];
+			manualClimateArray[2] = [5, 0];
+			manualClimateArray[3] = [5, 0];
+			manualClimateArray[4] = [5, 0];
+			manualClimateArray[5] = [5, 0];
+			manualClimateArray[6] = [5, 0];
+			manualClimateArray[7] = [5, 0];
+			manualClimateArray[8] = [5, 0];
+			manualClimateArray[9] = [5, 0];
+			manualClimateArray[10] = [5, 0];
+			manualClimateArray[11] = [5, 0];
+			manualClimateArray[12] = [7, 0];
+			manualClimateArray[13] = [7, 0];
+			manualClimateArray[14] = [7, 0];
+			manualClimateArray[15] = [7, 0];
+			manualClimateArray[16] = [7, 0];
+			manualClimateArray[17] = [7, 0];
+			manualClimateArray[18] = [7, 0];
+			manualClimateArray[19] = [7, 0];
+			manualClimateArray[20] = [10, 0];
+			manualClimateArray[21] = [10, 0];
+			manualClimateArray[22] = [10, 0];
+			manualClimateArray[23] = [10, 0];
+			manualClimateArray[24] = [10, 0];
+			manualClimateArray[25] = [10, 0];
+			manualClimateArray[26] = [10, 0];
+			manualClimateArray[27] = [10, 0];
+			manualClimateArray[28] = [10, 0];
+			manualClimateArray[29] = [10, 0];
+			manualClimateArray[30] = [10, 0];
+			manualClimateArray[31] = [10, 0];
+			manualClimateArray[32] = [10, 0];
+			manualClimateArray[33] = [5, 0];
+			manualClimateArray[34] = [5, 0];
+			manualClimateArray[35] = [5, 0];
+			manualClimateArray[36] = [5, 0];
+			manualClimateArray[37] = [5, 0];
+			manualClimateArray[38] = [5, 0];
+			manualClimateArray[39] = [5, 0];
+			manualClimateArray[40] = [5, 0];
+			manualClimateArray[41] = [5, 0];
+			manualClimateArray[42] = [5, 0];
+			manualClimateArray[43] = [5, 0];
+			manualClimateArray[44] = [5, 0];
+			manualClimateArray[45] = [5, 0];
+			manualClimateArray[46] = [5, 0];
+			manualClimateArray[47] = [5, 0];
+			manualClimateArray[48] = [5, 0];
+			manualClimateArray[49] = [5, 0];
+			manualClimateArray[50] = [5, 0];
 
 			climateArray = manualClimateArray; //assigns value of manualClimateArray to climateArray.
-			return climateArray;
-			}
+		}
+
+		return climateArray;
 	};
 
-	climateChange(); // Sets climateArray to new value
+	climateChange();
 
-	// Create list of random numbers that will become weather-------
+	// Create array of Z0s
 
-	weatherArray = [];
-
-	function makeWeatherArray() {
+	function makeWeatherArray () {
+		randomPairs = { //randomPairs is an object containing two random numbers picked from a uniform distribution
+			x: undefined,
+			y: undefined
+		};
+		randomPairArray = [];
+		normalizedArray = [];
+		weatherArray = [];
 		for (var i = 0; i < maxturn; i++) {
-			weather = Math.floor((Math.random()*1000)+1);
-			weatherArray[i] = weather;
+			randomPairs = {
+				x: Math.random(),
+				y: Math.random()
+			}
+			randomPairArray[i] = randomPairs; //creates an array of objects containing random number pairs
 		}
+
+		function boxMullerTransformation () {
+			for (var i = 0; i < maxturn; i++) {
+				normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y);
+			}
+
+			//return normalizedArray;  -- necessary?
+		};
+
+		boxMullerTransformation();
+
+			//Apply climateChange to normalizedArray in the form of mean + Z0 * std_dev
+
+		function applyClimateChange () {
+			for (var i = 0; i < maxturn; i++) {
+				weatherArray[i] = climateArray[i].newMean + (normalizedArray[i]*climateArray[i].newStd_dev);
+			}
+		};
+
+		applyClimateChange();
+
 		return weatherArray;
 	};
 
-	makeWeatherArray(); //sets weatherArray to new value
-
-	// Set rain thresholds as modified by climate change over course of game -------
-
-	thresholdArray = [];
-
-	function makeThresholdArray () {
-
-		thresholdArray[0] = threshold; //sets first value equal to threshold
-
-		for (var i = 1; i < maxturn; i++)
-		{
-			thresholdArray[i] = thresholdArray[i-1] - (climateArray[i]);
-		}
-
-		return thresholdArray;
-	};
-
-	makeThresholdArray(); //sets thresholdArray to new value based on climate change
-
+	makeWeatherArray();
 
 	// Set game weather -------
 
-	gameWeather = [];
+	/*gameWeather = [];
 
 	function makeGameWeather() { //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
 
@@ -445,7 +474,7 @@ $(function initializeGame () {
 	$(".turncount_instructions").text(maxturn + " turns");
 	$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
 	$("#bonus_one_instructions").text(totalRandomPoints);
-	$("#bonus_two_instructions").text(totalOptimalPoints);
+	$("#bonus_two_instructions").text(totalOptimalPoints); */
 
 }); //end of initialization function
 
