@@ -14,6 +14,7 @@ $(document).ready(function(){
 //>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
 	cropchoice = "";
+	gameWeather = [];
 
 	// Set number of turns per game
     maxturn = 50;
@@ -132,24 +133,25 @@ $(function initializeGame () {
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-	// Create array of Z0s
-
 	function makeGameWeather () {
-		randomPairs = { //randomPairs is an object containing two random numbers picked from a uniform distribution
+		//Create an array of pairs of random numbers
+		var randomPairs = {
 			x: undefined,
 			y: undefined
 		};
-		randomPairArray = [];
-		normalizedArray = [];
-		gameWeather = [];
+
+		var randomPairArray = [];
+		var normalizedArray = [];
+
 		for (var i = 0; i < maxturn; i++) {
 			randomPairs = {
 				x: Math.random(),
 				y: Math.random()
 			}
-			randomPairArray[i] = randomPairs; //creates an array of objects containing random number pairs
+			randomPairArray[i] = randomPairs;
 		}
 
+		// Create array of Z0s
 		function boxMullerTransformation () {
 			for (var i = 0; i < maxturn; i++) {
 				normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y);
