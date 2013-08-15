@@ -29,7 +29,7 @@ $(document).ready(function(){
 	maxBweather = 400; //w*(B)
 
 	// Manually set climate change by turn, up to maxturn
-	var climateArray = [
+	climateArray = [
 		{mean: 800, std_dev: 75}, //0 -- initial climate
 		{mean: 800, std_dev: 75}, //1
 		{mean: 800, std_dev: 75}, //2
