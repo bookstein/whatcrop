@@ -709,7 +709,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
-function updateGame(payout) { //this function is called inside weatherResults function
+function updateGame (payout) { //this function is called inside weatherResults function
 
 	//alert("Running updateGame now using arguments " + arguments)
 	cropchoice = ""; // resets value of cropchoice to ""
@@ -787,7 +787,6 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 		function animatePoints () {
 			//$("#points_bar").toggleClass("glow");
 
-
 			$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
 			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
 			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
@@ -844,17 +843,18 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 		realDollars = bonusOneDollars + bonusTwoDollars;
 		$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
 	};
+
 	*/
 
-	setTimeout(fadeWeather, 4000);
-	newScore();
-	setTimeout(addTurn, 4000);
+		setTimeout(fadeWeather, 4000);
+		newScore();
+		setTimeout(addTurn, 4000);
 
 
-	score += payout;
-	return score; //this updates the value of the global variable "score"
-};
-
+		score += payout;
+		return score; //this updates the value of the global variable "score"
+	};
+}; // End of updateGame function
 
 function endGame () { //call end-of-game dialog box
 	endOfGame = true;
