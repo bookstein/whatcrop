@@ -35,11 +35,61 @@ $(document).ready(function(){
 		std_dev: 75
 	};
 
-	autoFillClimateChange = false; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
-										//If false, then manually enter the climate change values you wish to use, below.
+	// Manually set climate change by turn, up to maxturn
+	var climateArray = [
+		{mean: 800, std_dev: 75}, //0
+		{mean: 800, std_dev: 75}, //1
+		{mean: 800, std_dev: 75}, //2
+		{mean: 800, std_dev: 75}, //3
+		{mean: 800, std_dev: 75}, //4
+		{mean: 800, std_dev: 75}, //5
+		{mean: 800, std_dev: 75}, //6
+		{mean: 800, std_dev: 75}, //7
+		{mean: 800, std_dev: 75}, //8
+		{mean: 800, std_dev: 75}, //9
+		{mean: 800, std_dev: 75}, //10
+		{mean: 800, std_dev: 75}, //11
+		{mean: 800, std_dev: 75}, //12
+		{mean: 800, std_dev: 75}, //13
+		{mean: 800, std_dev: 75}, //14
+		{mean: 800, std_dev: 75}, //15
+		{mean: 800, std_dev: 75}, //16
+		{mean: 800, std_dev: 75}, //17
+		{mean: 800, std_dev: 75}, //18
+		{mean: 800, std_dev: 75}, //19
+		{mean: 800, std_dev: 75}, //20
+		{mean: 800, std_dev: 75}, //21
+		{mean: 800, std_dev: 75}, //22
+		{mean: 800, std_dev: 75}, //23
+		{mean: 800, std_dev: 75}, //24
+		{mean: 800, std_dev: 75}, //25
+		{mean: 800, std_dev: 75}, //26
+		{mean: 800, std_dev: 75}, //27
+		{mean: 800, std_dev: 75}, //28
+		{mean: 800, std_dev: 75}, //29
+		{mean: 800, std_dev: 75}, //30
+		{mean: 800, std_dev: 75}, //31
+		{mean: 800, std_dev: 75}, //32
+		{mean: 800, std_dev: 75}, //33
+		{mean: 800, std_dev: 75}, //34
+		{mean: 800, std_dev: 75}, //35
+		{mean: 800, std_dev: 75}, //36
+		{mean: 800, std_dev: 75}, //37
+		{mean: 800, std_dev: 75}, //38
+		{mean: 800, std_dev: 75}, //39
+		{mean: 800, std_dev: 75}, //40
+		{mean: 800, std_dev: 75}, //41
+		{mean: 800, std_dev: 75}, //42
+		{mean: 800, std_dev: 75}, //43
+		{mean: 800, std_dev: 75}, //44
+		{mean: 800, std_dev: 75}, //45
+		{mean: 800, std_dev: 75}, //46
+		{mean: 800, std_dev: 75}, //47
+		{mean: 800, std_dev: 75}, //48
+		{mean: 800, std_dev: 75}, //49
+		{mean: 800, std_dev: 75} //50
+	];
 
-	// Set rain threshold
-	//threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
 
 	// Set bonus payments
 	bonusOneDollars = 1.25;
@@ -89,8 +139,11 @@ $(function initializeGame () {
 
 	function climateChange () {
 
+
+
+
+
 		climateArray = [];
-		manualClimateArray = [];
 
 
 		if (autoFillClimateChange == true) { //set autoFillClimateChange at top of code
@@ -109,60 +162,60 @@ $(function initializeGame () {
 			//return climateArray; //assigns value of climateArray to function climateChange
 		}
 
-		else { //manualClimateArray[i] = [mean, std_dev]
-			manualClimateArray[0] = [5, 0];
-			manualClimateArray[1] = [5, 0];
-			manualClimateArray[2] = [5, 0];
-			manualClimateArray[3] = [5, 0];
-			manualClimateArray[4] = [5, 0];
-			manualClimateArray[5] = [5, 0];
-			manualClimateArray[6] = [5, 0];
-			manualClimateArray[7] = [5, 0];
-			manualClimateArray[8] = [5, 0];
-			manualClimateArray[9] = [5, 0];
-			manualClimateArray[10] = [5, 0];
-			manualClimateArray[11] = [5, 0];
-			manualClimateArray[12] = [7, 0];
-			manualClimateArray[13] = [7, 0];
-			manualClimateArray[14] = [7, 0];
-			manualClimateArray[15] = [7, 0];
-			manualClimateArray[16] = [7, 0];
-			manualClimateArray[17] = [7, 0];
-			manualClimateArray[18] = [7, 0];
-			manualClimateArray[19] = [7, 0];
-			manualClimateArray[20] = [10, 0];
-			manualClimateArray[21] = [10, 0];
-			manualClimateArray[22] = [10, 0];
-			manualClimateArray[23] = [10, 0];
-			manualClimateArray[24] = [10, 0];
-			manualClimateArray[25] = [10, 0];
-			manualClimateArray[26] = [10, 0];
-			manualClimateArray[27] = [10, 0];
-			manualClimateArray[28] = [10, 0];
-			manualClimateArray[29] = [10, 0];
-			manualClimateArray[30] = [10, 0];
-			manualClimateArray[31] = [10, 0];
-			manualClimateArray[32] = [10, 0];
-			manualClimateArray[33] = [5, 0];
-			manualClimateArray[34] = [5, 0];
-			manualClimateArray[35] = [5, 0];
-			manualClimateArray[36] = [5, 0];
-			manualClimateArray[37] = [5, 0];
-			manualClimateArray[38] = [5, 0];
-			manualClimateArray[39] = [5, 0];
-			manualClimateArray[40] = [5, 0];
-			manualClimateArray[41] = [5, 0];
-			manualClimateArray[42] = [5, 0];
-			manualClimateArray[43] = [5, 0];
-			manualClimateArray[44] = [5, 0];
-			manualClimateArray[45] = [5, 0];
-			manualClimateArray[46] = [5, 0];
-			manualClimateArray[47] = [5, 0];
-			manualClimateArray[48] = [5, 0];
-			manualClimateArray[49] = [5, 0];
-			manualClimateArray[50] = [5, 0];
+		else { //climateArray[i] = [mean, std_dev]
+			climateArray[0] = [5, 0];
+			climateArray[1] = [5, 0];
+			climateArray[2] = [5, 0];
+			climateArray[3] = [5, 0];
+			climateArray[4] = [5, 0];
+			climateArray[5] = [5, 0];
+			climateArray[6] = [5, 0];
+			climateArray[7] = [5, 0];
+			climateArray[8] = [5, 0];
+			climateArray[9] = [5, 0];
+			climateArray[10] = [5, 0];
+			climateArray[11] = [5, 0];
+			climateArray[12] = [7, 0];
+			climateArray[13] = [7, 0];
+			climateArray[14] = [7, 0];
+			climateArray[15] = [7, 0];
+			climateArray[16] = [7, 0];
+			climateArray[17] = [7, 0];
+			climateArray[18] = [7, 0];
+			climateArray[19] = [7, 0];
+			climateArray[20] = [10, 0];
+			climateArray[21] = [10, 0];
+			climateArray[22] = [10, 0];
+			climateArray[23] = [10, 0];
+			climateArray[24] = [10, 0];
+			climateArray[25] = [10, 0];
+			climateArray[26] = [10, 0];
+			climateArray[27] = [10, 0];
+			climateArray[28] = [10, 0];
+			climateArray[29] = [10, 0];
+			climateArray[30] = [10, 0];
+			climateArray[31] = [10, 0];
+			climateArray[32] = [10, 0];
+			climateArray[33] = [5, 0];
+			climateArray[34] = [5, 0];
+			climateArray[35] = [5, 0];
+			climateArray[36] = [5, 0];
+			climateArray[37] = [5, 0];
+			climateArray[38] = [5, 0];
+			climateArray[39] = [5, 0];
+			climateArray[40] = [5, 0];
+			climateArray[41] = [5, 0];
+			climateArray[42] = [5, 0];
+			climateArray[43] = [5, 0];
+			climateArray[44] = [5, 0];
+			climateArray[45] = [5, 0];
+			climateArray[46] = [5, 0];
+			climateArray[47] = [5, 0];
+			climateArray[48] = [5, 0];
+			climateArray[49] = [5, 0];
+			climateArray[50] = [5, 0];
 
-			climateArray = manualClimateArray; //assigns value of manualClimateArray to climateArray.
+			climateArray = climateArray; //assigns value of climateArray to climateArray.
 		}
 
 		return climateArray;
