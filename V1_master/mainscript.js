@@ -352,7 +352,16 @@ $("#cropB").on("click", userClickedB);
 
 function weatherResults () { //triggered by #grow click, runs updateGame with correct arguments
 
-	var args = {}; //creates empty object for arguments
+	//Identify weather display labels
+
+	var maxGameWeather = Math.max.apply(Math, gameWeather);
+	var minGameWeather = Math.min.apply(Math, gameWeather);
+	var range = maxGameWeather - minGameWeather;
+	var quadrant = range/4; //divides range of weather into 4 equal quadrants
+	var historicMean = climateArray[0]["mean"]; //uses initial (historic) mean to divide weather into qualitative "Wet" and "Dry"
+	var historicStd_Dev = climateArray[0]["std_dev"]; //uses initial (historic) standard deviation to label extremes "Very Wet" and "Very Dry"
+	var weatherReport = "";
+	var inchesRain = 0;
 
 	disableGrowButton();
 
@@ -368,13 +377,51 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		//alert("This is rain and game weather is " + gameWeather[turn]);
 	};
 
-	if (cropchoice == "cropA" && gameWeather[turn] <= 800) {
-		args.crop = "A";
-		args.state = "dead";
-		args.weather = "sunny";
-		displaySun();
-		$("#deadA").removeClass("hidden");
+	if (cropchoice == "cropA" {
 		updateGame(betaA, maxApayout, maxAweather);
+
+		// if gameWeather is below historic mean, weather is wet
+		if (gameWeather[turn] <= historicMean) {
+
+			if (gameWeather[turn] >= (historicMean - historicStd_Dev)) {
+				displayRain();
+				weatherReport = "wet";
+				//display healthy crop A (range of normal)
+			}
+
+			else if (gameWeather[turn] < (historicMean - historicStd_Dev)) {
+				displayRain();
+				weatherReport = "very wet";
+				//display too-wet crop A ("Very Wet")
+			}
+
+			else if (gameWeather[turn] >= (minGameWeather + quadrant) && gameWeather[turn] < (minGameWeather + (2*quadrant))) {
+
+			}
+		}
+
+		// if weather
+		else if (gameWeather[turn] > historicMean) {
+
+		}
+
+		if (gameWeather[turn] >= minGameWeather && gameWeather[turn] < (minGameWeather + quadrant)) {
+			displayRain();
+			//display too-wet-A
+		}
+
+		else if (gameWeather[turn] >= (minGameWeather + quadrant) && gameWeather[turn] < (minGameWeather + (2*quadrant))) {
+
+		}
+
+		else if (gameWeather[turn] >= (minGameWeather + (2*quadrant)) && gameWeather[turn] < (minGameWeather + (3*quadrant))) {
+
+		}
+
+		else if (gameWeather[turn] >= (minGameWeather + (3*quadrant)) && gameWeather[turn] <= maxGameWeather){
+
+		}
+
 		//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
 	}
 
