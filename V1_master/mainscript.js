@@ -447,6 +447,8 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 function updateGame (beta, maxpayout, maxweather) { //this function is called and given arguments inside weatherResults function above
 
+	cropchoice = "";
+
 	function newScore () {
 		var payout = 0;
 
@@ -504,7 +506,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 		}; */
 
-		/*$("#point_count").html("<h5>" + newscore + "</h5>");
+		/*
 		animatePoints();
 		movePointsFlag();*/
 
@@ -528,14 +530,13 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		calculatePayout();
 		animatePoints();
 
-  		score += payout;
+		score += payout;
+		$("#point_count").html("<h5>" + score + "</h5>");
 		return score; //this updates the value of the global variable "score"
 
 	}; //end of function newScore
 
 	newScore();
-
-
 
 	function displayResultsDialog () {
 
