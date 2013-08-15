@@ -447,11 +447,10 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 function updateGame (beta, maxpayout, maxweather) { //this function is called and given arguments inside weatherResults function above
 
-	var payout = 0; //this variable is deleted after each turn
-
 	function newScore () {
 
-		//Calculate yield and points based on gameWeather and cropchoice
+		function calculatePayout () { //Calculate yield and points based on gameWeather and cropchoice
+		var payout = 0;
 		payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
 
 		if (payout <= 0) {
@@ -464,8 +463,9 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 		return payout;
 
+		};
 
-		//if I call newScore(crop), will that run it correctly?
+		calculatePayout();
 
 		function animatePoints () {
 			//$("#points_bar").toggleClass("glow");
@@ -475,9 +475,10 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
   		};
 
-  		//Moved these variables inside newScore function because they only matter for bonus thresholds being crossed
-  		var oldscore = score;
-		var newscore = oldscore + payout;
+  		score += payout;
+		return score; //this updates the value of the global variable "score"
+
+	}; //end of function newScore
 
   		//Restore this function once maxScore has been calculated for BoxMuller version
 
@@ -510,14 +511,13 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 
 			//carve up post-second-bonus pixels into fixed amount between this turn and last turn
-		};
+		}; */
 
-		$("#point_count").html("<h5>" + newscore + "</h5>");
+		/*$("#point_count").html("<h5>" + newscore + "</h5>");
 		animatePoints();
-		//setTimeout(animatePoints, 4000);
-		movePointsFlag(); */
+		movePointsFlag();*/
 
-	}; //end of function newScore
+
 
 	/*	// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
@@ -609,9 +609,9 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		newScore();
 		setTimeout(addTurn, 4000);
 
-
-		score += payout;
-		return score; //this updates the value of the global variable "score"
+		//Moved these variables inside newScore function because they only matter for bonus thresholds being crossed
+	//var oldscore = score;
+	//var newscore = oldscore + payout;
 
 }; // End of updateGame function
 
