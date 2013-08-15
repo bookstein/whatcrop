@@ -20,18 +20,19 @@ $(document).ready(function(){
     endOfGame = false;
 
 	// Set crop payouts using equation Payout = beta(w-w*) + P*
-	beta = 1;
-	maxApayout = 80; //P*(A)
-	maxBpayout = 100; //P*(B)
-	maxAweather = 1.9; //w*(A)
-	maxBweather = 2.3; //w*(B)
+	betaA = -.002;
+	betaB = -.001;
+	maxApayout = 200; //P*(A)
+	maxBpayout = 120; //P*(B)
+	maxAweather = 800; //w*(A)
+	maxBweather = 400; //w*(B)
 	payoutA = 0; //modified depending on weather w
 	payoutB = 0; //modified depending on weather w
 
 	// Initial weather conditions
 	var initialClimate = {
-		mean: 1,
-		std_dev: 0
+		mean: 800,
+		std_dev: 75
 	};
 
 	autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
