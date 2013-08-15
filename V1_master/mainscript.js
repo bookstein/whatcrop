@@ -450,8 +450,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	cropchoice = "";
 
 	function newScore () {
-		var payout = 0;
-		payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
+		var payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
 
 		if (payout <= 0) {
 			payout = 0;
@@ -526,7 +525,6 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 	*/
 
-		calculatePayout();
 		animatePoints();
 
 		score += payout;
