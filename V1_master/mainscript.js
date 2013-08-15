@@ -99,7 +99,6 @@ $(document).ready(function(){
 
 
 	//Turn Counter
-
 	turn = 0;
 	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
 	GameOver = false;
@@ -132,96 +131,6 @@ $(function initializeGame () {
 
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-
-	// Set climate change, either using "for loop" or manually; choose using above autoFillClimateChange variable
-
-	function climateChange () {
-
-
-
-
-
-		climateArray = [];
-
-
-		if (autoFillClimateChange == true) { //set autoFillClimateChange at top of code
-
-			for (var i =0; i < maxturn; i++) {
-				var k = .1; //k is any constant increasing the mean
-				var j = .5; //j is any constant increasing the standard deviation
-				var climateChange = {
-					newMean: initialClimate.mean + k*i,
-					newStd_dev: initialClimate.std_dev + j*i
-				};
-
-				climateArray.push(climateChange);
-			};
-
-			//return climateArray; //assigns value of climateArray to function climateChange
-		}
-
-		else { //climateArray[i] = [mean, std_dev]
-			climateArray[0] = [5, 0];
-			climateArray[1] = [5, 0];
-			climateArray[2] = [5, 0];
-			climateArray[3] = [5, 0];
-			climateArray[4] = [5, 0];
-			climateArray[5] = [5, 0];
-			climateArray[6] = [5, 0];
-			climateArray[7] = [5, 0];
-			climateArray[8] = [5, 0];
-			climateArray[9] = [5, 0];
-			climateArray[10] = [5, 0];
-			climateArray[11] = [5, 0];
-			climateArray[12] = [7, 0];
-			climateArray[13] = [7, 0];
-			climateArray[14] = [7, 0];
-			climateArray[15] = [7, 0];
-			climateArray[16] = [7, 0];
-			climateArray[17] = [7, 0];
-			climateArray[18] = [7, 0];
-			climateArray[19] = [7, 0];
-			climateArray[20] = [10, 0];
-			climateArray[21] = [10, 0];
-			climateArray[22] = [10, 0];
-			climateArray[23] = [10, 0];
-			climateArray[24] = [10, 0];
-			climateArray[25] = [10, 0];
-			climateArray[26] = [10, 0];
-			climateArray[27] = [10, 0];
-			climateArray[28] = [10, 0];
-			climateArray[29] = [10, 0];
-			climateArray[30] = [10, 0];
-			climateArray[31] = [10, 0];
-			climateArray[32] = [10, 0];
-			climateArray[33] = [5, 0];
-			climateArray[34] = [5, 0];
-			climateArray[35] = [5, 0];
-			climateArray[36] = [5, 0];
-			climateArray[37] = [5, 0];
-			climateArray[38] = [5, 0];
-			climateArray[39] = [5, 0];
-			climateArray[40] = [5, 0];
-			climateArray[41] = [5, 0];
-			climateArray[42] = [5, 0];
-			climateArray[43] = [5, 0];
-			climateArray[44] = [5, 0];
-			climateArray[45] = [5, 0];
-			climateArray[46] = [5, 0];
-			climateArray[47] = [5, 0];
-			climateArray[48] = [5, 0];
-			climateArray[49] = [5, 0];
-			climateArray[50] = [5, 0];
-
-			climateArray = climateArray; //assigns value of climateArray to climateArray.
-		}
-
-		return climateArray;
-	};
-
-	climateChange();
 
 	// Create array of Z0s
 
