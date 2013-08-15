@@ -368,17 +368,17 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		//alert("This is rain and game weather is " + gameWeather[turn]);
 	};
 
-	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
+	if (cropchoice == "cropA" && gameWeather[turn] <= 800) {
 		args.crop = "A";
 		args.state = "dead";
 		args.weather = "sunny";
 		displaySun();
 		$("#deadA").removeClass("hidden");
-		updateGame(payoutAdry);
+		updateGame(betaA, maxApayout, maxAweather);
 		//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
 	}
 
-	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
+	else if (cropchoice == "cropA" && gameWeather[turn] ) {
 		args.crop = "A";
 		args.state = "healthy";
 		args.weather =  "rainy";
@@ -431,7 +431,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	var oldscore = score;
 	var newscore = oldscore + payout;
 
-	function newScore (crop) {
+	function newScore () {
 
 		//Calculate yield and points based on gameWeather and cropchoice
 		payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
@@ -445,7 +445,6 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		}
 
 		return payout;
-		}
 
 
 		//if I call newScore(crop), will that run it correctly?
