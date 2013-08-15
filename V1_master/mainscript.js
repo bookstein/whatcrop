@@ -28,15 +28,9 @@ $(document).ready(function(){
 	maxAweather = 800; //w*(A)
 	maxBweather = 400; //w*(B)
 
-	// Initial weather conditions
-	var initialClimate = {
-		mean: 800,
-		std_dev: 75
-	};
-
 	// Manually set climate change by turn, up to maxturn
 	var climateArray = [
-		{mean: 800, std_dev: 75}, //0
+		{mean: 800, std_dev: 75}, //0 -- initial climate
 		{mean: 800, std_dev: 75}, //1
 		{mean: 800, std_dev: 75}, //2
 		{mean: 800, std_dev: 75}, //3
@@ -373,6 +367,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		//alert("This is rain and game weather is " + gameWeather[turn]);
 	};
 
+	// Crop A outcomes
 	if (cropchoice === "cropA") {
 		updateGame(betaA, maxApayout, maxAweather);
 
@@ -407,7 +402,9 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 				//display too-dry crop A
 			}
 		}
+	}
 
+	// Crop B outcomes
 	else if (cropchoice === "cropB") {
 		updateGame(betaB, maxBpayout, maxBweather);
 
@@ -444,7 +441,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		}
 	}
 
-};
+}; // end of weatherResults
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
