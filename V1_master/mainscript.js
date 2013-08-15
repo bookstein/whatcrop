@@ -49,46 +49,46 @@ $(document).ready(function(){
 		{mean: 800, std_dev: 75}, //8
 		{mean: 800, std_dev: 75}, //9
 		{mean: 800, std_dev: 75}, //10
-		{mean: 800, std_dev: 75}, //11
-		{mean: 800, std_dev: 75}, //12
-		{mean: 800, std_dev: 75}, //13
-		{mean: 800, std_dev: 75}, //14
-		{mean: 800, std_dev: 75}, //15
-		{mean: 800, std_dev: 75}, //16
-		{mean: 800, std_dev: 75}, //17
-		{mean: 800, std_dev: 75}, //18
-		{mean: 800, std_dev: 75}, //19
-		{mean: 800, std_dev: 75}, //20
-		{mean: 800, std_dev: 75}, //21
-		{mean: 800, std_dev: 75}, //22
-		{mean: 800, std_dev: 75}, //23
-		{mean: 800, std_dev: 75}, //24
-		{mean: 800, std_dev: 75}, //25
-		{mean: 800, std_dev: 75}, //26
-		{mean: 800, std_dev: 75}, //27
-		{mean: 800, std_dev: 75}, //28
-		{mean: 800, std_dev: 75}, //29
-		{mean: 800, std_dev: 75}, //30
-		{mean: 800, std_dev: 75}, //31
-		{mean: 800, std_dev: 75}, //32
-		{mean: 800, std_dev: 75}, //33
-		{mean: 800, std_dev: 75}, //34
-		{mean: 800, std_dev: 75}, //35
-		{mean: 800, std_dev: 75}, //36
-		{mean: 800, std_dev: 75}, //37
-		{mean: 800, std_dev: 75}, //38
-		{mean: 800, std_dev: 75}, //39
-		{mean: 800, std_dev: 75}, //40
-		{mean: 800, std_dev: 75}, //41
-		{mean: 800, std_dev: 75}, //42
-		{mean: 800, std_dev: 75}, //43
-		{mean: 800, std_dev: 75}, //44
-		{mean: 800, std_dev: 75}, //45
-		{mean: 800, std_dev: 75}, //46
-		{mean: 800, std_dev: 75}, //47
-		{mean: 800, std_dev: 75}, //48
-		{mean: 800, std_dev: 75}, //49
-		{mean: 800, std_dev: 75} //50
+		{mean: 700, std_dev: 75}, //11
+		{mean: 700, std_dev: 75}, //12
+		{mean: 700, std_dev: 75}, //13
+		{mean: 700, std_dev: 75}, //14
+		{mean: 700, std_dev: 75}, //15
+		{mean: 700, std_dev: 75}, //16
+		{mean: 700, std_dev: 75}, //17
+		{mean: 700, std_dev: 75}, //18
+		{mean: 700, std_dev: 75}, //19
+		{mean: 700, std_dev: 75}, //20
+		{mean: 600, std_dev: 75}, //21
+		{mean: 600, std_dev: 75}, //22
+		{mean: 600, std_dev: 75}, //23
+		{mean: 600, std_dev: 75}, //24
+		{mean: 600, std_dev: 75}, //25
+		{mean: 600, std_dev: 75}, //26
+		{mean: 600, std_dev: 75}, //27
+		{mean: 600, std_dev: 75}, //28
+		{mean: 600, std_dev: 75}, //29
+		{mean: 600, std_dev: 75}, //30
+		{mean: 600, std_dev: 75}, //31
+		{mean: 600, std_dev: 75}, //32
+		{mean: 600, std_dev: 75}, //33
+		{mean: 600, std_dev: 75}, //34
+		{mean: 600, std_dev: 75}, //35
+		{mean: 600, std_dev: 75}, //36
+		{mean: 600, std_dev: 75}, //37
+		{mean: 600, std_dev: 75}, //38
+		{mean: 600, std_dev: 75}, //39
+		{mean: 600, std_dev: 75}, //40
+		{mean: 600, std_dev: 75}, //41
+		{mean: 600, std_dev: 75}, //42
+		{mean: 600, std_dev: 75}, //43
+		{mean: 600, std_dev: 75}, //44
+		{mean: 600, std_dev: 75}, //45
+		{mean: 500, std_dev: 75}, //46
+		{mean: 400, std_dev: 75}, //47
+		{mean: 350, std_dev: 75}, //48
+		{mean: 350, std_dev: 75}, //49
+		{mean: 300, std_dev: 75}  //50
 	];
 
 
@@ -165,22 +165,23 @@ $(function initializeGame () {
 					normalizedArray[i] = -5;
 				}
 			}
-		};
+		}; //end of boxMullerTransformation
 
 		boxMullerTransformation();
 
-			//Apply climateChange to normalizedArray as mean + Z0 * std_dev
+		//Apply climateChange to normalizedArray as mean + Z0 * std_dev
 
 		function applyClimateChange () {
 			for (var i = 0; i < maxturn; i++) {
 				gameWeather[i] = climateArray[i].mean + (normalizedArray[i]*climateArray[i].std_dev);
 			}
-		};
+		}; //end of applyClimateChange
 
 		applyClimateChange();
 
 		return gameWeather;
-	};
+
+	}; // end function makeGameWeather
 
 	makeGameWeather();
 
