@@ -693,7 +693,14 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	}
 
 	else {
-		alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
+		//this is filler code, temporarily allowing an outcome while weatherResults if-else don't match gameWeather outcomes
+		args.crop = "B";
+		args.state = "healthy";
+		args.weather = "rainy";
+		displayRain();
+		$("#rowsCropB").removeClass("hidden");
+		updateGame(payoutBwet);
+		//alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
 	}
 
 
@@ -786,6 +793,9 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
   		};
 
+  		//Restore this function once maxScore has been calculated for BoxMuller version
+
+		/*
 		function movePointsFlag () { //increase height of #points_flag using absolute positioning
 			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
 			var pixelHeight = parseInt($("#points_bar").css("height"));
@@ -834,6 +844,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 		realDollars = bonusOneDollars + bonusTwoDollars;
 		$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
 	};
+	*/
 
 	setTimeout(fadeWeather, 4000);
 	newScore();
