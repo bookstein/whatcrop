@@ -383,91 +383,36 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		// if gameWeather is below historic mean, weather is wet
 		if (gameWeather[turn] <= historicMean) {
 
+			displayRain();
+
 			if (gameWeather[turn] >= (historicMean - historicStd_Dev)) {
-				displayRain();
 				weatherReport = "wet";
 				//display healthy crop A (range of normal)
 			}
 
 			else if (gameWeather[turn] < (historicMean - historicStd_Dev)) {
-				displayRain();
 				weatherReport = "very wet";
 				//display too-wet crop A ("Very Wet")
 			}
+		}
 
-			else if (gameWeather[turn] >= (minGameWeather + quadrant) && gameWeather[turn] < (minGameWeather + (2*quadrant))) {
+		// if gameWeather is above historic mean, weather is dry
+		else if (gameWeather[turn] > historicMean) {
 
+			displaySun();
+
+			if (gameWeather[turn] <= (historicMean + historicStd_Dev)) {
+				weatherReport = "dry";
+				//display healthy crop A (range of normal)
+			}
+
+			else if (gameWeather[turn] > (historicMean + historicStd_Dev)) {
+				weatherReport = "very dry";
+				//display too-dry crop A
 			}
 		}
 
-		// if weather
-		else if (gameWeather[turn] > historicMean) {
 
-		}
-
-		if (gameWeather[turn] >= minGameWeather && gameWeather[turn] < (minGameWeather + quadrant)) {
-			displayRain();
-			//display too-wet-A
-		}
-
-		else if (gameWeather[turn] >= (minGameWeather + quadrant) && gameWeather[turn] < (minGameWeather + (2*quadrant))) {
-
-		}
-
-		else if (gameWeather[turn] >= (minGameWeather + (2*quadrant)) && gameWeather[turn] < (minGameWeather + (3*quadrant))) {
-
-		}
-
-		else if (gameWeather[turn] >= (minGameWeather + (3*quadrant)) && gameWeather[turn] <= maxGameWeather){
-
-		}
-
-		//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
-	}
-
-	else if (cropchoice == "cropA" && gameWeather[turn] ) {
-		args.crop = "A";
-		args.state = "healthy";
-		args.weather =  "rainy";
-		displayRain();
-		$("#rowsCropA").removeClass("hidden");
-		updateGame(payoutAwet);
-		//setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
-	}
-
-	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
-		args.crop = "B";
-		args.state = "dead";
-		args.weather = "sunny";
-		displaySun();
-		$("#deadB").removeClass("hidden");
-		updateGame(payoutBdry);
-		//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
-	}
-
-	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
-		args.crop = "B";
-		args.state = "healthy";
-		args.weather = "rainy";
-		displayRain();
-		$("#rowsCropB").removeClass("hidden");
-		updateGame(payoutBwet);
-		//setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
-	}
-
-	else {
-		//this is filler code, temporarily allowing an outcome while weatherResults if-else don't match gameWeather outcomes
-		args.crop = "B";
-		args.state = "healthy";
-		args.weather = "rainy";
-		displayRain();
-		$("#rowsCropB").removeClass("hidden");
-		updateGame(payoutBwet);
-		//alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
-	}
-
-
-	return args;
 };
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
