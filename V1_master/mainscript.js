@@ -354,10 +354,6 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 	//Identify weather display labels
 
-	var maxGameWeather = Math.max.apply(Math, gameWeather);
-	var minGameWeather = Math.min.apply(Math, gameWeather);
-	var range = maxGameWeather - minGameWeather;
-	var quadrant = range/4; //divides range of weather into 4 equal quadrants
 	var historicMean = climateArray[0]["mean"]; //uses initial (historic) mean to divide weather into qualitative "Wet" and "Dry"
 	var historicStd_Dev = climateArray[0]["std_dev"]; //uses initial (historic) standard deviation to label extremes "Very Wet" and "Very Dry"
 	var weatherReport = "";
