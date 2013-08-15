@@ -27,8 +27,6 @@ $(document).ready(function(){
 	maxBpayout = 120; //P*(B)
 	maxAweather = 800; //w*(A)
 	maxBweather = 400; //w*(B)
-	payoutA = 0; //modified depending on weather w
-	payoutB = 0; //modified depending on weather w
 
 	// Initial weather conditions
 	var initialClimate = {
@@ -433,18 +431,39 @@ function updateGame (crop) { //this function is called and given arguments insid
 	var oldscore = score;
 	var newscore = oldscore + payout;
 
-	function newScore () {
+	function newScore (crop) {
 
 		//Calculate yield and points based on gameWeather and cropchoice
 		if (crop === "A") {
 			payout = betaA * Math.pow((gameWeather[turn] - maxAweather), 2) + maxApayout;
+
+			if (payout <= 0) {
+				payout = 0;
+			}
+
+			else {
+				payout = parseInt(payout);
+			}
+
 			return payout;
 		}
 
 		else if (crop === "B") {
 			payout = betaB * Math.pow((gameWeather[turn] - maxBweather), 2) + maxBpayout;
+
+			if (payout <= 0) {
+				payout = 0;
+			}
+
+			else {
+				payout = parseInt(payout);
+			}
+
 			return payout;
 		}
+
+
+		//if I call newScore(crop), will that run it correctly?
 
 		function animatePoints () {
 			//$("#points_bar").toggleClass("glow");
@@ -490,10 +509,11 @@ function updateGame (crop) { //this function is called and given arguments insid
 		$("#point_count").html("<h5>" + newscore + "</h5>");
 		animatePoints();
 		//setTimeout(animatePoints, 4000);
-		movePointsFlag();
-	};
+		movePointsFlag(); */
 
-		// WARNING: .css modifies the element's <style> property, not the CSS sheet!
+	}; //end of function newScore
+
+	/*	// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
 	//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
 	function addBonus1 () {
@@ -542,7 +562,7 @@ function updateGame (crop) { //this function is called and given arguments insid
 			$("#bonus_count").text("$" + bonusTwoDollars);
 			addBonus2();
 		}
-*/
+
 		//end game dialog
 		else if (turn === maxturn) {
 			$("#end_results").dialog("open");
@@ -556,7 +576,7 @@ function updateGame (crop) { //this function is called and given arguments insid
 			$("#normal_results").dialog("open");
 		}
 
-		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
+		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000); */
 
 	};
 
@@ -586,7 +606,7 @@ function updateGame (crop) { //this function is called and given arguments insid
 
 		score += payout;
 		return score; //this updates the value of the global variable "score"
-	};
+
 }; // End of updateGame function
 
 function endGame () { //call end-of-game dialog box
