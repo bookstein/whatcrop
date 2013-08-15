@@ -425,7 +425,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
-function updateGame (crop) { //this function is called and given arguments inside weatherResults function above
+function updateGame (beta, maxpayout, maxweather) { //this function is called and given arguments inside weatherResults function above
 
 	var payout = 0;
 	var oldscore = score;
@@ -434,32 +434,17 @@ function updateGame (crop) { //this function is called and given arguments insid
 	function newScore (crop) {
 
 		//Calculate yield and points based on gameWeather and cropchoice
-		if (crop === "A") {
-			payout = betaA * Math.pow((gameWeather[turn] - maxAweather), 2) + maxApayout;
+		payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
 
-			if (payout <= 0) {
-				payout = 0;
-			}
-
-			else {
-				payout = parseInt(payout);
-			}
-
-			return payout;
+		if (payout <= 0) {
+			payout = 0;
 		}
 
-		else if (crop === "B") {
-			payout = betaB * Math.pow((gameWeather[turn] - maxBweather), 2) + maxBpayout;
+		else {
+			payout = parseInt(payout);
+		}
 
-			if (payout <= 0) {
-				payout = 0;
-			}
-
-			else {
-				payout = parseInt(payout);
-			}
-
-			return payout;
+		return payout;
 		}
 
 
