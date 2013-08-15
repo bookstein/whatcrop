@@ -448,7 +448,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 function updateGame (beta, maxpayout, maxweather) { //this function is called and given arguments inside weatherResults function above
 
 	cropchoice = "";
-	var payout = 0;
+	payout = 0;
 
 	function newPayout () {
 		payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
@@ -587,8 +587,8 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		else {
 			$("#normal_results").dialog("open");
 		}
-
-		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000); */
+*/
+		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
 
 	};
 
