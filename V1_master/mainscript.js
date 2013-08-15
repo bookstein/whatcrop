@@ -427,9 +427,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 function updateGame (beta, maxpayout, maxweather) { //this function is called and given arguments inside weatherResults function above
 
-	var payout = 0;
-	var oldscore = score;
-	var newscore = oldscore + payout;
+	var payout = 0; //this variable is deleted after each turn
 
 	function newScore () {
 
@@ -456,6 +454,10 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
 			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
   		};
+
+  		//Moved these variables inside newScore function because they only matter for bonus thresholds being crossed
+  		var oldscore = score;
+		var newscore = oldscore + payout;
 
   		//Restore this function once maxScore has been calculated for BoxMuller version
 
