@@ -451,6 +451,17 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 	function newScore () {
 		var payout = 0;
+		payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
+
+		if (payout <= 0) {
+			payout = 0;
+		}
+
+		else {
+			payout = parseInt(payout);
+		}
+
+		//return payout;
 
 		function animatePoints () {
 			//$("#points_bar").toggleClass("glow");
@@ -460,19 +471,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
   		};
 
-  		function calculatePayout () { //Calculate yield and points based on gameWeather and cropchoice
-			payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
 
-			if (payout <= 0) {
-				payout = 0;
-			}
-
-			else {
-				payout = parseInt(payout);
-			}
-
-			return payout;
-		};
 //Restore this function once maxScore has been calculated for BoxMuller version
 
 		/*
