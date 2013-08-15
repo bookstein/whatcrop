@@ -448,9 +448,10 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 function updateGame (beta, maxpayout, maxweather) { //this function is called and given arguments inside weatherResults function above
 
 	cropchoice = "";
+	var payout = 0;
 
-	function newScore () {
-		var payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
+	function newPayout () {
+		payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
 
 		if (payout <= 0) {
 			payout = 0;
@@ -460,7 +461,10 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			payout = parseInt(payout);
 		}
 
-		//return payout;
+		return payout;
+	};
+
+	function newScore () {
 
 		function animatePoints () {
 			//$("#points_bar").toggleClass("glow");
@@ -524,7 +528,6 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	};
 
 	*/
-
 		animatePoints();
 
 		score += payout;
@@ -533,6 +536,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 	}; //end of function newScore
 
+	newPayout();
 	newScore();
 
 	function displayResultsDialog () {
@@ -550,12 +554,13 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	        width: 'auto'
 	    });
 
-//restore this code when bonuses are calculated
-
-/*
 		//populate spans inside all results dialogs
 	    $(".results").find("#weather_outcome").text(gameWeather[turn]);
 	    $(".results").find("#new_score").text(payout);
+
+	    /*
+
+//restore this code when bonuses are calculated
 
 		// bonus dialogs
 		if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
