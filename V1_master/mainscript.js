@@ -35,7 +35,7 @@ $(document).ready(function(){
 		std_dev: 75
 	};
 
-	autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
+	autoFillClimateChange = false; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
 										//If false, then manually enter the climate change values you wish to use, below.
 
 	// Set rain threshold
@@ -209,7 +209,7 @@ $(function initializeGame () {
 
 		function applyClimateChange () {
 			for (var i = 0; i < maxturn; i++) {
-				gameWeather[i] = climateArray[i].newMean + (normalizedArray[i]*climateArray[i].newStd_dev);
+				gameWeather[i] = climateArray[i].mean + (normalizedArray[i]*climateArray[i].std_dev);
 			}
 		};
 
@@ -222,7 +222,7 @@ $(function initializeGame () {
 
 
 	//Populate spans in opening and ending dialogs
-
+/*
 	$(".turncount_instructions").text(maxturn + " turns");
 	$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
 	$("#bonus_one_instructions").text(totalRandomPoints);
