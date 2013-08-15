@@ -191,6 +191,15 @@ $(function initializeGame () {
 		function boxMullerTransformation () {
 			for (var i = 0; i < maxturn; i++) {
 				normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y);
+
+			//designate cutoffs for high and low values of Z0
+				if (normalizedArray[i] >= 5) {
+					normalizedArray[i] = 5;
+				}
+
+				else if (normalizedArray[i] <= -5) {
+					normalizedArray[i] = -5;
+				}
 			}
 		};
 
