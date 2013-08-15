@@ -377,7 +377,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		//alert("This is rain and game weather is " + gameWeather[turn]);
 	};
 
-	if (cropchoice == "cropA" {
+	if (cropchoice === "cropA") {
 		updateGame(betaA, maxApayout, maxAweather);
 
 		// if gameWeather is below historic mean, weather is wet
@@ -412,6 +412,41 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			}
 		}
 
+	else if (cropchoice === "cropB") {
+		updateGame(betaB, maxBpayout, maxBweather);
+
+		// if gameWeather is below historic mean, weather is wet
+		if (gameWeather[turn] <= historicMean) {
+
+			displayRain();
+
+			if (gameWeather[turn] >= (historicMean - historicStd_Dev)) {
+				weatherReport = "wet";
+				//display healthy crop B (range of normal)
+			}
+
+			else if (gameWeather[turn] < (historicMean - historicStd_Dev)) {
+				weatherReport = "very wet";
+				//display too-wet crop B ("Very Wet")
+			}
+		}
+
+		// if gameWeather is above historic mean, weather is dry
+		else if (gameWeather[turn] > historicMean) {
+
+			displaySun();
+
+			if (gameWeather[turn] <= (historicMean + historicStd_Dev)) {
+				weatherReport = "dry";
+				//display healthy crop B (range of normal)
+			}
+
+			else if (gameWeather[turn] > (historicMean + historicStd_Dev)) {
+				weatherReport = "very dry";
+				//display too-dry crop B
+			}
+		}
+	}
 
 };
 
