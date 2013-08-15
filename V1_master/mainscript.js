@@ -448,24 +448,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 function updateGame (beta, maxpayout, maxweather) { //this function is called and given arguments inside weatherResults function above
 
 	function newScore () {
-
-		function calculatePayout () { //Calculate yield and points based on gameWeather and cropchoice
 		var payout = 0;
-		payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
-
-		if (payout <= 0) {
-			payout = 0;
-		}
-
-		else {
-			payout = parseInt(payout);
-		}
-
-		return payout;
-
-		};
-
-		calculatePayout();
 
 		function animatePoints () {
 			//$("#points_bar").toggleClass("glow");
@@ -475,12 +458,20 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
   		};
 
-  		score += payout;
-		return score; //this updates the value of the global variable "score"
+  		function calculatePayout () { //Calculate yield and points based on gameWeather and cropchoice
+			payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
 
-	}; //end of function newScore
+			if (payout <= 0) {
+				payout = 0;
+			}
 
-  		//Restore this function once maxScore has been calculated for BoxMuller version
+			else {
+				payout = parseInt(payout);
+			}
+
+			return payout;
+		};
+//Restore this function once maxScore has been calculated for BoxMuller version
 
 		/*
 		function movePointsFlag () { //increase height of #points_flag using absolute positioning
@@ -533,6 +524,18 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	};
 
 	*/
+
+		calculatePayout();
+		animatePoints();
+
+  		score += payout;
+		return score; //this updates the value of the global variable "score"
+
+	}; //end of function newScore
+
+	newScore();
+
+
 
 	function displayResultsDialog () {
 
@@ -606,7 +609,6 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 
 		setTimeout(fadeWeather, 4000);
-		newScore();
 		setTimeout(addTurn, 4000);
 
 		//Moved these variables inside newScore function because they only matter for bonus thresholds being crossed
