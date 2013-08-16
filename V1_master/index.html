@@ -76,8 +76,14 @@
 				<table id="intro_table">
 					<thead colspan="3"><tr><th id="empty"><!--empty--></th><th>if Wet:</th><th>if Dry:</th></tr></thead>
 					<tbody>
-					<!-- table row 1 --><tr><td class="Acolor">Crop A <img src="images/cropAicon.png" /></td><td id="payoutAwet"></td><td id="payoutAdry"></td></tr>
-					<!-- table row 2 --><tr><td class="Bcolor">Crop B <img src="images/cropBicon.png" /></td><td id="payoutBwet"></td><td id="payoutBdry"></td></tr>
+						<tr>
+							<td class="Acolor">Crop A <img src="images/cropAicon.png" /></td>
+							<td id="payoutAwet"></td><td id="payoutAdry"></td>
+						</tr>
+						<tr>
+							<td class="Bcolor">Crop B <img src="images/cropBicon.png" /></td>
+							<td id="payoutBwet"></td><td id="payoutBdry"></td>
+						</tr>
 					</tbody>
 				</table>
 			<br>
@@ -89,6 +95,19 @@
 				<p>
 					Historically, the weather has been dry <span id="weather_instructions"></span> of the time.
 				</p>
+				<div>
+					<table id="weather_bar_graph">
+						<thead colspan = "2">
+							<tr><th>Wet and rainy</th><th>Dry and sunny</th></tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="rain_probability"><!--empty cell--></td>
+								<td id="sun_probability"><!--empty cell--></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			<br>
 		</div>
 
