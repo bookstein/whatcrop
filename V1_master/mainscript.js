@@ -557,6 +557,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		//populate spans inside all results dialogs
 	    $(".results").find("#weather_outcome").text(gameWeather[turn]);
 	    $(".results").find("#new_score").text(payout);
+	    $("#normal_results").dialog("open");
 
 	    /*
 
