@@ -153,6 +153,39 @@ header > h1 {
 	font-weight: bold;
 }
 
+.dialog-message table {
+/*Uses css rules of #givens table*/
+	position: relative;
+}
+
+#weather_bar_graph {
+	position: relative;
+	background-position: center;
+}
+
+#weather_bar_graph thead {
+	background-color: #eae9e6;
+}
+
+#weather_bar_graph tbody {
+	background-color: white;
+}
+
+.bar {
+	vertical-align: baseline;
+	height: 150px;
+}
+
+#rain_probability {
+	background-color: blue;
+	height: 75%;
+}
+
+#sun_probability {
+	background-color: yellow;
+	height: 25%;
+}
+
 .glow {
 	/* outer shadows  (note the rgba is red, green, blue, alpha) */
 	-webkit-box-shadow: 0 0 15px 10px rgba(255, 204, 51, 1);

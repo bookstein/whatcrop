@@ -95,6 +95,7 @@
 				<p>
 					Historically, the weather has been dry <span id="weather_instructions"></span> of the time.
 				</p>
+				<br>
 				<div>
 					<table id="weather_bar_graph">
 						<thead colspan = "2">
@@ -102,8 +103,12 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td id="rain_probability"><!--empty cell--></td>
-								<td id="sun_probability"><!--empty cell--></td>
+								<td class = "bar">
+									<div id="rain_probability"></div> <!-- use height of div to represent probability -->
+								</td>
+								<td class = "bar">
+									<div id="sun_probability"></div> <!-- use height of div to represent probability -->
+								</td>
 							</tr>
 						</tbody>
 					</table>
