@@ -474,7 +474,7 @@ $(function introDialogs () {
         height: 'auto',
         width: '400',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (1 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				$( "#second-message" ).dialog( "open" );
@@ -494,7 +494,7 @@ $(function introDialogs () {
         height: 'auto',
         width: '400',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (2 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				//$(".ui-widget-overlay").addClass("active-left");
@@ -516,7 +516,7 @@ $(function introDialogs () {
         height: 'auto',
         width: '400',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (3 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				$( "#fourth-message" ).dialog( "open" );
