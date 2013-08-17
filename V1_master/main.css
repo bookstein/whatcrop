@@ -155,12 +155,12 @@ header > h1 {
 
 .dialog-message table {
 /*Uses css rules of #givens table*/
-	position: relative;
+
 }
 
 #weather_bar_graph {
-	position: relative;
 	background-position: center;
+	height: 200px;
 }
 
 #weather_bar_graph thead {
@@ -172,18 +172,19 @@ header > h1 {
 }
 
 .bar {
-	vertical-align: baseline;
-	height: 150px;
+	vertical-align: bottom;
 }
 
 #rain_probability {
 	background-color: blue;
 	height: 75%;
+	vertical-align: bottom;
 }
 
 #sun_probability {
 	background-color: yellow;
 	height: 25%;
+	vertical-align: bottom;
 }
 
 .glow {
