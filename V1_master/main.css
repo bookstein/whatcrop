@@ -160,7 +160,7 @@ header > h1 {
 
 #weather_bar_graph {
 	background-position: center;
-	height: 200px;
+	height: 150px;
 }
 
 #weather_bar_graph thead {
@@ -181,15 +181,17 @@ header > h1 {
 }
 
 #rain_probability {
-	background-color: blue;
-	height: 75%;
+	background-color: rgb(62, 62, 219);
+	height: 50px;
 	vertical-align: bottom;
+	border-top: 1px dotted black;
 }
 
 #sun_probability {
-	background-color: yellow;
-	height: 25%;
+	background-color: #ffcc33;
+	height: 50px;
 	vertical-align: bottom;
+	border-top: 1px dotted black;
 }
 
 .glow {
