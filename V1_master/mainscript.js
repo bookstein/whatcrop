@@ -443,10 +443,18 @@ $(function initializeGame () {
 	//Populate spans in opening and ending dialogs
 
 	$(".turncount_instructions").text(maxturn + " turns");
-	$(".dry_percent").text((1000-threshold)/1000*100 + "%");
-	$(".wet_percent").text((100 - (1000-threshold)/1000*100) + "%");
 	$("#bonus_one_instructions").text(totalRandomPoints);
 	$("#bonus_two_instructions").text(totalOptimalPoints);
+
+	// Set bar graph in opening dialogs
+
+	var dryPercent = ((1000-threshold)/1000)*100;
+	var wetPercent = 100 - ((1000-threshold)/1000)*100;
+	$(".dry_percent").text(dryPercent + "%");
+	$(".wet_percent").text(wetPercent + "%");
+	$("#sun_probability").css("height", dryPercent);
+	$("#rain_probability").css("height", wetPercent);
+
 
 }); //end of initialization function
 
