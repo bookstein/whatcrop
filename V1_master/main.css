@@ -194,6 +194,10 @@ header > h1 {
 	border-top: 1px dotted black;
 }
 
+#coins_png {
+	height: 150px;
+}
+
 .glow {
 	/* outer shadows  (note the rgba is red, green, blue, alpha) */
 	-webkit-box-shadow: 0 0 15px 10px rgba(255, 204, 51, 1);
