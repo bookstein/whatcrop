@@ -443,7 +443,8 @@ $(function initializeGame () {
 	//Populate spans in opening and ending dialogs
 
 	$(".turncount_instructions").text(maxturn + " turns");
-	$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
+	$(".dry_percent").text((1000-threshold)/1000*100 + "%");
+	$(".wet_percent").text((100 - (1000-threshold)/1000*100) + "%");
 	$("#bonus_one_instructions").text(totalRandomPoints);
 	$("#bonus_two_instructions").text(totalOptimalPoints);
 

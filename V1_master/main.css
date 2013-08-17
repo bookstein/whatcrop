@@ -175,6 +175,11 @@ header > h1 {
 	vertical-align: bottom;
 }
 
+.percent {
+	border: none;
+	height: 30px;
+}
+
 #rain_probability {
 	background-color: blue;
 	height: 75%;
