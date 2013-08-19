@@ -147,22 +147,40 @@
 		//write "catch" for ajax request in different browsers
 		//should I write one JS file for the whole thing, or mini JS files for specific purposes? Should I basically just externalize most of the code that the guy wrote? -->
 	<section id="givens"> <!-- Contains infographics explaining value of A and B, weather distribution (if any) as well as turn counter -->
-		<h5>Crop Information</h5>
+
 		<br>
-		<!-- <h6>Use this information to make your choice.</h6> -->
+		<h5>Crop Yields</h5>
+			<br>
 		 <table>
-			<thead colspan="3"><tr><th id="empty"><!--empty--></th><th>if Wet:</th><th>if Dry:</th></tr></thead>
+			<thead colspan="3">
+				<tr>
+					<th id="empty"><!--empty--></th>
+						<th class="Acolor"> A </th>
+						<th class="Bcolor"> B </th>
+				</tr>
+			</thead>
 			<tbody>
-			<!-- table row 1 --><tr><td class="Acolor">Crop A <img src="images/cropAicon.png" /></td><td id="payoutAwet"></td><td id="payoutAdry"></td></tr>
-			<!-- table row 2 --><tr><td class="Bcolor">Crop B <img src="images/cropBicon.png" /></td><td id="payoutBwet"></td><td id="payoutBdry"></td></tr>
+			<tr>
+				<td id="wetColor">Wet </td>
+				<td id="payoutAwet"></td>
+				<td id="payoutBwet"></td>
+			</tr>
+
+			<tr>
+				<td id="dryColor">Dry </td>
+				<td id="payoutAdry"></td>
+				<td id="payoutBdry"></td>
+			</tr>
 			</tbody>
 		</table>
 
 	<div id="turns"> <!-- turn counter div, child of section #givens -->
 		<h5>Turns Taken</h5>
-		<div id="turns_counter">
+		<div id="turns_bar">
 			<!-- this div contains the actual turn count -->
-			<h5>Number of turns</h5>
+
+			<span id="turns_counter">Number of turns</span>
+
 		</div>
 	</div>
 
@@ -266,6 +284,7 @@
 	</section> <!-- end of #choice_screen (parent) -->
 
 	<section id="score"> <!-- sibling of #choice_screen. Contains points counter, real dollars counter -->
+		<br>
 		<h5>Points Earned </h5>
 
 		<div id="points_bar"><!-- this div is the vertical points bar and fills up with different images. -->
@@ -295,7 +314,7 @@
 
 			<div id="dollars"><!-- displays real dollars earned. Child of #points -->
 
-			<h4>Real Dollars Earned:</h4><h5><span id="dollars_counter">$0</span></h5>
+			<h4>Real Dollars Earned:</h4><span id="dollars_counter">$1.00</span>
 
 			</div><!-- end of #dollars -->
 

@@ -35,6 +35,7 @@ $(document).ready(function(){
 	totalOptimalPoints = 0;
 
 
+
 	//Turn Counter
 
 	turn = 0;
@@ -58,10 +59,10 @@ $(function initializeGame () {
 	// Crop Information table
 
 	function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
-		$("table").find("td#payoutAwet").text(payoutAwet + " points");
-		$("table").find("td#payoutAdry").text(payoutAdry + " points");
-		$("table").find("td#payoutBwet").text(payoutBwet + " points");
-		$("table").find("td#payoutBdry").text(payoutBdry + " points");
+		$("table").find("td#payoutAwet").text(payoutAwet );
+		$("table").find("td#payoutAdry").text(payoutAdry );
+		$("table").find("td#payoutBwet").text(payoutBwet );
+		$("table").find("td#payoutBdry").text(payoutBdry );
 	};
 
 	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
@@ -83,9 +84,9 @@ $(function initializeGame () {
 
 
 			for (var i =0; i < maxturn; i++) {
-
-			climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change.
+				climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change.
 			}
+
 
 			return climateArray; //assigns value of climateArray to function climateChange
 		}
@@ -143,6 +144,7 @@ $(function initializeGame () {
 			manualClimateArray[49] = 5;
 			manualClimateArray[50] = 5;
 
+
 			climateArray = manualClimateArray; //assigns value of manualClimateArray to climateArray.
 			return climateArray;
 			}
@@ -166,7 +168,9 @@ $(function initializeGame () {
 
 	// Set rain thresholds as modified by climate change over course of game -------
 
+
 	thresholdArray = [];
+
 
 	function makeThresholdArray () {
 
@@ -615,6 +619,7 @@ $("#cropB").on("click", userClickedB);
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
 
 
+
 function weatherResults () { //triggered by #grow click, runs updateGame with correct arguments
 
 	var args = {}; //creates empty object for arguments
@@ -622,6 +627,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	disableGrowButton();
 
 	$(".plant, .plant_img, #grow").addClass("hidden").css("opacity", 0);
+
 
 	function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
 		$("#sun").addClass("displayWeather").removeClass("hidden");
@@ -632,6 +638,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		$("#rain").addClass("displayWeather").removeClass("hidden");
 		//alert("This is rain and game weather is " + gameWeather[turn]);
 	};
+
 
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
 		args.crop = "A";
@@ -661,6 +668,8 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		$("#deadB").removeClass("hidden");
 		updateGame(payoutBdry);
 		//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
+
+
 	}
 
 	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
@@ -678,7 +687,9 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	}
 
 
+
 	return args;
+
 };
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
@@ -749,9 +760,10 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
 	};
 
+
 	function addTurn () {
 		turn = turn + 1;
-		$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+		$("#turns_counter").text( turn + "/" + maxturn );
 		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
 		//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
 	};
@@ -760,6 +772,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 		function animatePoints () {
 			//$("#points_bar").toggleClass("glow");
+
 
 
 			$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
@@ -771,14 +784,18 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
 			var pixelHeight = parseInt($("#points_bar").css("height"));
 
+
 			//Ratio of points per pixel
 			var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
+
 
 			//Points_counter moves upward this number of pixels per turn
 			var perTurnHeight = payout/pointsPerPixelRatio;
 
+
 			//Current CSS position for #points_flag "bottom" as an integer
 			var flagHeight = parseInt($("#points_flag").css("bottom"));
+
 
 			//Current CSS height of #points_fill with "height" as an integer
 			var fillHeight = parseInt($("#points_fill").css("height"));
@@ -792,7 +809,6 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 			//increase height of yellow #points_fill
 			$("#points_fill").css("height", fillHeight); // Sets value of style rule "bottom" to flagHeight
 			//return fillHeight;
-
 
 			//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 		};
@@ -824,6 +840,7 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	score += payout;
 	return score; //this updates the value of the global variable "score"
 };
+
 
 
 function endGame () { //call end-of-game dialog box
