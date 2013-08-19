@@ -149,6 +149,25 @@ header > h1 {
 
 }
 
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
+.dialog-message img { /* FSE Logo */
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+/*Formatting font inside dialog boxes*/
+.dialog-message p {
+	color: #565347;
+	font-family: Times, serif;
+	font-size: 15px;
+	letter-spacing: normal;
+	line-height: 1.3em;
+}
+
 #weather_bar_graph {
 	background-position: center;
 	height: 150px;
@@ -604,26 +623,7 @@ button.plant {
 
 
 
-/* >>>>>>>>>>>>>>>>>> Dialog boxes <<<<<<<<<<<<<< */
 
-.no-close .ui-dialog-titlebar-close {
-  display: none;
-}
-
-.dialog-message img { /* FSE Logo */
-	display: block;
-	margin-right: auto;
-	margin-left: auto;
-}
-
-/*Formatting font inside dialog boxes*/
-.dialog-message p {
-	color: #565347;
-	font-family: Georgia, Times, serif;
-	font-size: 14px;
-	letter-spacing: normal;
-	line-height: 1.3em;
-}
 
 /* >>>>>>>>>>>>>>Points Counter <<<<<<<<<<<<<<< */
 
