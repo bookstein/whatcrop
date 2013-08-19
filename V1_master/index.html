@@ -32,6 +32,7 @@
 		//write "catch" for ajax request in different browsers
 		//should I write one JS file for the whole thing, or mini JS files for specific purposes? Should I basically just externalize most of the code that the guy wrote? -->
 	<section id="givens"> <!-- Contains infographics explaining value of A and B, weather distribution (if any) as well as turn counter -->
+		<br>
 		<h5>Crop Yields</h5>
 			<br>
 		 <table>
@@ -59,9 +60,9 @@
 
 	<div id="turns"> <!-- turn counter div, child of section #givens -->
 		<h5>Turns Taken</h5>
-		<div id="turns_counter">
+		<div id="turns_bar">
 			<!-- this div contains the actual turn count -->
-			<h5>Number of turns</h5>
+			<span id="turns_counter">Number of turns</span>
 		</div>
 
 	</div>
@@ -116,6 +117,7 @@
 	</section> <!-- end of #choice_screen (parent) -->
 
 	<section id="score"> <!-- sibling of #choice_screen. Contains points counter, real dollars counter -->
+		<br>
 		<h5>Points Earned </h5>
 
 		<div id="points_flag">

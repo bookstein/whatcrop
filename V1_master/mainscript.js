@@ -65,7 +65,7 @@ var playerchoices = [maxturn+1]; //creates an array containing "51".
 
 //sets up first turn
 var turn = 1;
-$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+$("#turns_counter").text(turn + "/" + maxturn);
 var score = 0; //starting score is 0
 var GameOver = false;
 var weather = Math.floor((Math.random()*1000)+1); //chooses random weather

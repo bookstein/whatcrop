@@ -236,13 +236,21 @@ td {
 	width: auto;
 	height: auto;
 	text-align: center;
+	vertical-align: middle;
 }
 
-#turns_counter {
+#turns_bar {
 	margin: 5px;
 	background-color: #fff;
 	height: 2em;
-	border: 5px solid #3f3c30;
+	border: 1px solid #3f3c30;
+}
+
+#turns_counter {
+	font-family: Georgia, Times, serif;
+	font-size: 18px;
+	color: #3f3c30;
+	font-weight: bold;
 }
 
 
