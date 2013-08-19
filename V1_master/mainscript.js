@@ -27,7 +27,7 @@ $(document).ready(function(){
   //$(this).closest("header").find("#instructions").toggle();
 
 //  });
-  
+
 //To hide #instructions
 //$('#instructions a').click(function(event) {
   //event.preventDefault;
@@ -49,24 +49,24 @@ var payoutBdry = 50; //formerly "bplantdry"
 
 //These values are then plugged into the crop information table (discrete weather version)
 function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
-	$("table").find("td#payoutAwet").text(payoutAwet + " points");
-	$("table").find("td#payoutAdry").text(payoutAdry + " points");
-	$("table").find("td#payoutBwet").text(payoutBwet + " points");
-	$("table").find("td#payoutBdry").text(payoutBdry + " points");
+	$("table").find("td#payoutAwet").text(payoutAwet );
+	$("table").find("td#payoutAdry").text(payoutAdry );
+	$("table").find("td#payoutBwet").text(payoutBwet );
+	$("table").find("td#payoutBdry").text(payoutBdry );
 };
 
 writeCropPayout ("70", "80", "100", "50");
 
 //ADJUST MAXSCORE HERE
-var maxscore = 0; // ? 
+var maxscore = 0; // ?
 
 
-var playerchoices = [maxturn+1]; //creates an array containing "51". 
+var playerchoices = [maxturn+1]; //creates an array containing "51".
 
 //sets up first turn
-var turn = 1; 
+var turn = 1;
 $("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
-var score = 0; //starting score is 0 
+var score = 0; //starting score is 0
 var GameOver = false;
 var weather = Math.floor((Math.random()*1000)+1); //chooses random weather
 var rweather = Math.floor((Math.random()*2)+1); //rweather chooses random # between 0 and 3
@@ -94,7 +94,7 @@ cropchoice = ""; //formerly seedchosen; formerly bevent
 //var bordery = daybary - daybarrate*maxturn;
 
 
-//>>>>>>>>>>>>>>>>>>>>>> 2. User chooses crop. 
+//>>>>>>>>>>>>>>>>>>>>>> 2. User chooses crop.
 
 //Choice time (From dialog "Okay" to click "Grow")
 /*var start = null;
@@ -140,7 +140,7 @@ $("#cropA").on("click", userclickedA);
 $("#cropB").on("click", userclickedB);
 
 
-//>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Weather is randomly chosen. 
+//>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Weather is randomly chosen.
 
 
 $("#grow").on("click", function (event) {
@@ -159,7 +159,7 @@ $("#grow").on("click", function (event) {
 });
 
 var climateChange = //formerly "pollution"
-[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]; //creates a new array with 51 "5"s.
 //Fran needs to be able to modify each of these numbers easily
 
@@ -180,10 +180,10 @@ var threshold = 600; //formerly "rainchance." The threshold between wet and dry 
 
 function updateGame() {
 	alert("Updating!");
-	weather = Math.floor((Math.random()*1000)+1); 
+	weather = Math.floor((Math.random()*1000)+1);
 	setclouds(weather); //calling function setclouds within function updateGame
 						//"weather" is actually the Clark Kent of x (x on the inside)
-	
+
 	if (cropchoice == "cropA" && clouds == "Dry") //&& water) //if user chooses A *and* clouds are equal to dry
 	{
 		//Dry Season
@@ -209,7 +209,7 @@ function updateGame() {
 		wmessage = sunmessage;
 		cmessage = aplantdrymessage;
 	}
-	
+
 	if (cropchoice == "cropA" && clouds == "Wet") //&& water)
 	{
 		//Wet Season
@@ -235,7 +235,7 @@ function updateGame() {
 		wmessage = rainmessage;
 		cmessage = aplantwetmessage;
 	}
-	
+
 	if (cropchoice == "cropB" && clouds == "Wet") //&& water)
 	{
 		//Wet Season
@@ -286,7 +286,7 @@ function updateGame() {
 		wmessage = sunmessage;
 		cmessage = bplantdrymessage;
 	}
-	
+
 	//water = false;
 	keeptime +=1;
 	if (timerbar > -1) timerbar--;
@@ -295,16 +295,16 @@ function updateGame() {
 
 
 //5. "Weather realization screen": weather results are displayed.
-	//create two functions: displayRain and displaySun. 
+	//create two functions: displayRain and displaySun.
 	//Use these also on the dialog boxes prompted by weather outcome.
 
-//Call this function to display weather results 
+//Call this function to display weather results
 function displayWeather () {
 
 	//remove seedpackets and buttons using .hidden
 $(".plant, .plant_img").fadeOut(function(){
 	$(this).addClass("hidden");
-	}); 
+	});
 
 	//reveal dry outcome with Crop A
 	if(cropchoice == "cropA" && clouds == "Dry")
@@ -329,11 +329,11 @@ $(".plant, .plant_img").fadeOut(function(){
 	{
 		displayRain();
 	}
-	
+
 
 };
 
-//What is the correct order of functions?? (originally I had these "definition" functions 
+//What is the correct order of functions?? (originally I had these "definition" functions
 	//up at the top BEFORE displayWeather function)
 
 
@@ -373,7 +373,7 @@ function fadeWeather () {
 	   	$(".plant, .plant_img").fadeIn(function(){
 			$(this).removeClass("hidden");
 			});
-		setTimeout(addTurn, 800); //Waits 800 ms after callback function to execute because fadeIn is done after 400ms 
+		setTimeout(addTurn, 800); //Waits 800 ms after callback function to execute because fadeIn is done after 400ms
 	}, 1000); //time in milliseconds (1000 ms = 1 s)
 
 };

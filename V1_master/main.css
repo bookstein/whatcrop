@@ -166,7 +166,7 @@ header > h1 {
 }
 
 table {
-	height: 200px;
+	height: auto;
 	width: 230px;
 	/*background-image: url("images/table_background.jpg");
 	background-repeat: no-repeat;
@@ -178,7 +178,6 @@ table {
 }
 
 thead {
-	padding: 10px;
 	border-bottom: 1px dotted #3f3c30;
 	background-color: #eae9e6;
 }
@@ -189,12 +188,9 @@ th {
 	font-size: 16px;
 	border-right: 1px dotted #3f3c30;
 	font-weight: bold;
-	padding: 5px 2px;
+	padding: 10px;
 }
 
-#empty {
-	border-right: 1px dotted #3f3c30;
-}
 
 td {
 	text-align: center;
@@ -209,15 +205,24 @@ td {
 	line-height: 17px;
 	letter-spacing: normal;
 	font-weight: normal;
-	padding: 2px;
+	padding: 10px;
 }
 
+#payoutAwet, #payoutBwet {
+	background-color: #C2DEEC; /* sky blue */
+
+}
+
+#payoutAdry, #payoutBdry {
+	background-color: #C9AC68; /* beige */
+
+}
 
 
 td.Acolor, td.Bcolor {
 	background-color: white;
 	border-right: 1px dotted #3f3c30;
-	width: 70px;
+	width: 60px;
 	font-size: 16px;
 	font-weight: bold;
 }
