@@ -72,16 +72,25 @@
 				</p>
 				<br>
 				<table id="intro_table">
-					<thead colspan="3"><tr><th id="empty"><!--empty--></th><th>if Wet:</th><th>if Dry:</th></tr></thead>
+					<thead colspan="3">
+						<tr>
+							<th id="empty"><!--empty--></th>
+								<th class="Acolor"> A </th>
+								<th class="Bcolor"> B </th>
+						</tr>
+					</thead>
 					<tbody>
-						<tr>
-							<td class="Acolor">Crop A <img src="images/cropAicon.png" /></td>
-							<td id="payoutAwet"></td><td id="payoutAdry"></td>
-						</tr>
-						<tr>
-							<td class="Bcolor">Crop B <img src="images/cropBicon.png" /></td>
-							<td id="payoutBwet"></td><td id="payoutBdry"></td>
-						</tr>
+					<tr>
+						<td id="wetColor">Wet </td>
+						<td id="payoutAwet"></td>
+						<td id="payoutBwet"></td>
+					</tr>
+
+					<tr>
+						<td id="dryColor">Dry </td>
+						<td id="payoutAdry"></td>
+						<td id="payoutBdry"></td>
+					</tr>
 					</tbody>
 				</table>
 			<br>
@@ -97,7 +106,7 @@
 					<table id="weather_bar_graph">
 						<thead colspan = "2">
 							<tr>
-								<th>Wet and rainy</th><th>Dry and sunny</th>
+								<th>Wet</th><th>Dry</th>
 							</tr>
 						</thead>
 						<tbody>
