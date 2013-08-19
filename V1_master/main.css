@@ -134,9 +134,6 @@ header > h1 {
 /* >>>>>>>>>>>>>>>>>>>>>>>> Game introduction dialog boxes <<<<<<<<<<<<<<<<< */
 
 .dialog-message {
-	position: absolute;
-	top: 60px;
-	left: 460px;
 	display: block;
 }
 
@@ -163,9 +160,10 @@ header > h1 {
 .dialog-message p {
 	color: #565347;
 	font-family: Times, serif;
-	font-size: 15px;
+	font-size: 18px;
 	letter-spacing: normal;
 	line-height: 1.3em;
+	text-align: left;
 }
 
 #weather_bar_graph {
@@ -225,19 +223,6 @@ header > h1 {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-}
-
-.active-left { /* For moving modal gray-out to the right during intro */
-	position: fixed;
-	top: 0;
-	left: 25% !important;
-}
-
-.active-right { /* For moving modal gray-out to the left during intro */
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 75% !important;
 }
 
 

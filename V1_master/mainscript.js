@@ -485,7 +485,7 @@ $(function introDialogs () {
 				$( this ).dialog( "close" );
 				$( "#second-message" ).dialog( "open" );
 				$("#givens").addClass("glow");
-				$(".ui-widget-overlay").addClass("active-left");
+				//$(".ui-widget-overlay").addClass("active-left");
 			}
 		} ]
 	});
@@ -528,8 +528,8 @@ $(function introDialogs () {
 				$( "#fourth-message" ).dialog( "open" );
 				$("table").removeClass("glow");
 				$("#points_bar, #points_flag").toggleClass("glow");
-				$(".ui-widget-overlay").removeClass("active-left");
-				$(".ui-widget-overlay").addClass("active-right");
+				//$(".ui-widget-overlay").removeClass("active-left");
+				//$(".ui-widget-overlay").addClass("active-right");
 			}
 		} ]
 	});
@@ -548,7 +548,7 @@ $(function introDialogs () {
 			click: function() {
 				$( this ).dialog( "close" );
 				$("#points_bar, #points_flag").toggleClass("glow");
-				$(".ui-widget-overlay").removeClass("active-right");
+				//$(".ui-widget-overlay").removeClass("active-right");
 			}
 		} ]
 	});
