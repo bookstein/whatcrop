@@ -809,6 +809,11 @@ footer {
 	background-image: url(images/grains2.jpeg);
 	background-repeat: repeat-x;
 	height: 100px;
+	vertical-align: middle;
+}
+
+footer img {
+	margin-top: 30px;
 }
 
 
