@@ -208,6 +208,19 @@ td {
 	padding: 10px;
 }
 
+#wetColor, #dryColor {
+
+	font-weight: bold;
+}
+
+#wetColor {
+	background-color: #C2DEEC;
+}
+
+#dryColor {
+	background-color: #C9AC68;
+}
+
 #payoutAwet, #payoutBwet {
 	background-color: #C2DEEC; /* sky blue */
 
@@ -215,7 +228,6 @@ td {
 
 #payoutAdry, #payoutBdry {
 	background-color: #C9AC68; /* beige */
-
 }
 
 
