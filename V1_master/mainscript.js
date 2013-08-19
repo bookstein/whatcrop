@@ -5,7 +5,7 @@
 //crop: all references to actual choices A and B (not seed, not plant)
 //
 
-
+///////////////////////////
 
 
 $(document).ready(function(){
