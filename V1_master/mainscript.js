@@ -423,6 +423,8 @@ $(function initializeGame () {
 
 			$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 			$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
+			$("#bonus1value").text(totalRandomPoints);
+			$("#bonus2value").text(totalOptimalPoints);
 		};
 
 		bonusHeight(totalRandomPoints, totalOptimalPoints);
