@@ -360,7 +360,7 @@ function displayRain () {
 function addTurn () {
 	turn = turn + 1;
 	console.log("Eek!");
-	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+	$("#turns_counter").text( turn + "/" + maxturn );
 };
 
 function fadeWeather () {

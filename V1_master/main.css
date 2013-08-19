@@ -592,19 +592,23 @@ input#grow {
 	left: 0;
 }
 
-#dollars h4 { /* "Real Dollars Earned" */
+#dollars h4 { /* "Real Dollars Earned" h4 */
  	color: white;
 	display: inline-block;
-	margin: 10px 0 0 0;
+	margin: 10px 0 10px 0;
 }
 
-span#dollars_counter { /* Contained in <span>. Numerical counter within #dollars div. Target for bonuses */
+#dollars_counter { /* Contained in <span>. Numerical counter within #dollars div. Target for bonuses */
 	text-align: right;
 	background-color: white;
 	border: 5px solid #ffcc33;
 	padding: 2px 30px;
 	display: inline-block;
 	margin: 5px 0;
+	font-family: Georgia, Times, serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #3f3c30;
 }
 
 
