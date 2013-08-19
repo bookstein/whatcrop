@@ -106,23 +106,6 @@ header {
 	vertical-align: middle;
 }
 
-nav {
-	position: relative;
-}
-
-nav a {
-	color: white;
-	font-size: .75em;
-	position: relative;
-	top: 10px;
-	left: 20px;
-	text-decoration: none;
-}
-
-nav a:hover {
-	text-decoration: underline;
-}
-
 
 #instructions_dropdown { /*Unify this selector with .instructions */
 	display: none;
@@ -636,10 +619,10 @@ button.plant {
 /*Formatting font inside dialog boxes*/
 .dialog-message p {
 	color: #565347;
-	font-family: Verdana, Helvetica,sans-serif;
-	font-size: 12px; margin: 0;
-	line-height: 14px;
+	font-family: Georgia, Times, serif;
+	font-size: 14px;
 	letter-spacing: normal;
+	line-height: 1.3em;
 }
 
 /* >>>>>>>>>>>>>>Points Counter <<<<<<<<<<<<<<< */
