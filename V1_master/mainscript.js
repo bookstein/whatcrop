@@ -39,7 +39,7 @@ $(document).ready(function(){
 	//Turn Counter
 
 	turn = 0;
-	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+	$("#turns_counter").text(turn + "/" + maxturn);
 	GameOver = false;
 
 	//Points Counter
@@ -50,7 +50,7 @@ $(document).ready(function(){
 	// Real Dollars Earned
 
 	realDollars = 0; //real earnings in dollars start at 0
-	$("#dollars_counter").html("$"+realDollars); //writes initial realDollars to dollars counter
+	$("#dollars_counter").text("$"+realDollars); //writes initial realDollars to dollars counter
 
 
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
