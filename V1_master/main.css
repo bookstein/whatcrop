@@ -181,25 +181,33 @@ header > h1 {
 
 .bar {
 	vertical-align: bottom;
+	border-right: 1 px dotted #eae9e6;
+	border-left: none;
+	padding-bottom: 0;
 }
 
 .percent {
-	border: none;
 	height: 30px;
+	border-right: 1 px dotted #eae9e6;
+	border-bottom: none;
 }
 
 #rain_probability {
 	background-color: rgb(62, 62, 219);
 	height: 50px;
 	vertical-align: bottom;
-	border-top: 1px dotted black;
+	border-top: 1px solid #3f3c30;
+	margin-bottom: 0;
+	padding-bottom: 0;
 }
 
 #sun_probability {
 	background-color: #ffcc33;
 	height: 50px;
 	vertical-align: bottom;
-	border-top: 1px dotted black;
+	border-top: 1px solid #3f3c30;
+	margin-bottom: 0;
+	padding-bottom: 0;
 }
 
 #coins_png {
