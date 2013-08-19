@@ -180,7 +180,6 @@ table {
 thead {
 	border-bottom: 1px dotted #3f3c30;
 	background-color: #eae9e6;
-	width: 60px;
 }
 
 th {
@@ -188,7 +187,7 @@ th {
 	font-size: 18px;
 	border-right: 1px dotted #3f3c30;
 	font-weight: bold;
-	width: 60px;
+	width: 70px;
 	padding: 5px 15px;
 }
 
@@ -204,21 +203,20 @@ td {
 	font-family: Georgia, Times, serif;
 	font-size: 16px;
 	font-weight: normal;
-	padding: 15px 5px;
+	padding: 10px 25px;
 }
 
 #wetColor, #dryColor {
 	font-weight: bold;
-	padding: 5px 20px;
 }
 
 #wetColor, #payoutAwet, #payoutBwet {
-	background-color: #C2DEEC; /* sky blue */
+	/*background-color: #C2DEEC;*/ /* sky blue */
 	border-top: 1px solid #3f3c30;
 }
 
 #dryColor, #payoutAdry, #payoutBdry {
-	background-color: #F0D2B4; /* beige */
+	/*background-color: #F0D2B4;*/ /* beige */
 	border-top: 1px solid #3f3c30;
 }
 
