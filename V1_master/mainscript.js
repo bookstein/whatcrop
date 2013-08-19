@@ -379,6 +379,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			if (gameWeather[turn] >= (historicMean - historicStd_Dev)) {
 				weatherReport = "wet";
 				//display healthy crop A (range of normal)
+				$("#rowsCropA").removeClass("hidden");
 			}
 
 			else if (gameWeather[turn] < (historicMean - historicStd_Dev)) {
@@ -395,11 +396,13 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			if (gameWeather[turn] <= (historicMean + historicStd_Dev)) {
 				weatherReport = "dry";
 				//display healthy crop A (range of normal)
+				$("#rowsCropA").removeClass("hidden");
 			}
 
 			else if (gameWeather[turn] > (historicMean + historicStd_Dev)) {
 				weatherReport = "very dry";
 				//display too-dry crop A
+				$("#deadA").removeClass("hidden");
 			}
 		}
 	}
@@ -416,6 +419,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			if (gameWeather[turn] >= (historicMean - historicStd_Dev)) {
 				weatherReport = "wet";
 				//display healthy crop B (range of normal)
+				$("#rowsCropB").removeClass("hidden");
 			}
 
 			else if (gameWeather[turn] < (historicMean - historicStd_Dev)) {
@@ -432,11 +436,14 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			if (gameWeather[turn] <= (historicMean + historicStd_Dev)) {
 				weatherReport = "dry";
 				//display healthy crop B (range of normal)
+				$("#rowsCropB").removeClass("hidden");
 			}
 
 			else if (gameWeather[turn] > (historicMean + historicStd_Dev)) {
 				weatherReport = "very dry";
 				//display too-dry crop B
+				$("#deadB").removeClass("hidden");
+
 			}
 		}
 	}
