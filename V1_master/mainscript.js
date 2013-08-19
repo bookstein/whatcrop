@@ -478,7 +478,7 @@ $(function introDialogs () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
 		buttons: [ { text: "Next (1 of 4)",
 			click: function() {
@@ -498,7 +498,7 @@ $(function introDialogs () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
 		buttons: [ { text: "Next (2 of 4)",
 			click: function() {
@@ -520,7 +520,7 @@ $(function introDialogs () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
 		buttons: [ { text: "Next (3 of 4)",
 			click: function() {
@@ -542,7 +542,7 @@ $(function introDialogs () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
 		buttons: [ { text: "Start Game",
 			click: function() {
