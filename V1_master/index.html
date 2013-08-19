@@ -33,20 +33,20 @@
 		//should I write one JS file for the whole thing, or mini JS files for specific purposes? Should I basically just externalize most of the code that the guy wrote? -->
 	<section id="givens"> <!-- Contains infographics explaining value of A and B, weather distribution (if any) as well as turn counter -->
 		<h5>Crop Information</h5>
-		<h6>Use this information to make your choice.</h6>
+			<br>
 		 <table>
-			<thead colspan="3"><tr><th id="empty"><!--empty--></th><th>if Wet:</th><th>if Dry:</th></tr></thead>
+			<thead colspan="3"><tr><th id="empty"><!--empty--></th><th>Wet</th><th>Dry</th></tr></thead>
 			<tbody>
 			<!-- table row 1 --><tr><td class="Acolor">Crop A <img src="images/cropAicon.png" /></td><td id="payoutAwet"></td><td id="payoutAdry"></td></tr>
 			<!-- table row 2 --><tr><td class="Bcolor">Crop B <img src="images/cropBicon.png" /></td><td id="payoutBwet"></td><td id="payoutBdry"></td></tr>
 			</tbody>
-		</table> 		
+		</table>
 
 	<div id="turns"> <!-- turn counter div, child of section #givens -->
 		<h5>Turns Taken</h5>
 		<div id="turns_counter">
 			<!-- this div contains the actual turn count -->
-			<h5>Number of turns</h5> 
+			<h5>Number of turns</h5>
 		</div>
 
 	</div>
@@ -64,7 +64,7 @@
 		<!-- image files for all crops, display: none -->
 
 		<!-- Crop A button -->
-		<button class="plant" id="cropA" type="button"  name="PlantA"> 
+		<button class="plant" id="cropA" type="button"  name="PlantA">
 			<img src="images/SeedpacketA.png" alt="A"/>
 			<h4 class="Acolor">Crop A</h4>
 		</button>
@@ -73,12 +73,12 @@
 		<input type="submit" name="Grow" id="grow" value="Grow this crop" class="disabled"></input>
 
 		<!-- Crop B button -->
-		<button class="plant" id="cropB" type="button" name="PlantB"> 
+		<button class="plant" id="cropB" type="button" name="PlantB">
 			<img src="images/SeedpacketB.png" alt="B"/>
 			<h4 class="Bcolor">Crop B </h4>
 		</button>
 
-		<!-- seed packet images 
+		<!-- seed packet images
 		<button class="plant_img" id="seedpacketA" type="button" name = "CropA" value="Seeds of A"><img src="images/SeedpacketA.png" alt="A"/></button>
 
 		<button class="plant_img" id="seedpacketB" type="button" name ="CropB" value="Seeds of B"><img src="images/SeedpacketB.png" alt="B"/></button> -->
@@ -87,7 +87,7 @@
 			<div class="dialog"> <!-- for dialog boxes, child of #choice_screen -->
 				<!-- div.dialog (space for dialog boxes to appear; placeholder only, write text in jQuery; use same class .dialog to style all dialog boxes in CSS) -->
 					<!-- dialog: game instructions -->
-					<div class="instructions hidden"> 
+					<div class="instructions hidden">
 						<h4>Thanks for playing WhatCrop!</h4>
 						<p>This game is part of a research project on agriculture and decision-making. By playing this game, you're helping advance the field of research on farmer decision-making.</p>
 						<p>To play, choose the crop you think will bring you the most money on the market -- either crop A or crop B. You don't know what the weather will be, but do your best to choose appropriately!</p>
@@ -113,7 +113,7 @@
 			<div id="points_fill"><!-- this div is the "fill" that visually counts points earned. -->
 			</div> <!-- end of #points_fill -->
 		</div> <!-- end of #points_bar -->
-		
+
 			<div id="dollars"><!-- displays real dollars earned. Child of #points -->
 			<h4>Real Dollars Earned:</h4><h5><span id="dollars_counter">$1.00</span></h5>
 			</div><!-- end of #dollars -->

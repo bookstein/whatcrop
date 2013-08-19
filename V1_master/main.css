@@ -180,12 +180,14 @@ table {
 thead {
 	padding: 10px;
 	border-bottom: 1px dotted #3f3c30;
+	background-color: #eae9e6;
 }
 
 th {
 	color: #3f3c30;
 	font-family: Georgia, Times, serif;
 	font-size: 16px;
+	border-right: 1px dotted #3f3c30;
 	font-weight: bold;
 	padding: 5px 2px;
 }
