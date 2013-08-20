@@ -13,6 +13,7 @@ $(document).ready(function(){
 
 //>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
+
 	cropchoice = "";
 
 	// Player and game identification
@@ -74,15 +75,14 @@ $(function initializeGame () {
 	};
 
 	// Crop Information table
-	function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
-		$("table").find("td#payoutAwet").text(payoutAwet );
-		$("table").find("td#payoutAdry").text(payoutAdry );
-		$("table").find("td#payoutBwet").text(payoutBwet );
-		$("table").find("td#payoutBdry").text(payoutBdry );
+	function fillCropTable (tdCell, payout) {
+		$("table").find(tdCell).text(payout);
 	};
 
-	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
-
+		fillCropTable("td#payoutAwet", payoutAwet);
+		fillCropTable("td#payoutAdry", payoutAdry);
+		fillCropTable("td#payoutBdry", payoutBdry);
+		fillCropTable("td#payoutBwet", payoutBwet);
 
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
