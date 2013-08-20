@@ -357,92 +357,123 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 	$(".plant, .plant_img, #grow").addClass("hidden").css("opacity", 0);
 
-	function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
-		$("#sun").addClass("displayWeather").removeClass("hidden");
+	function displaySun (weatherOpacity) { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
+		$("#sun").addClass("displayWeather").removeClass("hidden").animate({opacity: weatherOpacity});
 		//alert("This is sun and game weather is "+ gameWeather[turn]);
 	};
 
-	function displayRain () {
-		$("#rain").addClass("displayWeather").removeClass("hidden");
+	function displayRain (weatherOpacity) {
+		$("#rain").addClass("displayWeather").removeClass("hidden").animate({opacity: weatherOpacity});
 		//alert("This is rain and game weather is " + gameWeather[turn]);
 	};
 
-	// Crop A outcomes
+	// 1. Crop A outcomes
 	if (cropchoice === "cropA") {
 		updateGame(betaA, maxApayout, maxAweather);
 
-		// if gameWeather is below historic mean, weather is wet
-		if (gameWeather[turn] <= historicMean) {
+		// 1A. gameWeather is wet
+		if /*(gameWeather[turn] <= historicMean)*/ {
 
-			displayRain();
+			displayRain(1);
 
-			if (gameWeather[turn] >= (historicMean - historicStd_Dev)) {
-				weatherReport = "wet";
-				//display healthy crop A (range of normal)
+			//1.A.i Wet gameWeather is within normal range
+			if () {
+				displaySun(.5);
 				$("#rowsCropA").removeClass("hidden");
 			}
 
+			//1.A.ii Wet gameWeather is wetter than normal
+			else if (gameWeather[turn] >= (historicMean - historicStd_Dev)) {
+				weatherReport = "wet";
+				$("#wetA").removeClass("hidden");
+			}
+
+			//1.A.iii Wet gameWeather is too wet
 			else if (gameWeather[turn] < (historicMean - historicStd_Dev)) {
 				weatherReport = "very wet";
+				$("#deadAwet").removeClass("hidden");
 				//display too-wet crop A ("Very Wet")
 			}
 		}
 
-		// if gameWeather is above historic mean, weather is dry
+		// 1B. gameWeather is dry
 		else if (gameWeather[turn] > historicMean) {
 
-			displaySun();
+			displaySun(1);
 
-			if (gameWeather[turn] <= (historicMean + historicStd_Dev)) {
-				weatherReport = "dry";
-				//display healthy crop A (range of normal)
+			//1.B.i. dry gameWeather is within normal range
+			if () {
+				displayRain(.5);
 				$("#rowsCropA").removeClass("hidden");
 			}
 
+			//1.B.ii. dry gameWeather is drier than normal
+			else if (gameWeather[turn] <= (historicMean + historicStd_Dev)) {
+				weatherReport = "dry";
+				$("#dryA").removeClass("hidden");
+			}
+
+			//1.B.iii. dry gameWeather is too dry
 			else if (gameWeather[turn] > (historicMean + historicStd_Dev)) {
 				weatherReport = "very dry";
 				//display too-dry crop A
-				$("#deadA").removeClass("hidden");
+				$("#deadAdry").removeClass("hidden");
 			}
 		}
 	}
 
-	// Crop B outcomes
+	// 2. Crop B outcomes
 	else if (cropchoice === "cropB") {
 		updateGame(betaB, maxBpayout, maxBweather);
 
-		// if gameWeather is below historic mean, weather is wet
+		// 2A. gameWeather is wet
 		if (gameWeather[turn] <= historicMean) {
 
-			displayRain();
+			displayRain(1);
 
-			if (gameWeather[turn] >= (historicMean - historicStd_Dev)) {
-				weatherReport = "wet";
-				//display healthy crop B (range of normal)
+			//2A.i Wet gameWeather is within normal range
+			if () {
+				displaySun(.5);
 				$("#rowsCropB").removeClass("hidden");
 			}
 
+			//2A.ii Wet gameWeather is wet
+			else if (gameWeather[turn] >= (historicMean - historicStd_Dev)) {
+				weatherReport = "wet";
+				//display healthy crop B (range of normal)
+				$("#wetB").removeClass("hidden");
+			}
+
+			//2A.iii Wet gameWeather is too wet
 			else if (gameWeather[turn] < (historicMean - historicStd_Dev)) {
 				weatherReport = "very wet";
-				//display too-wet crop B ("Very Wet")
+				$("#deadBwet").removeClass("hidden");
 			}
 		}
 
-		// if gameWeather is above historic mean, weather is dry
+		// 2B. gameWeather is dry
 		else if (gameWeather[turn] > historicMean) {
 
-			displaySun();
+			displaySun(1);
 
-			if (gameWeather[turn] <= (historicMean + historicStd_Dev)) {
+			//2A.i Dry gameWeather is within normal range
+			if (gameWeather[turn] <= historicMean) {
+
+				displayRain(.5);
+				$("#rowsCropB").removeClass("hidden");
+
+			//2A.ii Dry gameWeather is dry
+			else if (gameWeather[turn] <= (historicMean + historicStd_Dev)) {
 				weatherReport = "dry";
 				//display healthy crop B (range of normal)
-				$("#rowsCropB").removeClass("hidden");
+				$("#dryB").removeClass("hidden");
 			}
 
+			//2A.ii Dry gameWeather is too dry
 			else if (gameWeather[turn] > (historicMean + historicStd_Dev)) {
 				weatherReport = "very dry";
 				//display too-dry crop B
-				$("#deadB").removeClass("hidden");
+				$("#deadBdry").removeClass("hidden");
 
 			}
 		}
@@ -604,7 +635,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 	function fadeWeather () {
 		//setTimeout calls function after a certain time; currently 3000 ms
-	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
+	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden").animate({opacity: 0});
 	   	$(".croprows").addClass("hidden");
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);

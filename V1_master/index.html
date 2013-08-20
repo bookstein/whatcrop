@@ -51,7 +51,7 @@
 				    Thank you for playing "What Crop."
 				</p><br>
 				<p>
-				  	By playing, you are contributing the scientific understanding of farmer decisionmaking in the United States.
+				  	By playing, you are contributing to the scientific understanding of farmer decisionmaking in the United States.
 				</p><br>
 				<p>
 					You will be paid for participating based on your score on this game.
@@ -138,13 +138,21 @@
 		<img id="sproutA" class="croprows hidden" src="images/crops/cropAsprouts.png" />
 		<img id="sproutB" class="croprows hidden" src="images/crops/cropBsprouts.png" />
 
-		<!-- healthy crop images -->
+		<!-- healthy crop images: optimal range of weather -->
 		<img id="rowsCropA" class="croprows hidden" src="images/crops/cropArows.png" />
 		<img id="rowsCropB" class="croprows hidden" src="images/crops/cropBrows.png" />
 
-		<!-- dead crop images -->
-		<img id="deadA" class="croprows hidden" src="images/crops/cropAdead.png" />
-		<img id="deadB" class="croprows hidden" src="images/crops/cropBdead.png" />
+		<!-- dead crop images: too wet or too dry -->
+		<img id="deadAdry" class="croprows hidden" src="images/crops/cropAdead_tooDry.png" />
+		<img id="deadBdry" class="croprows hidden" src="images/crops/cropBdead_tooDry.png" />
+		<img id="deadAwet" class="croprows hidden" src="images/crops/cropAdead_tooWet.png" />
+		<img id="deadBwet" class="croprows hidden" src="images/crops/cropBdead_tooWet.png" />
+
+		<!-- half-dead crop images: somewhat wet or dry -->
+		<img id="dryA" class="croprows hidden" src="images/crops/cropArows_dry.png" />
+		<img id="dryB" class="croprows hidden" src="images/crops/cropBrows_dry.png" />
+		<img id="wetA" class="croprows hidden" src="images/crops/cropArows_wet.png" />
+		<img id="wetB" class="croprows hidden" src="images/crops/cropBrows_wet.png" />
 
 		<!-- Crop A button -->
 		<button class="plant" id="cropA" type="button"  name="PlantA">
