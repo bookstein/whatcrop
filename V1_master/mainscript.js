@@ -372,12 +372,12 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		updateGame(betaA, maxApayout, maxAweather);
 
 		// 1A. gameWeather is wet
-		if /*(gameWeather[turn] <= historicMean)*/ {
+		if (gameWeather[turn] <= historicMean) {
 
 			displayRain(1);
 
 			//1.A.i Wet gameWeather is within normal range
-			if () {
+			if (gameWeather[turn] <= historicMean /*placeholder*/) {
 				displaySun(.5);
 				$("#rowsCropA").removeClass("hidden");
 			}
@@ -402,7 +402,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			displaySun(1);
 
 			//1.B.i. dry gameWeather is within normal range
-			if () {
+			if (gameWeather[turn] <= historicMean /*placeholder*/) {
 				displayRain(.5);
 				$("#rowsCropA").removeClass("hidden");
 			}
@@ -432,7 +432,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			displayRain(1);
 
 			//2A.i Wet gameWeather is within normal range
-			if () {
+			if (gameWeather[turn] <= historicMean /*placeholder*/) {
 				displaySun(.5);
 				$("#rowsCropB").removeClass("hidden");
 			}
@@ -461,6 +461,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 				displayRain(.5);
 				$("#rowsCropB").removeClass("hidden");
+			}
 
 			//2A.ii Dry gameWeather is dry
 			else if (gameWeather[turn] <= (historicMean + historicStd_Dev)) {
