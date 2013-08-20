@@ -699,7 +699,6 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 function updateGame(payout) { //this function is called inside weatherResults function
 
 	//alert("Running updateGame now using arguments " + arguments)
-	cropchoice = ""; // resets value of cropchoice to ""
 	var oldscore = score;
 	var newscore = oldscore + payout;
 
@@ -837,25 +836,30 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	setTimeout(fadeWeather, 4000);
 	newScore();
 	setTimeout(addTurn, 4000);
-
-
+	cropchoice = ""; // resets value of cropchoice to ""
 	score += payout;
+
+
+	function recordData (playerID, gameID, cropChosen, turnNumber, turnScore, timestamp) {
+
+	}
+
 	return score; //this updates the value of the global variable "score"
 };
 
 
 
-function endGame () { //call end-of-game dialog box
-	endOfGame = true;
-	return endOfGame;
+function endGame (playerID, totalScore, dollarsEarned, totalTurns) { //call end-of-game dialog box
 	$("button #grow").addClass("hidden");
+
+
 	//inclusive of last turn (50)
 };
 
 //>>>>>>>>>>>>>>>>>>>>> Clicking #grow button triggers updateGame <<<<<<<<<<<<<
 
 $("#grow").on("click", function () {
-	if (($(this).hasClass("highlight"))&& turn<maxturn) {
+	if (($(this).hasClass("highlight"))&& turn < maxturn) {
 		// hide crop sprout graphics
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
