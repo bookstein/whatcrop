@@ -15,6 +15,10 @@ $(document).ready(function(){
 
 	cropchoice = "";
 
+	// Player and game identification
+	playerID = "";
+	gameID = "";
+
 	// Set number of turns per game
     maxturn = 50;
     endOfGame = false;
@@ -56,8 +60,19 @@ $(document).ready(function(){
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 $(function initializeGame () {
-	// Crop Information table
 
+	// Player ID and Game ID generated
+	function gameID () {
+		gameID = "1";
+		return gameID;
+	};
+
+	function playerID () {
+		playerID = "100";
+		return playerID;
+	};
+
+	// Crop Information table
 	function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 		$("table").find("td#payoutAwet").text(payoutAwet );
 		$("table").find("td#payoutAdry").text(payoutAdry );
@@ -699,151 +714,153 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 function updateGame(payout) { //this function is called inside weatherResults function
 
 	//alert("Running updateGame now using arguments " + arguments)
-	var oldscore = score;
-	var newscore = oldscore + payout;
+		var oldscore = score;
+		var newscore = oldscore + payout;
 
-	function displayResultsDialog () {
+		function displayResultsDialog () {
 
-		$(".results").dialog({
-			autoOpen: false,
-			modal: false,
-			closeOnEscape: false,
-			dialogClass: "no-close",
-	        resizable: false,
-	        draggable: false,
-	        position: 'center',
-	        stack: false,
-	        height: 'auto',
-	        width: 'auto'
-	    });
+			$(".results").dialog({
+				autoOpen: false,
+				modal: false,
+				closeOnEscape: false,
+				dialogClass: "no-close",
+		        resizable: false,
+		        draggable: false,
+		        position: 'center',
+		        stack: false,
+		        height: 'auto',
+		        width: 'auto'
+		    });
 
-		//populate spans inside all results dialogs
-	    $(".results").find("#weather_outcome").text(gameWeather[turn]);
-	    $(".results").find("#new_score").text(payout);
+			//populate spans inside all results dialogs
+		    $(".results").find("#weather_outcome").text(gameWeather[turn]);
+		    $(".results").find("#new_score").text(payout);
 
-		// bonus dialogs
-		if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
-			$("#bonus_results").dialog("open");
-			$("#bonus_count").text("$" + bonusOneDollars);
-			addBonus1();
-		}
+			// bonus dialogs
+			if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
+				$("#bonus_results").dialog("open");
+				$("#bonus_count").text("$" + bonusOneDollars);
+				addBonus1();
+			}
 
-		else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
-			$("#bonus_results").dialog("open");
-			$("#bonus_count").text("$" + bonusTwoDollars);
-			addBonus2();
-		}
+			else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
+				$("#bonus_results").dialog("open");
+				$("#bonus_count").text("$" + bonusTwoDollars);
+				addBonus2();
+			}
 
-		//end game dialog
-		else if (turn === maxturn) {
-			$("#end_results").dialog("open");
-			$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
-			$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
-			// $("#playerID") //need Tony's work on this
-		}
+			//end game dialog
+			else if (turn === maxturn) {
+				$("#end_results").dialog("open");
+				$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
+				$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
+				// $("#playerID") //need Tony's work on this
+			}
 
-		//normal results dialogs
-		else {
-			$("#normal_results").dialog("open");
-		}
+			//normal results dialogs
+			else {
+				$("#normal_results").dialog("open");
+			}
 
-		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
+			setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
 
-	};
-
-	displayResultsDialog();
-
-	function fadeWeather () {
-		//setTimeout calls function after a certain time; currently 3000 ms
-	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
-	   	$(".croprows").addClass("hidden");
-	   	$(".plant").removeClass("select");
-	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
-	};
-
-
-	function addTurn () {
-		turn = turn + 1;
-		$("#turns_counter").text( turn + "/" + maxturn );
-		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
-		//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
-	};
-
-	function newScore () {
-
-		function animatePoints () {
-			//$("#points_bar").toggleClass("glow");
-
-
-
-			$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
-			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
-			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
-  		};
-
-		function movePointsFlag () { //increase height of #points_flag using absolute positioning
-			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
-			var pixelHeight = parseInt($("#points_bar").css("height"));
-
-
-			//Ratio of points per pixel
-			var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
-
-
-			//Points_counter moves upward this number of pixels per turn
-			var perTurnHeight = payout/pointsPerPixelRatio;
-
-
-			//Current CSS position for #points_flag "bottom" as an integer
-			var flagHeight = parseInt($("#points_flag").css("bottom"));
-
-
-			//Current CSS height of #points_fill with "height" as an integer
-			var fillHeight = parseInt($("#points_fill").css("height"));
-
-			flagHeight+=perTurnHeight;
-			fillHeight+=perTurnHeight;
-
-			$("#points_flag").css("bottom", flagHeight); // Sets value of style rule "bottom" to flagHeight
-			//return flagHeight;
-
-			//increase height of yellow #points_fill
-			$("#points_fill").css("height", fillHeight); // Sets value of style rule "bottom" to flagHeight
-			//return fillHeight;
-
-			//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 		};
 
-		$("#point_count").html("<h5>" + newscore + "</h5>");
-		animatePoints();
-		//setTimeout(animatePoints, 4000);
-		movePointsFlag();
-	};
+		displayResultsDialog();
 
-		// WARNING: .css modifies the element's <style> property, not the CSS sheet!
-
-	//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
-	function addBonus1 () {
-		realDollars = bonusOneDollars; //change value of realDollars to bonusOne
-		$("#dollars_counter").html("$"+realDollars);
-	};
-
-	function addBonus2 () {
-		realDollars = bonusOneDollars + bonusTwoDollars;
-		$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
-	};
-
-	setTimeout(fadeWeather, 4000);
-	newScore();
-	setTimeout(addTurn, 4000);
-	cropchoice = ""; // resets value of cropchoice to ""
-	score += payout;
+		function fadeWeather () {
+			//setTimeout calls function after a certain time; currently 3000 ms
+		   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
+		   	$(".croprows").addClass("hidden");
+		   	$(".plant").removeClass("select");
+		   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
+		};
 
 
-	function recordData (playerID, gameID, cropChosen, turnNumber, turnScore, timestamp) {
+		function addTurn () {
+			turn = turn + 1;
+			$("#turns_counter").text( turn + "/" + maxturn );
+			//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
+			//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
+		};
 
-	}
+		function newScore () {
 
+			function animatePoints () {
+				//$("#points_bar").toggleClass("glow");
+
+
+
+				$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
+				setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
+				//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
+	  		};
+
+			function movePointsFlag () { //increase height of #points_flag using absolute positioning
+				//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
+				var pixelHeight = parseInt($("#points_bar").css("height"));
+
+
+				//Ratio of points per pixel
+				var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
+
+
+				//Points_counter moves upward this number of pixels per turn
+				var perTurnHeight = payout/pointsPerPixelRatio;
+
+
+				//Current CSS position for #points_flag "bottom" as an integer
+				var flagHeight = parseInt($("#points_flag").css("bottom"));
+
+
+				//Current CSS height of #points_fill with "height" as an integer
+				var fillHeight = parseInt($("#points_fill").css("height"));
+
+				flagHeight+=perTurnHeight;
+				fillHeight+=perTurnHeight;
+
+				$("#points_flag").css("bottom", flagHeight); // Sets value of style rule "bottom" to flagHeight
+				//return flagHeight;
+
+				//increase height of yellow #points_fill
+				$("#points_fill").css("height", fillHeight); // Sets value of style rule "bottom" to flagHeight
+				//return fillHeight;
+
+				//carve up post-second-bonus pixels into fixed amount between this turn and last turn
+			};
+
+			$("#point_count").html("<h5>" + newscore + "</h5>");
+			animatePoints();
+			//setTimeout(animatePoints, 4000);
+			movePointsFlag();
+		};
+
+			// WARNING: .css modifies the element's <style> property, not the CSS sheet!
+
+		//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
+		function addBonus1 () {
+			realDollars = bonusOneDollars; //change value of realDollars to bonusOne
+			$("#dollars_counter").html("$"+realDollars);
+		};
+
+		function addBonus2 () {
+			realDollars = bonusOneDollars + bonusTwoDollars;
+			$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
+		};
+
+		//Record relevant data for the current turn
+		function recordData (playerID, gameID, cropChosen, turnNumber, turnScore, turnTotal, timestamp) {
+			alert("Data for this game is: " + playerID/*placeholder*/+ " " + gameID/*placeholder*/ + " " + cropchoice + " " + turn + " " + payout + " " + newscore + " " + timestamp/*placeholder*/);
+		};
+
+		recordData(playerID/*placeholder*/ , gameID/*placeholder*/, cropchoice, turn, payout, newscore, timestamp/*placeholder*/);
+
+		// Refresh and transition to new turn
+		setTimeout(fadeWeather, 4000);
+		newScore();
+		setTimeout(addTurn, 4000);
+		cropchoice = ""; // resets value of cropchoice to ""
+		score += payout;
 	return score; //this updates the value of the global variable "score"
 };
 
