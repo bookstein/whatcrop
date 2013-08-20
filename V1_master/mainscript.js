@@ -18,6 +18,7 @@ $(document).ready(function(){
 	// Player and game identification
 	playerID = "";
 	gameID = "";
+	timestamp = "";
 
 	// Set number of turns per game
     maxturn = 50;
