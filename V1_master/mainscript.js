@@ -147,18 +147,37 @@ $(function initializeGame () {
 		              smooth: true
 		          }
 		      },
+		      axes: {
+        		xaxis:{
+          			label:'Weather (inches of rain)',
+          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+         			labelOptions: {
+            			fontFamily: 'Georgia, Serif',
+            			fontSize: '12pt'
+          			}
+        		},
+        		yaxis:{
+          			label:'Payout (points)',
+          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+        		}
+        	  },
 		      // Series options are specified as an array of objects, one object
 		      // for each series.
 		      series:[
 		          {
-		            // Change our line width and use a diamond shaped marker.
+		            // CropA
 		            lineWidth:2,
-		            markerOptions: { style: "x" }
+		            showMarker: false
+		          },
+		          {
+		            // CropB
+		            lineWidth:2,
+		            showMarker: false
 		          },
 		      ]
 		    }
 		  );
-		}; //end of drawQuadratic()
+	}; //end of drawQuadratic()
 
 		drawQuadratic();
 
