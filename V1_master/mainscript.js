@@ -21,9 +21,9 @@ $(document).ready(function(){
 		gameID: "",
 		timestamp: "",
 
-		// Set number of turns per game
-	    maxturn: 50,
-	    endOfGame: false,
+	    //Turn Counter
+		turn: 0, //starting turn number
+	    maxturn: 50, // Set total number of turns per game
 
 		// Set crop payouts
 		payoutAwet: 70,
@@ -38,25 +38,13 @@ $(document).ready(function(){
 		bonusOneDollars: 1.25,
 		bonusTwoDollars: 0.75,
 		totalRandomPoints: 0,
-		totalOptimalPoints: 0
+		totalOptimalPoints: 0,
+		realDollars: 0, //starting amount of real dollars earned
+
+		//Points
+		score: 0, //starting score
 
 	}
-
-	//Turn Counter
-
-	turn = 0;
-	$("#turns_counter").text(turn + "/" + maxturn);
-	GameOver = false;
-
-	//Points Counter
-
-	score = 0; //starting score is 0
-	$("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points counter
-
-	// Real Dollars Earned
-
-	realDollars = 0; //real earnings in dollars start at 0
-	$("#dollars_counter").text("$"+realDollars); //writes initial realDollars to dollars counter
 
 
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -83,6 +71,16 @@ $(function initializeGame () {
 		fillCropTable("td#payoutAdry", payoutAdry);
 		fillCropTable("td#payoutBdry", payoutBdry);
 		fillCropTable("td#payoutBwet", payoutBwet);
+
+
+	// Populate turn counter
+	$("#turns_counter").text(turn + "/" + maxturn);
+
+	// Write initial score to points counter
+	$("#point_count").html("<h5>"+score+"</h5>");
+
+	// Write initial real dollars earned to dollars counter
+	$("#dollars_counter").text("$"+realDollars);
 
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -704,9 +702,6 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
 	}
 
-
-
-	return args;
 
 };
 
