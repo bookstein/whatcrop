@@ -13,34 +13,34 @@ $(document).ready(function(){
 
 //>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
+	game = {
+		cropchoice: "",
 
-	cropchoice = "";
+		// Player and game identification
+		playerID: "",
+		gameID: "",
+		timestamp: "",
 
-	// Player and game identification
-	playerID = "";
-	gameID = "";
-	timestamp = "";
+		// Set number of turns per game
+	    maxturn: 50,
+	    endOfGame: false,
 
-	// Set number of turns per game
-    maxturn = 50;
-    endOfGame = false;
+		// Set crop payouts
+		payoutAwet: 70,
+		payoutAdry: 80,
+		payoutBwet: 100,
+		payoutBdry: 50,
 
-	// Set crop payouts
-	payoutAwet = 70;
-	payoutAdry = 80;
-	payoutBwet = 100;
-	payoutBdry = 50;
+		// Set rain threshold
+		threshold: 600, //formerly named "rainchance" -- threshold probability for rain.
 
-	// Set rain threshold
-	threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
+		// Set bonus payments
+		bonusOneDollars: 1.25,
+		bonusTwoDollars: 0.75,
+		totalRandomPoints: 0,
+		totalOptimalPoints: 0
 
-	// Set bonus payments
-	bonusOneDollars = 1.25;
-	bonusTwoDollars = 0.75;
-	totalRandomPoints = 0;
-	totalOptimalPoints = 0;
-
-
+	}
 
 	//Turn Counter
 
@@ -778,9 +778,13 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 		};
 
 
-		function addTurn () {
-			turn = turn + 1;
-			$("#turns_counter").text( turn + "/" + maxturn );
+		function addTurn (game) {
+			var turn = game.turn;
+			var maxturn = game.maxturn;
+
+
+			game.turn = turn + 1;
+			$("#turns_counter").text( game.turn + "/" + maxturn );
 			//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
 			//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
 		};
@@ -850,9 +854,37 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 		};
 
 		//Record relevant data for the current turn
-		function recordData (playerID, gameID, cropChosen, turnNumber, turnScore, turnTotal, timestamp) {
+		function recordData (game) {
+			var playerID = game.playerID;
+			var gameID = game.gameID;
+			var cropChoice = game.cropChoice;
+			var turn = game.turn;
+
+			, cropChosen, turnNumber, turnScore, turnTotal, timestamp
+
 			alert("Data for this game is: " + playerID/*placeholder*/+ " " + gameID/*placeholder*/ + " " + cropchoice + " " + turn + " " + payout + " " + newscore + " " + timestamp/*placeholder*/);
 		};
+
+		recordData({
+			playerID: playerID,
+			gameID: gameID,
+			turnNumber: turnNumber,
+		});
+
+
+ 		function dataSnatchers (Xmasgift) {
+			function getData () {
+				for (var data in Xmasgift)	{
+					console.log(data);
+					alert("Data for this game is: " + data);
+				};
+
+			};
+
+		};
+
+		dataSnatchers(game);
+		dataSnatchers(holidays);
 
 		recordData(playerID/*placeholder*/ , gameID/*placeholder*/, cropchoice, turn, payout, newscore, timestamp/*placeholder*/);
 
