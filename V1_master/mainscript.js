@@ -662,7 +662,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		displaySun();
 		$("#deadA").removeClass("hidden");
-		updateGame(payoutAdry);
+		updateGame(game.payoutAdry);
 		//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
 	}
 
@@ -670,7 +670,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		displayRain();
 		$("#rowsCropA").removeClass("hidden");
-		updateGame(payoutAwet);
+		updateGame(game.payoutAwet);
 		//setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
 	}
 
@@ -678,7 +678,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		displaySun();
 		$("#deadB").removeClass("hidden");
-		updateGame(payoutBdry);
+		updateGame(game.payoutBdry);
 		//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
 
 
@@ -688,7 +688,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		displayRain();
 		$("#rowsCropB").removeClass("hidden");
-		updateGame(payoutBwet);
+		updateGame(game.payoutBwet);
 		//setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
 	}
 
