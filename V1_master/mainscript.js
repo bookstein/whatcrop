@@ -140,25 +140,32 @@ $(function initializeGame () {
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
     		{
-		      title:'Payouts',
+		      //title:'Payouts',
 		      // Set default options on all series, turn on smoothing.
 		      seriesDefaults: {
 		          rendererOptions: {
 		              smooth: true
 		          }
 		      },
+		      seriesColors: ["#3811c9", "#820000"],
 		      axes: {
         		xaxis:{
+        			pad: .5,
           			label:'Weather (inches of rain)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
          			labelOptions: {
             			fontFamily: 'Georgia, Serif',
-            			fontSize: '12pt'
+            			fontSize: '10pt'
           			}
         		},
         		yaxis:{
+          			pad: .5,
           			label:'Payout (points)',
-          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+          			labelOptions: {
+            			fontFamily: 'Georgia, Serif',
+            			fontSize: '10pt'
+          			}
         		}
         	  },
 		      // Series options are specified as an array of objects, one object
