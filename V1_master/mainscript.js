@@ -136,6 +136,25 @@ $(function initializeGame () {
 
 		var plotA = dataArrays(betaA, maxAweather, maxApayout);
 		var plotB = dataArrays(betaB, maxBweather, maxBpayout);
+		var upperBound = 1200; //default value for upper bound of graph
+
+		function findUpperBound () { //modifies upper bound based on largest parabola root
+			var root1A = plotA[0][0];
+			var root2A = plotA[2][0];
+			var root1B = plotB[0][0];
+			var root2B = plotB[0][0];
+
+			var rootArray = [root1A, root2A, root1B, root2B];
+			var maxRoot = Math.max.apply(Math, rootArray);
+
+			upperBound = Math.ceil(maxRoot/100)*100;
+
+			return upperBound;
+		};
+
+		findUpperBound();
+
+		//var upperRoot = parabolaArray[2][0]; //Find highest root value as upper bound of graph
 
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
@@ -150,7 +169,8 @@ $(function initializeGame () {
 		      seriesColors: ["#3811c9", "#820000"],
 		      axes: {
         		xaxis:{
-        			pad: .5,
+        			ticks: [0, maxAweather, maxBweather, upperBound],
+        			pad: 0.5,
           			label:'Weather (inches of rain)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
          			labelOptions: {
@@ -159,7 +179,8 @@ $(function initializeGame () {
           			}
         		},
         		yaxis:{
-          			pad: .5,
+          			//ticks: [maxScore/4, maxScore/2, maxscore/2+maxscore, maxScore],
+          			pad: 0.5,
           			label:'Payout (points)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
           			labelOptions: {
