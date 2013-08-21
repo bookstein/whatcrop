@@ -21,11 +21,15 @@ $(document).ready(function(){
     endOfGame = false;
 
 	// Set crop payouts using equation Payout = beta(w-w*) + P*
+
+		// Crop A
 	betaA = -.002;
-	betaB = -.001;
 	maxApayout = 200; //P*(A)
-	maxBpayout = 120; //P*(B)
 	maxAweather = 800; //w*(A)
+
+		// Crop B
+	betaB = -.001;
+	maxBpayout = 120; //P*(B)
 	maxBweather = 400; //w*(B)
 
 	// Manually set climate change by turn, up to maxturn
@@ -111,16 +115,24 @@ $(document).ready(function(){
 
 $(function initializeGame () {
 
+	function drawQuadratic (beta, maxweather, maxpayout) {
+		// for quadratic equation 0 = ax^2 + bx + c
+		var a = beta;
+		var b = -2 * maxweather * beta;
+		var c = (beta * maxweather * maxweather) + maxpayout;
+		var root_part = Math.sqrt((b*b) - 4*a*c);
+		var denominator = 2*a;
 
-	/*function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
-		$("table").find("td#payoutAwet").text(payoutAwet + " points");
-		$("table").find("td#payoutAdry").text(payoutAdry + " points");
-		$("table").find("td#payoutBwet").text(payoutBwet + " points");
-		$("table").find("td#payoutBdry").text(payoutBdry + " points");
-	};
+		//calculate roots of payout parabola
+		var root1 = (-b + root_part)/denominator;
+		var root2 = (-b - root_part)/denominator;
 
-	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);*/
 
+
+	}
+
+
+	$.jqplot('chartdiv',  [[[1, 2],[3,5.12],[5,13.1],[7,33.6],[9,85.9],[11,219.9]]]);
 
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
