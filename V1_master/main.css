@@ -219,7 +219,20 @@ header > h1 {
 	font-family: Georgia, serif;
 	font-size: 10px;
 	color: black;
+}
 
+.jqplot-point-label {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.jqplot-point-label.jqplot-series-0.jqplot-point-1 {
+	color: #820000;
+}
+
+.jqplot-point-label.jqplot-series-1.jqplot-point-1 {
+	color: #3811c9;
 }
 
 /*table {
