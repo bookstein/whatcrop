@@ -127,12 +127,15 @@ $(function initializeGame () {
 		var root1 = (-b + root_part)/denominator;
 		var root2 = (-b - root_part)/denominator;
 
+		//output array of (x,y) points for use in jqPlot chart: [(vertex), (root1), (root2)]
+		parabolaArray = [(maxweather, maxpayout), (root1, 0), (root2, 0)];
+		return parabolaArray;
+	};
 
+	drawQuadratic(betaA, maxAweather, maxApayout);
+	drawQuadratic(betaB, maxBweather, maxBpayout);
 
-	}
-
-
-	$.jqplot('chartdiv',  [[[1, 2],[3,5.12],[5,13.1],[7,33.6],[9,85.9],[11,219.9]]]);
+	$.jqplot('chartdiv', parabolaArray);
 
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
