@@ -638,8 +638,6 @@ $("#cropB").on("click", userClickedB);
 
 function weatherResults () { //triggered by #grow click, runs updateGame with correct arguments
 
-	var args = {}; //creates empty object for arguments
-
 	disableGrowButton();
 
 	$(".plant, .plant_img, #grow").addClass("hidden").css("opacity", 0);
@@ -657,9 +655,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
-		args.crop = "A";
-		args.state = "dead";
-		args.weather = "sunny";
+
 		displaySun();
 		$("#deadA").removeClass("hidden");
 		updateGame(payoutAdry);
@@ -667,9 +663,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	}
 
 	else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
-		args.crop = "A";
-		args.state = "healthy";
-		args.weather =  "rainy";
+
 		displayRain();
 		$("#rowsCropA").removeClass("hidden");
 		updateGame(payoutAwet);
@@ -677,9 +671,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	}
 
 	else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
-		args.crop = "B";
-		args.state = "dead";
-		args.weather = "sunny";
+
 		displaySun();
 		$("#deadB").removeClass("hidden");
 		updateGame(payoutBdry);
@@ -689,9 +681,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	}
 
 	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
-		args.crop = "B";
-		args.state = "healthy";
-		args.weather = "rainy";
+
 		displayRain();
 		$("#rowsCropB").removeClass("hidden");
 		updateGame(payoutBwet);
