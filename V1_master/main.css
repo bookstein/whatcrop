@@ -203,6 +203,11 @@ header > h1 {
 	text-align: center;
 }
 
+#chartdiv {
+	height: 300px;
+	width: 230px;
+}
+
 table {
 	height: 300px;
 	width: 230px;
