@@ -132,27 +132,48 @@ $(function initializeGame () {
 			//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
 			parabolaArray = [[root1, 0, null], [maxweather, maxpayout, crop], [root2, 0, null]];
 			return parabolaArray;
-		};
+		}; //end of dataArrays
 
+		// Call dataArrays and create arrays for A and B
 		var plotA = dataArrays(betaA, maxAweather, maxApayout, "A");
 		var plotB = dataArrays(betaB, maxBweather, maxBpayout, "B");
-		var upperBound = 1200; //default value for upper bound of graph
 
-		function findUpperBound () { //modifies upper bound based on largest parabola root
+		// Set upper bounds on graph
+		var upperBoundX = 1200; //default value for upper bound of graph x-axis
+		var upperBoundY = 250; //default value for upper bound of graph y-axis
+
+		function findUpperBoundX () { //modifies upper bound based on largest parabola root
 			var root1A = plotA[0][0];
 			var root2A = plotA[2][0];
 			var root1B = plotB[0][0];
-			var root2B = plotB[0][0];
+			var root2B = plotB[2][0];
 
 			var rootArray = [root1A, root2A, root1B, root2B];
 			var maxRoot = Math.max.apply(Math, rootArray);
 
-			upperBound = Math.ceil(maxRoot/100)*100;
+			upperBoundX = Math.ceil(maxRoot/100)*100;
 
-			return upperBound;
+			return upperBoundX;
 		};
 
-		findUpperBound();
+		findUpperBoundX();
+
+		function findUpperBoundY () {
+			var vertexA = plotA[1][1];
+			var vertexB = plotB[1][1];
+
+			if (vertexA > vertexB) {
+				upperBoundY = vertexA;
+			}
+
+			else {
+				upperBoundY = vertexB;
+			}
+
+			return upperBoundY;
+		};
+
+		findUpperBoundY();
 
 		//var upperRoot = parabolaArray[2][0]; //Find highest root value as upper bound of graph
 
@@ -188,7 +209,8 @@ $(function initializeGame () {
 		      seriesColors: [/*color A*/ "#820000", /*color B*/ "#3811c9"],
 		      axes: {
         		xaxis:{
-        			ticks: [0, maxAweather, maxBweather, upperBound],
+
+        			ticks: [0, maxAweather, maxBweather, upperBoundX],
         			pad: 0.5,
           			label:'Weather (inches of rain)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
@@ -198,8 +220,9 @@ $(function initializeGame () {
           			}
         		},
         		yaxis:{
-          			//ticks: [maxScore/4, maxScore/2, maxscore/2+maxscore, maxScore],
-          			pad: 0.5,
+
+          			ticks: [0, maxApayout, maxBpayout, upperBoundY+15],
+          			pad: .5,
           			label:'Payout (points)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
           			labelOptions: {
