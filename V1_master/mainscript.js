@@ -727,15 +727,15 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 		    $(".results").find("#new_score").text(payout);
 
 			// bonus dialogs
-			if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
+			if (oldscore < game.totalRandomPoints && newscore >= game.totalRandomPoints) { //this only works now because I made totalRandomPoints global
 				$("#bonus_results").dialog("open");
-				$("#bonus_count").text("$" + bonusOneDollars);
+				$("#bonus_count").text("$" + game.bonusOneDollars);
 				addBonus1();
 			}
 
-			else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
+			else if (oldscore < game.totalOptimalPoints && newscore >= game.totalOptimalPoints) {
 				$("#bonus_results").dialog("open");
-				$("#bonus_count").text("$" + bonusTwoDollars);
+				$("#bonus_count").text("$" + game.bonusTwoDollars);
 				addBonus2();
 			}
 
