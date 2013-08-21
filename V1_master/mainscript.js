@@ -117,7 +117,7 @@ $(function initializeGame () {
 
 	function drawQuadratic () {
 
-		function dataArrays (beta, maxweather, maxpayout) {
+		function dataArrays (beta, maxweather, maxpayout, crop) {
 			// for quadratic equation 0 = ax^2 + bx + c
 			var a = beta;
 			var b = -2 * maxweather * beta;
@@ -130,12 +130,12 @@ $(function initializeGame () {
 			var root2 = (-b - root_part)/denominator;
 
 			//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
-			parabolaArray = [[root1, 0], [maxweather, maxpayout], [root2, 0]];
+			parabolaArray = [[root1, 0, null], [maxweather, maxpayout, crop], [root2, 0, null]];
 			return parabolaArray;
 		};
 
-		var plotA = dataArrays(betaA, maxAweather, maxApayout);
-		var plotB = dataArrays(betaB, maxBweather, maxBpayout);
+		var plotA = dataArrays(betaA, maxAweather, maxApayout, "A");
+		var plotB = dataArrays(betaB, maxBweather, maxBpayout, "B");
 		var upperBound = 1200; //default value for upper bound of graph
 
 		function findUpperBound () { //modifies upper bound based on largest parabola root
@@ -161,12 +161,31 @@ $(function initializeGame () {
     		{
 		      //title:'Payouts',
 		      // Set default options on all series, turn on smoothing.
+
+		      /*legend: {
+		      	show: true,
+		      	showLables: true,
+		      	labels: ["A", "B"],
+		      	location: 'nw',
+		      	placement: "insideGrid",
+		      	showSwatches: true
+		      },*/
+		      grid: {
+        		drawGridlines: true,
+        		shadow: false
+        	  },
+
 		      seriesDefaults: {
 		          rendererOptions: {
 		              smooth: true
+		          },
+		          pointLabels: {
+		          	show: true,
+		          	location:'ne',
+		          	ypadding:3
 		          }
 		      },
-		      seriesColors: ["#3811c9", "#820000"],
+		      seriesColors: [/*color A*/ "#820000", /*color B*/ "#3811c9"],
 		      axes: {
         		xaxis:{
         			ticks: [0, maxAweather, maxBweather, upperBound],
@@ -186,7 +205,10 @@ $(function initializeGame () {
           			labelOptions: {
             			fontFamily: 'Georgia, Serif',
             			fontSize: '10pt'
-          			}
+          			},
+          			drawMajorGridlines: false,
+                	drawMinorGridlines: false
+
         		}
         	  },
 		      // Series options are specified as an array of objects, one object
