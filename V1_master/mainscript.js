@@ -115,27 +115,54 @@ $(document).ready(function(){
 
 $(function initializeGame () {
 
-	function drawQuadratic (beta, maxweather, maxpayout) {
-		// for quadratic equation 0 = ax^2 + bx + c
-		var a = beta;
-		var b = -2 * maxweather * beta;
-		var c = (beta * maxweather * maxweather) + maxpayout;
-		var root_part = Math.sqrt((b*b) - 4*a*c);
-		var denominator = 2*a;
+	function drawQuadratic () {
 
-		//calculate roots of payout parabola
-		var root1 = (-b + root_part)/denominator;
-		var root2 = (-b - root_part)/denominator;
+		function dataArrays (beta, maxweather, maxpayout) {
+			// for quadratic equation 0 = ax^2 + bx + c
+			var a = beta;
+			var b = -2 * maxweather * beta;
+			var c = (beta * maxweather * maxweather) + maxpayout;
+			var root_part = Math.sqrt((b*b) - 4*a*c);
+			var denominator = 2*a;
 
-		//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
-		parabolaArray = [[root1, 0], [maxweather, maxpayout], [root2, 0]];
-		return parabolaArray;
-	};
+			//calculate roots of payout parabola
+			var root1 = (-b + root_part)/denominator;
+			var root2 = (-b - root_part)/denominator;
 
-	drawQuadratic(betaA, maxAweather, maxApayout);
-	drawQuadratic(betaB, maxBweather, maxBpayout);
+			//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
+			parabolaArray = [[root1, 0], [maxweather, maxpayout], [root2, 0]];
+			return parabolaArray;
+		};
 
-	$.jqplot('chartdiv', [parabolaArray]);
+		var plotA = dataArrays(betaA, maxAweather, maxApayout);
+		var plotB = dataArrays(betaB, maxBweather, maxBpayout);
+
+		//draw parabolas in #chartdiv
+		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
+    		{
+		      title:'Payouts',
+		      // Set default options on all series, turn on smoothing.
+		      seriesDefaults: {
+		          rendererOptions: {
+		              smooth: true
+		          }
+		      },
+		      // Series options are specified as an array of objects, one object
+		      // for each series.
+		      series:[
+		          {
+		            // Change our line width and use a diamond shaped marker.
+		            lineWidth:2,
+		            markerOptions: { style: "x" }
+		          },
+		      ]
+		    }
+		  );
+		}; //end of drawQuadratic()
+
+		drawQuadratic();
+
+
 
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
