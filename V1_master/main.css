@@ -212,7 +212,6 @@ header > h1 {
 
 .jqplot-grid-canvas {
 	padding: 0;
-	display: none;
 }
 
 .jqplot-event-canvas {
@@ -236,7 +235,7 @@ header > h1 {
 
 .jqplot-yaxis-tick, .jqplot-xaxis-tick {
 	font-family: Georgia, serif;
-	font-size: 14px;
+	font-size: 12px;
 	padding: 0;
 }
 

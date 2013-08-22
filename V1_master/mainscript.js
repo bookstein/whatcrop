@@ -117,6 +117,7 @@ $(function initializeGame () {
 
 	$.jqplot.config.enablePlugins = true;
 
+	//Draws crop payout quadratics on canvas with jpPlot plugin
 	function drawQuadratic () {
 
 		function dataArrays (beta, maxweather, maxpayout) {
@@ -136,16 +137,16 @@ $(function initializeGame () {
 			return parabolaArray;
 		}; //end of dataArrays
 
-		// Call dataArrays and create arrays for A and B
-		var plotA = dataArrays(betaA, maxAweather, maxApayout, "A");
-		var plotB = dataArrays(betaB, maxBweather, maxBpayout, "B");
+		// Call dataArrays function and create arrays for A and B
+		var plotA = dataArrays(betaA, maxAweather, maxApayout);
+		var plotB = dataArrays(betaB, maxBweather, maxBpayout);
 
 		// Set upper bounds on graph
 		var upperBoundX = 1200; //default value for upper bound of graph x-axis
 		var upperBoundY = 250; //default value for upper bound of graph y-axis
 
 		function findUpperBoundX () {
-		//modifies upper bound based on largest parabola root (point at which crop value is 0)
+		//modifies upper bound on x-axis based on largest parabola root (point at which crop value is (X,0) with largest possible value of X)
 			var root1A = plotA[0][0];
 			var root2A = plotA[2][0];
 			var root1B = plotB[0][0];
@@ -183,14 +184,14 @@ $(function initializeGame () {
 		var maxY = [upperBoundY+20];
 		var ticksX = [[0, ""], [maxAweather, ""], [maxBweather, ""], [upperBoundX, ""], [maxX, ""]];
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
-		var ticksX2 = [[0, "Total Sun"], [maxX, "Total Rain"]];
 
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
     		{
 		      grid: {
         		//drawGridlines: true,
-        		shadow: false
+        		shadow: false,
+        		drawBorder: false
         	  },
 
 		      seriesDefaults: {
@@ -226,14 +227,6 @@ $(function initializeGame () {
           			}
         		},
 
-        		x2axis: {
-        			renderer: $.jqplot.CategoryAxisRenderer,
-        			ticks: ticksX2,
-        			tickOptions: {
-        				showMark: false
-        			}
-        		},
-
         		yaxis:{
           			ticks: ticksY,
           			rendererOptions:{
@@ -252,13 +245,13 @@ $(function initializeGame () {
 	            			fontFamily: 'Verdana, sans-serif',
 	            			fontSize: '12pt',
           				}*/
-      			},
+      			},ß
 
           		// disable y-axis grid lines
           			drawMajorGridlines: true,
                 	drawMinorGridlines: false
-
         		},
+
 		      series:[
 		          {
 		            // CropA
@@ -270,6 +263,11 @@ $(function initializeGame () {
 		            lineWidth:2,
 		            showMarker: false
 		          },
+		          {
+		          	// Weather
+		          	lineWidth: 0,
+		          	showMarker: false
+		      	  }
 		      ]
 		    }
 		  );
