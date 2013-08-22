@@ -211,7 +211,7 @@ $(function initializeGame () {
         			//ticks: ticksX,
 // use 2D ticks to get rid of # values of weather and replace with dryness???
         			rendererOptions:{
-                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
+                    	tickRenderer:$.jqplot.AxisTickRenderer
                     },
                 	tickOptions:{
                         formatString: "%#.0f"
@@ -220,7 +220,7 @@ $(function initializeGame () {
                     padMax: 1.01,
                     padMin: 1,
           			label:'Weather (inches of rain)',
-          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+          			labelRenderer: $.jqplot.AxisLabelRenderer,
          			labelOptions: {
             			fontFamily: 'Georgia, Serif',
             			fontSize: '10pt'
@@ -229,7 +229,7 @@ $(function initializeGame () {
 
         		yaxis:{
 
-          			//ticks: ticksY,
+          			ticks: ticksY,
           			padMax: 1.01,
           			padMin: 1,
           			rendererOptions:{
@@ -239,8 +239,8 @@ $(function initializeGame () {
                         formatString: "%#.0f"
                     },
 
-          			label:'Payout (points)',
-          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+          			label:'Points',
+          			labelRenderer: $.jqplot.AxisLabelRenderer,
 						labelOptions: {
 	            			fontFamily: 'Georgia, Serif',
 	            			fontSize: '10pt'
