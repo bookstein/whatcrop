@@ -133,7 +133,7 @@ $(function initializeGame () {
 			var root2 = (-b - root_part)/denominator;
 
 			//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
-			parabolaArray = [[root1, 0, crop], [maxweather, maxpayout, maxpayout], [root2, 0, null]];
+			parabolaArray = [[root1, 0, crop], [maxweather, maxpayout, maxpayout + " pts"], [root2, 0, null]];
 			return parabolaArray;
 		}; //end of dataArrays
 
@@ -204,9 +204,9 @@ $(function initializeGame () {
 		       //pointLabels uses the final value in parabolaArray as its data
 		          pointLabels: {
 		          	show: true,
-		          	location:'ne',
+		          	location:'nw',
 		          	ypadding:3,
-		          	xpadding:10
+		          	xpadding:2
 		          }
 		      },
 
