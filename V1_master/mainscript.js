@@ -238,13 +238,13 @@ $(function initializeGame () {
 
                     },
 
-          			label:'Points',
+          			/*label:'Points',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 						labelOptions: {
 	            			fontFamily: 'Georgia, Serif',
 	            			fontSize: '10pt'
-          				}
-          			},
+          				}*/
+      			},
 
           		// disable y-axis grid lines
           			drawMajorGridlines: true,
