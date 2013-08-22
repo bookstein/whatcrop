@@ -179,7 +179,7 @@ $(function initializeGame () {
 
 		// Set values for tick marks
 		var maxX = [upperBoundX+100];
-		var maxY = [upperBoundY+10];
+		var maxY = [upperBoundY+20];
 		var ticksX = [[0, "0"], [maxAweather, maxAweather], [maxBweather, maxBweather], [upperBoundX, upperBoundX], [maxX, ""]];
 		var ticksY = [[0, "0"], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 
@@ -213,7 +213,8 @@ $(function initializeGame () {
                     	tickRenderer:$.jqplot.AxisTickRenderer
                     },
                 	tickOptions:{
-                        formatString: "%#.0f"
+                        formatString: "%#.0f",
+                        showMark: false
                     },
 
           			label:'Weather (inches of rain)',
@@ -231,7 +232,10 @@ $(function initializeGame () {
                     	tickRenderer:$.jqplot.CanvasAxisTickRenderer
                     },
                 	tickOptions:{
-                        formatString: "%#.0f"
+                        formatString: "%#.0f",
+                        isMinorTick: true,
+                        showMark: false,
+
                     },
 
           			label:'Points',
@@ -243,8 +247,8 @@ $(function initializeGame () {
           			},
 
           		// disable y-axis grid lines
-          			//drawMajorGridlines: true,
-                	//drawMinorGridlines: false
+          			drawMajorGridlines: true,
+                	drawMinorGridlines: false
 
         		},
 		      series:[
