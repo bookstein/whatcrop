@@ -215,6 +215,7 @@ $(function initializeGame () {
         		xaxis:{
 
         			ticks: [0, maxAweather, maxBweather, upperBoundX],
+
         			pad: 0.5,
           			label:'Weather (inches of rain)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
@@ -227,6 +228,14 @@ $(function initializeGame () {
         		yaxis:{
 
           			ticks: [0, maxApayout, maxBpayout, upperBoundY+15],
+          			rendererOptions:{
+                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer},
+                    	tickOptions:{
+	                        fontSize:'10pt',
+	                        fontFamily:'Tahoma',
+	                        angle:30
+	                    }
+            		},
           			pad: .5,
           			label:'Payout (points)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
