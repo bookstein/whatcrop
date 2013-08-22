@@ -211,8 +211,8 @@ header > h1 {
 }
 
 .jqplot-point-label {
-	font-family: Verdana, sans-serif;
-	font-size: 10px;
+	font-family: Georgia, serif;
+	font-size: 16px !important;
 	font-weight: bold;
 }
 
@@ -224,15 +224,9 @@ header > h1 {
 	color: #3811c9;
 }
 
-.jqplot-yaxis-tick {
+.jqplot-yaxis-tick, .jqplot-xaxis-tick {
 	font-family: Georgia, serif;
-	font-size: 10px;
-	padding: 0;
-}
-
-.jqplot-xaxis-tick {
-	font-family: Georgia, serif;
-	font-size: 10px;
+	font-size: 12px;
 	padding: 0;
 }
 

@@ -181,7 +181,7 @@ $(function initializeGame () {
 		var maxX = [upperBoundX+100];
 		var maxY = [upperBoundY+20];
 		var ticksX = [[0, "0"], [maxAweather, maxAweather], [maxBweather, maxBweather], [upperBoundX, upperBoundX], [maxX, ""]];
-		var ticksY = [[0, "0"], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
+		var ticksY = [[0, "0"], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, "Points"]];
 
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
@@ -233,7 +233,7 @@ $(function initializeGame () {
                     },
                 	tickOptions:{
                         formatString: "%#.0f",
-                        isMinorTick: true,
+                        isMinorTick: false,
                         showMark: false,
 
                     },
