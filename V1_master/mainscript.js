@@ -115,6 +115,8 @@ $(document).ready(function(){
 
 $(function initializeGame () {
 
+	$.jqplot.config.enablePlugins = true;
+
 	function drawQuadratic () {
 
 		function dataArrays (beta, maxweather, maxpayout, crop) {
@@ -191,6 +193,7 @@ $(function initializeGame () {
 		      	placement: "insideGrid",
 		      	showSwatches: true
 		      },*/
+
 		      grid: {
         		drawGridlines: true,
         		shadow: false
@@ -206,6 +209,7 @@ $(function initializeGame () {
 		          	ypadding:3
 		          }
 		      },
+
 		      seriesColors: [/*color A*/ "#820000", /*color B*/ "#3811c9"],
 		      axes: {
         		xaxis:{
@@ -219,6 +223,7 @@ $(function initializeGame () {
             			fontSize: '10pt'
           			}
         		},
+
         		yaxis:{
 
           			ticks: [0, maxApayout, maxBpayout, upperBoundY+15],
@@ -234,8 +239,7 @@ $(function initializeGame () {
 
         		}
         	  },
-		      // Series options are specified as an array of objects, one object
-		      // for each series.
+
 		      series:[
 		          {
 		            // CropA
