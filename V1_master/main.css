@@ -211,7 +211,7 @@ header > h1 {
 }
 
 .jqplot-grid-canvas {
-	padding: 0;
+
 }
 
 .jqplot-event-canvas {
@@ -221,26 +221,31 @@ header > h1 {
 
 .jqplot-point-label {
 	font-family: Georgia, serif;
-	font-size: 16px !important;
+	font-size: 14px !important;
 	font-weight: normal;
 }
 
-.jqplot-point-label.jqplot-series-0.jqplot-point-1 {
+.jqplot-point-label.jqplot-series-0.jqplot-point-1, .jqplot-point-label.jqplot-series-0.jqplot-point-0 {
 	color: #820000;
 }
 
-.jqplot-point-label.jqplot-series-1.jqplot-point-1 {
+.jqplot-point-label.jqplot-series-1.jqplot-point-1, .jqplot-point-label.jqplot-series-1.jqplot-point-0 {
 	color: #3811c9;
+}
+
+.jqplot-point-label.jqplot-series-0.jqplot-point-0, .jqplot-point-label.jqplot-series-1.jqplot-point-0 {
+	font-weight: bold;
+	font-size: 16px !important;
 }
 
 .jqplot-yaxis-tick, .jqplot-xaxis-tick {
 	font-family: Georgia, serif;
-	font-size: 12px;
+	font-size: 14px;
 	padding: 0;
 }
 
 .jqplot-xaxis-tick {
-	font-weight: bold;
+	font-weight: normal;
 }
 
 /*table {

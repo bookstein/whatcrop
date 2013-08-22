@@ -120,7 +120,7 @@ $(function initializeGame () {
 	//Draws crop payout quadratics on canvas with jpPlot plugin
 	function drawQuadratic () {
 
-		function dataArrays (beta, maxweather, maxpayout) {
+		function dataArrays (beta, maxweather, maxpayout, crop) {
 			// for quadratic equation 0 = ax^2 + bx + c
 			var a = beta;
 			var b = -2 * maxweather * beta;
@@ -133,13 +133,13 @@ $(function initializeGame () {
 			var root2 = (-b - root_part)/denominator;
 
 			//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
-			parabolaArray = [[root1, 0, null], [maxweather, maxpayout, maxpayout], [root2, 0, null]];
+			parabolaArray = [[root1, 0, crop], [maxweather, maxpayout, maxpayout], [root2, 0, null]];
 			return parabolaArray;
 		}; //end of dataArrays
 
 		// Call dataArrays function and create arrays for A and B
-		var plotA = dataArrays(betaA, maxAweather, maxApayout);
-		var plotB = dataArrays(betaB, maxBweather, maxBpayout);
+		var plotA = dataArrays(betaA, maxAweather, maxApayout, "A");
+		var plotB = dataArrays(betaB, maxBweather, maxBpayout, "B");
 
 		// Set upper bounds on graph
 		var upperBoundX = 1200; //default value for upper bound of graph x-axis
@@ -182,7 +182,7 @@ $(function initializeGame () {
 		// Set values for tick marks
 		var maxX = [upperBoundX+100];
 		var maxY = [upperBoundY+20];
-		var ticksX = [[0, ""], [maxAweather, ""], [maxBweather, ""], [upperBoundX, ""], [maxX, ""]];
+		var ticksX = [[0, "0"], [maxAweather, maxAweather], [maxBweather, maxBweather], [upperBoundX, upperBoundX]];
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 
 		//draw parabolas in #chartdiv
@@ -191,7 +191,8 @@ $(function initializeGame () {
 		      grid: {
         		//drawGridlines: true,
         		shadow: false,
-        		drawBorder: false
+        		borderWidth: 1,
+        		drawBorder: true
         	  },
 
 		      seriesDefaults: {
@@ -200,9 +201,10 @@ $(function initializeGame () {
 		          },
 
 		       // labels for payout curves at vertex
+		       //pointLabels uses the final value in parabolaArray as its data
 		          pointLabels: {
 		          	show: true,
-		          	location:'nw',
+		          	location:'ne',
 		          	ypadding:3
 		          }
 		      },
@@ -211,12 +213,15 @@ $(function initializeGame () {
 		      axes: {
         		xaxis:{
         			ticks: ticksX,
+        			borderWidth: 1.5,
         			rendererOptions:{
                     	tickRenderer:$.jqplot.AxisTickRenderer
                     },
                 	tickOptions:{
+                        mark: "inside",
                         formatString: "%#.0f",
-                        showMark: false
+                        showMark: true,
+                        showGridline: false
                     },
 
           			label:'Weather',
@@ -233,10 +238,11 @@ $(function initializeGame () {
                     	tickRenderer:$.jqplot.CanvasAxisTickRenderer
                     },
                 	tickOptions:{
+                        mark: "inside",
                         showLabel: false,
                         formatString: "%#.0f",
-                        showMark: false,
-
+                        showMark: true,
+                        showGridline: false
                     },
 
           			/*label:'Points',
@@ -245,12 +251,9 @@ $(function initializeGame () {
 	            			fontFamily: 'Verdana, sans-serif',
 	            			fontSize: '12pt',
           				}*/
-      			},ß
+      			},
 
-          		// disable y-axis grid lines
-          			drawMajorGridlines: true,
-                	drawMinorGridlines: false
-        		},
+    		  },
 
 		      series:[
 		          {
