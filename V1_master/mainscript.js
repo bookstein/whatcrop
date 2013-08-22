@@ -180,7 +180,7 @@ $(function initializeGame () {
 		// Set values for tick marks
 		var maxX = [upperBoundX+100];
 		var maxY = [upperBoundY+20];
-		var ticksX = [[0, "0"], [maxAweather, ""], [climateArray[1].mean, ""], [maxBweather, ""], [upperBoundX, upperBoundX], [maxX, ""]];
+		var ticksX = [[0, "Total Sun"], [maxAweather, ""], [maxBweather, ""], [upperBoundX, "Total Rain"], [maxX, ""]];
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 
 		//draw parabolas in #chartdiv
@@ -220,8 +220,8 @@ $(function initializeGame () {
           			label:'Weather',
           			labelRenderer: $.jqplot.AxisLabelRenderer,
          			labelOptions: {
-            			fontFamily: 'Georgia, Serif',
-            			fontSize: '8pt'
+            			fontFamily: 'Verdana, sans-serif',
+            			fontSize: '12pt'
           			}
         		},
 
@@ -241,8 +241,8 @@ $(function initializeGame () {
           			label:'Points',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 						labelOptions: {
-	            			fontFamily: 'Georgia, Serif',
-	            			fontSize: '8pt',
+	            			fontFamily: 'Verdana, sans-serif',
+	            			fontSize: '12pt',
 
           				}
       			},
