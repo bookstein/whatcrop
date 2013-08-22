@@ -177,7 +177,9 @@ $(function initializeGame () {
 
 		findUpperBoundY();
 
-		//var upperRoot = parabolaArray[2][0]; //Find highest root value as upper bound of graph
+		// Set values for tick marks
+		var ticksX = [0, maxAweather, maxBweather, upperBoundX];
+		var ticksY = [0, maxApayout, maxBpayout, upperBoundY+15];
 
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
@@ -214,8 +216,7 @@ $(function initializeGame () {
 		      axes: {
         		xaxis:{
 
-        			ticks: [0, maxAweather, maxBweather, upperBoundX],
-
+        			ticks: ticksX,
         			pad: 0.5,
           			label:'Weather (inches of rain)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
@@ -227,22 +228,21 @@ $(function initializeGame () {
 
         		yaxis:{
 
-          			ticks: [0, maxApayout, maxBpayout, upperBoundY+15],
+          			ticks: ticksY,
           			rendererOptions:{
-                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer},
-                    	tickOptions:{
-	                        fontSize:'10pt',
-	                        fontFamily:'Tahoma',
-	                        angle:30
-	                    }
-            		},
+                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
+                    },
+                	tickOptions:{
+                        isMinorTick: true,
+                        showLabel: true
+                    },
           			pad: .5,
           			label:'Payout (points)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-          			labelOptions: {
-            			fontFamily: 'Georgia, Serif',
-            			fontSize: '10pt'
+
           			},
+
+          			// disable y-axis grid lines
           			drawMajorGridlines: false,
                 	drawMinorGridlines: false
 
@@ -341,7 +341,7 @@ $(function initializeGame () {
 $(function introDialogs () {
 
 	$( "#first-message" ).dialog({
-		autoOpen: true,
+		autoOpen: false,
 		modal: true,
 		closeOnEscape: false,
         resizable: false,

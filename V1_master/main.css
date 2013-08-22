@@ -235,6 +235,16 @@ header > h1 {
 	color: #3811c9;
 }
 
+.jqplot-yaxis-tick {
+	font-family: Georgia, serif;
+	font-size: 10px;
+}
+
+.jqplot-xaxis-tick {
+	font-family: Georgia, serif;
+	font-size: 10px;
+}
+
 /*table {
 	height: 300px;
 	width: 230px;
