@@ -119,7 +119,7 @@ $(function initializeGame () {
 
 	function drawQuadratic () {
 
-		function dataArrays (beta, maxweather, maxpayout, crop) {
+		function dataArrays (beta, maxweather, maxpayout) {
 			// for quadratic equation 0 = ax^2 + bx + c
 			var a = beta;
 			var b = -2 * maxweather * beta;
@@ -132,7 +132,7 @@ $(function initializeGame () {
 			var root2 = (-b - root_part)/denominator;
 
 			//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
-			parabolaArray = [[root1, 0, null], [maxweather, maxpayout, crop], [root2, 0, null]];
+			parabolaArray = [[root1, 0, null], [maxweather, maxpayout, maxpayout], [root2, 0, null]];
 			return parabolaArray;
 		}; //end of dataArrays
 
@@ -144,7 +144,8 @@ $(function initializeGame () {
 		var upperBoundX = 1200; //default value for upper bound of graph x-axis
 		var upperBoundY = 250; //default value for upper bound of graph y-axis
 
-		function findUpperBoundX () { //modifies upper bound based on largest parabola root
+		function findUpperBoundX () {
+		//modifies upper bound based on largest parabola root (point at which crop value is 0)
 			var root1A = plotA[0][0];
 			var root2A = plotA[2][0];
 			var root1B = plotB[0][0];
@@ -180,8 +181,9 @@ $(function initializeGame () {
 		// Set values for tick marks
 		var maxX = [upperBoundX+100];
 		var maxY = [upperBoundY+20];
-		var ticksX = [[0, "Total Sun"], [maxAweather, ""], [maxBweather, ""], [upperBoundX, "Total Rain"], [maxX, ""]];
+		var ticksX = [[0, ""], [maxAweather, ""], [maxBweather, ""], [upperBoundX, ""], [maxX, ""]];
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
+		var ticksX2 = [[0, "Total Sun"], [maxX, "Total Rain"]];
 
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
@@ -199,7 +201,7 @@ $(function initializeGame () {
 		       // labels for payout curves at vertex
 		          pointLabels: {
 		          	show: true,
-		          	location:'ne',
+		          	location:'nw',
 		          	ypadding:3
 		          }
 		      },
@@ -207,7 +209,6 @@ $(function initializeGame () {
 		      seriesColors: [/*color A*/ "#820000", /*color B*/ "#3811c9"],
 		      axes: {
         		xaxis:{
-
         			ticks: ticksX,
         			rendererOptions:{
                     	tickRenderer:$.jqplot.AxisTickRenderer
@@ -225,15 +226,22 @@ $(function initializeGame () {
           			}
         		},
 
-        		yaxis:{
+        		x2axis: {
+        			renderer: $.jqplot.CategoryAxisRenderer,
+        			ticks: ticksX2,
+        			tickOptions: {
+        				showMark: false
+        			}
+        		},
 
+        		yaxis:{
           			ticks: ticksY,
           			rendererOptions:{
                     	tickRenderer:$.jqplot.CanvasAxisTickRenderer
                     },
                 	tickOptions:{
+                        showLabel: false,
                         formatString: "%#.0f",
-                        isMinorTick: false,
                         showMark: false,
 
                     },

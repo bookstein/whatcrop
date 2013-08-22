@@ -212,6 +212,7 @@ header > h1 {
 
 .jqplot-grid-canvas {
 	padding: 0;
+	display: none;
 }
 
 .jqplot-event-canvas {
@@ -222,7 +223,7 @@ header > h1 {
 .jqplot-point-label {
 	font-family: Georgia, serif;
 	font-size: 16px !important;
-	font-weight: bold;
+	font-weight: normal;
 }
 
 .jqplot-point-label.jqplot-series-0.jqplot-point-1 {
