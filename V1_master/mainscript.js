@@ -217,6 +217,12 @@ $(function initializeGame () {
         		xaxis:{
 
         			ticks: ticksX,
+        			rendererOptions:{
+                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
+                    },
+                	tickOptions:{
+                        formatString: "%#.0f"
+                    },
         			pad: 0.5,
           			label:'Weather (inches of rain)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
@@ -234,21 +240,23 @@ $(function initializeGame () {
                     },
                 	tickOptions:{
                         isMinorTick: true,
-                        showLabel: true
+                        showLabel: true,
+                        formatString: "%#.0f"
                     },
           			pad: .5,
           			label:'Payout (points)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-
+						labelOptions: {
+	            			fontFamily: 'Georgia, Serif',
+	            			fontSize: '10pt'
+          				}
           			},
 
           			// disable y-axis grid lines
-          			drawMajorGridlines: false,
+          			drawMajorGridlines: true,
                 	drawMinorGridlines: false
 
-        		}
-        	  },
-
+        		},
 		      series:[
 		          {
 		            // CropA
