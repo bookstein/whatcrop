@@ -180,8 +180,8 @@ $(function initializeGame () {
 		// Set values for tick marks
 		var maxX = [upperBoundX+100];
 		var maxY = [upperBoundY+20];
-		var ticksX = [[0, "0"], [maxAweather, maxAweather], [maxBweather, maxBweather], [upperBoundX, upperBoundX], [maxX, ""]];
-		var ticksY = [[0, "0"], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, "Points"]];
+		var ticksX = [[0, "0"], [maxAweather, ""], [climateArray[1].mean, ""], [maxBweather, ""], [upperBoundX, upperBoundX], [maxX, ""]];
+		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
@@ -217,11 +217,11 @@ $(function initializeGame () {
                         showMark: false
                     },
 
-          			label:'Weather (inches of rain)',
+          			label:'Weather',
           			labelRenderer: $.jqplot.AxisLabelRenderer,
          			labelOptions: {
             			fontFamily: 'Georgia, Serif',
-            			fontSize: '10pt'
+            			fontSize: '8pt'
           			}
         		},
 
@@ -238,12 +238,13 @@ $(function initializeGame () {
 
                     },
 
-          			/*label:'Points',
+          			label:'Points',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 						labelOptions: {
 	            			fontFamily: 'Georgia, Serif',
-	            			fontSize: '10pt'
-          				}*/
+	            			fontSize: '8pt',
+
+          				}
       			},
 
           		// disable y-axis grid lines
