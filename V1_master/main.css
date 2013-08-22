@@ -198,7 +198,7 @@ header > h1 {
 
 #givens {
 	display: inline-block;
-	min-width: 20%;
+	min-width: 25%;
 	min-height: 550px;
 	text-align: center;
 }
@@ -208,6 +208,15 @@ header > h1 {
 	width: 100%;
 	margin-right: 0;
 	margin-left: 0;
+}
+
+.jqplot-grid-canvas {
+	padding: 0;
+}
+
+.jqplot-event-canvas {
+	/*padding: 2px;*/
+
 }
 
 .jqplot-point-label {
@@ -226,8 +235,12 @@ header > h1 {
 
 .jqplot-yaxis-tick, .jqplot-xaxis-tick {
 	font-family: Georgia, serif;
-	font-size: 12px;
+	font-size: 14px;
 	padding: 0;
+}
+
+.jqplot-xaxis-tick {
+	font-weight: bold;
 }
 
 /*table {
@@ -604,7 +617,7 @@ button.plant {
 #score {
 	display: inline-block;
 	padding: 10px;
-	min-width: 20%;
+	min-width: 15%;
 	max-width: 25%;
 	min-height: 550px;
 	background-image: url('images/coinstack.png');
@@ -625,7 +638,7 @@ button.plant {
 	overflow: visible;
 	display: inline-block;
 	position: absolute;
-	right: 50%;
+	right: 40%;
 	z-index: 1;
 }
 
@@ -689,7 +702,7 @@ button.plant {
 		/*display: inline-block;*/
 		vertical-align: middle;
 		position: absolute; /*Use jQuery to change the absolute height of the points flag along with points_bar*/
-		right: 60%;
+		right: 40%;
 		bottom: -15px;
 		z-index: 3;
 	}
