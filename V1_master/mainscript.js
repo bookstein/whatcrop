@@ -178,10 +178,10 @@ $(function initializeGame () {
 		findUpperBoundY();
 
 		// Set values for tick marks
-		var ticksX = [0, maxAweather, maxBweather, upperBoundX];
-		var ticksY = [0, maxApayout, maxBpayout, upperBoundY];
-		var maxX = [upperBoundX+50];
-		var maxY = [findUpperBoundY+20];
+		var maxX = [upperBoundX+100];
+		var maxY = [upperBoundY+10];
+		var ticksX = [[0, "0"], [maxAweather, maxAweather], [maxBweather, maxBweather], [upperBoundX, upperBoundX], [maxX, ""]];
+		var ticksY = [[0, "0"], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
@@ -208,17 +208,14 @@ $(function initializeGame () {
 		      axes: {
         		xaxis:{
 
-        			//ticks: ticksX,
-// use 2D ticks to get rid of # values of weather and replace with dryness???
+        			ticks: ticksX,
         			rendererOptions:{
                     	tickRenderer:$.jqplot.AxisTickRenderer
                     },
                 	tickOptions:{
                         formatString: "%#.0f"
                     },
-                    //tickInterval: 100,
-                    padMax: 1.01,
-                    padMin: 1,
+
           			label:'Weather (inches of rain)',
           			labelRenderer: $.jqplot.AxisLabelRenderer,
          			labelOptions: {
@@ -230,8 +227,6 @@ $(function initializeGame () {
         		yaxis:{
 
           			ticks: ticksY,
-          			padMax: 1.01,
-          			padMin: 1,
           			rendererOptions:{
                     	tickRenderer:$.jqplot.CanvasAxisTickRenderer
                     },
@@ -240,7 +235,7 @@ $(function initializeGame () {
                     },
 
           			label:'Points',
-          			labelRenderer: $.jqplot.AxisLabelRenderer,
+          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 						labelOptions: {
 	            			fontFamily: 'Georgia, Serif',
 	            			fontSize: '10pt'
