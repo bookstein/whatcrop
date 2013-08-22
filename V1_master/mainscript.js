@@ -192,7 +192,8 @@ $(function initializeGame () {
         		//drawGridlines: true,
         		shadow: false,
         		borderWidth: 1,
-        		drawBorder: true
+        		drawBorder: true,
+        		//background: "rgba(0, 200, 500, 0.05)",
         	  },
 
 		      seriesDefaults: {
@@ -209,6 +210,35 @@ $(function initializeGame () {
 		          	xpadding:2
 		          }
 		      },
+
+		      /*canvasOverlay: {
+        		show: true,
+        		objects: [{
+          				rectangle: {
+          					xmin: upperBoundX/2,
+          					xmax: upperBoundX,
+          					xminOffset: "0px",
+          					xmaxOffset: "0px",
+          					yminOffset: "0px",
+          					ymaxOffset: "0px",
+                    		color: "rgba(0, 200, 500, 0.1)",
+                    		showTooltip: false,
+                    		tooltipFormatString: "Rain"
+                    	},
+
+                    	rectangle: {
+                    		xmin: 0,
+          					xmax: upperBoundX/2,
+          					xminOffset: "0px",
+          					xmaxOffset: "0px",
+          					yminOffset: "0px",
+          					ymaxOffset: "0px",
+                    		color: "rgba(255, 204, 51, 0.3)",
+                    		showTooltip: false,
+                    		tooltipFormatString: "Sun"
+                    	}
+                    }]
+      		  },*/
 
 		      seriesColors: [/*color A*/ "#820000", /*color B*/ "#3811c9"],
 		      axes: {

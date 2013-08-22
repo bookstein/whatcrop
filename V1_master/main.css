@@ -211,12 +211,27 @@ header > h1 {
 }
 
 .jqplot-grid-canvas {
-
+	background-image: linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
+	background-image: -o-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
+	background-image: -moz-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
+	/*background-image: -webkit-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);*/
+	background-image: -ms-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
+	background-image: -webkit-gradient(
+		linear,
+		left 0,
+		right 0,
+		color-stop(0.33, rgb(255, 204, 51)),
+		color-stop(0.5, rgb(200, 200, 200)),
+		color-stop(0.84, rgb(0, 200, 500))
+	);
+		z-index: 0;
+		opacity: .2;
+		height: 105%;
+		width: 100%;
 }
 
 .jqplot-event-canvas {
-	/*padding: 2px;*/
-
+	z-index: 1;
 }
 
 .jqplot-point-label {
@@ -241,11 +256,16 @@ header > h1 {
 .jqplot-yaxis-tick, .jqplot-xaxis-tick {
 	font-family: Georgia, serif;
 	font-size: 14px;
-	padding: 0;
+	padding: 5px;
+	z-index: 1;
 }
 
 .jqplot-xaxis-tick {
 	font-weight: normal;
+}
+
+.jqplot-xaxis-label {
+	z-index: 1;
 }
 
 /*table {
