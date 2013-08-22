@@ -179,25 +179,15 @@ $(function initializeGame () {
 
 		// Set values for tick marks
 		var ticksX = [0, maxAweather, maxBweather, upperBoundX];
-		var ticksY = [0, maxApayout, maxBpayout, upperBoundY+15];
+		var ticksY = [0, maxApayout, maxBpayout, upperBoundY];
+		var maxX = [upperBoundX+50];
+		var maxY = [findUpperBoundY+20];
 
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
     		{
-		      //title:'Payouts',
-		      // Set default options on all series, turn on smoothing.
-
-		      /*legend: {
-		      	show: true,
-		      	showLables: true,
-		      	labels: ["A", "B"],
-		      	location: 'nw',
-		      	placement: "insideGrid",
-		      	showSwatches: true
-		      },*/
-
 		      grid: {
-        		drawGridlines: true,
+        		//drawGridlines: true,
         		shadow: false
         	  },
 
@@ -205,6 +195,8 @@ $(function initializeGame () {
 		          rendererOptions: {
 		              smooth: true
 		          },
+
+		       // labels for payout curves at vertex
 		          pointLabels: {
 		          	show: true,
 		          	location:'ne',
@@ -216,14 +208,17 @@ $(function initializeGame () {
 		      axes: {
         		xaxis:{
 
-        			ticks: ticksX,
+        			//ticks: ticksX,
+// use 2D ticks to get rid of # values of weather and replace with dryness???
         			rendererOptions:{
                     	tickRenderer:$.jqplot.CanvasAxisTickRenderer
                     },
                 	tickOptions:{
                         formatString: "%#.0f"
                     },
-        			pad: 0.5,
+                    //tickInterval: 100,
+                    padMax: 1.01,
+                    padMin: 1,
           			label:'Weather (inches of rain)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
          			labelOptions: {
@@ -234,16 +229,16 @@ $(function initializeGame () {
 
         		yaxis:{
 
-          			ticks: ticksY,
+          			//ticks: ticksY,
+          			padMax: 1.01,
+          			padMin: 1,
           			rendererOptions:{
                     	tickRenderer:$.jqplot.CanvasAxisTickRenderer
                     },
                 	tickOptions:{
-                        isMinorTick: true,
-                        showLabel: true,
                         formatString: "%#.0f"
                     },
-          			pad: .5,
+
           			label:'Payout (points)',
           			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 						labelOptions: {
@@ -252,9 +247,9 @@ $(function initializeGame () {
           				}
           			},
 
-          			// disable y-axis grid lines
-          			drawMajorGridlines: true,
-                	drawMinorGridlines: false
+          		// disable y-axis grid lines
+          			//drawMajorGridlines: true,
+                	//drawMinorGridlines: false
 
         		},
 		      series:[
