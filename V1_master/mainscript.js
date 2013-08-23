@@ -756,11 +756,11 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 			$("#normal_results").dialog("open");
 		}
 
-		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
+		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
 
 	};
 
-	displayResultsDialog();
+	setTimeout(displayResultsDialog, 500);
 
 	function fadeWeather () {
 		//setTimeout calls function after a certain time; currently 3000 ms
@@ -853,9 +853,8 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 
 
 
-function endGame () { //call end-of-game dialog box
-	endOfGame = true;
-	return endOfGame;
+function endGame () {
+	//call end-of-game dialog box
 	$("button #grow").addClass("hidden");
 	//inclusive of last turn (50)
 };
@@ -870,7 +869,7 @@ $("#grow").on("click", function () {
 		//call displayWeather function
 		//displayWeather();
 		//callsback updateGame function 200ms after displayWeather
-		setTimeout(weatherResults, 400);
+		setTimeout(weatherResults, 100);
 	}
 
 		else if (($(this).hasClass("highlight")) && turns === maxturn) {
@@ -881,7 +880,7 @@ $("#grow").on("click", function () {
 		//call displayWeather function
 		//displayWeather();
 		//callsback updateGame function 200ms after displayWeather
-		setTimeout(weatherResults, 400);
+		setTimeout(weatherResults, 100);
 		setTimeout(endGame, 1000);
 	}
 
