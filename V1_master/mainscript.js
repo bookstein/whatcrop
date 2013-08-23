@@ -567,50 +567,31 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
 			var pixelHeight = parseInt($("#points_bar").css("height"));
 
-			//Ratio of points per pixel
-			var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
-
-			//Points_counter moves upward this number of pixels per turn
-			var perTurnHeight = payout/pointsPerPixelRatio;
-
 			//Current CSS position for #points_flag "bottom" as an integer
 			var flagHeight = parseInt($("#points_flag").css("bottom"));
 
 			//Current CSS height of #points_fill with "height" as an integer
 			var fillHeight = parseInt($("#points_fill").css("height"));
 
+			//Ratio of points per pixel
+			var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
+
+			//Points_counter moves upward this number of pixels per turn, depending on the turn payout
+			var perTurnHeight = payout/pointsPerPixelRatio;
+
+			// Add pixels to flagHeight
 			flagHeight+=perTurnHeight;
-			fillHeight+=perTurnHeight;
+			// Set fillHeight to the same height as flagHeight
+			fillHeight = flagHeight;
 
-			$("#points_flag").css("bottom", flagHeight); // Sets value of style rule "bottom" to flagHeight
-			//return flagHeight;
-
-			//increase height of yellow #points_fill
-			$("#points_fill").css("height", fillHeight); // Sets value of style rule "bottom" to flagHeight
-			//return fillHeight;
-
+			// Set new heights in CSS style rules for #points_flag and #points_fill
+			$("#points_flag").css("bottom", flagHeight);
+			$("#points_fill").css("height", fillHeight);
 
 			//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 		};
 
 		movePointsFlag();
-
-
-
-	/*	// WARNING: .css modifies the element's <style> property, not the CSS sheet!
-
-	//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
-	function addBonus1 () {
-		realDollars = bonusOneDollars; //change value of realDollars to bonusOne
-		$("#dollars_counter").html("$"+realDollars);
-	};
-
-	function addBonus2 () {
-		realDollars = bonusOneDollars + bonusTwoDollars;
-		$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
-	};
-
-	*/
 		animatePoints();
 
 		score += payout;
