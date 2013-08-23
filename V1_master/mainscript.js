@@ -185,6 +185,49 @@ $(function initializeGame () {
 	$("#bonus_one_instructions").text(totalRandomPoints);
 	$("#bonus_two_instructions").text(totalOptimalPoints); */
 
+	//Calculate Max Score --------------------------------------
+
+	optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
+
+	function calculateOptimalCrop () {
+		//Strategy: if optimal value of A or B is closer to the gameWeather, choose that crop
+		for (var i = 0; i < maxturn; i++) {
+
+			var Adiff = gameWeather[i] - maxAweather;
+			var Bdiff = gameWeather [i] - maxBweather;
+
+			if (Math.abs(Adiff) > Math.abs(Bdiff)) {
+				optimalCrops[i] = "A";
+			}
+
+			else if (Math.abs(Bdiff) > Math.abs(Adiff)) {
+				optimalCrops[i] = "B";
+			}
+
+			else {
+				optimalCrops[i] = "A";
+			}
+		}
+
+		return optimalCrops;
+	}; // end of calculateOptimalCrop
+
+	calculateOptimalCrop(); //sets value of optimalCrops array
+
+	maxScore = 0;
+
+	function calculateMaxScore () {
+			for (var i=0; i < maxturn; i++)
+
+			{
+			maxScore += optimalCrops[i]
+			} //maxScore = maxScore + optimalTurnCrop[i]
+		return maxScore;
+	};
+
+	calculateMaxScore();
+	console.log("The maximum possible score is " + maxScore + " points")
+
 }); //end of initialization function
 
 // >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
@@ -466,7 +509,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 function updateGame (beta, maxpayout, maxweather) { //this function is called and given arguments inside weatherResults function above
 
 	cropchoice = "";
-	payout = 0;
+	var payout = 0;
 
 	function newPayout () {
 		payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
