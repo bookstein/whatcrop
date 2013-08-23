@@ -698,7 +698,6 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 function updateGame(payout) { //this function is called inside weatherResults function
 
-	//alert("Running updateGame now using arguments " + arguments)
 	cropchoice = ""; // resets value of cropchoice to ""
 	var oldscore = score;
 	var newscore = oldscore + payout;
@@ -775,51 +774,52 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 		function animatePoints () {
 			//$("#points_bar").toggleClass("glow");
 
-
-
 			$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
 			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
 			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
   		};
 
+
 		function movePointsFlag () { //increase height of #points_flag using absolute positioning
+
 			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
 			var pixelHeight = parseInt($("#points_bar").css("height"));
-
-
-			//Ratio of points per pixel
-			var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
-
-
-			//Points_counter moves upward this number of pixels per turn
-			var perTurnHeight = payout/pointsPerPixelRatio;
-
 
 			//Current CSS position for #points_flag "bottom" as an integer
 			var flagHeight = parseInt($("#points_flag").css("bottom"));
 
-
 			//Current CSS height of #points_fill with "height" as an integer
 			var fillHeight = parseInt($("#points_fill").css("height"));
 
+			//Ratio of points per pixel
+			var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
+
+			//Points_counter moves upward this number of pixels per turn, depending on the turn payout
+			var perTurnHeight = payout/pointsPerPixelRatio;
+
+			// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
 			flagHeight+=perTurnHeight;
-			fillHeight+=perTurnHeight;
+			fillHeight +=perTurnHeight;
 
-			$("#points_flag").css("bottom", flagHeight); // Sets value of style rule "bottom" to flagHeight
-			//return flagHeight;
-
-			//increase height of yellow #points_fill
-			$("#points_fill").css("height", fillHeight); // Sets value of style rule "bottom" to flagHeight
-			//return fillHeight;
+			// Set new heights in CSS style rules for #points_flag and #points_fill
+			$("#points_flag").css("bottom", flagHeight);
+			$("#points_fill").css("height", fillHeight);
 
 			//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 		};
 
-		$("#point_count").html("<h5>" + newscore + "</h5>");
-		animatePoints();
-		//setTimeout(animatePoints, 4000);
 		movePointsFlag();
-	};
+		animatePoints();
+
+		score += payout;
+		$("#point_count").html("<h5>" + score + "</h5>");
+		return score; //this updates the value of the global variable "score"
+
+	}; //end of function newScore()
+
+	newScore();
+
+	//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 
 		// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
@@ -835,12 +835,11 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	};
 
 	setTimeout(fadeWeather, 4000);
-	newScore();
 	setTimeout(addTurn, 4000);
 
 
-	score += payout;
-	return score; //this updates the value of the global variable "score"
+	//score += payout;
+	//return score; //this updates the value of the global variable "score"
 };
 
 
