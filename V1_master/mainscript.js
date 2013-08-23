@@ -579,10 +579,9 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			//Points_counter moves upward this number of pixels per turn, depending on the turn payout
 			var perTurnHeight = payout/pointsPerPixelRatio;
 
-			// Add pixels to flagHeight
+			// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
 			flagHeight+=perTurnHeight;
-			// Set fillHeight to the same height as flagHeight
-			fillHeight = flagHeight;
+			fillHeight +=perTurnHeight;
 
 			// Set new heights in CSS style rules for #points_flag and #points_fill
 			$("#points_flag").css("bottom", flagHeight);

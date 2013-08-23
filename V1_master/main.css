@@ -645,7 +645,7 @@ button.plant {
 
 	#points_fill {
 		width: inherit;
-		height: 1px;
+		height: 0px;
 		background-color: #ffcc33;
 		position: absolute;
 		bottom: 0;
