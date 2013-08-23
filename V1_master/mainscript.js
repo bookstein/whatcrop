@@ -19,8 +19,10 @@ $(document).ready(function(){
     maxturn = 50;
 
     // Crop payouts
-
-
+    payoutAwet = 70;
+	payoutAdry = 80;
+	payoutBwet = 100;
+	payoutBdry = 50;
 
 
 	autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
