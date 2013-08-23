@@ -622,36 +622,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	    $(".results").find("#new_score").text(payout);
 	    $("#normal_results").dialog("open");
 
-	    /*
 
-//restore this code when bonuses are calculated
-
-		// bonus dialogs
-		if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
-			$("#bonus_results").dialog("open");
-			$("#bonus_count").text("$" + bonusOneDollars);
-			addBonus1();
-		}
-
-		else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
-			$("#bonus_results").dialog("open");
-			$("#bonus_count").text("$" + bonusTwoDollars);
-			addBonus2();
-		}
-
-		//end game dialog
-		else if (turn === maxturn) {
-			$("#end_results").dialog("open");
-			$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
-			$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
-			// $("#playerID") //need Tony's work on this
-		}
-
-		//normal results dialogs
-		else {
-			$("#normal_results").dialog("open");
-		}
-*/
 		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
 
 	};
