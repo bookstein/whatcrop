@@ -142,6 +142,15 @@ $(function initializeGame () {
 		var plotA = dataArrays(betaA, maxAweather, maxApayout, "A");
 		var plotB = dataArrays(betaB, maxBweather, maxBpayout, "B");
 
+		// Translate values of historicWeather into inches of rain (gameWeather/2)
+		var plotHistory = function historicWeatherInchesArray () {
+				for (var i =0; i < maxturn; i++) {
+					historicWeather[i] = historicWeather[i]/2;
+				}
+
+				return historicWeather;
+		};
+
 		// Set upper bounds on graph
 		var upperBoundX = 1200; //default value for upper bound of graph x-axis
 		var upperBoundY = 250; //default value for upper bound of graph y-axis
@@ -188,8 +197,10 @@ $(function initializeGame () {
 
 
 		//draw parabolas in #chartdiv
-		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
-    		{
+		var cropValues = $.jqplot('chartdiv', [plotA, plotB], {
+
+		      //stackSeries: true, --> this breaks the graph
+
 		      grid: {
         		//drawGridlines: true,
         		shadow: false,
@@ -309,8 +320,6 @@ $(function initializeGame () {
 		  );
 	}; //end of drawQuadratic()
 
-		drawQuadratic();
-
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	function makeGameWeather () {
@@ -354,14 +363,17 @@ $(function initializeGame () {
 		function applyClimateChange () {
 			for (var i = 0; i < maxturn; i++) {
 				gameWeather[i] = climateArray[i].mean + (normalizedArray[i]*climateArray[i].std_dev);
-				historicWeatherArray(i);
+				historicWeatherArray(i); // calls historicWeatherArray at each value of i
 			}
 
 			function historicWeatherArray (count) {
-					//uses initial (historic) mean and std_dev to create historical weather array
-					historicWeather[count] = climateArray[0].mean + (normalizedArray[count]*climateArray[0].std_dev);
+				//uses initial (historic) mean and std_dev to create historical weather array
+				historicWeather[count] = climateArray[0].mean + (normalizedArray[count]*climateArray[0].std_dev);
 			};
+
+
 			return historicWeather;
+
 		}; //end of applyClimateChange
 
 		applyClimateChange();
@@ -374,6 +386,7 @@ $(function initializeGame () {
 	}; // end function makeGameWeather
 
 	makeGameWeather();
+	drawQuadratic();
 
 
 	//Populate spans in opening and ending dialogs
