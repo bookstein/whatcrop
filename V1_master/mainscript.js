@@ -87,95 +87,119 @@ $(function initializeGame () {
 
 	// Set climate change, either using "for loop" or manually; choose using above autoFillClimateChange variable
 
-	function climateChange () {
+function climateChange () {
 
+		var autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
+										//If false, then manually enter the climate change values you wish to use below under "else".
 		climateArray = [];
 		manualClimateArray = [];
 
+		if (autoFillClimateChange == true) {
 
-		if (autoFillClimateChange == true) { //set autoFillClimateChange at top of code
 
 			for (var i =0; i < maxturn; i++) {
+				climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change.
+			}
 
-				var k = .1; //k is any constant increasing the mean
-				var j = .5; //j is any constant increasing the standard deviation
-				var climateChange = {
-					newMean: initialClimate.mean + k*i,
-					newStd_dev: initialClimate.std_dev + j*i
-				};
 
-				climateArray.push(climateChange);
-			};
-
-			//return climateArray; //assigns value of climateArray to function climateChange
+			return climateArray; //assigns value of climateArray to function climateChange
 		}
 
-		else { //manualClimateArray[i] = [mean, std_dev]
-			manualClimateArray[0] = [5, 0];
-			manualClimateArray[1] = [5, 0];
-			manualClimateArray[2] = [5, 0];
-			manualClimateArray[3] = [5, 0];
-			manualClimateArray[4] = [5, 0];
-			manualClimateArray[5] = [5, 0];
-			manualClimateArray[6] = [5, 0];
-			manualClimateArray[7] = [5, 0];
-			manualClimateArray[8] = [5, 0];
-			manualClimateArray[9] = [5, 0];
-			manualClimateArray[10] = [5, 0];
-			manualClimateArray[11] = [5, 0];
-			manualClimateArray[12] = [7, 0];
-			manualClimateArray[13] = [7, 0];
-			manualClimateArray[14] = [7, 0];
-			manualClimateArray[15] = [7, 0];
-			manualClimateArray[16] = [7, 0];
-			manualClimateArray[17] = [7, 0];
-			manualClimateArray[18] = [7, 0];
-			manualClimateArray[19] = [7, 0];
-			manualClimateArray[20] = [10, 0];
-			manualClimateArray[21] = [10, 0];
-			manualClimateArray[22] = [10, 0];
-			manualClimateArray[23] = [10, 0];
-			manualClimateArray[24] = [10, 0];
-			manualClimateArray[25] = [10, 0];
-			manualClimateArray[26] = [10, 0];
-			manualClimateArray[27] = [10, 0];
-			manualClimateArray[28] = [10, 0];
-			manualClimateArray[29] = [10, 0];
-			manualClimateArray[30] = [10, 0];
-			manualClimateArray[31] = [10, 0];
-			manualClimateArray[32] = [10, 0];
-			manualClimateArray[33] = [5, 0];
-			manualClimateArray[34] = [5, 0];
-			manualClimateArray[35] = [5, 0];
-			manualClimateArray[36] = [5, 0];
-			manualClimateArray[37] = [5, 0];
-			manualClimateArray[38] = [5, 0];
-			manualClimateArray[39] = [5, 0];
-			manualClimateArray[40] = [5, 0];
-			manualClimateArray[41] = [5, 0];
-			manualClimateArray[42] = [5, 0];
-			manualClimateArray[43] = [5, 0];
-			manualClimateArray[44] = [5, 0];
-			manualClimateArray[45] = [5, 0];
-			manualClimateArray[46] = [5, 0];
-			manualClimateArray[47] = [5, 0];
-			manualClimateArray[48] = [5, 0];
-			manualClimateArray[49] = [5, 0];
-			manualClimateArray[50] = [5, 0];
+		else {
+			manualClimateArray[0] = 5;
+			manualClimateArray[1] = 5;
+			manualClimateArray[2] = 5;
+			manualClimateArray[3] = 5;
+			manualClimateArray[4] = 5;
+			manualClimateArray[5] = 5;
+			manualClimateArray[6] = 5;
+			manualClimateArray[7] = 5;
+			manualClimateArray[8] = 5;
+			manualClimateArray[9] = 5;
+			manualClimateArray[10] = 5;
+			manualClimateArray[11] = 5;
+			manualClimateArray[12] = 7;
+			manualClimateArray[13] = 7;
+			manualClimateArray[14] = 7;
+			manualClimateArray[15] = 7;
+			manualClimateArray[16] = 7;
+			manualClimateArray[17] = 10;
+			manualClimateArray[18] = 10;
+			manualClimateArray[19] = 10;
+			manualClimateArray[20] = 10;
+			manualClimateArray[21] = 10;
+			manualClimateArray[22] = 10;
+			manualClimateArray[23] = 10;
+			manualClimateArray[24] = 5;
+			manualClimateArray[25] = 5;
+			manualClimateArray[26] = 5;
+			manualClimateArray[27] = 5;
+			manualClimateArray[28] = 5;
+			manualClimateArray[29] = 5;
+			manualClimateArray[30] = 5;
+			manualClimateArray[31] = 5;
+			manualClimateArray[32] = 5;
+			manualClimateArray[33] = 5;
+			manualClimateArray[34] = 5;
+			manualClimateArray[35] = 5;
+			manualClimateArray[36] = 5;
+			manualClimateArray[37] = 5;
+			manualClimateArray[38] = 5;
+			manualClimateArray[39] = 5;
+			manualClimateArray[40] = 5;
+			manualClimateArray[41] = 5;
+			manualClimateArray[42] = 5;
+			manualClimateArray[43] = 5;
+			manualClimateArray[44] = 5;
+			manualClimateArray[45] = 5;
+			manualClimateArray[46] = 5;
+			manualClimateArray[47] = 5;
+			manualClimateArray[48] = 5;
+			manualClimateArray[49] = 5;
+			manualClimateArray[50] = 5;
 
 
 			climateArray = manualClimateArray; //assigns value of manualClimateArray to climateArray.
-		}
-
-		return climateArray;
+			return climateArray;
+			}
 	};
 
-	climateChange();
+	climateChange(); // Sets climateArray to new value
+
+	// Create list of random numbers that will become weather-------
+
+	weatherArray = [];
+
+	function makeWeatherArray() {
+		for (var i = 0; i < maxturn; i++) {
+			weather = Math.floor((Math.random()*1000)+1);
+			weatherArray[i] = weather;
+		}
+		return weatherArray;
+	};
+
+	makeWeatherArray(); //sets weatherArray to new value
+
+	// Set rain thresholds as modified by climate change over course of game -------
 
 
 	thresholdArray = [];
 
-	function makeThresholdArray () {};
+
+	function makeThresholdArray () {
+
+		thresholdArray[0] = threshold; //sets first value equal to threshold
+
+		for (var i = 1; i < maxturn; i++)
+		{
+			thresholdArray[i] = thresholdArray[i-1] - (climateArray[i]);
+		}
+
+		return thresholdArray;
+	};
+
+	makeThresholdArray(); //sets thresholdArray to new value based on climate change
+
 
 	// Set game weather -------
 
@@ -248,7 +272,7 @@ $(function initializeGame () {
 	};
 
 	calculateMaxScore();
-	console.log("The maximum possible score is " + maxScore + " points")
+	console.log("The maximum possible score is " + maxScore + " points");
 
 	// Calculate Random Play bonus threshold ---------------------------------
 
