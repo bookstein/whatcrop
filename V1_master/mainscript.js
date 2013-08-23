@@ -116,6 +116,7 @@ $(document).ready(function(){
 $(function initializeGame () {
 
 	$.jqplot.config.enablePlugins = true;
+	var historicWeather = []; // Array values filled in using historicWeatherArray() below
 
 	//Draws crop payout quadratics on canvas with jpPlot plugin
 	function drawQuadratic () {
@@ -185,6 +186,7 @@ $(function initializeGame () {
 		var ticksX = [[0, "0"], [maxAweather, maxAweather/2], [maxBweather, maxBweather/2], [upperBoundX, upperBoundX/2]];
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 
+
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB],
     		{
@@ -249,10 +251,10 @@ $(function initializeGame () {
                     	tickRenderer:$.jqplot.AxisTickRenderer
                     },
                 	tickOptions:{
-                        mark: "inside",
+                        mark: "cross",
                         formatString: "%#.0f",
                         showMark: true,
-                        showGridline: false
+                        showGridline: true
                     },
 
           			label:'Weather (inches of rain)',
@@ -309,9 +311,6 @@ $(function initializeGame () {
 
 		drawQuadratic();
 
-
-
-
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	function makeGameWeather () {
@@ -355,10 +354,20 @@ $(function initializeGame () {
 		function applyClimateChange () {
 			for (var i = 0; i < maxturn; i++) {
 				gameWeather[i] = climateArray[i].mean + (normalizedArray[i]*climateArray[i].std_dev);
+				historicWeatherArray(i);
 			}
+
+			function historicWeatherArray (count) {
+					//uses initial (historic) mean and std_dev to create historical weather array
+					historicWeather[count] = climateArray[0].mean + (normalizedArray[count]*climateArray[0].std_dev);
+			};
+			return historicWeather;
 		}; //end of applyClimateChange
 
 		applyClimateChange();
+
+		console.log("Historic weather: " + historicWeather);
+		console.log("Weather with climate change: " + gameWeather);
 
 		return gameWeather;
 
@@ -537,8 +546,8 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 	//Identify weather display labels
 
-	var historicMean = climateArray[0]["mean"]; //uses initial (historic) mean to divide weather into qualitative "Wet" and "Dry"
-	var historicStd_Dev = climateArray[0]["std_dev"]; //uses initial (historic) standard deviation to label extremes "Very Wet" and "Very Dry"
+	//var historicMean = climateArray[0]["mean"]; //uses initial (historic) mean to divide weather into qualitative "Wet" and "Dry"
+	//var historicStd_Dev = climateArray[0]["std_dev"]; //uses initial (historic) standard deviation to label extremes "Very Wet" and "Very Dry"
 	var weatherReport = "";
 	var inchesRain = 0;
 
@@ -556,6 +565,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		//alert("This is rain and game weather is " + gameWeather[turn]);
 	};
 
+/* This section commented out because BoxMuller replaced these else-if statements with accurate conditions
 	// 1. Crop A outcomes
 	if (cropchoice === "cropA") {
 		updateGame(betaA, maxApayout, maxAweather);
@@ -566,7 +576,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			displayRain(1);
 
 			//1.A.i Wet gameWeather is within normal range
-			if (gameWeather[turn] <= historicMean /*placeholder*/) {
+			if (gameWeather[turn] <= historicMean ) {
 				displaySun(.5);
 				$("#rowsCropA").removeClass("hidden");
 			}
@@ -591,7 +601,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			displaySun(1);
 
 			//1.B.i. dry gameWeather is within normal range
-			if (gameWeather[turn] <= historicMean /*placeholder*/) {
+			if (gameWeather[turn] <= historicMean ) {
 				displayRain(.5);
 				$("#rowsCropA").removeClass("hidden");
 			}
@@ -621,7 +631,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			displayRain(1);
 
 			//2A.i Wet gameWeather is within normal range
-			if (gameWeather[turn] <= historicMean /*placeholder*/) {
+			if (gameWeather[turn] <= historicMean ) {
 				displaySun(.5);
 				$("#rowsCropB").removeClass("hidden");
 			}
@@ -667,7 +677,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 			}
 		}
-	}
+	}*/
 
 }; // end of weatherResults
 
