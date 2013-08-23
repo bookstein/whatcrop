@@ -196,16 +196,16 @@ $(function initializeGame () {
 			var Adiff = gameWeather[i] - maxAweather;
 			var Bdiff = gameWeather [i] - maxBweather;
 
-			if (Math.abs(Adiff) > Math.abs(Bdiff)) {
-				optimalCrops[i] = "A";
+			if (Math.abs(Adiff) < Math.abs(Bdiff)) {
+				optimalCrops[i] = "cropA";
 			}
 
-			else if (Math.abs(Bdiff) > Math.abs(Adiff)) {
-				optimalCrops[i] = "B";
+			else if (Math.abs(Bdiff) < Math.abs(Adiff)) {
+				optimalCrops[i] = "cropB";
 			}
 
 			else {
-				optimalCrops[i] = "A";
+				optimalCrops[i] = "cropA";
 			}
 		}
 
