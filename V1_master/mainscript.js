@@ -258,7 +258,7 @@ $(function initializeGame () {
 	};
 
 	calculateMaxScore();
-	console.log("The maximum possible score is " + maxScore + " points")
+	console.log("The maximum possible score is " + maxScore + " points");
 
 	// Calculate Random Play bonus threshold ---------------------------------
 
