@@ -473,6 +473,7 @@ $(function introDialogs () {
 	$( "#first-message" ).dialog({
 		autoOpen: true,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
@@ -493,6 +494,7 @@ $(function introDialogs () {
 	$("#second-message").dialog({
 		autoOpen: false,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
@@ -515,6 +517,7 @@ $(function introDialogs () {
 	$("#third-message").dialog({
 		autoOpen: false,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
@@ -537,6 +540,7 @@ $(function introDialogs () {
 	$( "#fourth-message" ).dialog({
 		autoOpen: false,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
