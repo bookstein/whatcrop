@@ -17,28 +17,17 @@ $(document).ready(function(){
 
 	// Set number of turns per game
     maxturn = 50;
-    endOfGame = false;
 
-	// Set crop payouts using equation Payout = beta(w-w*) + P*
-	beta = 1;
-	maxApayout = 80; //P*(A)
-	maxBpayout = 100; //P*(B)
-	maxAweather = 1.9; //w*(A)
-	maxBweather = 2.3; //w*(B)
-	payoutA = 0; //modified depending on weather w
-	payoutB = 0; //modified depending on weather w
+    // Crop payouts
 
-	// Initial weather conditions
-	var initialClimate = {
-		mean: 1,
-		std_dev: 0
-	};
+
+
 
 	autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
 										//If false, then manually enter the climate change values you wish to use, below.
 
 	// Set rain threshold
-	//threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
+	threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
 
 	// Set bonus payments
 	bonusOneDollars = 1.25;
@@ -464,7 +453,7 @@ function climateChange () {
 
 	$(".turncount_instructions").text(maxturn + " turns");
 	$("#bonus_one_instructions").text(totalRandomPoints);
-	$("#bonus_two_instructions").text(totalOptimalPoints); */
+	$("#bonus_two_instructions").text(totalOptimalPoints);
 
 	// Set bar graph in opening dialogs
 
