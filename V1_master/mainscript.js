@@ -438,7 +438,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 	// A. Crop A outcomes
 	if (cropchoice === "cropA") {
-		updateGame(betaA, maxApayout, maxAweather);
+		updateGame(betaA, maxApayout, maxAweather); // call updateGame with values for crop A
 
 		// A1. gameWeather is wet
 
@@ -485,7 +485,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 	// 2. Crop B outcomes
 	else if (cropchoice === "cropB") {
-		updateGame(betaB, maxBpayout, maxBweather);
+		updateGame(betaB, maxBpayout, maxBweather); // call updateGame with values for crop B
 
 		// B1. gameWeather is wet
 
@@ -534,7 +534,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 function updateGame (beta, maxpayout, maxweather) { //this function is called and given arguments inside weatherResults function above
 
-	cropchoice = "";
+	cropchoice = ""; //resets value of cropchoice to none
 	var payout = 0;
 
 	function newPayout () {
@@ -544,7 +544,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			payout = 0;
 		}
 
-		else {
+		else if (payout > 0) {
 			payout = parseInt(payout);
 		}
 
@@ -563,6 +563,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 
 		function movePointsFlag () { //increase height of #points_flag using absolute positioning
+
 			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
 			var pixelHeight = parseInt($("#points_bar").css("height"));
 
@@ -592,7 +593,6 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 		};
 
-		animatePoints();
 		movePointsFlag();
 
 

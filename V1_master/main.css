@@ -645,7 +645,7 @@ button.plant {
 
 	#points_fill {
 		width: inherit;
-		height: 5px;
+		height: 1px;
 		background-color: #ffcc33;
 		position: absolute;
 		bottom: 0;
@@ -663,7 +663,7 @@ button.plant {
 		vertical-align: middle;
 		position: absolute; /*Use jQuery to change the absolute height of the points flag along with points_bar*/
 		right: 60%;
-		bottom: -15px;
+		bottom: -20px;
 		z-index: 3;
 	}
 
