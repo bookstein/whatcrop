@@ -222,12 +222,12 @@ $(function initializeGame () {
 
 			if (payout <= 0) {
 				payout = 0;
-				console.log("The payout is " + payout);
+				//console.log("The payout is " + payout);
 			}
 
 			else if (payout > 0) {
 				payout = parseInt(payout);
-				console.log("The payout for " + turn + " is " + payout);
+				//console.log("The payout for " + turn + " is " + payout);
 			}
 
 			return payout;
@@ -238,13 +238,13 @@ $(function initializeGame () {
 			if (optimalCrops[i] === "cropA") {
 				addScores(i, betaA, maxAweather, maxApayout); //call addScores() with values of crop A
 				maxScore += payout;
-				console.log("The score is now " + maxScore);
+				//console.log("The score is now " + maxScore);
 			}
 
 			else if (optimalCrops[i] === "cropB") {
 				addScores(i, betaB, maxBweather, maxBpayout); //call addScores() with values of crop B
 				maxScore += payout;
-				console.log("The score is now " + maxScore);
+				//console.log("The score is now " + maxScore);
 			}
 		}
 
@@ -562,9 +562,6 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
   		};
 
 
-//Restore this function once maxScore has been calculated for BoxMuller version
-
-		/*
 		function movePointsFlag () { //increase height of #points_flag using absolute positioning
 			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
 			var pixelHeight = parseInt($("#points_bar").css("height"));
@@ -593,11 +590,10 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 
 			//carve up post-second-bonus pixels into fixed amount between this turn and last turn
-		}; */
+		};
 
-		/*
 		animatePoints();
-		movePointsFlag();*/
+		movePointsFlag();
 
 
 
