@@ -97,7 +97,7 @@ $(document).ready(function(){
 	GameOver = false;
 
 	//Points Counter
-
+	maxScore = 0;
 	score = 0; //starting score is 0
 	$("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points counter
 
@@ -187,47 +187,73 @@ $(function initializeGame () {
 
 	//Calculate Max Score --------------------------------------
 
-	optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
+	function calculateMaxScore () {
 
-	function calculateOptimalCrop () {
-		//Strategy: if optimal value of A or B is closer to the gameWeather, choose that crop
-		for (var i = 0; i < maxturn; i++) {
+		var optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
+		var payout = 0; //local payout variable for calculating maxScore
 
-			var Adiff = gameWeather[i] - maxAweather;
-			var Bdiff = gameWeather [i] - maxBweather;
+		function findOptimalCrop () {
+		//Strategy: if the difference between the optimal value of the crop is closest to gameWeather, choose that crop at the optimal crop for that turn
+			for (var i = 0; i < maxturn; i++) {
 
-			if (Math.abs(Adiff) < Math.abs(Bdiff)) {
-				optimalCrops[i] = "cropA";
+				var Adiff = gameWeather[i] - maxAweather;
+				var Bdiff = gameWeather [i] - maxBweather;
+
+				if (Math.abs(Adiff) < Math.abs(Bdiff)) {
+					optimalCrops[i] = "cropA";
+				}
+
+				else if (Math.abs(Bdiff) < Math.abs(Adiff)) {
+					optimalCrops[i] = "cropB";
+				}
+
+				else {
+					optimalCrops[i] = "cropA";
+				}
+			}
+			return optimalCrops;
+		}; // end of findOptimalCrop()
+
+		findOptimalCrop(); //sets value of optimalCrops array
+		console.log("The array of optimal crops is " + optimalCrops);
+
+		function addScores (turn, beta, maxweather, maxpayout) {
+			payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
+
+			if (payout <= 0) {
+				payout = 0;
+				console.log("The payout is " + payout);
 			}
 
-			else if (Math.abs(Bdiff) < Math.abs(Adiff)) {
-				optimalCrops[i] = "cropB";
+			else if (payout > 0) {
+				payout = parseInt(payout);
+				console.log("The payout for " + turn + " is " + payout);
 			}
 
-			else {
-				optimalCrops[i] = "cropA";
+			return payout;
+		}; //end of addScores()
+
+		for (var i=0; i < maxturn; i++) {
+
+			if (optimalCrops[i] === "cropA") {
+				addScores(i, betaA, maxAweather, maxApayout); //call addScores() with values of crop A
+				maxScore += payout;
+				console.log("The score is now " + maxScore);
+			}
+
+			else if (optimalCrops[i] === "cropB") {
+				addScores(i, betaB, maxBweather, maxBpayout); //call addScores() with values of crop B
+				maxScore += payout;
+				console.log("The score is now " + maxScore);
 			}
 		}
 
-		return optimalCrops;
-	}; // end of calculateOptimalCrop
-
-	calculateOptimalCrop(); //sets value of optimalCrops array
-
-	maxScore = 0;
-
-	function calculateMaxScore () {
-			for (var i=0; i < maxturn; i++)
-
-			{
-			maxScore += optimalCrops[i]
-			} //maxScore = maxScore + optimalTurnCrop[i]
 		return maxScore;
-	};
+	}; //end of calculateMaxScore()
 
 	calculateMaxScore();
-	console.log("The maximum possible score is " + maxScore + " points")
 
+	console.log("The maximum possible score is " + maxScore + " points");
 }); //end of initialization function
 
 // >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
