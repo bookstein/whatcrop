@@ -198,12 +198,77 @@ header > h1 {
 
 #givens {
 	display: inline-block;
-	max-width: 20%;
+	min-width: 25%;
 	min-height: 550px;
 	text-align: center;
 }
 
-table {
+#chartdiv {
+	height: 350px;
+	width: 100%;
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.jqplot-grid-canvas {
+	background-image: linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
+	background-image: -o-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
+	background-image: -moz-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
+	/*background-image: -webkit-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);*/
+	background-image: -ms-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
+	background-image: -webkit-gradient(
+		linear,
+		left 0,
+		right 0,
+		color-stop(0.33, rgb(255, 204, 51)),
+		color-stop(0.5, rgb(200, 200, 200)),
+		color-stop(0.84, rgb(0, 200, 500))
+	);
+		z-index: 0;
+		opacity: .2;
+		height: 105%;
+		width: 100%;
+}
+
+.jqplot-event-canvas {
+	z-index: 1;
+}
+
+.jqplot-point-label {
+	font-family: Georgia, serif;
+	font-size: 14px !important;
+	font-weight: normal;
+}
+
+.jqplot-point-label.jqplot-series-0.jqplot-point-1, .jqplot-point-label.jqplot-series-0.jqplot-point-0 {
+	color: #820000;
+}
+
+.jqplot-point-label.jqplot-series-1.jqplot-point-1, .jqplot-point-label.jqplot-series-1.jqplot-point-0 {
+	color: #3811c9;
+}
+
+.jqplot-point-label.jqplot-series-0.jqplot-point-0, .jqplot-point-label.jqplot-series-1.jqplot-point-0 {
+	font-weight: bold;
+	font-size: 16px !important;
+}
+
+.jqplot-yaxis-tick, .jqplot-xaxis-tick {
+	font-family: Georgia, serif;
+	font-size: 14px;
+	padding: 5px;
+	z-index: 1;
+}
+
+.jqplot-xaxis-tick {
+	font-weight: normal;
+}
+
+.jqplot-xaxis-label {
+	z-index: 1;
+}
+
+/*table {
 	height: 300px;
 	width: 230px;
 	background-image: url("images/table_background.jpg");
@@ -266,7 +331,7 @@ td img {
 	margin-right: auto;
 }
 
-
+*/
 
 /*>>>>>>>>>>>>>>>>>>>>>>> Turn Counter >>>>>>>>>>>>>>*/
 
@@ -577,7 +642,7 @@ button.plant {
 #score {
 	display: inline-block;
 	padding: 10px;
-	min-width: 20%;
+	min-width: 15%;
 	max-width: 25%;
 	min-height: 550px;
 	background-image: url('images/coinstack.png');
@@ -598,7 +663,7 @@ button.plant {
 	overflow: visible;
 	display: inline-block;
 	position: absolute;
-	right: 50%;
+	right: 40%;
 	z-index: 1;
 }
 

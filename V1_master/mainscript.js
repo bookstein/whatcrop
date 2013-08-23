@@ -21,11 +21,15 @@ $(document).ready(function(){
     endOfGame = false;
 
 	// Set crop payouts using equation Payout = beta(w-w*) + P*
+
+		// Crop A
 	betaA = -.002;
-	betaB = -.001;
 	maxApayout = 200; //P*(A)
-	maxBpayout = 120; //P*(B)
 	maxAweather = 800; //w*(A)
+
+		// Crop B
+	betaB = -.001;
+	maxBpayout = 120; //P*(B)
 	maxBweather = 400; //w*(B)
 
 	// Manually set climate change by turn, up to maxturn
@@ -111,17 +115,210 @@ $(document).ready(function(){
 
 $(function initializeGame () {
 
+	$.jqplot.config.enablePlugins = true;
+	var historicWeather = []; // Array values filled in using historicWeatherArray() below
 
-	/*function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
-		$("table").find("td#payoutAwet").text(payoutAwet + " points");
-		$("table").find("td#payoutAdry").text(payoutAdry + " points");
-		$("table").find("td#payoutBwet").text(payoutBwet + " points");
-		$("table").find("td#payoutBdry").text(payoutBdry + " points");
-	};
+	//Draws crop payout quadratics on canvas with jpPlot plugin
+	function drawQuadratic () {
 
-	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);*/
+		function dataArrays (beta, maxweather, maxpayout, crop) {
+			// for quadratic equation 0 = ax^2 + bx + c
+			var a = beta;
+			var b = -2 * maxweather * beta;
+			var c = (beta * maxweather * maxweather) + maxpayout;
+			var root_part = Math.sqrt((b*b) - 4*a*c);
+			var denominator = 2*a;
+
+			//calculate roots of payout parabola
+			var root1 = (-b + root_part)/denominator;
+			var root2 = (-b - root_part)/denominator;
+
+			//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
+			parabolaArray = [[root1, 0, crop], [maxweather, maxpayout, maxpayout + " pts"], [root2, 0, null]];
+			return parabolaArray;
+		}; //end of dataArrays
+
+		// Call dataArrays function and create arrays for A and B
+		var plotA = dataArrays(betaA, maxAweather, maxApayout, "A");
+		var plotB = dataArrays(betaB, maxBweather, maxBpayout, "B");
+
+		// Translate values of historicWeather into inches of rain (gameWeather/2)
+		var plotHistory = function historicWeatherInchesArray () {
+				for (var i =0; i < maxturn; i++) {
+					historicWeather[i] = historicWeather[i]/2;
+				}
+
+				return historicWeather;
+		};
+
+		// Set upper bounds on graph
+		var upperBoundX = 1200; //default value for upper bound of graph x-axis
+		var upperBoundY = 250; //default value for upper bound of graph y-axis
+
+		function findUpperBoundX () {
+		//modifies upper bound on x-axis based on largest parabola root (point at which crop value is (X,0) with largest possible value of X)
+			var root1A = plotA[0][0];
+			var root2A = plotA[2][0];
+			var root1B = plotB[0][0];
+			var root2B = plotB[2][0];
+
+			var rootArray = [root1A, root2A, root1B, root2B];
+			var maxRoot = Math.max.apply(Math, rootArray);
+
+			upperBoundX = Math.ceil(maxRoot/100)*100;
+
+			return upperBoundX;
+		};
+
+		findUpperBoundX();
+
+		function findUpperBoundY () {
+			var vertexA = plotA[1][1];
+			var vertexB = plotB[1][1];
+
+			if (vertexA > vertexB) {
+				upperBoundY = vertexA;
+			}
+
+			else {
+				upperBoundY = vertexB;
+			}
+
+			return upperBoundY;
+		};
+
+		findUpperBoundY();
+
+		// Set values for tick marks
+		var maxX = [upperBoundX+100];
+		var maxY = [upperBoundY+20];
+		var ticksX = [[0, "0"], [maxAweather, maxAweather/2], [maxBweather, maxBweather/2], [upperBoundX, upperBoundX/2]];
+		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 
 
+		//draw parabolas in #chartdiv
+		var cropValues = $.jqplot('chartdiv', [plotA, plotB], {
+
+		      //stackSeries: true, --> this breaks the graph
+
+		      grid: {
+        		//drawGridlines: true,
+        		shadow: false,
+        		borderWidth: 1,
+        		drawBorder: true,
+        		//background: "rgba(0, 200, 500, 0.05)",
+        	  },
+
+		      seriesDefaults: {
+		          rendererOptions: {
+		              smooth: true
+		          },
+
+		       // labels for payout curves at vertex
+		       //pointLabels uses the final value in parabolaArray as its data
+		          pointLabels: {
+		          	show: true,
+		          	location:'nw',
+		          	ypadding:3,
+		          	xpadding:2
+		          }
+		      },
+
+		      /*canvasOverlay: {
+        		show: true,
+        		objects: [{
+          				rectangle: {
+          					xmin: upperBoundX/2,
+          					xmax: upperBoundX,
+          					xminOffset: "0px",
+          					xmaxOffset: "0px",
+          					yminOffset: "0px",
+          					ymaxOffset: "0px",
+                    		color: "rgba(0, 200, 500, 0.1)",
+                    		showTooltip: false,
+                    		tooltipFormatString: "Rain"
+                    	},
+
+                    	rectangle: {
+                    		xmin: 0,
+          					xmax: upperBoundX/2,
+          					xminOffset: "0px",
+          					xmaxOffset: "0px",
+          					yminOffset: "0px",
+          					ymaxOffset: "0px",
+                    		color: "rgba(255, 204, 51, 0.3)",
+                    		showTooltip: false,
+                    		tooltipFormatString: "Sun"
+                    	}
+                    }]
+      		  },*/
+
+		      seriesColors: [/*color A*/ "#820000", /*color B*/ "#3811c9"],
+		      axes: {
+        		xaxis:{
+        			ticks: ticksX,
+        			borderWidth: 1.5,
+        			rendererOptions:{
+                    	tickRenderer:$.jqplot.AxisTickRenderer
+                    },
+                	tickOptions:{
+                        mark: "cross",
+                        formatString: "%#.0f",
+                        showMark: true,
+                        showGridline: true
+                    },
+
+          			label:'Weather (inches of rain)',
+          			labelRenderer: $.jqplot.AxisLabelRenderer,
+         			labelOptions: {
+            			fontFamily: 'Verdana, sans-serif',
+            			fontSize: '12pt'
+          			}
+        		},
+
+        		yaxis:{
+          			ticks: ticksY,
+          			rendererOptions:{
+                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
+                    },
+                	tickOptions:{
+                        mark: "inside",
+                        showLabel: false,
+                        formatString: "%#.0f",
+                        showMark: true,
+                        showGridline: true
+                    },
+
+          			/*label:'Points',
+          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+						labelOptions: {
+	            			fontFamily: 'Verdana, sans-serif',
+	            			fontSize: '12pt',
+          				}*/
+      			},
+
+    		  },
+
+		      series:[
+		          {
+		            // CropA
+		            lineWidth:2,
+		            showMarker: false
+		          },
+		          {
+		            // CropB
+		            lineWidth:2,
+		            showMarker: false
+		          },
+		          {
+		          	// Weather
+		          	lineWidth: 0,
+		          	showMarker: false
+		      	  }
+		      ]
+		    }
+		  );
+	}; //end of drawQuadratic()
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -166,16 +363,30 @@ $(function initializeGame () {
 		function applyClimateChange () {
 			for (var i = 0; i < maxturn; i++) {
 				gameWeather[i] = climateArray[i].mean + (normalizedArray[i]*climateArray[i].std_dev);
+				historicWeatherArray(i); // calls historicWeatherArray at each value of i
 			}
+
+			function historicWeatherArray (count) {
+				//uses initial (historic) mean and std_dev to create historical weather array
+				historicWeather[count] = climateArray[0].mean + (normalizedArray[count]*climateArray[0].std_dev);
+			};
+
+
+			return historicWeather;
+
 		}; //end of applyClimateChange
 
 		applyClimateChange();
+
+		console.log("Historic weather: " + historicWeather);
+		console.log("Weather with climate change: " + gameWeather);
 
 		return gameWeather;
 
 	}; // end function makeGameWeather
 
 	makeGameWeather();
+	drawQuadratic();
 
 
 	//Populate spans in opening and ending dialogs
@@ -263,7 +474,7 @@ $(function initializeGame () {
 $(function introDialogs () {
 
 	$( "#first-message" ).dialog({
-		autoOpen: true,
+		autoOpen: false,
 		modal: true,
 		closeOnEscape: false,
         resizable: false,
@@ -417,8 +628,8 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 	//Identify weather display labels
 
-	var historicMean = climateArray[0]["mean"]; //uses initial (historic) mean to divide weather into qualitative "Wet" and "Dry"
-	var historicStd_Dev = climateArray[0]["std_dev"]; //uses initial (historic) standard deviation to label extremes "Very Wet" and "Very Dry"
+	//var historicMean = climateArray[0]["mean"]; //uses initial (historic) mean to divide weather into qualitative "Wet" and "Dry"
+	//var historicStd_Dev = climateArray[0]["std_dev"]; //uses initial (historic) standard deviation to label extremes "Very Wet" and "Very Dry"
 	var weatherReport = "";
 	var inchesRain = 0;
 
@@ -456,7 +667,6 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			$("#deadAwet").removeClass("hidden");
 			//display too-wet crop A ("Very Wet")
 		}
-
 
 		// A2. gameWeather is dry
 
