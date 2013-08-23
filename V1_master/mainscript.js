@@ -47,10 +47,11 @@ $(document).ready(function(){
 	totalOptimalPoints = 0;
 
 
+
 	//Turn Counter
 
 	turn = 0;
-	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+	$("#turns_counter").text(turn + "/" + maxturn);
 	GameOver = false;
 
 	//Points Counter
@@ -61,7 +62,7 @@ $(document).ready(function(){
 	// Real Dollars Earned
 
 	realDollars = 0; //real earnings in dollars start at 0
-	$("#dollars_counter").html("$"+realDollars); //writes initial realDollars to dollars counter
+	$("#dollars_counter").text("$"+realDollars); //writes initial realDollars to dollars counter
 
 
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -69,14 +70,14 @@ $(document).ready(function(){
 $(function initializeGame () {
 
 
-	/*function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
-		$("table").find("td#payoutAwet").text(payoutAwet + " points");
-		$("table").find("td#payoutAdry").text(payoutAdry + " points");
-		$("table").find("td#payoutBwet").text(payoutBwet + " points");
-		$("table").find("td#payoutBdry").text(payoutBdry + " points");
+	function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
+		$("table").find("td#payoutAwet").text(payoutAwet );
+		$("table").find("td#payoutAdry").text(payoutAdry );
+		$("table").find("td#payoutBwet").text(payoutBwet );
+		$("table").find("td#payoutBdry").text(payoutBdry );
 	};
 
-	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);*/
+	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
 
 
 
@@ -95,6 +96,7 @@ $(function initializeGame () {
 		if (autoFillClimateChange == true) { //set autoFillClimateChange at top of code
 
 			for (var i =0; i < maxturn; i++) {
+
 				var k = .1; //k is any constant increasing the mean
 				var j = .5; //j is any constant increasing the standard deviation
 				var climateChange = {
@@ -161,6 +163,7 @@ $(function initializeGame () {
 			manualClimateArray[49] = [5, 0];
 			manualClimateArray[50] = [5, 0];
 
+
 			climateArray = manualClimateArray; //assigns value of manualClimateArray to climateArray.
 		}
 
@@ -169,52 +172,14 @@ $(function initializeGame () {
 
 	climateChange();
 
-	// Create array of Z0s
 
-	function makeWeatherArray () {
-		randomPairs = { //randomPairs is an object containing two random numbers picked from a uniform distribution
-			x: undefined,
-			y: undefined
-		};
-		randomPairArray = [];
-		normalizedArray = [];
-		weatherArray = [];
-		for (var i = 0; i < maxturn; i++) {
-			randomPairs = {
-				x: Math.random(),
-				y: Math.random()
-			}
-			randomPairArray[i] = randomPairs; //creates an array of objects containing random number pairs
-		}
+	thresholdArray = [];
 
-		function boxMullerTransformation () {
-			for (var i = 0; i < maxturn; i++) {
-				normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y);
-			}
-
-			//return normalizedArray;  -- necessary?
-		};
-
-		boxMullerTransformation();
-
-			//Apply climateChange to normalizedArray in the form of mean + Z0 * std_dev
-
-		function applyClimateChange () {
-			for (var i = 0; i < maxturn; i++) {
-				weatherArray[i] = climateArray[i].newMean + (normalizedArray[i]*climateArray[i].newStd_dev);
-			}
-		};
-
-		applyClimateChange();
-
-		return weatherArray;
-	};
-
-	makeWeatherArray();
+	function makeThresholdArray () {};
 
 	// Set game weather -------
 
-	/*gameWeather = [];
+	gameWeather = [];
 
 	function makeGameWeather() { //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
 
@@ -448,6 +413,8 @@ $(function initializeGame () {
 
 			$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 			$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
+			$("#bonus1value").text(totalRandomPoints);
+			$("#bonus2value").text(totalOptimalPoints);
 		};
 
 		bonusHeight(totalRandomPoints, totalOptimalPoints);
@@ -472,9 +439,18 @@ $(function initializeGame () {
 	//Populate spans in opening and ending dialogs
 
 	$(".turncount_instructions").text(maxturn + " turns");
-	$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
 	$("#bonus_one_instructions").text(totalRandomPoints);
 	$("#bonus_two_instructions").text(totalOptimalPoints); */
+
+	// Set bar graph in opening dialogs
+
+	var dryPercent = ((1000-threshold)/1000)*100;
+	var wetPercent = 100 - ((1000-threshold)/1000)*100;
+	$(".dry_percent").text(dryPercent + "%");
+	$(".wet_percent").text(wetPercent + "%");
+	$("#sun_probability").css("height", dryPercent);
+	$("#rain_probability").css("height", wetPercent);
+
 
 }); //end of initialization function
 
@@ -492,14 +468,14 @@ $(function introDialogs () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (1 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				$( "#second-message" ).dialog( "open" );
 				$("#givens").addClass("glow");
-				$(".ui-widget-overlay").addClass("active-left");
+				//$(".ui-widget-overlay").addClass("active-left");
 			}
 		} ]
 	});
@@ -512,9 +488,9 @@ $(function introDialogs () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (2 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				//$(".ui-widget-overlay").addClass("active-left");
@@ -534,16 +510,16 @@ $(function introDialogs () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (3 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				$( "#fourth-message" ).dialog( "open" );
 				$("table").removeClass("glow");
 				$("#points_bar, #points_flag").toggleClass("glow");
-				$(".ui-widget-overlay").removeClass("active-left");
-				$(".ui-widget-overlay").addClass("active-right");
+				//$(".ui-widget-overlay").removeClass("active-left");
+				//$(".ui-widget-overlay").addClass("active-right");
 			}
 		} ]
 	});
@@ -556,13 +532,13 @@ $(function introDialogs () {
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
 		buttons: [ { text: "Start Game",
 			click: function() {
 				$( this ).dialog( "close" );
 				$("#points_bar, #points_flag").toggleClass("glow");
-				$(".ui-widget-overlay").removeClass("active-right");
+				//$(".ui-widget-overlay").removeClass("active-right");
 			}
 		} ]
 	});
@@ -635,6 +611,7 @@ $("#cropB").on("click", userClickedB);
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
 
 
+
 function weatherResults () { //triggered by #grow click, runs updateGame with correct arguments
 
 	var args = {}; //creates empty object for arguments
@@ -642,6 +619,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	disableGrowButton();
 
 	$(".plant, .plant_img, #grow").addClass("hidden").css("opacity", 0);
+
 
 	function displaySun () { // fadeIn causes the HTML to change to style="display:inline; opacity: 1"
 		$("#sun").addClass("displayWeather").removeClass("hidden");
@@ -652,6 +630,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		$("#rain").addClass("displayWeather").removeClass("hidden");
 		//alert("This is rain and game weather is " + gameWeather[turn]);
 	};
+
 
 	if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
 		args.crop = "A";
@@ -681,6 +660,8 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		$("#deadB").removeClass("hidden");
 		updateGame(payoutBdry);
 		//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
+
+
 	}
 
 	else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
@@ -698,14 +679,15 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	}
 
 
+
 	return args;
+
 };
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
 function updateGame(payout) { //this function is called inside weatherResults function
 
-	//alert("Running updateGame now using arguments " + arguments)
 	cropchoice = ""; // resets value of cropchoice to ""
 	var oldscore = score;
 	var newscore = oldscore + payout;
@@ -769,9 +751,10 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
 	};
 
+
 	function addTurn () {
 		turn = turn + 1;
-		$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+		$("#turns_counter").text( turn + "/" + maxturn );
 		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
 		//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
 	};
@@ -781,21 +764,16 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 		function animatePoints () {
 			//$("#points_bar").toggleClass("glow");
 
-
 			$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
 			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
 			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
   		};
 
+
 		function movePointsFlag () { //increase height of #points_flag using absolute positioning
+
 			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
 			var pixelHeight = parseInt($("#points_bar").css("height"));
-
-			//Ratio of points per pixel
-			var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
-
-			//Points_counter moves upward this number of pixels per turn
-			var perTurnHeight = payout/pointsPerPixelRatio;
 
 			//Current CSS position for #points_flag "bottom" as an integer
 			var flagHeight = parseInt($("#points_flag").css("bottom"));
@@ -803,25 +781,35 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 			//Current CSS height of #points_fill with "height" as an integer
 			var fillHeight = parseInt($("#points_fill").css("height"));
 
+			//Ratio of points per pixel
+			var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
+
+			//Points_counter moves upward this number of pixels per turn, depending on the turn payout
+			var perTurnHeight = payout/pointsPerPixelRatio;
+
+			// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
 			flagHeight+=perTurnHeight;
-			fillHeight+=perTurnHeight;
+			fillHeight +=perTurnHeight;
 
-			$("#points_flag").css("bottom", flagHeight); // Sets value of style rule "bottom" to flagHeight
-			//return flagHeight;
-
-			//increase height of yellow #points_fill
-			$("#points_fill").css("height", fillHeight); // Sets value of style rule "bottom" to flagHeight
-			//return fillHeight;
-
+			// Set new heights in CSS style rules for #points_flag and #points_fill
+			$("#points_flag").css("bottom", flagHeight);
+			$("#points_fill").css("height", fillHeight);
 
 			//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 		};
 
-		$("#point_count").html("<h5>" + newscore + "</h5>");
-		animatePoints();
-		//setTimeout(animatePoints, 4000);
 		movePointsFlag();
-	};
+		animatePoints();
+
+		score += payout;
+		$("#point_count").html("<h5>" + score + "</h5>");
+		return score; //this updates the value of the global variable "score"
+
+	}; //end of function newScore()
+
+	newScore();
+
+	//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 
 		// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
@@ -837,13 +825,13 @@ function updateGame(payout) { //this function is called inside weatherResults fu
 	};
 
 	setTimeout(fadeWeather, 4000);
-	newScore();
 	setTimeout(addTurn, 4000);
 
 
-	score += payout;
-	return score; //this updates the value of the global variable "score"
+	//score += payout;
+	//return score; //this updates the value of the global variable "score"
 };
+
 
 
 function endGame () { //call end-of-game dialog box

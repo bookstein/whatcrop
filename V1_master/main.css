@@ -79,13 +79,20 @@ section {
 h1 {font-family: Georgia, Times, serif; color: #565245; font-size: 24px;}
 h2 {color: #3f3c30; font-family: Georgia, Times, serif; font-size: 20px;}
 h3 {font-family: Georgia, Times, serif; font-weight: 400; font-size: 18px; color: #820000;} /*Inspired by h3 in #news div of stanford.edu */
-h4 {color: #3f3c30; font-family: Georgia, Times, serif; font-size: 16px; font-weight: bold;}
+h4 {color: #3f3c30; font-family: Georgia, Times, serif; font-size: 18px; font-weight: bold;}
 h5 {text-transform: uppercase; font-size: 16px; font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: 400; color: #820000;}
 h6 {color: #3f3c30; font-family: Georgia, Times,sans-serif; font-size: 12px; margin: 0; line-height: 17px; letter-spacing: normal; font-weight: normal; padding: 3px;} /*For subtitles and other emphasized paragraph text */
-p {color: #565347; font-family: Verdana, Helvetica,sans-serif; font-size: 12px; margin: 0; line-height: 14px; letter-spacing: normal; padding: 3px;} /*color: #585754*/
 
-.Acolor {color: #820000;} /*Same as Stanford red */
-.Bcolor {color: #3811c9;} /*Blue RGB(56,17,201)*/
+p {color: #565347; font-family: Georgia, Times, serif; font-size: 12px; margin: 0; line-height: 14px; letter-spacing: normal; padding: 3px;} /*color: #585754*/
+
+
+.Acolor {
+	color: #820000;
+	} /*Same as Stanford red */
+
+.Bcolor {
+	color: #3811c9;
+	} /*Blue RGB(56,17,201)*/
 
 
 /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
@@ -96,23 +103,7 @@ header {
 	width: 100%;
 	height: 80px;
 	padding: 5px;
-}
-
-nav {
-	position: relative;
-}
-
-nav a {
-	color: white;
-	font-size: .75em;
-	position: relative;
-	top: 10px;
-	left: 20px;
-	text-decoration: none;
-}
-
-nav a:hover {
-	text-decoration: underline;
+	vertical-align: middle;
 }
 
 
@@ -143,14 +134,84 @@ header > h1 {
 /* >>>>>>>>>>>>>>>>>>>>>>>> Game introduction dialog boxes <<<<<<<<<<<<<<<<< */
 
 .dialog-message {
-	position: absolute;
-	top: 60px;
-	left: 460px;
 	display: block;
 }
 
 .dialog-message span {
 	font-weight: bold;
+}
+
+.dialog-message table {
+/*Uses css rules of #givens table*/
+
+}
+
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
+.dialog-message img { /* FSE Logo */
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+/*Formatting font inside dialog boxes*/
+.dialog-message p {
+	color: #565347;
+	font-family: Times, serif;
+	font-size: 18px;
+	letter-spacing: normal;
+	line-height: 1.3em;
+	text-align: left;
+}
+
+#weather_bar_graph {
+	background-position: center;
+	height: 150px;
+}
+
+#weather_bar_graph thead {
+	background-color: #eae9e6;
+}
+
+#weather_bar_graph tbody {
+	background-color: white;
+}
+
+.bar {
+	vertical-align: bottom;
+	border-right: 1 px dotted #eae9e6;
+	border-left: none;
+	padding-bottom: 0;
+}
+
+.percent {
+	height: 30px;
+	border-right: 1 px dotted #eae9e6;
+	border-bottom: none;
+}
+
+#rain_probability {
+	background-color: rgb(62, 62, 219);
+	height: 50px;
+	vertical-align: bottom;
+	border-top: 1px solid #3f3c30;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+#sun_probability {
+	background-color: #ffcc33;
+	height: 50px;
+	vertical-align: bottom;
+	border-top: 1px solid #3f3c30;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+#coins_png {
+	height: 150px;
 }
 
 .glow {
@@ -162,19 +223,6 @@ header > h1 {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-}
-
-.active-left { /* For moving modal gray-out to the right during intro */
-	position: fixed;
-	top: 0;
-	left: 25% !important;
-}
-
-.active-right { /* For moving modal gray-out to the left during intro */
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 75% !important;
 }
 
 
@@ -204,69 +252,69 @@ header > h1 {
 }
 
 table {
-	height: 300px;
-	width: 230px;
-	background-image: url("images/table_background.jpg");
+	height: auto;
+	width: auto;
+	/*background-image: url("images/table_background.jpg");
 	background-repeat: no-repeat;
 	background-size: 220px 300px;
 	background-position: right;
-	border: 3px solid #3f3c30;
+	border: 3px solid #3f3c30;*/
+	border: 1px solid #3f3c30;
 	margin-right: auto;
 	margin-left: auto;
 }
 
 thead {
-	padding: 10px;
-	border-bottom: 1px solid #3f3c30;
+	border-bottom: 1px dotted #3f3c30;
+	background-color: #eae9e6;
 }
 
 th {
-	color: #3f3c30;
 	font-family: Georgia, Times, serif;
-	font-size: 16px;
+	font-size: 18px;
+	border-right: 1px dotted #3f3c30;
 	font-weight: bold;
-	padding: 5px 2px;
+	width: 70px;
+	padding: 5px 15px;
 }
 
-#empty {
-	background-color: white;
-}
 
 td {
 	text-align: center;
 	vertical-align: middle;
-	border-bottom: 3px solid #3f3c30;
+	border-bottom: 1px dotted #3f3c30;
+	border-right: 1px dotted #3f3c30;
 	width: auto;
 	color: #3f3c30;
-	font-family: Georgia, Times,sans-serif;
-	font-size: 15px;
 	margin: 0;
-	line-height: 17px;
-	letter-spacing: normal;
+	font-family: Georgia, Times, serif;
+	font-size: 16px;
 	font-weight: normal;
-	padding: 2px;
+	padding: 10px 25px;
+
 }
 
-
-
-td.Acolor, td.Bcolor {
-	background-color: white;
-	border-right: 1px solid #3f3c30;
-	width: 70px;
-	font-size: 16px;
+#wetColor, #dryColor {
 	font-weight: bold;
 }
 
-td img {
-	height: 60px;
-	box-shadow: none;
-	border: none;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+#wetColor, #payoutAwet, #payoutBwet {
+	/*background-color: #C2DEEC;*/ /* sky blue */
+	border-top: 1px solid #3f3c30;
 }
 
+#dryColor, #payoutAdry, #payoutBdry {
+	/*background-color: #F0D2B4;*/ /* beige */
+	border-top: 1px solid #3f3c30;
+}
 
+#payoutAwet, #payoutAdry {
+	color: #820000;
+}
+
+#payoutBdry, #payoutBwet {
+	color: #3811c9;
+}
 
 /*>>>>>>>>>>>>>>>>>>>>>>> Turn Counter >>>>>>>>>>>>>>*/
 
@@ -276,13 +324,21 @@ td img {
 	width: auto;
 	height: auto;
 	text-align: center;
+	vertical-align: middle;
 }
 
-#turns_counter {
+#turns_bar {
 	margin: 5px;
 	background-color: #fff;
 	height: 2em;
-	border: 5px solid #3f3c30;
+	border: 1px solid #3f3c30;
+}
+
+#turns_counter {
+	font-family: Georgia, Times, serif;
+	font-size: 18px;
+	color: #3f3c30;
+	font-weight: bold;
 }
 
 
@@ -442,8 +498,9 @@ button.plant {
 	text-align: center;
 	border-radius: 3px;
 	padding: 5px 10px;
-	font-size: 18px;
 	z-index: 5;
+	font-size: 20px;
+	font-family: Georgia, Times, serif;
 	/*-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);*/
     /*box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.4), 0 2px 2px rgba(0, 0, 0, 0.2);*/
@@ -551,26 +608,7 @@ button.plant {
 
 
 
-/* >>>>>>>>>>>>>>>>>> Dialog boxes <<<<<<<<<<<<<< */
 
-.no-close .ui-dialog-titlebar-close {
-  display: none;
-}
-
-.dialog-message img { /* FSE Logo */
-	display: block;
-	margin-right: auto;
-	margin-left: auto;
-}
-
-/*Formatting font inside dialog boxes*/
-.dialog-message p {
-	color: #565347;
-	font-family: Verdana, Helvetica,sans-serif;
-	font-size: 12px; margin: 0;
-	line-height: 14px;
-	letter-spacing: normal;
-}
 
 /* >>>>>>>>>>>>>>Points Counter <<<<<<<<<<<<<<< */
 
@@ -594,8 +632,8 @@ button.plant {
 	height: 400px;
 	background-color: #fff;
 	margin: 1em 0 1em 0;
-	border: 5px solid #3f3c30;
 	overflow: visible;
+	border: 1px solid #3f3c30;
 	display: inline-block;
 	position: absolute;
 	right: 50%;
@@ -645,7 +683,7 @@ button.plant {
 
 	#points_fill {
 		width: inherit;
-		height: 5px;
+		height: 0px;
 		background-color: #ffcc33;
 		position: absolute;
 		bottom: 0;
@@ -663,7 +701,7 @@ button.plant {
 		vertical-align: middle;
 		position: absolute; /*Use jQuery to change the absolute height of the points flag along with points_bar*/
 		right: 60%;
-		bottom: -15px;
+		bottom: -20px;
 		z-index: 3;
 	}
 
@@ -688,21 +726,25 @@ button.plant {
 	left: 0;
 }
 
-	#dollars h4 { /* "Real Dollars Earned" */
-	 	color: white;
-		display: inline-block;
-		margin: 10px 0 0 0;
-	}
 
-	span#dollars_counter { /* Contained in <span>. Numerical counter within #dollars div. Target for bonuses */
-		text-align: right;
-		background-color: white;
-		border: 5px solid #ffcc33;
-		padding: 2px 30px;
-		display: inline-block;
-		margin: 5px 0;
-	}
+#dollars h4 { /* "Real Dollars Earned" h4 */
+ 	color: white;
+	display: inline-block;
+	margin: 10px 0 10px 0;
+}
 
+#dollars_counter { /* Contained in <span>. Numerical counter within #dollars div. Target for bonuses */
+	text-align: right;
+	background-color: white;
+	border: 5px solid #ffcc33;
+	padding: 2px 30px;
+	display: inline-block;
+	margin: 5px 0;
+	font-family: Georgia, Times, serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #3f3c30;
+}
 
 /*EXAMPLE OF GRADIENT BOXES TO ANIMATE POINTS ADDITION */
 
@@ -727,8 +769,6 @@ color-stop(0%, white), color-stop(15%, white), color-stop(100%, #D7E9F5));
 background: -moz-linear-gradient(top, white 0%, white 55%, #D5E4F3 130%);
 }
 
-
-
 /* >>>>>>>>>>>>>>>>> Footer <<<<<<<<<<<<<<< */
 
 footer {
@@ -737,6 +777,11 @@ footer {
 	background-image: url(images/grains2.jpeg);
 	background-repeat: repeat-x;
 	height: 100px;
+	vertical-align: middle;
+}
+
+footer img {
+	margin-top: 30px;
 }
 
 
