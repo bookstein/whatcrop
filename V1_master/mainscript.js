@@ -322,7 +322,7 @@ $(function initializeGame () {
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-	function makeGameWeather () {
+	function makeGameWeather (arrayName, historicBoolean) {
 		//Create an array of pairs of random numbers
 		var randomPairs = {
 			x: undefined,
@@ -359,33 +359,37 @@ $(function initializeGame () {
 		boxMullerTransformation();
 
 		//Apply climateChange to normalizedArray as mean + Z0 * std_dev
-
 		function applyClimateChange () {
 			for (var i = 0; i < maxturn; i++) {
-				gameWeather[i] = climateArray[i].mean + (normalizedArray[i]*climateArray[i].std_dev);
-				historicWeatherArray(i); // calls historicWeatherArray at each value of i
+				arrayName[i] = climateArray[i].mean + (normalizedArray[i]*climateArray[i].std_dev);
 			}
 
-			function historicWeatherArray (count) {
-				//uses initial (historic) mean and std_dev to create historical weather array
-				historicWeather[count] = climateArray[0].mean + (normalizedArray[count]*climateArray[0].std_dev);
-			};
-
-
-			return historicWeather;
+			return arrayName;
 
 		}; //end of applyClimateChange
 
-		applyClimateChange();
+		function historicWeatherArray () {
+			for (var i = 0; i < maxturn; i++) {
+				arrayName[i] = climateArray[0].mean + (normalizedArray[i]*climateArray[0].std_dev);
+			}
 
-		console.log("Historic weather: " + historicWeather);
-		console.log("Weather with climate change: " + gameWeather);
+			return arrayName;
+		}; // end of determineHistoricWeather()
 
-		return gameWeather;
+		if (historicBoolean === "false") {
+			applyClimateChange();
+		}
+
+		else {
+			historicWeatherArray();
+		}
 
 	}; // end function makeGameWeather
 
-	makeGameWeather();
+	makeGameWeather(gameWeather, false);
+	console.log("Weather with climate change: " + gameWeather);
+	makeGameWeather(historicWeather, true);
+	console.log("Historic weather: " + historicWeather);
 	drawQuadratic();
 
 
