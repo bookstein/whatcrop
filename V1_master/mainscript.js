@@ -142,14 +142,6 @@ $(function initializeGame () {
 		var plotA = dataArrays(betaA, maxAweather, maxApayout, "A");
 		var plotB = dataArrays(betaB, maxBweather, maxBpayout, "B");
 
-		// Translate values of historicWeather into inches of rain (gameWeather/2)
-		var plotHistory = function historicWeatherInchesArray () {
-				for (var i =0; i < maxturn; i++) {
-					historicWeather[i] = historicWeather[i]/2;
-				}
-
-				return historicWeather;
-		};
 
 		// Set upper bounds on graph
 		var upperBoundX = 1200; //default value for upper bound of graph x-axis
@@ -195,6 +187,29 @@ $(function initializeGame () {
 		var ticksX = [[0, "0"], [maxAweather, maxAweather/2], [maxBweather, maxBweather/2], [upperBoundX, upperBoundX/2]];
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 
+		// Create graphable data array for historicWeather using freqency of values
+		var plotHistory = function historicWeatherHistogram () {
+
+			var range = Math.max.apply(Math, historicWeather) - Math.min.apply(Math, historicWeather);
+			var intervalNumber = Math.sqrt(maxturn);
+			var intervalWidth = parseInt(range/intervalNumber);
+
+			console.log("range: " + range + " interval number: " + intervalNumber + " interval width: " + intervalWidth);
+
+			var frequency = [];
+
+			for (var intervalBottom = 0; intervalBottom < maxX - intervalWidth; intervalBottom+=intervalWidth) {
+
+				for (var i = intervalBottom; i < maxturn; i++) {
+					if (historicWeather[i] >= intervalBottom && historicWeather[i] < intervalBottom+intervalWidth) {
+						frequency[i] = [, ]
+					}
+				}
+
+			}
+
+			return frequency;
+		}; // end of historicWeatherHistogram()
 
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB], {
