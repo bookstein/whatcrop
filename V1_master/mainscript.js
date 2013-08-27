@@ -188,28 +188,35 @@ $(function initializeGame () {
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 
 		// Create graphable data array for historicWeather using freqency of values
-		var plotHistory = function historicWeatherHistogram () {
+		function historicWeatherHistogram () {
 
 			var range = Math.max.apply(Math, historicWeather) - Math.min.apply(Math, historicWeather);
-			var intervalNumber = Math.sqrt(maxturn);
-			var intervalWidth = parseInt(range/intervalNumber);
+			var intervalNumber = Math.ceil(Math.sqrt(maxturn));
+			var intervalWidth = Math.ceil(range/intervalNumber);
 
 			console.log("range: " + range + " interval number: " + intervalNumber + " interval width: " + intervalWidth);
 
 			var frequency = [];
+			var count = 0;
 
-			for (var intervalBottom = 0; intervalBottom < maxX - intervalWidth; intervalBottom+=intervalWidth) {
+			for (var intervalBottom = 0; intervalBottom < (Math.max.apply(Math, historicWeather)) - intervalWidth; intervalBottom+=intervalWidth) {
+				for (var i = 0; i < maxturn; i++) {
 
-				for (var i = intervalBottom; i < maxturn; i++) {
 					if (historicWeather[i] >= intervalBottom && historicWeather[i] < intervalBottom+intervalWidth) {
-						frequency[i] = [, ]
+						frequency[i] = [intervalBottom, count+=1]
+					}
+
+					else {
+						frequency[i] = [intervalBottom, count];
 					}
 				}
-
 			}
-
+			//console.log(frequency);
 			return frequency;
 		}; // end of historicWeatherHistogram()
+
+		var plotHistory = historicWeatherHistogram();
+
 
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [plotA, plotB], {
