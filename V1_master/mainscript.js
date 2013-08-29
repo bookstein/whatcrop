@@ -25,66 +25,66 @@ $(document).ready(function(){
 		// Crop A
 	betaA = -.002;
 	maxApayout = 200; //P*(A)
-	maxAweather = 800; //w*(A)
+	maxAweather = 400; //w*(A)
 
 		// Crop B
 	betaB = -.001;
 	maxBpayout = 120; //P*(B)
-	maxBweather = 400; //w*(B)
+	maxBweather = 200; //w*(B)
 
 	// Manually set climate change by turn, up to maxturn
 	climateArray = [
-		{mean: 800, std_dev: 75}, //0 -- initial climate
-		{mean: 800, std_dev: 75}, //1
-		{mean: 800, std_dev: 75}, //2
-		{mean: 800, std_dev: 75}, //3
-		{mean: 800, std_dev: 75}, //4
-		{mean: 800, std_dev: 75}, //5
-		{mean: 800, std_dev: 75}, //6
-		{mean: 800, std_dev: 75}, //7
-		{mean: 800, std_dev: 75}, //8
-		{mean: 800, std_dev: 75}, //9
-		{mean: 800, std_dev: 75}, //10
-		{mean: 700, std_dev: 75}, //11
-		{mean: 700, std_dev: 75}, //12
-		{mean: 700, std_dev: 75}, //13
-		{mean: 700, std_dev: 75}, //14
-		{mean: 700, std_dev: 75}, //15
-		{mean: 700, std_dev: 75}, //16
-		{mean: 700, std_dev: 75}, //17
-		{mean: 700, std_dev: 75}, //18
-		{mean: 700, std_dev: 75}, //19
-		{mean: 700, std_dev: 75}, //20
-		{mean: 600, std_dev: 75}, //21
-		{mean: 600, std_dev: 75}, //22
-		{mean: 600, std_dev: 75}, //23
-		{mean: 600, std_dev: 75}, //24
-		{mean: 600, std_dev: 75}, //25
-		{mean: 600, std_dev: 75}, //26
-		{mean: 600, std_dev: 75}, //27
-		{mean: 600, std_dev: 75}, //28
-		{mean: 600, std_dev: 75}, //29
-		{mean: 600, std_dev: 75}, //30
-		{mean: 600, std_dev: 75}, //31
-		{mean: 600, std_dev: 75}, //32
-		{mean: 600, std_dev: 75}, //33
-		{mean: 600, std_dev: 75}, //34
-		{mean: 600, std_dev: 75}, //35
-		{mean: 600, std_dev: 75}, //36
-		{mean: 600, std_dev: 75}, //37
-		{mean: 600, std_dev: 75}, //38
-		{mean: 600, std_dev: 75}, //39
-		{mean: 600, std_dev: 75}, //40
-		{mean: 600, std_dev: 75}, //41
-		{mean: 600, std_dev: 75}, //42
-		{mean: 600, std_dev: 75}, //43
-		{mean: 600, std_dev: 75}, //44
-		{mean: 600, std_dev: 75}, //45
-		{mean: 500, std_dev: 75}, //46
-		{mean: 400, std_dev: 75}, //47
-		{mean: 350, std_dev: 75}, //48
-		{mean: 350, std_dev: 75}, //49
-		{mean: 300, std_dev: 75}  //50
+		{mean: 400, std_dev: 75}, //0 -- initial climate
+		{mean: 400, std_dev: 75}, //1
+		{mean: 400, std_dev: 75}, //2
+		{mean: 400, std_dev: 75}, //3
+		{mean: 400, std_dev: 75}, //4
+		{mean: 400, std_dev: 75}, //5
+		{mean: 400, std_dev: 75}, //6
+		{mean: 400, std_dev: 75}, //7
+		{mean: 400, std_dev: 75}, //8
+		{mean: 400, std_dev: 75}, //9
+		{mean: 400, std_dev: 75}, //10
+		{mean: 300, std_dev: 75}, //11
+		{mean: 300, std_dev: 75}, //12
+		{mean: 300, std_dev: 75}, //13
+		{mean: 300, std_dev: 75}, //14
+		{mean: 300, std_dev: 75}, //15
+		{mean: 300, std_dev: 75}, //16
+		{mean: 300, std_dev: 75}, //17
+		{mean: 300, std_dev: 75}, //18
+		{mean: 300, std_dev: 75}, //19
+		{mean: 300, std_dev: 75}, //20
+		{mean: 275, std_dev: 75}, //21
+		{mean: 275, std_dev: 75}, //22
+		{mean: 275, std_dev: 75}, //23
+		{mean: 275, std_dev: 75}, //24
+		{mean: 275, std_dev: 75}, //25
+		{mean: 275, std_dev: 75}, //26
+		{mean: 275, std_dev: 75}, //27
+		{mean: 275, std_dev: 75}, //28
+		{mean: 275, std_dev: 75}, //29
+		{mean: 275, std_dev: 75}, //30
+		{mean: 275, std_dev: 75}, //31
+		{mean: 275, std_dev: 75}, //32
+		{mean: 275, std_dev: 75}, //33
+		{mean: 275, std_dev: 75}, //34
+		{mean: 275, std_dev: 75}, //35
+		{mean: 275, std_dev: 75}, //36
+		{mean: 275, std_dev: 75}, //37
+		{mean: 275, std_dev: 75}, //38
+		{mean: 275, std_dev: 75}, //39
+		{mean: 275, std_dev: 75}, //40
+		{mean: 275, std_dev: 75}, //41
+		{mean: 275, std_dev: 75}, //42
+		{mean: 275, std_dev: 75}, //43
+		{mean: 275, std_dev: 75}, //44
+		{mean: 275, std_dev: 75}, //45
+		{mean: 250, std_dev: 75}, //46
+		{mean: 200, std_dev: 75}, //47
+		{mean: 150, std_dev: 75}, //48
+		{mean: 150, std_dev: 75}, //49
+		{mean: 150, std_dev: 75}  //50
 	];
 
 
@@ -184,7 +184,7 @@ $(function initializeGame () {
 		// Set values for tick marks
 		var maxX = [upperBoundX+100];
 		var maxY = [upperBoundY+20];
-		var ticksX = [[0, "0"], [maxAweather, maxAweather/2], [maxBweather, maxBweather/2], [upperBoundX, upperBoundX/2]];
+		var ticksX = [[0, "0"], [maxAweather, maxAweather], [maxBweather, maxBweather], [upperBoundX, upperBoundX]];
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 		var ticksWeatherX = [];
 		var ticksWeatherY = [];
@@ -194,7 +194,7 @@ $(function initializeGame () {
 		function historicWeatherHistogram () {
 
 			var range = Math.max.apply(Math, historicWeather) - 0;
-			var intervalNumber = Math.ceil(Math.sqrt(historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
+			var intervalNumber = 2*Math.ceil(Math.sqrt(historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
 			var intervalWidth = range/intervalNumber;
 
 
