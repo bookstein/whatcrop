@@ -148,6 +148,7 @@ $(function initializeGame () {
 
 				else {
 					threshold[0] = maxweather - .33*Math.sqrt(maxpayout/(-beta));
+					threshold[2] = crop;
 				}
 
 				threshold[1] = Ycoordinate(threshold[0]);
@@ -162,7 +163,7 @@ $(function initializeGame () {
 
 
 			//output array of (x,y) points for use in jqPlot chart: [root1, lower normal-weather bound, vertex, upper normal-weather bound, root2]
-			parabolaArray = [[root1, 0, null], lower, [maxweather, maxpayout, crop], upper, [root2, 0, null]];
+			parabolaArray = [[root1, 0, null], lower, [maxweather, maxpayout, null], upper, [root2, 0, null]];
 
 			return parabolaArray;
 		}; //end of dataArrays

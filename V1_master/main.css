@@ -240,15 +240,15 @@ header > h1 {
 	font-weight: normal;
 }
 
-.jqplot-point-label.jqplot-series-1.jqplot-point-2, .jqplot-point-label.jqplot-series-1.jqplot-point-2 {
+.jqplot-point-label.jqplot-series-1.jqplot-point-1, .jqplot-point-label.jqplot-series-1.jqplot-point-1 {
 	color: #820000;
 }
 
-.jqplot-point-label.jqplot-series-2.jqplot-point-2, .jqplot-point-label.jqplot-series-2.jqplot-point-2 {
+.jqplot-point-label.jqplot-series-2.jqplot-point-1, .jqplot-point-label.jqplot-series-2.jqplot-point-1 {
 	color: #3811c9;
 }
 
-.jqplot-point-label.jqplot-series-1.jqplot-point-2, .jqplot-point-label.jqplot-series-2.jqplot-point-2 {
+.jqplot-point-label.jqplot-series-1.jqplot-point-1, .jqplot-point-label.jqplot-series-2.jqplot-point-1 {
 	font-weight: bold;
 	font-size: 16px !important;
 }
