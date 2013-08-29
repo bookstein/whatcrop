@@ -411,38 +411,19 @@ $(function initializeGame () {
 	            			fontSize: '12pt',
           				}*/
       			}
-    		  } // axes
+    		  }, // axes
 
-
-		      /*canvasOverlay: {
-        		show: true,
-        		objects: [{
-          				rectangle: {
-          					xmin: upperBoundX/2,
-          					xmax: upperBoundX,
-          					xminOffset: "0px",
-          					xmaxOffset: "0px",
-          					yminOffset: "0px",
-          					ymaxOffset: "0px",
-                    		color: "rgba(0, 200, 500, 0.1)",
-                    		showTooltip: false,
-                    		tooltipFormatString: "Rain"
-                    	},
-
-                    	rectangle: {
-                    		xmin: 0,
-          					xmax: upperBoundX/2,
-          					xminOffset: "0px",
-          					xmaxOffset: "0px",
-          					yminOffset: "0px",
-          					ymaxOffset: "0px",
-                    		color: "rgba(255, 204, 51, 0.3)",
-                    		showTooltip: false,
-                    		tooltipFormatString: "Sun"
-                    	}
-                    }]
-      		  }*/
-
+	      	canvasOverlay: {
+        		show: true, // turn this on and off to show results
+	            objects: [
+	                {verticalLine: {
+	                    name: 'results',
+	                    x: 400, // target this attribute to show results
+	                    lineWidth: 4,
+	                    color: 'rgb(100, 55, 124)',
+	                    shadow: false
+	                }}
+			]} // end of canvasOverlay
 		    } // cropValues object
 		  ); // cropValues jqplot
 	}; //end of drawQuadratic()
