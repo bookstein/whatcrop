@@ -436,13 +436,14 @@ $(function initializeGame () {
 
 		}; // end of function setOptions
 
+
 		// draw graph in #intro_graph (for intro dialog) using optionsObj above
 		historyOptionsObj = setOptions(historyOptionsObj, false);
-		//var chart1 = $.jqplot("intro_graph", [histogram, plotA, plotB], historyOptionsObj);
+		var chart1 = $.jqplot("intro_graph", [histogram, plotA, plotB], historyOptionsObj);
 
 		//draw graph in #chartdiv using optionsObj above
 		payoutOptionsObj = setOptions(payoutOptionsObj, true);
-		//var chart2 = $.jqplot("chartdiv", [histogram, plotA, plotB], payoutOptionsObj);
+		var chart2 = $.jqplot("chartdiv", [histogram, plotA, plotB], payoutOptionsObj);
 
 
 
