@@ -190,32 +190,51 @@ $(function initializeGame () {
 		// Create graphable data array for historicWeather using freqency of values
 		function historicWeatherHistogram () {
 
-			var range = Math.max.apply(Math, historicWeather) - Math.min.apply(Math, historicWeather);
-			var intervalNumber = Math.ceil(Math.sqrt(maxturn));
-			var intervalWidth = Math.ceil(range/intervalNumber);
+			var range = Math.max.apply(Math, historicWeather) - 0;
+			var intervalNumber = Math.ceil(Math.sqrt(historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
+			var intervalWidth = range/intervalNumber;
 
-			console.log("range: " + range + " interval number: " + intervalNumber + " interval width: " + intervalWidth);
+			console.log("range: " + range + " number of intervals: " + intervalNumber + " interval width: " + intervalWidth);
 
-			var frequency = [];
-			var count = 0;
+			function countOccurrence(newinterval) { //this functions runs for each interval
 
-			for (var intervalBottom = 0; intervalBottom < (Math.max.apply(Math, historicWeather)) - intervalWidth; intervalBottom+=intervalWidth) {
-				for (var i = 0; i < maxturn; i++) {
+				var intervalBottom = newinterval*intervalWidth;
+				var intervalTop = ((newinterval+1)*intervalWidth);
 
-					if (historicWeather[i] >= intervalBottom && historicWeather[i] < intervalBottom+intervalWidth) {
-						frequency[i] = [intervalBottom, count+=1]
+				console.log(intervalBottom + " to " + intervalTop);
+
+				var count = 0;
+
+				for (var i =0; i < historicWeather.length; i++) {
+
+					if (historicWeather[i] >= intervalBottom && historicWeather[i] < intervalTop) {
+						count += 1;
+					}
+
+					else if (newinterval === (intervalNumber-1) && historicWeather[i] >= intervalBottom) {
+						count +=1;
 					}
 
 					else {
-						frequency[i] = [intervalBottom, count];
+						count = count;
 					}
 				}
-			}
-			//console.log(frequency);
-			return frequency;
-		}; // end of historicWeatherHistogram()
 
-		var plotHistory = historicWeatherHistogram();
+				return [newinterval, count];
+
+			}; // end intervalCount
+
+			//creates empty array
+			var frequency = [];
+
+			//populates each item j in frequency array
+			for (var j = 0; j < intervalNumber; j++) {
+				frequency[j] = countOccurrence(j);//some function that creates arrays(i);
+			}
+			console.log(frequency);
+		}; //end historicWeatherHistogram
+
+		var histogram = historicWeatherHistogram();
 
 
 		//draw parabolas in #chartdiv
