@@ -234,6 +234,10 @@ header > h1 {
 	z-index: 1;
 }
 
+.jqplot-overlayCanvas-canvas {
+	z-index: -1; /* Overlay canvas is hidden until weatherResults() changes z-index*/
+}
+
 .jqplot-point-label {
 	font-family: Georgia, serif;
 	font-size: 14px !important;

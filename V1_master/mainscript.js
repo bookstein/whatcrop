@@ -419,7 +419,7 @@ $(function initializeGame () {
 	                {verticalLine: {
 	                    name: 'resultsLine',
 	                    x: gameWeather[turn], // this positions the line at the current turn weather
-	                    lineWidth: 3,
+	                    lineWidth: 4,
 	                    color: 'rgb(255, 204, 51)',
 	                    shadow: false
 	                }}
@@ -738,10 +738,11 @@ $("#cropB").on("click", userClickedB);
 
 function weatherResults () { //triggered by #grow click, runs updateGame with correct arguments
 
-	//Identify weather display labels
+	//Show weather results line on graph ("resultsLine")
 
-	//var historicMean = climateArray[0]["mean"]; //uses initial (historic) mean to divide weather into qualitative "Wet" and "Dry"
-	//var historicStd_Dev = climateArray[0]["std_dev"]; //uses initial (historic) standard deviation to label extremes "Very Wet" and "Very Dry"
+	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
+
+	//Identify weather display labels
 	var weatherReport = "";
 	var inchesRain = 0;
 
@@ -958,6 +959,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
 	   	cropchoice = ""; // resets value of cropchoice to ""
+	   	$(".jqplot-overlayCanvas-canvas").css('z-index', '-1'); //resets graph resultsLine to hidden
 	};
 
 	function addTurn () {
