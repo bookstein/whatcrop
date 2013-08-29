@@ -288,7 +288,8 @@ $(function initializeGame () {
 		// Create options object for jqPlot graph using optionsObj and setOptions()
 		var historyOptionsObj = {};
 		var payoutOptionsObj = {};
-		function setOptions (objectName, showLine) {
+		function setOptions (objectName, showData) {
+
 			objectName = {
 			      series:[
 
@@ -302,12 +303,12 @@ $(function initializeGame () {
 			      	  },
 			      	  {
 			      	    // CropA
-			            lineWidth: showLine,
+			            lineWidth: 2,
 			            showMarker: false
 			          },
 			          {
 			            // CropB
-			            lineWidth: showLine,
+			            lineWidth: 2,
 			            showMarker: false
 			          }
 			      ],
@@ -426,15 +427,24 @@ $(function initializeGame () {
 		                }}
 				]} // end of canvasOverlay
 			}; // end optionsObj
-			return objectName;
+
+			if (showData == true) {
+				objectName.series[1].show = "false";
+				objectName.series[2].show = "false";
+				return objectName;
+			}
+
+			else {
+				return objectName;
+			}
 		}; // end of function setOptions
 
 		// draw graph in #intro_graph (for intro dialog) using optionsObj above
-		setOptions(historyOptionsObj, 0);
-		var historyGraph = $.jqplot('chartdiv', [histogram, plotA, plotB], historyOptionsObj);
+		setOptions(historyOptionsObj, false);
+		var historyGraph = $.jqplot('intro_graph', [histogram, plotA, plotB], historyOptionsObj);
 
 		//draw graph in #chartdiv using optionsObj above
-		setOptions(payoutOptionsObj, 2);
+		setOptions(payoutOptionsObj, true);
 		var payoutGraph = $.jqplot('chartdiv', [histogram, plotA, plotB], payoutOptionsObj);
 
 	}; //end of drawQuadratic()
