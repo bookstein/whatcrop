@@ -133,16 +133,36 @@ $(function initializeGame () {
 			var root1 = (-b + root_part)/denominator;
 			var root2 = (-b - root_part)/denominator;
 
-			/*if (root1 < 0) {
-				root1 = 0;
-			}
 
-			else if (root2 < 0) {
-				root2 = 0;
-			}*/
+			// Find points (x,y) with x = weather, y= payout which delineate "normal" range -- additional point beyond vertex and roots
+			var upper = [];
+			var lower = [];
+			var upperNormalTheshold = newPoint(upper, "+");
+			var lowerNormalThreshold = newPoint(lower, "-");
+
+			function newPoint (threshold, sign) {
+
+				if (sign === "+") {
+					threshold[0] = maxweather + .33*Math.sqrt(maxpayout/(-beta));
+				}
+
+				else {
+					threshold[0] = maxweather - .33*Math.sqrt(maxpayout/(-beta));
+				}
+
+				threshold[1] = Ycoordinate(threshold[0]);
+				return threshold;
+			};
+
+
+			function Ycoordinate (bound) {
+				var boundPayout = beta * Math.pow((bound - maxweather), 2) + maxpayout;
+				return boundPayout;
+			};
+
 
 			//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
-			parabolaArray = [[root1, 0, null], [maxweather, maxpayout, crop], [root2, 0, null]];
+			parabolaArray = [[root1, 0, null], lower, [maxweather, maxpayout, crop], upper, [root2, 0, null]];
 			return parabolaArray;
 		}; //end of dataArrays
 
