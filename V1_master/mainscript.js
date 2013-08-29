@@ -318,6 +318,7 @@ $(function initializeGame () {
 		      seriesColors: [/*color A*/ "#820000", /*color B*/ "#3811c9"],
 
 		      axes: {
+
         		xaxis:{
         			ticks: ticksX,
         			borderWidth: 1.5,
@@ -376,12 +377,11 @@ $(function initializeGame () {
                         formatString: "%#.0f",
                         showMark: true,
                         showGridline: true
-                    },
+                    }
       			}
-
-    		  }
-		    }
-		  );
+    		  } // axes
+		    } // cropValues object
+		  ); // cropValues jqplot
 	}; //end of drawQuadratic()
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
