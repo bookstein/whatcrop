@@ -186,13 +186,15 @@ $(function initializeGame () {
 		var maxY = [upperBoundY+20];
 		var ticksX = [[0, "0"], [maxAweather, maxAweather/2], [maxBweather, maxBweather/2], [upperBoundX, upperBoundX/2]];
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
-
+		var ticksWeatherX = [];
+		var ticksWeatherY = [];
 		// Create graphable data array for historicWeather using freqency of values
 		function historicWeatherHistogram () {
 
 			var range = Math.max.apply(Math, historicWeather) - 0;
 			var intervalNumber = Math.ceil(Math.sqrt(historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
 			var intervalWidth = range/intervalNumber;
+
 
 			console.log("range: " + range + " number of intervals: " + intervalNumber + " interval width: " + intervalWidth);
 
@@ -219,6 +221,16 @@ $(function initializeGame () {
 						count = count;
 					}
 				}
+
+				function setWeatherTicks () {
+					for (var i = 0; i < intervalNumber; i++) {
+						ticksWeatherX[i] = intervalTop - intervalBottom;
+					}
+					return ticksWeatherX;
+				};
+
+				setWeatherTicks();
+				console.log(ticksWeatherX);
 
 				return [newinterval, count, null];
 
@@ -264,6 +276,9 @@ $(function initializeGame () {
 		          }
 		      ],
 
+		      seriesColors: [/*historic weather*/ "rgba(0, 200, 500, .8)", /*color A*/ "#820000", /*color B*/ "#3811c9"],
+
+
 		      grid: {
         		//drawGridlines: true,
         		shadow: false,
@@ -280,7 +295,7 @@ $(function initializeGame () {
         			highlightColor: null,
         			},
 				  markerOptions: {
-            		shadow: true,
+            		shadow: false
 		          },
 
 		       // labels for payout curves at vertex
@@ -293,9 +308,32 @@ $(function initializeGame () {
 		          }
 		      },
 
-		      seriesColors: [/*historic weather*/ "rgba(0, 200, 500, .8)", /*color A*/ "#820000", /*color B*/ "#3811c9"],
-
 		      axes: {
+				x2axis: {
+      				//ticks: ticksWeatherX,
+      				tickOptions:{
+                        mark: "inside",
+                        showLabel: false,
+                        formatString: "%#.0f",
+                        showMark: false,
+                        showGridline: false
+                    }
+      			},
+
+      			y2axis:{
+
+          			renderer: $.jqplot.CategoryAxisRenderer,
+          			rendererOptions:{
+                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
+                    },
+                	tickOptions:{
+                        mark: "inside",
+                        showLabel: false,
+                        formatString: "%#.0f",
+                        showMark: false,
+                        showGridline: false
+                    }
+      			},
 
         		xaxis:{
         			ticks: ticksX,
@@ -337,31 +375,6 @@ $(function initializeGame () {
 	            			fontFamily: 'Verdana, sans-serif',
 	            			fontSize: '12pt',
           				}*/
-      			},
-
-      			x2axis: {
-      				tickOptions:{
-                        mark: "inside",
-                        showLabel: false,
-                        formatString: "%#.0f",
-                        showMark: false,
-                        showGridline: false
-                    }
-      			},
-
-      			y2axis:{
-      				autoscale: true,
-          			renderer: $.jqplot.CategoryAxisRenderer,
-          			rendererOptions:{
-                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
-                    },
-                	tickOptions:{
-                        mark: "inside",
-                        showLabel: false,
-                        formatString: "%#.0f",
-                        showMark: false,
-                        showGridline: false
-                    }
       			}
     		  } // axes
 
