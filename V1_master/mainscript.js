@@ -229,18 +229,39 @@ $(function initializeGame () {
 
 			//populates each item j in frequency array
 			for (var j = 0; j < intervalNumber; j++) {
-				frequency[j] = countOccurrence(j);//some function that creates arrays(i);
+				frequency[j] = countOccurrence(j);
 			}
-			console.log(frequency);
+			return frequency;
 		}; //end historicWeatherHistogram
 
 		var histogram = historicWeatherHistogram();
 
+		console.log(histogram);
+
 
 		//draw parabolas in #chartdiv
-		var cropValues = $.jqplot('chartdiv', [plotA, plotB], {
+		var cropValues = $.jqplot('chartdiv', [plotA, plotB, histogram], {
 
-		      //stackSeries: true, --> this breaks the graph
+		      series:[
+		          {
+		            // CropA
+		            lineWidth:2,
+		            showMarker: false
+		          },
+		          {
+		            // CropB
+		            lineWidth:2,
+		            showMarker: false
+		          },
+		          {
+		          	// Weather
+		          	lineWidth: 0,
+		          	showMarker: false,
+		          	renderer:$.jqplot.BarRenderer,
+		          	xaxis:'x2axis',
+		          	yaxis:'y2axis'
+		      	  }
+		      ],
 
 		      grid: {
         		//drawGridlines: true,
@@ -295,6 +316,7 @@ $(function initializeGame () {
       		  },*/
 
 		      seriesColors: [/*color A*/ "#820000", /*color B*/ "#3811c9"],
+
 		      axes: {
         		xaxis:{
         			ticks: ticksX,
@@ -338,25 +360,26 @@ $(function initializeGame () {
           				}*/
       			},
 
-    		  },
+      			x2axis: {
 
-		      series:[
-		          {
-		            // CropA
-		            lineWidth:2,
-		            showMarker: false
-		          },
-		          {
-		            // CropB
-		            lineWidth:2,
-		            showMarker: false
-		          },
-		          {
-		          	// Weather
-		          	lineWidth: 0,
-		          	showMarker: false
-		      	  }
-		      ]
+      			},
+
+      			y2axis:{
+      				ticks: ticksY,
+          			renderer: $.jqplot.CategoryAxisRenderer,
+          			rendererOptions:{
+                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
+                    },
+                	tickOptions:{
+                        mark: "inside",
+                        showLabel: false,
+                        formatString: "%#.0f",
+                        showMark: true,
+                        showGridline: true
+                    },
+      			}
+
+    		  }
 		    }
 		  );
 	}; //end of drawQuadratic()
