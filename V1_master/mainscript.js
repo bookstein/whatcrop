@@ -224,7 +224,7 @@ $(function initializeGame () {
 					}
 				}
 
-				return [newinterval, count, null];
+				return [newinterval*intervalWidth, count, null];
 
 			}; // end countOccurrence();
 
