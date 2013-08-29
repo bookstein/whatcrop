@@ -28,7 +28,7 @@ $(document).ready(function(){
 	maxAweather = 400; //w*(A)
 
 		// Crop B
-	betaB = -.001;
+	betaB = -.002;
 	maxBpayout = 120; //P*(B)
 	maxBweather = 200; //w*(B)
 
@@ -133,16 +133,16 @@ $(function initializeGame () {
 			var root1 = (-b + root_part)/denominator;
 			var root2 = (-b - root_part)/denominator;
 
-			if (root1 < 0) {
+			/*if (root1 < 0) {
 				root1 = 0;
 			}
 
 			else if (root2 < 0) {
 				root2 = 0;
-			}
+			}*/
 
 			//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
-			parabolaArray = [[root1, 0, crop], [maxweather, maxpayout, null], [root2, 0, null]];
+			parabolaArray = [[root1, 0, null], [maxweather, maxpayout, crop], [root2, 0, null]];
 			return parabolaArray;
 		}; //end of dataArrays
 
@@ -308,16 +308,16 @@ $(function initializeGame () {
         			highlightColor: null,
         			},
 				  markerOptions: {
-            		shadow: false
+            		shadow: false,
 		          },
 
 		       // labels for payout curves at vertex
 		       //pointLabels uses the final value in parabolaArray as its data
 		          pointLabels: {
 		          	show: true,
-		          	location:'ne',
+		          	location:'nw',
 		          	ypadding:3,
-		          	xpadding:4
+		          	xpadding:3
 		          }
 		      },
 
