@@ -240,19 +240,10 @@ $(function initializeGame () {
 
 
 		//draw parabolas in #chartdiv
-		var cropValues = $.jqplot('chartdiv', [plotA, plotB, histogram], {
+		var cropValues = $.jqplot('chartdiv', [histogram, plotA, plotB], {
 
 		      series:[
-		          {
-		            // CropA
-		            lineWidth:2,
-		            showMarker: false
-		          },
-		          {
-		            // CropB
-		            lineWidth:2,
-		            showMarker: false
-		          },
+
 		          {
 		          	// Weather
 		          	lineWidth: 0,
@@ -260,7 +251,17 @@ $(function initializeGame () {
 		          	renderer:$.jqplot.BarRenderer,
 		          	xaxis:'x2axis',
 		          	yaxis:'y2axis'
-		      	  }
+		      	  },
+		      	  {
+		      	    // CropA
+		            lineWidth:2,
+		            showMarker: false
+		          },
+		          {
+		            // CropB
+		            lineWidth:2,
+		            showMarker: false
+		          }
 		      ],
 
 		      grid: {
@@ -273,7 +274,13 @@ $(function initializeGame () {
 
 		      seriesDefaults: {
 		          rendererOptions: {
-		              smooth: true
+		            smooth: true,
+		            highlightMouseOver: false,
+		            highlightMouseDown: false,
+        			highlightColor: null,
+        			},
+				  markerOptions: {
+            		shadow: true,
 		          },
 
 		       // labels for payout curves at vertex
@@ -286,7 +293,7 @@ $(function initializeGame () {
 		          }
 		      },
 
-		      seriesColors: [/*color A*/ "#820000", /*color B*/ "#3811c9", /*historic weather*/ "rgba(0, 200, 500, .5)"],
+		      seriesColors: [/*historic weather*/ "rgba(0, 200, 500, .8)", /*color A*/ "#820000", /*color B*/ "#3811c9"],
 
 		      axes: {
 
@@ -343,7 +350,7 @@ $(function initializeGame () {
       			},
 
       			y2axis:{
-      				ticks: ticksY,
+      				autoscale: true,
           			renderer: $.jqplot.CategoryAxisRenderer,
           			rendererOptions:{
                     	tickRenderer:$.jqplot.CanvasAxisTickRenderer
