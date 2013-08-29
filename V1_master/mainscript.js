@@ -188,6 +188,8 @@ $(function initializeGame () {
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 		var ticksWeatherX = [];
 		var ticksWeatherY = [];
+
+
 		// Create graphable data array for historicWeather using freqency of values
 		function historicWeatherHistogram () {
 
@@ -222,27 +224,30 @@ $(function initializeGame () {
 					}
 				}
 
-				function setWeatherTicks () {
-					for (var i = 0; i < intervalNumber; i++) {
-						ticksWeatherX[i] = intervalTop - intervalBottom;
-					}
-					return ticksWeatherX;
-				};
-
-				setWeatherTicks();
-				console.log(ticksWeatherX);
-
 				return [newinterval, count, null];
 
-			}; // end intervalCount
+			}; // end countOccurrence();
 
-			//creates empty array
+			//creates empty array to fill with arrays ([interval number, count])
 			var frequency = [];
 
-			//populates each item j in frequency array
+			//populates each item j in frequency array using value of countOccurrence()
 			for (var j = 0; j < intervalNumber; j++) {
 				frequency[j] = countOccurrence(j);
 			}
+
+			function ticksWeather () {
+				for (var j = 0; j < intervalNumber; j++) {
+					ticksWeatherX[j] = intervalWidth*j;
+				}
+
+				return ticksWeatherX;
+			};
+
+			ticksWeather();
+
+			console.log(ticksWeatherX);
+
 			return frequency;
 		}; //end historicWeatherHistogram
 
@@ -310,7 +315,7 @@ $(function initializeGame () {
 
 		      axes: {
 				x2axis: {
-      				//ticks: ticksWeatherX,
+      				ticks: ticksWeatherX,
       				tickOptions:{
                         mark: "inside",
                         showLabel: false,
