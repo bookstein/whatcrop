@@ -161,12 +161,13 @@ $(function initializeGame () {
 			};
 
 
-			//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
+			//output array of (x,y) points for use in jqPlot chart: [root1, lower normal-weather bound, vertex, upper normal-weather bound, root2]
 			parabolaArray = [[root1, 0, null], lower, [maxweather, maxpayout, crop], upper, [root2, 0, null]];
+
 			return parabolaArray;
 		}; //end of dataArrays
 
-		// Call dataArrays function and create arrays for A and B
+		// Call dataArrays function and create parabolaArrays for A and B
 		var plotA = dataArrays(betaA, maxAweather, maxApayout, "A");
 		var plotB = dataArrays(betaB, maxBweather, maxBpayout, "B");
 
@@ -178,9 +179,9 @@ $(function initializeGame () {
 		function findUpperBoundX () {
 		//modifies upper bound on x-axis based on largest parabola root (point at which crop value is (X,0) with largest possible value of X)
 			var root1A = plotA[0][0];
-			var root2A = plotA[2][0];
+			var root2A = plotA[4][0];
 			var root1B = plotB[0][0];
-			var root2B = plotB[2][0];
+			var root2B = plotB[4][0];
 
 			var rootArray = [root1A, root2A, root1B, root2B];
 			var maxRoot = Math.max.apply(Math, rootArray);
@@ -193,8 +194,8 @@ $(function initializeGame () {
 		findUpperBoundX();
 
 		function findUpperBoundY () {
-			var vertexA = plotA[1][1];
-			var vertexB = plotB[1][1];
+			var vertexA = plotA[2][1];
+			var vertexB = plotB[2][1];
 
 			if (vertexA > vertexB) {
 				upperBoundY = vertexA;
@@ -396,7 +397,7 @@ $(function initializeGame () {
                     },
                 	tickOptions:{
                         mark: "inside",
-                        showLabel: false,
+                        showLabel: true,
                         formatString: "%#.0f",
                         showMark: true,
                         showGridline: true

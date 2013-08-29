@@ -240,15 +240,15 @@ header > h1 {
 	font-weight: normal;
 }
 
-.jqplot-point-label.jqplot-series-1.jqplot-point-1, .jqplot-point-label.jqplot-series-1.jqplot-point-0 {
+.jqplot-point-label.jqplot-series-1.jqplot-point-2, .jqplot-point-label.jqplot-series-1.jqplot-point-2 {
 	color: #820000;
 }
 
-.jqplot-point-label.jqplot-series-2.jqplot-point-1, .jqplot-point-label.jqplot-series-2.jqplot-point-0 {
+.jqplot-point-label.jqplot-series-2.jqplot-point-2, .jqplot-point-label.jqplot-series-2.jqplot-point-2 {
 	color: #3811c9;
 }
 
-.jqplot-point-label.jqplot-series-1.jqplot-point-0, .jqplot-point-label.jqplot-series-2.jqplot-point-0 {
+.jqplot-point-label.jqplot-series-1.jqplot-point-2, .jqplot-point-label.jqplot-series-2.jqplot-point-2 {
 	font-weight: bold;
 	font-size: 16px !important;
 }
@@ -257,7 +257,7 @@ header > h1 {
 	font-family: Georgia, serif;
 	font-size: 14px;
 	padding: 5px;
-	z-index: 1;
+	z-index: 2;
 }
 
 .jqplot-xaxis-tick {
@@ -265,7 +265,7 @@ header > h1 {
 }
 
 .jqplot-xaxis-label {
-	z-index: 1;
+	z-index: 2;
 }
 
 /*table {
