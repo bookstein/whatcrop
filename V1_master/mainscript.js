@@ -586,7 +586,7 @@ $(function initializeGame () {
 $(function introDialogs () {
 
 	$( "#first-message" ).dialog({
-		autoOpen: false,
+		autoOpen: true,
 		modal: true,
 		closeOnEscape: false,
         resizable: false,
