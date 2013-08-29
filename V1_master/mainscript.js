@@ -417,10 +417,10 @@ $(function initializeGame () {
         		show: true, // turn this on and off to show results
 	            objects: [
 	                {verticalLine: {
-	                    name: 'results',
-	                    x: 400, // target this attribute to show results
-	                    lineWidth: 4,
-	                    color: 'rgb(100, 55, 124)',
+	                    name: 'resultsLine',
+	                    x: gameWeather[turn], // this positions the line at the current turn weather
+	                    lineWidth: 3,
+	                    color: 'rgb(255, 204, 51)',
 	                    shadow: false
 	                }}
 			]} // end of canvasOverlay
