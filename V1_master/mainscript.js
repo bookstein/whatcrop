@@ -295,21 +295,27 @@ $(function initializeGame () {
 
 			          {
 			          	// Weather
+			          	label: "Weather",
 			          	lineWidth: 0,
 			          	showMarker: false,
 			          	renderer:$.jqplot.BarRenderer,
 			          	xaxis:'x2axis',
-			          	yaxis:'y2axis'
+			          	yaxis:'y2axis',
+			          	show: true
 			      	  },
 			      	  {
 			      	    // CropA
+			      	    label: "Crop A",
 			            lineWidth: 2,
-			            showMarker: false
+			            showMarker: false,
+			            show: showData
 			          },
 			          {
 			            // CropB
+			            label: "Crop B",
 			            lineWidth: 2,
-			            showMarker: false
+			            showMarker: false,
+			            show: showData
 			          }
 			      ],
 
@@ -335,8 +341,7 @@ $(function initializeGame () {
 	            		shadow: false,
 			          },
 
-			       // labels for payout curves at vertex
-			       //pointLabels uses the final value in parabolaArray as its data
+			       //pointLabels uses the final value in parabolaArray[i] as its data
 			          pointLabels: {
 			          	show: true,
 			          	location:'nw',
@@ -427,25 +432,19 @@ $(function initializeGame () {
 		                }}
 				]} // end of canvasOverlay
 			}; // end optionsObj
+			return objectName;
 
-			if (showData == true) {
-				objectName.series[1].show = "false";
-				objectName.series[2].show = "false";
-				return objectName;
-			}
-
-			else {
-				return objectName;
-			}
 		}; // end of function setOptions
 
 		// draw graph in #intro_graph (for intro dialog) using optionsObj above
-		setOptions(historyOptionsObj, false);
-		var historyGraph = $.jqplot('intro_graph', [histogram, plotA, plotB], historyOptionsObj);
+		historyOptionsObj = setOptions(historyOptionsObj, false);
+		//var chart1 = $.jqplot("intro_graph", [histogram, plotA, plotB], historyOptionsObj);
 
 		//draw graph in #chartdiv using optionsObj above
-		setOptions(payoutOptionsObj, true);
-		var payoutGraph = $.jqplot('chartdiv', [histogram, plotA, plotB], payoutOptionsObj);
+		payoutOptionsObj = setOptions(payoutOptionsObj, true);
+		//var chart2 = $.jqplot("chartdiv", [histogram, plotA, plotB], payoutOptionsObj);
+
+
 
 	}; //end of drawQuadratic()
 
