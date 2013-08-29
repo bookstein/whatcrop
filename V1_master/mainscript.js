@@ -133,8 +133,16 @@ $(function initializeGame () {
 			var root1 = (-b + root_part)/denominator;
 			var root2 = (-b - root_part)/denominator;
 
+			if (root1 < 0) {
+				root1 = 0;
+			}
+
+			else if (root2 < 0) {
+				root2 = 0;
+			}
+
 			//output array of (x,y) points for use in jqPlot chart: [(root1), (vertex), (root2)]
-			parabolaArray = [[root1, 0, crop], [maxweather, maxpayout, maxpayout + " pts"], [root2, 0, null]];
+			parabolaArray = [[root1, 0, crop], [maxweather, maxpayout, null], [root2, 0, null]];
 			return parabolaArray;
 		}; //end of dataArrays
 
@@ -144,7 +152,7 @@ $(function initializeGame () {
 
 
 		// Set upper bounds on graph
-		var upperBoundX = 1200; //default value for upper bound of graph x-axis
+		var upperBoundX = 1000; //default value for upper bound of graph x-axis
 		var upperBoundY = 250; //default value for upper bound of graph y-axis
 
 		function findUpperBoundX () {
@@ -184,7 +192,7 @@ $(function initializeGame () {
 		// Set values for tick marks
 		var maxX = [upperBoundX+100];
 		var maxY = [upperBoundY+20];
-		var ticksX = [[0, "0"], [maxAweather, maxAweather], [maxBweather, maxBweather], [upperBoundX, upperBoundX]];
+		var ticksX = [[0, "0"], [maxAweather, maxAweather], [maxBweather, maxBweather], [maxX, maxX]];
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 		var ticksWeatherX = [];
 		var ticksWeatherY = [];
@@ -307,9 +315,9 @@ $(function initializeGame () {
 		       //pointLabels uses the final value in parabolaArray as its data
 		          pointLabels: {
 		          	show: true,
-		          	location:'nw',
+		          	location:'ne',
 		          	ypadding:3,
-		          	xpadding:2
+		          	xpadding:4
 		          }
 		      },
 
