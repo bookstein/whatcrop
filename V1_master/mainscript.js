@@ -220,7 +220,7 @@ $(function initializeGame () {
 					}
 				}
 
-				return [newinterval, count];
+				return [newinterval, count, null];
 
 			}; // end intervalCount
 
@@ -286,36 +286,7 @@ $(function initializeGame () {
 		          }
 		      },
 
-		      /*canvasOverlay: {
-        		show: true,
-        		objects: [{
-          				rectangle: {
-          					xmin: upperBoundX/2,
-          					xmax: upperBoundX,
-          					xminOffset: "0px",
-          					xmaxOffset: "0px",
-          					yminOffset: "0px",
-          					ymaxOffset: "0px",
-                    		color: "rgba(0, 200, 500, 0.1)",
-                    		showTooltip: false,
-                    		tooltipFormatString: "Rain"
-                    	},
-
-                    	rectangle: {
-                    		xmin: 0,
-          					xmax: upperBoundX/2,
-          					xminOffset: "0px",
-          					xmaxOffset: "0px",
-          					yminOffset: "0px",
-          					ymaxOffset: "0px",
-                    		color: "rgba(255, 204, 51, 0.3)",
-                    		showTooltip: false,
-                    		tooltipFormatString: "Sun"
-                    	}
-                    }]
-      		  },*/
-
-		      seriesColors: [/*color A*/ "#820000", /*color B*/ "#3811c9"],
+		      seriesColors: [/*color A*/ "#820000", /*color B*/ "#3811c9", /*historic weather*/ "rgba(0, 200, 500, .5)"],
 
 		      axes: {
 
@@ -362,7 +333,13 @@ $(function initializeGame () {
       			},
 
       			x2axis: {
-
+      				tickOptions:{
+                        mark: "inside",
+                        showLabel: false,
+                        formatString: "%#.0f",
+                        showMark: false,
+                        showGridline: false
+                    }
       			},
 
       			y2axis:{
@@ -375,11 +352,42 @@ $(function initializeGame () {
                         mark: "inside",
                         showLabel: false,
                         formatString: "%#.0f",
-                        showMark: true,
-                        showGridline: true
+                        showMark: false,
+                        showGridline: false
                     }
       			}
     		  } // axes
+
+
+		      /*canvasOverlay: {
+        		show: true,
+        		objects: [{
+          				rectangle: {
+          					xmin: upperBoundX/2,
+          					xmax: upperBoundX,
+          					xminOffset: "0px",
+          					xmaxOffset: "0px",
+          					yminOffset: "0px",
+          					ymaxOffset: "0px",
+                    		color: "rgba(0, 200, 500, 0.1)",
+                    		showTooltip: false,
+                    		tooltipFormatString: "Rain"
+                    	},
+
+                    	rectangle: {
+                    		xmin: 0,
+          					xmax: upperBoundX/2,
+          					xminOffset: "0px",
+          					xmaxOffset: "0px",
+          					yminOffset: "0px",
+          					ymaxOffset: "0px",
+                    		color: "rgba(255, 204, 51, 0.3)",
+                    		showTooltip: false,
+                    		tooltipFormatString: "Sun"
+                    	}
+                    }]
+      		  }*/
+
 		    } // cropValues object
 		  ); // cropValues jqplot
 	}; //end of drawQuadratic()
