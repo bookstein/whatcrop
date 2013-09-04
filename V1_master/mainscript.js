@@ -909,14 +909,6 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		}
 
 		return payout;
-=======
-
-	function addTurn () {
-		turn = turn + 1;
-		$("#turns_counter").text( turn + "/" + maxturn );
-		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
-		//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
->>>>>>> master
 	};
 
 	function newScore () {
