@@ -872,6 +872,8 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		}
 	}
 
+	payoutOptionsObj.replot(canvasOverlay);
+
 }; // end of weatherResults
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
