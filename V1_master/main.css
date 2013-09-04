@@ -144,10 +144,6 @@ header > h1 {
 .results {
 	text-align: center;
 	height: auto !important;
-
-.dialog-message table {
-/*Uses css rules of #givens table*/
-
 }
 
 .no-close .ui-dialog-titlebar-close {
@@ -216,7 +212,6 @@ header > h1 {
 
 #coins_png {
 	height: 150px;
->>>>>>> master
 }
 
 .glow {
@@ -326,7 +321,6 @@ header > h1 {
 }
 
 
-
 #wetColor, #dryColor {
 	font-weight: bold;
 }
@@ -339,14 +333,6 @@ header > h1 {
 #dryColor, #payoutAdry, #payoutBdry {
 	/*background-color: #F0D2B4;*/ /* beige */
 	border-top: 1px solid #3f3c30;
-}
-
-#payoutAwet, #payoutAdry {
-	color: #820000;
-}
-
-#payoutBdry, #payoutBwet {
-	color: #3811c9;
 }
 
 
