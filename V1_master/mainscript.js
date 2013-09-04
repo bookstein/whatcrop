@@ -442,6 +442,13 @@ $(function initializeGame () {
 		  ); // cropValues jqplot
 	}; //end of drawQuadratic()
 
+	// Removes background coloration on payout/weather chart after 10 seconds
+	function removeChartColor () {
+		$(".jqplot-grid-canvas").css({z-index: "-1"})
+	};
+
+	setTimeout(removeChartColor, 10000);
+
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	function makeGameWeather (arrayName, historicBoolean) {
