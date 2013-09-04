@@ -101,9 +101,10 @@ $(document).ready(function(){
 	totalOptimalPoints = 0;
 
 
+
 	//Turn Counter
 	turn = 0;
-	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+	$("#turns_counter").text(turn + "/" + maxturn);
 	GameOver = false;
 
 	//Points Counter
@@ -114,12 +115,13 @@ $(document).ready(function(){
 	// Real Dollars Earned
 
 	realDollars = 0; //real earnings in dollars start at 0
-	$("#dollars_counter").html("$"+realDollars); //writes initial realDollars to dollars counter
+	$("#dollars_counter").text("$"+realDollars); //writes initial realDollars to dollars counter
 
 
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 $(function initializeGame () {
+
 
 	$.jqplot.config.enablePlugins = true;
 	var historicWeather = []; // Array values filled in using historicWeatherArray() below
@@ -173,6 +175,7 @@ $(function initializeGame () {
 
 			return parabolaArray;
 		}; //end of dataArrays
+
 
 		// Call dataArrays function and create parabolaArrays for A and B
 		var plotA = dataArrays(betaA, maxAweather, maxApayout, "A");
@@ -263,6 +266,7 @@ $(function initializeGame () {
 						count = count;
 					}
 				}
+
 
 				return [newinterval*intervalWidth, count, null];
 
@@ -574,6 +578,7 @@ $(function initializeGame () {
 				//console.log("The score is now " + maxScore);
 			}
 
+
 			else if (optimalCrops[i] === "cropB") {
 				addScores(i, betaB, maxBweather, maxBpayout); //call addScores() with values of crop B
 				maxScore += payout;
@@ -584,9 +589,11 @@ $(function initializeGame () {
 		return maxScore;
 	}; //end of calculateMaxScore()
 
+
 	calculateMaxScore();
 
 	console.log("The maximum possible score is " + maxScore + " points");
+
 }); //end of initialization function
 
 // >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
@@ -598,19 +605,20 @@ $(function introDialogs () {
 	$( "#first-message" ).dialog({
 		autoOpen: true,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (1 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				$( "#second-message" ).dialog( "open" );
 				$("#givens").addClass("glow");
-				$(".ui-widget-overlay").addClass("active-left");
+				//$(".ui-widget-overlay").addClass("active-left");
 			}
 		} ]
 	});
@@ -618,14 +626,15 @@ $(function introDialogs () {
 	$("#second-message").dialog({
 		autoOpen: false,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (2 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				//$(".ui-widget-overlay").addClass("active-left");
@@ -640,21 +649,22 @@ $(function introDialogs () {
 	$("#third-message").dialog({
 		autoOpen: false,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (3 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				$( "#fourth-message" ).dialog( "open" );
 				$("table").removeClass("glow");
 				$("#points_bar, #points_flag").toggleClass("glow");
-				$(".ui-widget-overlay").removeClass("active-left");
-				$(".ui-widget-overlay").addClass("active-right");
+				//$(".ui-widget-overlay").removeClass("active-left");
+				//$(".ui-widget-overlay").addClass("active-right");
 			}
 		} ]
 	});
@@ -662,18 +672,19 @@ $(function introDialogs () {
 	$( "#fourth-message" ).dialog({
 		autoOpen: false,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
 		buttons: [ { text: "Start Game",
 			click: function() {
 				$( this ).dialog( "close" );
 				$("#points_bar, #points_flag").toggleClass("glow");
-				$(".ui-widget-overlay").removeClass("active-right");
+				//$(".ui-widget-overlay").removeClass("active-right");
 			}
 		} ]
 	});
@@ -745,6 +756,7 @@ $("#cropB").on("click", userClickedB);
 
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
 
+
 function weatherResults () { //triggered by #grow click, runs updateGame with correct arguments
 
 	//Show weather results line on graph ("resultsLine")
@@ -759,6 +771,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	disableGrowButton();
 	$(".plant, .plant_img, #grow").addClass("hidden").css("opacity", 0);
 
+
 	function weatherOpacity () {
 
 		if (gameWeather[turn] >= gameRoots.topRoot) {
@@ -772,6 +785,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			else if (gameWeather[turn] <= gameRoots.bottomRoot) {
 				return rainOpacity = 0, sunOpacity = 1;
 			}
+
 	};
 
 	function displayWeather (displayRain, displaySun) {
@@ -782,12 +796,15 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		//alert("rain opacity is: " + rainOpacity + " sun opacity is: " + sunOpacity);
 	};
 
+
 	displayWeather(rainOpacity, sunOpacity);
+
 
 	// A. Crop A outcomes
 	if (cropchoice === "cropA") {
 
 		// A1. gameWeather is wet
+
 
 		//A1.i Wet gameWeather is "wet" (wetter than normal)
 		if (gameWeather[turn] < maxAweather + Math.sqrt(maxApayout/(-betaA)) && gameWeather[turn] >= maxAweather + .33*Math.sqrt(maxApayout/(-betaA)) ) {
@@ -810,6 +827,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			$("#dryA").removeClass("hidden");
 		}
 
+
 		//A2.ii. dry gameWeather is too dry
 		else if (gameWeather[turn] < maxAweather - Math.sqrt(maxApayout/(-betaA))) {
 			weatherReport = "too dry";
@@ -825,6 +843,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		updateGame(betaA, maxApayout, maxAweather); // call updateGame with values for crop A
 	}
+
 
 	// 2. Crop B outcomes
 	else if (cropchoice === "cropB") {
@@ -858,6 +877,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			$("#deadBdry").removeClass("hidden");
 		}
 
+
 		//B3 Weather is in normal range
 		else if (gameWeather[turn] < (maxBweather + .33*Math.sqrt(maxBpayout/(-betaA))) && gameWeather[turn] >= (maxBweather - .33*Math.sqrt(maxBpayout/(-betaB)))) {
 			$("#rowsCropB").removeClass("hidden");
@@ -866,6 +886,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		updateGame(betaB, maxBpayout, maxBweather); // call updateGame with values for crop B
 	}
+
 
 	function fadeWeather () {
 		//setTimeout calls function after a certain time; currently 3000 ms
@@ -877,6 +898,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
 	   	$(".jqplot-overlayCanvas-canvas").css('z-index', '-1'); //resets graph resultsLine to hidden
 	};
+
 
 	setTimeout(fadeWeather, 4000);
 
@@ -899,6 +921,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		}
 
 		return payout;
+
 	};
 
 	function newScore () {
@@ -947,6 +970,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		$("#point_count").html("<h5>" + score + "</h5>");
 		return score; //this updates the value of the global variable "score"
 
+
 	}; //end of function newScore
 
 	newPayout();
@@ -989,20 +1013,24 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
 	};
 
+
 		setTimeout(addTurn, 4000);
+
 
 	// Reset values for new turn
 	cropchoice = "";
+
 
 		//Moved these variables inside newScore function because they only matter for bonus thresholds being crossed
 	//var oldscore = score;
 	//var newscore = oldscore + payout;
 
+
 }; // End of updateGame function
 
-function endGame () { //call end-of-game dialog box
-	endOfGame = true;
-	return endOfGame;
+
+function endGame () {
+	//call end-of-game dialog box
 	$("button #grow").addClass("hidden");
 	//inclusive of last turn (50)
 };
@@ -1017,7 +1045,7 @@ $("#grow").on("click", function () {
 		//call displayWeather function
 		//displayWeather();
 		//callsback updateGame function 200ms after displayWeather
-		setTimeout(weatherResults, 400);
+		setTimeout(weatherResults, 100);
 	}
 
 		else if (($(this).hasClass("highlight")) && turns === maxturn) {
@@ -1028,7 +1056,7 @@ $("#grow").on("click", function () {
 		//call displayWeather function
 		//displayWeather();
 		//callsback updateGame function 200ms after displayWeather
-		setTimeout(weatherResults, 400);
+		setTimeout(weatherResults, 100);
 		setTimeout(endGame, 1000);
 	}
 
