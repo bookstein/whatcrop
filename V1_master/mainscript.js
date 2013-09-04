@@ -467,7 +467,7 @@ $(function initializeGame () {
 			for (var i = 0; i < maxturn; i++) {
 				normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y);
 
-			//designate cutoffs for high and low values of Z0
+			// cutoffs for high and low values of Z0; use 5th standard deviation in std normal curve
 				if (normalizedArray[i] >= 5) {
 					normalizedArray[i] = 5;
 				}
@@ -476,6 +476,8 @@ $(function initializeGame () {
 					normalizedArray[i] = -5;
 				}
 			}
+
+			return normalizedArray;
 		}; //end of boxMullerTransformation
 
 		boxMullerTransformation();
@@ -484,6 +486,11 @@ $(function initializeGame () {
 		function applyClimateChange () {
 			for (var i = 0; i < maxturn; i++) {
 				arrayName[i] = climateArray[i].mean + (normalizedArray[i]*climateArray[i].std_dev);
+
+				// ensures inches of rain will always be zero or greater
+				if (arrayName[i] <= 0) {
+					arrayName[i] = 0;
+				}
 			}
 
 			return arrayName;
@@ -516,11 +523,11 @@ $(function initializeGame () {
 
 
 	//Populate spans in opening and ending dialogs
-/*
+
 	$(".turncount_instructions").text(maxturn + " turns");
-	$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
-	$("#bonus_one_instructions").text(totalRandomPoints);
-	$("#bonus_two_instructions").text(totalOptimalPoints); */
+	//$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
+	//$("#bonus_one_instructions").text(totalRandomPoints);
+	//$("#bonus_two_instructions").text(totalOptimalPoints);
 
 	//Calculate Max Score --------------------------------------
 
