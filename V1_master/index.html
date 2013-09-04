@@ -133,7 +133,7 @@
 
 	<section id="choice_screen"><!-- sibling of .dashboard and .givens, parent of .dialog. Named canvas to indicate area of screen with interactive visual elements -->
 		<!-- background image default, medium-width: see CSS "background" property -->
-		<img id="farm" src="images/Default_background_medium.png" alt="Your farm" />
+		<img id="farm" src="images/default_background_medium.png" alt="Your farm" />
 
 		<!-- all weather images, CSS set to display: none -->
 		<img class="weather hidden" id="rain" src="images/rain.png" alt="Rain" />
@@ -187,7 +187,11 @@
 			<!-- dialog: Weather report and points earned -->
 			<div class="results dialog-message ui-dialog" id="normal_results" title="Results">
 					<p>
-					  	The weather was <span id="weather_outcome"></span>. You made <span id="new_score"></span> points!
+					  	There were <span id="weather_outcome"></span> inches of rain, which was <span id="weather_report"></span> for <span id="chosen_crop"></span>.
+					</p>
+					<br>
+				  	<p>
+					  	You made <span id="new_score"></span> points!
 					</p>
 			</div>
 
