@@ -101,9 +101,10 @@ $(document).ready(function(){
 	totalOptimalPoints = 0;
 
 
+
 	//Turn Counter
 	turn = 0;
-	$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+	$("#turns_counter").text(turn + "/" + maxturn);
 	GameOver = false;
 
 	//Points Counter
@@ -114,7 +115,7 @@ $(document).ready(function(){
 	// Real Dollars Earned
 
 	realDollars = 0; //real earnings in dollars start at 0
-	$("#dollars_counter").html("$"+realDollars); //writes initial realDollars to dollars counter
+	$("#dollars_counter").text("$"+realDollars); //writes initial realDollars to dollars counter
 
 
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -263,6 +264,7 @@ $(function initializeGame () {
 						count = count;
 					}
 				}
+
 
 				return [newinterval*intervalWidth, count, null];
 
@@ -587,6 +589,7 @@ $(function initializeGame () {
 	calculateMaxScore();
 
 	console.log("The maximum possible score is " + maxScore + " points");
+
 }); //end of initialization function
 
 // >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
@@ -598,19 +601,20 @@ $(function introDialogs () {
 	$( "#first-message" ).dialog({
 		autoOpen: true,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (1 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				$( "#second-message" ).dialog( "open" );
 				$("#givens").addClass("glow");
-				$(".ui-widget-overlay").addClass("active-left");
+				//$(".ui-widget-overlay").addClass("active-left");
 			}
 		} ]
 	});
@@ -618,14 +622,15 @@ $(function introDialogs () {
 	$("#second-message").dialog({
 		autoOpen: false,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (2 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				//$(".ui-widget-overlay").addClass("active-left");
@@ -640,21 +645,22 @@ $(function introDialogs () {
 	$("#third-message").dialog({
 		autoOpen: false,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
-		buttons: [ { text: "Next",
+		buttons: [ { text: "Next (3 of 4)",
 			click: function() {
 				$( this ).dialog( "close" );
 				$( "#fourth-message" ).dialog( "open" );
 				$("table").removeClass("glow");
 				$("#points_bar, #points_flag").toggleClass("glow");
-				$(".ui-widget-overlay").removeClass("active-left");
-				$(".ui-widget-overlay").addClass("active-right");
+				//$(".ui-widget-overlay").removeClass("active-left");
+				//$(".ui-widget-overlay").addClass("active-right");
 			}
 		} ]
 	});
@@ -662,18 +668,19 @@ $(function introDialogs () {
 	$( "#fourth-message" ).dialog({
 		autoOpen: false,
 		modal: true,
+		sticky: true,
 		closeOnEscape: false,
         resizable: false,
         position: 'center',
         stack: true,
         height: 'auto',
-        width: '400',
+        width: '375',
         dialogClass: "no-close",
 		buttons: [ { text: "Start Game",
 			click: function() {
 				$( this ).dialog( "close" );
 				$("#points_bar, #points_flag").toggleClass("glow");
-				$(".ui-widget-overlay").removeClass("active-right");
+				//$(".ui-widget-overlay").removeClass("active-right");
 			}
 		} ]
 	});
@@ -745,6 +752,7 @@ $("#cropB").on("click", userClickedB);
 
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
 
+
 function weatherResults () { //triggered by #grow click, runs updateGame with correct arguments
 
 	//Show weather results line on graph ("resultsLine")
@@ -782,10 +790,12 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		//alert("rain opacity is: " + rainOpacity + " sun opacity is: " + sunOpacity);
 	};
 
+
 	displayWeather(rainOpacity, sunOpacity);
 
 	// A. Crop A outcomes
 	if (cropchoice === "cropA") {
+
 
 		// A1. gameWeather is wet
 
@@ -899,6 +909,14 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		}
 
 		return payout;
+=======
+
+	function addTurn () {
+		turn = turn + 1;
+		$("#turns_counter").text( turn + "/" + maxturn );
+		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
+		//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
+>>>>>>> master
 	};
 
 	function newScore () {
@@ -994,15 +1012,11 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	// Reset values for new turn
 	cropchoice = "";
 
-		//Moved these variables inside newScore function because they only matter for bonus thresholds being crossed
-	//var oldscore = score;
-	//var newscore = oldscore + payout;
-
 }; // End of updateGame function
 
-function endGame () { //call end-of-game dialog box
-	endOfGame = true;
-	return endOfGame;
+
+function endGame () {
+	//call end-of-game dialog box
 	$("button #grow").addClass("hidden");
 	//inclusive of last turn (50)
 };
@@ -1017,7 +1031,7 @@ $("#grow").on("click", function () {
 		//call displayWeather function
 		//displayWeather();
 		//callsback updateGame function 200ms after displayWeather
-		setTimeout(weatherResults, 400);
+		setTimeout(weatherResults, 100);
 	}
 
 		else if (($(this).hasClass("highlight")) && turns === maxturn) {
@@ -1028,7 +1042,7 @@ $("#grow").on("click", function () {
 		//call displayWeather function
 		//displayWeather();
 		//callsback updateGame function 200ms after displayWeather
-		setTimeout(weatherResults, 400);
+		setTimeout(weatherResults, 100);
 		setTimeout(endGame, 1000);
 	}
 
