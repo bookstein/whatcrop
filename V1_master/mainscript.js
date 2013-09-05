@@ -622,7 +622,7 @@ $(function introDialogs () {
 		sticky: true,
 		closeOnEscape: false,
         resizable: false,
-        position: 'center',
+        position: {my: 'top', at: 'top', of: '#farm'},
         stack: true,
         height: 'auto',
         width: '375',
@@ -643,7 +643,7 @@ $(function introDialogs () {
 		sticky: true,
 		closeOnEscape: false,
         resizable: false,
-        position: 'center',
+        position: {my: 'top', at: 'top', of: '#farm'},
         stack: true,
         height: 'auto',
         width: '375',
@@ -666,7 +666,7 @@ $(function introDialogs () {
 		sticky: true,
 		closeOnEscape: false,
         resizable: false,
-        position: 'center',
+        position: {my: 'top', at: 'top', of: '#farm'},
         stack: true,
         height: 'auto',
         width: '375',
@@ -689,7 +689,7 @@ $(function introDialogs () {
 		sticky: true,
 		closeOnEscape: false,
         resizable: false,
-        position: 'center',
+        position: {my: 'top', at: 'top', of: '#farm'},
         stack: true,
         height: 'auto',
         width: '375',
@@ -1000,10 +1000,9 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			dialogClass: "no-close",
 	        resizable: false,
 	        draggable: false,
-	        position: 'center',
+	        position: {my: 'top', at: 'top+25%', of: '#farm'},
 	        stack: false,
-	        height: 'auto',
-	        width: 'auto'
+	        width: '30%'
 	    });
 
 		//populate spans inside all results dialogs

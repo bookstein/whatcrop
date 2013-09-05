@@ -144,6 +144,7 @@ header > h1 {
 .results {
 	text-align: center;
 	height: auto !important;
+	width: 400px;
 }
 
 .no-close .ui-dialog-titlebar-close {
