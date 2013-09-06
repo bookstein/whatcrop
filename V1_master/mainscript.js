@@ -608,7 +608,7 @@ $(function introDialogs () {
 		sticky: true,
 		closeOnEscape: false,
         resizable: false,
-        position: {my: 'top', at: 'top', of: '#farm'},
+        position: {my: 'top', at: 'center top-5%', of: '#container'},
         stack: true,
         height: 'auto',
         width: '375',
