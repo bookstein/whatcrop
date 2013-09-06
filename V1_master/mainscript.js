@@ -789,17 +789,24 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	function weatherOpacity () {
 
 		if (gameWeather[turn] >= gameRoots.topRoot) {
-				return rainOpacity = 1, sunOpacity = 0;
+				rainOpacity = 1, sunOpacity = 0;
+				console.log(rainOpacity, sunOpacity);
 			}
 
 			else if (gameWeather[turn] > gameRoots.bottomRoot && gameWeather[turn] < gameRoots.topRoot) {
-				return rainOpacity = gameWeather[turn]/1000, sunOpacity = 1-rainOpacity;
+				rainOpacity = ((gameWeather[turn] - gameRoots.bottomRoot)/(gameRoots.topRoot - gameRoots.bottomRoot));
+				sunOpacity = 1-rainOpacity;
+				console.log(rainOpacity, sunOpacity);
+
 			}
 
 			else if (gameWeather[turn] <= gameRoots.bottomRoot) {
-				return rainOpacity = 0, sunOpacity = 1;
+				rainOpacity = 0;
+				sunOpacity = 1;
+				console.log(rainOpacity, sunOpacity);
 			}
 
+		return rainOpacity, sunOpacity;
 	};
 
 	function displayWeather (displayRain, displaySun) {
