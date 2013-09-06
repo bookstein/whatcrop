@@ -275,6 +275,13 @@ $(function initializeGame () {
 
 	optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
 
+	function calculateOptimalCrop() {
+		for (var i = 0; i < maxturn; i++) {
+
+			if (gameWeather[i] === "Wet" && payoutAwet > payoutBwet) {
+
+				optimalCrops[i] = payoutAwet;
+			}
 
 			else if (gameWeather[i] === "Dry" && payoutAdry > payoutBdry)
 			{
@@ -323,11 +330,6 @@ $(function initializeGame () {
 		}
 
 	};
-
-
-	}; // end function makeGameWeather
-
-	makeGameWeather();
 
 
 	//Populate spans in opening and ending dialogs
