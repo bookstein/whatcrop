@@ -808,7 +808,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		//A1.i Wet gameWeather is "wet" (wetter than normal)
 		if (gameWeather[turn] < maxAweather + Math.sqrt(maxApayout/(-betaA)) && gameWeather[turn] >= maxAweather + .33*Math.sqrt(maxApayout/(-betaA)) ) {
-			weatherReport = "wet enough";
+			weatherReport = "somewhat too wet";
 			$("#wetA").removeClass("hidden");
 		}
 
@@ -823,7 +823,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		//A2.i. dry gameWeather is "dry" (drier than normal)
 		else if (gameWeather[turn] < maxAweather - .33*Math.sqrt(maxApayout/(-betaA)) && gameWeather[turn] >= maxAweather - Math.sqrt(maxApayout/(-betaA))) {
-			weatherReport = "dry enough";
+			weatherReport = "somewhat too dry";
 			$("#dryA").removeClass("hidden");
 		}
 
@@ -852,7 +852,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		//B1.i Wet gameWeather is wet
 		if (gameWeather[turn] < maxBweather + Math.sqrt(maxBpayout/(-betaA)) && gameWeather[turn] >= maxBweather + .33*Math.sqrt(maxBpayout/(-betaB)) ) {
-			weatherReport = "wet enough";
+			weatherReport = "somewhat too wet";
 			//display healthy crop B (range of normal)
 			$("#wetB").removeClass("hidden");
 		}
@@ -867,7 +867,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		//B2.i Dry gameWeather is dry
 		else if (gameWeather[turn] < maxAweather - .33*Math.sqrt(maxApayout/(-betaA))) {
-			weatherReport = "dry enough";
+			weatherReport = "somewhat too dry";
 			$("#dryB").removeClass("hidden");
 		}
 
