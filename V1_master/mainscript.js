@@ -895,12 +895,12 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
 	   	$(".croprows").addClass("hidden");
 	   	$(".plant").removeClass("select");
-	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
+	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 500);
 	   	$(".jqplot-overlayCanvas-canvas").css('z-index', '-1'); //resets graph resultsLine to hidden
 	};
 
 
-	setTimeout(fadeWeather, 4000);
+	setTimeout(fadeWeather, 3000);
 
 }; // end of weatherResults
 
@@ -930,7 +930,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			//$("#points_bar").toggleClass("glow");
 
 			$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
-			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
+			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3000);
 			//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
   		};
 
@@ -999,11 +999,11 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	    $("#normal_results").dialog("open");
 
 
-		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
+		setTimeout(function() {$( ".results" ).dialog( "close" )}, 2300);
 
 	};
 
-	displayResultsDialog();
+	setTimeout(displayResultsDialog, 700);
 
 	function addTurn () {
 		turn = turn + 1;
@@ -1013,7 +1013,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	};
 
 
-		setTimeout(addTurn, 4000);
+		setTimeout(addTurn, 3000);
 
 
 	// Reset values for new turn
@@ -1041,10 +1041,7 @@ $("#grow").on("click", function () {
 		// hide crop sprout graphics
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
-		//call displayWeather function
-		//displayWeather();
-		//callsback updateGame function 200ms after displayWeather
-		setTimeout(weatherResults, 100);
+		weatherResults();
 	}
 
 		else if (($(this).hasClass("highlight")) && turns === maxturn) {
@@ -1052,10 +1049,7 @@ $("#grow").on("click", function () {
 		//summon end-of-game dialog instead of update
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
-		//call displayWeather function
-		//displayWeather();
-		//callsback updateGame function 200ms after displayWeather
-		setTimeout(weatherResults, 100);
+		weatherResults();
 		setTimeout(endGame, 1000);
 	}
 
