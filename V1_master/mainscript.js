@@ -1010,14 +1010,13 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
 		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
 		//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
+
+		// Reset values for new turn
+		cropchoice = "";
 	};
 
 
 		setTimeout(addTurn, 3000);
-
-
-	// Reset values for new turn
-	cropchoice = "";
 
 
 		//Moved these variables inside newScore function because they only matter for bonus thresholds being crossed
