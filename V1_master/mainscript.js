@@ -405,7 +405,7 @@ $(function initializeGame () {
 		                        showGridline: true
 		                    },
 
-		          			label:'Weather (inches of rain)',
+		          			label:'Inches of rain',
 		          			labelRenderer: $.jqplot.AxisLabelRenderer,
 		         			labelOptions: {
 		            			fontFamily: 'Verdana, sans-serif',
