@@ -466,7 +466,7 @@ $(function initializeGame () {
 		};
 
 		chart1();
-		chart2();
+		setTimeout(chart2, 300);
 
 	}; //end of drawQuadratic()
 
