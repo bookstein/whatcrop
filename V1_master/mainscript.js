@@ -409,7 +409,8 @@ $(function initializeGame () {
 		          			labelRenderer: $.jqplot.AxisLabelRenderer,
 		         			labelOptions: {
 		            			fontFamily: 'Verdana, sans-serif',
-		            			fontSize: '12pt'
+		            			fontSize: '12pt',
+		            			show: showBoolean
 		          			}
 		        		},
 
