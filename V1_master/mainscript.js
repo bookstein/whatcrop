@@ -310,8 +310,7 @@ $(function initializeGame () {
 				          {
 				          	// Weather
 				          	label: "Weather",
-				          	lineWidth: 0,
-				          	showMarker: false,
+				          	showMarker: true,
 				          	renderer:$.jqplot.BarRenderer,
 				          	xaxis:'x2axis',
 				          	yaxis:'y2axis',
@@ -468,7 +467,7 @@ $(function initializeGame () {
 		};
 
 		chart1();
-		setTimeout(chart2, 300);
+		chart2();
 
 	}; //end of drawQuadratic()
 
