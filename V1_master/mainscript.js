@@ -348,7 +348,10 @@ $(function initializeGame () {
 		        		//background: "rgba(0, 200, 500, 0.05)",
 		        	  },
 
+		        	  // The "seriesDefaults" option is an options object that will
+		        	  //be applied to all series in the chart.
 				      seriesDefaults: {
+				          renderer: $.jqplot.BarRenderer,
 				          rendererOptions: {
 				            smooth: true,
 				            fillToZero: true,
@@ -377,8 +380,8 @@ $(function initializeGame () {
 		                        mark: "inside",
 		                        showLabel: false,
 		                        formatString: "%#.0f",
-		                        showMark: false,
-		                        showGridline: false
+		                        showMark: true,
+		                        showGridline: true
 		                    }
 		      			},
 
