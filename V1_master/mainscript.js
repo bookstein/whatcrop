@@ -371,6 +371,7 @@ $(function initializeGame () {
 
 				      axes: {
 						x2axis: {
+		      				padMin: 0,
 		      				ticks: ticksWeatherX,
 		      				tickOptions:{
 		                        mark: "inside",
@@ -383,7 +384,7 @@ $(function initializeGame () {
 
 		      			y2axis:{
 		      				padMin: 0,
-		          			renderer: $.jqplot.CategoryAxisRenderer,
+		          			//renderer: $.jqplot.CategoryAxisRenderer,
 		          			rendererOptions:{
 		                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
 		                    },
