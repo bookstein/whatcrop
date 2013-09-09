@@ -252,12 +252,13 @@ header > h1 {
 	text-align: center;
 }
 
-#chartdiv {
+#chartdiv, #intro_graph {
 	height: 350px;
 	width: 100%;
 	margin-right: 0;
 	margin-left: 0;
 }
+
 
 .jqplot-grid-canvas {
 	background-image: linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
@@ -282,6 +283,7 @@ header > h1 {
 .jqplot-event-canvas {
 	z-index: 1;
 }
+
 
 .jqplot-overlayCanvas-canvas {
 	z-index: -1; /* Overlay canvas is hidden until weatherResults() changes z-index*/

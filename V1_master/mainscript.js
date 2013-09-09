@@ -267,7 +267,7 @@ $(function initializeGame () {
 					}
 				}
 				console.log("[" + parseInt(intervalBottom) + ", " + count + "]");
-				return [intervalBottom, count, null];
+				return [intervalBottom, count, count];
 
 			}; // end countOccurrence();
 
@@ -351,7 +351,6 @@ $(function initializeGame () {
 		        	  // The "seriesDefaults" option is an options object that will
 		        	  //be applied to all series in the chart.
 				      seriesDefaults: {
-				          renderer: $.jqplot.BarRenderer,
 				          rendererOptions: {
 				            smooth: true,
 				            fillToZero: true,
@@ -377,7 +376,7 @@ $(function initializeGame () {
 		      				padMin: 0,
 		      				ticks: ticksWeatherX,
 		      				tickOptions:{
-		                        mark: "inside",
+		                        mark: "outside",
 		                        showLabel: false,
 		                        formatString: "%#.0f",
 		                        showMark: true,
@@ -409,8 +408,8 @@ $(function initializeGame () {
 		                	tickOptions:{
 		                        mark: "cross",
 		                        formatString: "%#.0f",
-		                        showMark: true,
-		                        showGridline: true
+		                        showMark: showBoolean,
+		                        showGridline: showBoolean
 		                    },
 
 		          			label:'Inches of rain',
