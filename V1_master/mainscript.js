@@ -312,6 +312,9 @@ $(function initializeGame () {
 				          	label: "Weather",
 				          	showMarker: true,
 				          	renderer:$.jqplot.BarRenderer,
+				          	barMargin: 0,
+				          	barWidth: '5px',
+				          	shadowAlpha: 0,
 				          	xaxis:'x2axis',
 				          	yaxis:'y2axis',
 				          	show: true
@@ -348,6 +351,7 @@ $(function initializeGame () {
 				      seriesDefaults: {
 				          rendererOptions: {
 				            smooth: true,
+				            fillToZero: true,
 				            highlightMouseOver: false,
 				            highlightMouseDown: false,
 		        			highlightColor: null,
