@@ -311,6 +311,7 @@ $(function initializeGame () {
 			      	    label: "Crop A",
 			            lineWidth: 2,
 			            showMarker: false,
+			            renderer:$.jqplot.LineRenderer,
 			            show: showData
 			          },
 			          {
@@ -318,6 +319,7 @@ $(function initializeGame () {
 			            label: "Crop B",
 			            lineWidth: 2,
 			            showMarker: false,
+			            renderer:$.jqplot.LineRenderer,
 			            show: showData
 			          }
 			      ],
@@ -366,7 +368,7 @@ $(function initializeGame () {
 	      			},
 
 	      			y2axis:{
-
+	      				padMin: 0,
 	          			renderer: $.jqplot.CategoryAxisRenderer,
 	          			rendererOptions:{
 	                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
@@ -403,6 +405,7 @@ $(function initializeGame () {
 
 	        		yaxis:{
 	          			ticks: ticksY,
+	          			padMin: 0,
 	          			rendererOptions:{
 	                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
 	                    },
@@ -442,11 +445,11 @@ $(function initializeGame () {
 
 		// draw graph in #intro_graph (for intro dialog) using optionsObj above
 		historyOptionsObj = setOptions(historyOptionsObj, false);
-		var chart1 = $.jqplot("intro_graph", [histogram, plotA, plotB], historyOptionsObj);
+		var chart1 = $.jqplot("intro_graph", plotData, historyOptionsObj);
 
 		//draw graph in #chartdiv using optionsObj above
 		payoutOptionsObj = setOptions(payoutOptionsObj, true);
-		var chart2 = $.jqplot("chartdiv", [histogram, plotA, plotB], payoutOptionsObj);
+		var chart2 = $.jqplot("chartdiv", plotData, payoutOptionsObj);
 
 
 
