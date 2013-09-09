@@ -266,8 +266,8 @@ $(function initializeGame () {
 						count = count;
 					}
 				}
-				console.log("count occurrence: " + "[" + newinterval*intervalWidth + ", " + count + "]");
-				return [newinterval*intervalWidth, count, null];
+				console.log("[" + parseInt(intervalBottom) + ", " + count + "]");
+				return [intervalBottom, count, null];
 
 			}; // end countOccurrence();
 
