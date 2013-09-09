@@ -297,151 +297,171 @@ $(function initializeGame () {
 
 		var histogram = historicWeatherHistogram();
 
-		console.log(histogram);
-
-		// put all datasets into single variable
+		// variable containing all data to be plotted
 		var plotData = [histogram, plotA, plotB];
 
-		//draw parabolas in #chartdiv
-		var cropValues = $.jqplot('chartdiv', [histogram, plotA, plotB], {
 
-		      series:[
-
-		          {
-		          	// Weather
-		          	lineWidth: 0,
-		          	showMarker: false,
-		          	renderer:$.jqplot.BarRenderer,
-		          	xaxis:'x2axis',
-		          	yaxis:'y2axis'
-		      	  },
-		      	  {
-		      	    // CropA
-		            lineWidth:2,
-		            showMarker: false
-		          },
-		          {
-		            // CropB
-		            lineWidth:2,
-		            showMarker: false
-		          }
-		      ],
-
-		      seriesColors: [/*historic weather*/ "rgba(0, 200, 500, .8)", /*color A*/ "#820000", /*color B*/ "#3811c9"],
+		// Create options object for jqPlot graph using optionsObj and setOptions()
 
 
-		      grid: {
-        		//drawGridlines: true,
-        		shadow: false,
-        		borderWidth: 1,
-        		drawBorder: true,
-        		//background: "rgba(0, 200, 500, 0.05)",
-        	  },
 
-		      seriesDefaults: {
-		          rendererOptions: {
-		            smooth: true,
-		            highlightMouseOver: false,
-		            highlightMouseDown: false,
-        			highlightColor: null,
-        			},
-				  markerOptions: {
-            		shadow: false,
-		          },
+		var optionsObj = {
+			      series:[
 
-		       // labels for payout curves at vertex
-		       //pointLabels uses the final value in parabolaArray as its data
-		          pointLabels: {
-		          	show: true,
-		          	location:'nw',
-		          	ypadding:3,
-		          	xpadding:3
-		          }
-		      },
+			          {
+			          	// Weather
+			          	label: "Weather",
+			          	lineWidth: 0,
+			          	showMarker: false,
+			          	renderer:$.jqplot.BarRenderer,
+			          	xaxis:'x2axis',
+			          	yaxis:'y2axis',
+			          	show: true
+			      	  },
+			      	  {
+			      	    // CropA
+			      	    label: "Crop A",
+			            lineWidth: 2,
+			            showMarker: false,
+			            renderer:$.jqplot.LineRenderer,
+			            show: true
+			          },
+			          {
+			            // CropB
+			            label: "Crop B",
+			            lineWidth: 2,
+			            showMarker: false,
+			            renderer:$.jqplot.LineRenderer,
+			            show: true
+			          }
+			      ],
 
-		      axes: {
-				x2axis: {
-      				ticks: ticksWeatherX,
-      				tickOptions:{
-                        mark: "inside",
-                        showLabel: false,
-                        formatString: "%#.0f",
-                        showMark: false,
-                        showGridline: false
-                    }
-      			},
+			      seriesColors: [/*historic weather*/ "rgba(0, 200, 500, .8)", /*color A*/ "#820000", /*color B*/ "#3811c9"],
 
-      			y2axis:{
 
-          			renderer: $.jqplot.CategoryAxisRenderer,
-          			rendererOptions:{
-                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
-                    },
-                	tickOptions:{
-                        mark: "inside",
-                        showLabel: false,
-                        formatString: "%#.0f",
-                        showMark: false,
-                        showGridline: false
-                    }
-      			},
+			      grid: {
+	        		//drawGridlines: true,
+	        		shadow: false,
+	        		borderWidth: 1,
+	        		drawBorder: true,
+	        		//background: "rgba(0, 200, 500, 0.05)",
+	        	  },
 
-        		xaxis:{
-        			ticks: ticksX,
-        			borderWidth: 1.5,
-        			rendererOptions:{
-                    	tickRenderer:$.jqplot.AxisTickRenderer
-                    },
-                	tickOptions:{
-                        mark: "cross",
-                        formatString: "%#.0f",
-                        showMark: true,
-                        showGridline: true
-                    },
+			      seriesDefaults: {
+			          rendererOptions: {
+			            smooth: true,
+			            highlightMouseOver: false,
+			            highlightMouseDown: false,
+	        			highlightColor: null,
+	        			},
+					  markerOptions: {
+	            		shadow: false,
+			          },
 
-          			label:'Weather (inches of rain)',
-          			labelRenderer: $.jqplot.AxisLabelRenderer,
-         			labelOptions: {
-            			fontFamily: 'Verdana, sans-serif',
-            			fontSize: '12pt'
-          			}
-        		},
+			       //pointLabels uses the final value in parabolaArray[i] as its data
+			          pointLabels: {
+			          	show: true,
+			          	location:'nw',
+			          	ypadding:3,
+			          	xpadding:3
+			          }
+			      },
 
-        		yaxis:{
-          			ticks: ticksY,
-          			rendererOptions:{
-                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
-                    },
-                	tickOptions:{
-                        mark: "inside",
-                        showLabel: true,
-                        formatString: "%#.0f",
-                        showMark: true,
-                        showGridline: true
-                    },
+			      axes: {
+					x2axis: {
+	      				ticks: ticksWeatherX,
+	      				tickOptions:{
+	                        mark: "inside",
+	                        showLabel: false,
+	                        formatString: "%#.0f",
+	                        showMark: false,
+	                        showGridline: false
+	                    }
+	      			},
 
-          			/*label:'Points',
-          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-						labelOptions: {
+	      			y2axis:{
+	      				padMin: 0,
+	          			renderer: $.jqplot.CategoryAxisRenderer,
+	          			rendererOptions:{
+	                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
+	                    },
+	                	tickOptions:{
+	                        mark: "inside",
+	                        showLabel: false,
+	                        formatString: "%#.0f",
+	                        showMark: false,
+	                        showGridline: false
+	                    }
+	      			},
+
+	        		xaxis:{
+	        			ticks: ticksX,
+	        			borderWidth: 1.5,
+	        			rendererOptions:{
+	                    	tickRenderer:$.jqplot.AxisTickRenderer
+	                    },
+	                	tickOptions:{
+	                        mark: "cross",
+	                        formatString: "%#.0f",
+	                        showMark: true,
+	                        showGridline: true
+	                    },
+
+	          			label:'Weather (inches of rain)',
+	          			labelRenderer: $.jqplot.AxisLabelRenderer,
+	         			labelOptions: {
 	            			fontFamily: 'Verdana, sans-serif',
-	            			fontSize: '12pt',
-          				}*/
-      			}
-    		  }, // axes
+	            			fontSize: '12pt'
+	          			}
+	        		},
 
-	      	canvasOverlay: {
-        		show: true, // turn this on and off to show results
-	            objects: [
-	                {verticalLine: {
-	                    name: 'resultsLine',
-	                    x: gameWeather[turn], // this positions the line at the current turn weather
-	                    lineWidth: 4,
-	                    color: 'rgb(255, 204, 51)',
-	                    shadow: false
-	                }}
-			]} // end of canvasOverlay
-		    } // cropValues object
-		  ); // cropValues jqplot
+	        		yaxis:{
+	          			ticks: ticksY,
+	          			padMin: 0,
+	          			rendererOptions:{
+	                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
+	                    },
+	                	tickOptions:{
+	                        mark: "inside",
+	                        showLabel: true,
+	                        formatString: "%#.0f",
+	                        showMark: true,
+	                        showGridline: true
+	                    },
+
+	          			/*label:'Points',
+	          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+							labelOptions: {
+		            			fontFamily: 'Verdana, sans-serif',
+		            			fontSize: '12pt',
+	          				}*/
+	      			}
+	    		  }, // axes
+
+		      	canvasOverlay: {
+	        		show: true, // turn this on and off to show results
+		            objects: [
+		                {verticalLine: {
+		                    name: 'resultsLine',
+		                    x: gameWeather[turn], // this positions the line at the current turn weather
+		                    lineWidth: 4,
+		                    color: 'rgb(255, 204, 51)',
+		                    shadow: false
+		                }}
+				]} // end of canvasOverlay
+			}; // end optionsObj
+
+
+		// draw graph in #intro_graph (for intro dialog) using optionsObj above
+
+		var chart1 = $.jqplot("intro_graph", plotData, optionsObj);
+
+		//draw graph in #chartdiv using optionsObj above
+
+		var chart2 = $.jqplot("chartdiv", plotData, optionsObj);
+
+
+
 	}; //end of drawQuadratic()
 
 	// Removes background coloration on payout/weather chart after 30 seconds
@@ -925,6 +945,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	};
 
 	setTimeout(fadeWeather, 4000);
+
 
 }; // end of weatherResults
 
