@@ -283,6 +283,9 @@ $(function initializeGame () {
 
 		var histogram = historicWeatherHistogram();
 
+		// variable containing all data to be plotted
+		var plotData = [histogram, plotA, plotB];
+
 		console.log(histogram);
 
 		// Create options object for jqPlot graph using optionsObj and setOptions()
