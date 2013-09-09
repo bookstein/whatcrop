@@ -259,6 +259,9 @@ header > h1 {
 	margin-left: 0;
 }
 
+.jqplot-target {
+	width: 100% !important;
+}
 
 .jqplot-grid-canvas {
 	background-image: linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
