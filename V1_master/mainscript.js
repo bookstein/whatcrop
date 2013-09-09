@@ -266,8 +266,7 @@ $(function initializeGame () {
 						count = count;
 					}
 				}
-
-
+				console.log("count occurrence: " + "[" + newinterval*intervalWidth + ", " + count + "]");
 				return [newinterval*intervalWidth, count, null];
 
 			}; // end countOccurrence();
@@ -282,7 +281,7 @@ $(function initializeGame () {
 
 			function ticksWeather () {
 				for (var j = 0; j < intervalNumber; j++) {
-					ticksWeatherX[j] = intervalWidth*j;
+					ticksWeatherX[j] = parseInt(intervalWidth*j);
 				}
 
 				return ticksWeatherX;
@@ -290,7 +289,8 @@ $(function initializeGame () {
 
 			ticksWeather();
 
-			console.log(ticksWeatherX);
+			console.log("ticksWeatherX: "+ ticksWeatherX);
+			console.log("frequency array: " + frequency);
 
 			return frequency;
 		}; //end historicWeatherHistogram
