@@ -300,10 +300,10 @@ $(function initializeGame () {
 		// variables containing all data to be plotted
 		var plotData = [histogram, plotA, plotB];
 
-
+		var optionsObj = {};
 		// Create options object for jqPlot graph using optionsObj and setOptions()
 		function setOptions (showBoolean) {
-			var optionsObj = {
+			optionsObj = {
 				      series:[
 
 				          {
@@ -465,7 +465,8 @@ $(function initializeGame () {
 			$.jqplot("chartdiv", plotData, optionsObj);
 		};
 
-
+		chart1();
+		chart2();
 
 	}; //end of drawQuadratic()
 
