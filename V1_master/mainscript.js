@@ -299,6 +299,8 @@ $(function initializeGame () {
 
 		console.log(histogram);
 
+		// put all datasets into single variable
+		var plotData = [histogram, plotA, plotB];
 
 		//draw parabolas in #chartdiv
 		var cropValues = $.jqplot('chartdiv', [histogram, plotA, plotB], {
