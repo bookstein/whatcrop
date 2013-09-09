@@ -245,7 +245,7 @@ $(function initializeGame () {
 
 			function countOccurrence(newinterval) { //this functions runs for each interval
 
-				var intervalBottom = newinterval*intervalWidth;
+				var intervalBottom = parseInt(newinterval*intervalWidth);
 				var intervalTop = ((newinterval+1)*intervalWidth);
 
 				console.log(intervalBottom + " to " + intervalTop);
@@ -266,7 +266,7 @@ $(function initializeGame () {
 						count = count;
 					}
 				}
-				console.log("[" + parseInt(intervalBottom) + ", " + count + "]");
+				console.log("[" + intervalBottom + ", " + count + "]");
 				return [intervalBottom, count, null];
 
 			}; // end countOccurrence();
