@@ -296,6 +296,7 @@ $(function initializeGame () {
 		}; //end historicWeatherHistogram
 
 		var histogram = historicWeatherHistogram();
+		console.log("Histogram data: " + histogram);
 
 		// variables containing all data to be plotted
 		var plotData = [histogram, plotA, plotB];
@@ -456,7 +457,7 @@ $(function initializeGame () {
 
 		function chart1 () {
 			setOptions(false);
-			$.jqplot("intro_graph", histogram, optionsObj);
+			$.jqplot("intro_graph", [histogram], optionsObj);
 		};
 
 		//draw graph in #chartdiv using optionsObj above
