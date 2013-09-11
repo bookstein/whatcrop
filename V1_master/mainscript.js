@@ -268,7 +268,7 @@ $(function initializeGame () {
 					}
 				}
 				console.log("[" + parseInt(intervalBottom) + ", " + count + "]");
-				return [intervalBottom, count, count];
+				return [intervalBottom, count, null];
 
 			}; // end countOccurrence();
 
@@ -282,6 +282,7 @@ $(function initializeGame () {
 
 			function ticksWeather () {
 				for (var j = 0; j < intervalNumber; j++) {
+
 					ticksWeatherX[j] = parseInt(intervalWidth*j);
 				}
 
@@ -385,12 +386,13 @@ $(function initializeGame () {
 		                        mark: "outside",
 		                        showLabel: false,
 		                        formatString: "%#.0f",
-		                        showMark: true,
-		                        showGridline: true
+		                        showMark: !showBoolean,
+		                        showGridline: !showBoolean
 		                    }
 		      			},
 
 		      			y2axis:{
+		      				label: "Number of years",
 		      				padMin: 0,
 		          			//renderer: $.jqplot.CategoryAxisRenderer,
 		          			rendererOptions:{
@@ -398,7 +400,7 @@ $(function initializeGame () {
 		                    },
 		                	tickOptions:{
 		                        mark: "inside",
-		                        showLabel: false,
+		                        showLabel: !showBoolean,
 		                        formatString: "%#.0f",
 		                        showMark: false,
 		                        showGridline: false
@@ -422,8 +424,7 @@ $(function initializeGame () {
 		          			labelRenderer: $.jqplot.AxisLabelRenderer,
 		         			labelOptions: {
 		            			fontFamily: 'Verdana, sans-serif',
-		            			fontSize: '12pt',
-		            			show: showBoolean
+		            			fontSize: '12pt'
 		          			}
 		        		},
 
@@ -715,7 +716,7 @@ $(function introDialogs () {
         position: {my: 'top', at: 'top', of: '#farm'},
         stack: true,
         height: 'auto',
-        width: '375',
+        width: 'auto',
         dialogClass: "no-close",
 		buttons: [ { text: "Next (3 of 4)",
 			click: function() {

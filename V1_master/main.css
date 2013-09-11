@@ -257,10 +257,7 @@ header > h1 {
 	width: 100%;
 	margin-right: 0;
 	margin-left: 0;
-}
-
-.jqplot-target {
-	width: 100% !important;
+	position: relative;
 }
 
 .jqplot-grid-canvas {
@@ -311,18 +308,18 @@ header > h1 {
 	font-size: 16px !important;
 }
 
-.jqplot-yaxis-tick, .jqplot-xaxis-tick {
+.jqplot-yaxis-tick, .jqplot-xaxis-tick, .jqplot-y2axis-tick, .jqplot-x2axis-tick {
 	font-family: Georgia, serif;
 	font-size: 14px;
 	padding: 5px;
 	z-index: 2;
 }
 
-.jqplot-xaxis-tick {
+.jqplot-xaxis-tick, .jqplot-x2axis-tick {
 	font-weight: normal;
 }
 
-.jqplot-xaxis-label {
+.jqplot-xaxis-label, .jqplot-x2axis-label {
 	z-index: 2;
 }
 
