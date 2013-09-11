@@ -377,7 +377,9 @@ $(function initializeGame () {
 				          	xpadding:3
 				          }
 				      },
-
+				      axesDefaults: {
+        				labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+    				  },
 				      axes: {
 						x2axis: {
 		      				//label: "Historic weather distribution",
