@@ -312,7 +312,7 @@ $(function initializeGame () {
 				          {
 				          	// Weather
 				          	label: "Weather",
-				          	showMarker: true,
+				          	showMarker: false,
 				          	renderer:$.jqplot.BarRenderer,
 				          	rendererOptions: {
 				          		barWidth: 10,
@@ -324,7 +324,7 @@ $(function initializeGame () {
 				          	},
 				          	xaxis:'x2axis',
 				          	yaxis:'y2axis',
-				          	show: true
+				          	show: true // change to 'false' to remove historicWeather from graph
 				      	  },
 				      	  {
 				      	    // CropA
@@ -380,7 +380,8 @@ $(function initializeGame () {
 
 				      axes: {
 						x2axis: {
-		      				padMin: 0,
+		      				//label: "Historic weather distribution",
+		      				//padMin: 0,
 		      				ticks: ticksWeatherX,
 		      				tickOptions:{
 		                        mark: "outside",
@@ -392,8 +393,8 @@ $(function initializeGame () {
 		      			},
 
 		      			y2axis:{
-		      				label: "Number of years",
-		      				padMin: 0,
+		      				//label: "Number of years",
+		      				pad: 0,
 		          			//renderer: $.jqplot.CategoryAxisRenderer,
 		          			rendererOptions:{
 		                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
@@ -430,7 +431,7 @@ $(function initializeGame () {
 
 		        		yaxis:{
 		          			ticks: ticksY,
-		          			padMin: 0,
+		          			pad: 0,
 		          			rendererOptions:{
 		                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
 		                    },
