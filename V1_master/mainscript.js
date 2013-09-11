@@ -341,6 +341,8 @@ $(function initializeGame () {
 				            lineWidth: 2,
 				            showMarker: false,
 				            renderer:$.jqplot.LineRenderer,
+				            xaxis:'xaxis',
+				          	yaxis:'yaxis',
 				            show: showBoolean
 				          },
 				          {
@@ -349,6 +351,8 @@ $(function initializeGame () {
 				            lineWidth: 2,
 				            showMarker: false,
 				            renderer:$.jqplot.LineRenderer,
+				            xaxis:'xaxis',
+				          	yaxis:'yaxis',
 				            show: showBoolean
 				          }
 				      ],
@@ -404,11 +408,16 @@ $(function initializeGame () {
 		      			},*/
 
 		      			y2axis:{
-		      				//label: "Number of years",
+		      				label: "Number of years of X rainfall",
+		     				labelOptions: {
+            					show: !showBoolean,
+            					fontSize: '11pt'
+        					},
 		          			//renderer: $.jqplot.CategoryAxisRenderer,
 		          			rendererOptions:{
 		                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
 		                    },
+
 		                	tickOptions:{
 		                        mark: "inside",
 		                        showLabel: !showBoolean,
@@ -444,6 +453,7 @@ $(function initializeGame () {
 		          			rendererOptions:{
 		                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
 		                    },
+		                    label: "Points",
 		                	tickOptions:{
 		                        mark: "inside",
 		                        showLabel: true,
