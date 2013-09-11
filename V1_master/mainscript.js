@@ -228,9 +228,9 @@ $(function initializeGame () {
 		// Set values for tick marks
 		var maxX = [upperBoundX+100];
 		var maxY = [upperBoundY+20];
-		var ticksX = [[0, "0"], [maxAweather, maxAweather], [maxBweather, maxBweather], [maxX, maxX]];
+		//var ticksX = [[0, "0"], [maxAweather, maxAweather], [maxBweather, maxBweather], [maxX, maxX]];
 		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
-		var ticksWeatherX = [];
+		var ticksWeatherX = [[]];
 		var ticksWeatherY = [];
 
 
@@ -281,9 +281,18 @@ $(function initializeGame () {
 			}
 
 			function ticksWeather () {
-				for (var j = 0; j < intervalNumber; j++) {
 
-					ticksWeatherX[j] = parseInt(j*(maxX/intervalNumber));
+				for (var j = 0; j <= intervalNumber; j++) {
+
+					ticksWeatherX[j] = [parseInt(j*(maxX/intervalNumber))];
+
+					if (j == 0 || j==intervalNumber*.25 || j==intervalNumber*.5 || j== intervalNumber*.75 || j == intervalNumber) {
+						ticksWeatherX[j][1] = parseInt(j*(maxX/intervalNumber));
+					}
+
+					else {
+						ticksWeatherX[j][1] = "";
+					}
 				}
 
 				return ticksWeatherX;
