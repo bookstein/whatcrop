@@ -17,6 +17,7 @@ $(document).ready(function(){
 	gameWeather = [];
 	weatherReport = "";
 	historyPlot = {};
+	meanHistoricWeather = 0;
 
 	// Set number of turns per game
     maxturn = 50;
@@ -240,6 +241,7 @@ $(function initializeGame () {
 			var range = Math.max.apply(Math, historicWeather) - 0;
 			var intervalNumber = 2*Math.ceil(Math.sqrt(historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
 			var intervalWidth = range/intervalNumber;
+			meanHistoricWeather = parseInt(range/2);
 
 
 			console.log("range: " + range + " number of intervals: " + intervalNumber + " interval width: " + intervalWidth);
@@ -602,6 +604,7 @@ $(function initializeGame () {
 	//$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
 	//$("#bonus_one_instructions").text(totalRandomPoints);
 	//$("#bonus_two_instructions").text(totalOptimalPoints);
+	$("#mean_rainfall").text(meanHistoricWeather + " inches of rain");
 
 	//Calculate Max Score --------------------------------------
 
