@@ -283,7 +283,7 @@ $(function initializeGame () {
 			function ticksWeather () {
 				for (var j = 0; j < intervalNumber; j++) {
 
-					ticksWeatherX[j] = parseInt(intervalWidth*j);
+					ticksWeatherX[j] = parseInt(j*(maxX/intervalNumber));
 				}
 
 				return ticksWeatherX;
@@ -410,7 +410,7 @@ $(function initializeGame () {
 		      			},
 
 		        		xaxis:{
-		        			ticks: ticksX,
+		        			ticks: ticksWeatherX,
 		        			borderWidth: 1.5,
 		        			rendererOptions:{
 		                    	tickRenderer:$.jqplot.AxisTickRenderer
