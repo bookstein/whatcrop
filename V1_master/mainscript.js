@@ -344,7 +344,7 @@ $(function initializeGame () {
 				          }
 				      ],
 
-				      seriesColors: [/*historic weather*/ "rgba(0, 200, 500, .8)", /*color A*/ "#820000", /*color B*/ "#3811c9"],
+				      seriesColors: [/*historic weather*/ "rgba(152, 152, 152, .7)", /*color A*/ "#820000", /*color B*/ "#3811c9"],
 
 
 				      grid: {
