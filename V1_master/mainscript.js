@@ -392,7 +392,6 @@ $(function initializeGame () {
 
 		      			y2axis:{
 		      				label: "Number of years",
-
 		      				padMin: 0,
 		          			//renderer: $.jqplot.CategoryAxisRenderer,
 		          			rendererOptions:{
@@ -424,8 +423,7 @@ $(function initializeGame () {
 		          			labelRenderer: $.jqplot.AxisLabelRenderer,
 		         			labelOptions: {
 		            			fontFamily: 'Verdana, sans-serif',
-		            			fontSize: '12pt',
-		            			show: showBoolean
+		            			fontSize: '12pt'
 		          			}
 		        		},
 
