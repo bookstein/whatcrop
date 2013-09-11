@@ -331,7 +331,7 @@ $(function initializeGame () {
 				            	fillToZero: true,
 				            	shadowAlpha: 0
 				          	},
-				          	xaxis:'x2axis',
+				          	xaxis:'xaxis',
 				          	yaxis:'y2axis',
 				          	show: true // change to 'false' to remove historicWeather from graph
 				      	  },
@@ -390,18 +390,18 @@ $(function initializeGame () {
         				labelRenderer: $.jqplot.CanvasAxisLabelRenderer
     				  },
 				      axes: {
-						x2axis: {
+						/*x2axis: {
 		      				//label: "Historic weather distribution",
 		      				//padMin: 0,
 		      				ticks: ticksWeatherX,
 		      				tickOptions:{
 		                        mark: "outside",
-		                        showLabel: false,
+		                        showLabel: !showBoolean,
 		                        formatString: "%#.0f",
 		                        showMark: !showBoolean,
 		                        showGridline: !showBoolean
 		                    }
-		      			},
+		      			},*/
 
 		      			y2axis:{
 		      				//label: "Number of years",
@@ -427,8 +427,8 @@ $(function initializeGame () {
 		                	tickOptions:{
 		                        mark: "cross",
 		                        formatString: "%#.0f",
-		                        showMark: showBoolean,
-		                        showGridline: showBoolean
+		                        showMark: true,
+		                        showGridline: true
 		                    },
 
 		          			label:'Inches of rain',
