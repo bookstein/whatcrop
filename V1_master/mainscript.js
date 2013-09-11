@@ -394,7 +394,6 @@ $(function initializeGame () {
 
 		      			y2axis:{
 		      				//label: "Number of years",
-		      				pad: 0,
 		          			//renderer: $.jqplot.CategoryAxisRenderer,
 		          			rendererOptions:{
 		                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
@@ -431,7 +430,6 @@ $(function initializeGame () {
 
 		        		yaxis:{
 		          			ticks: ticksY,
-		          			pad: 0,
 		          			rendererOptions:{
 		                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
 		                    },
