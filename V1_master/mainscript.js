@@ -516,7 +516,7 @@ $(function initializeGame () {
 		$(".jqplot-grid-canvas").css('background-image', 'none');
 	};
 
-	setTimeout(removeChartBackground, 30000);
+	setTimeout(removeChartBackground, 60000);
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
