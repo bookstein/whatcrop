@@ -18,7 +18,7 @@ game = {
 
 	game.cropchoice = "";
 	game.gameWeather = [];
-	weatherReport = "";
+	game.weatherReport = "";
 	historyPlot = {};
 	meanHistoricWeather = 0;
 
@@ -907,13 +907,13 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		//A1.i Wet game.gameWeather is "wet" (wetter than normal)
 		if (game.gameWeather[turn] < maxAweather + Math.sqrt(maxApayout/(-betaA)) && game.gameWeather[turn] >= maxAweather + .33*Math.sqrt(maxApayout/(-betaA)) ) {
-			weatherReport = "wet enough";
+			game.weatherReport = "wet enough";
 			$("#wetA").removeClass("hidden");
 		}
 
 		//A1.ii Wet game.gameWeather is too wet
 		else if (game.gameWeather[turn] >= maxAweather + Math.sqrt(maxApayout/(-betaA)) ) {
-			weatherReport = "too wet";
+			game.weatherReport = "too wet";
 			$("#deadAwet").removeClass("hidden");
 			//display too-wet crop A ("Very Wet")
 		}
@@ -922,14 +922,14 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		//A2.i. dry game.gameWeather is "dry" (drier than normal)
 		else if (game.gameWeather[turn] < maxAweather - .33*Math.sqrt(maxApayout/(-betaA)) && game.gameWeather[turn] >= maxAweather - Math.sqrt(maxApayout/(-betaA))) {
-			weatherReport = "dry enough";
+			game.weatherReport = "dry enough";
 			$("#dryA").removeClass("hidden");
 		}
 
 
 		//A2.ii. dry game.gameWeather is too dry
 		else if (game.gameWeather[turn] < maxAweather - Math.sqrt(maxApayout/(-betaA))) {
-			weatherReport = "too dry";
+			game.weatherReport = "too dry";
 			//display too-dry crop A
 			$("#deadAdry").removeClass("hidden");
 		}
@@ -937,7 +937,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		// A3. game.gameWeather is normal
 		else if (game.gameWeather[turn] < (maxAweather + .33*Math.sqrt(maxApayout/(-betaA))) && game.gameWeather[turn] >= (maxAweather - .33*Math.sqrt(maxApayout/(-betaA)))) {
 			$("#rowsCropA").removeClass("hidden");
-			weatherReport = "optimal weather";
+			game.weatherReport = "optimal weather";
 		}
 
 		updateGame(betaA, maxApayout, maxAweather); // call updateGame with values for crop A
@@ -951,14 +951,14 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		//B1.i Wet game.gameWeather is wet
 		if (game.gameWeather[turn] < maxBweather + Math.sqrt(maxBpayout/(-betaA)) && game.gameWeather[turn] >= maxBweather + .33*Math.sqrt(maxBpayout/(-betaB)) ) {
-			weatherReport = "wet enough";
+			game.weatherReport = "wet enough";
 			//display healthy crop B (range of normal)
 			$("#wetB").removeClass("hidden");
 		}
 
 		//B1.ii Wet game.gameWeather is too wet
 		else if (game.gameWeather[turn] >= maxBweather + Math.sqrt(maxBpayout/(-betaB))) {
-			weatherReport = "too wet";
+			game.weatherReport = "too wet";
 			$("#deadBwet").removeClass("hidden");
 		}
 
@@ -966,13 +966,13 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 		//B2.i Dry game.gameWeather is dry
 		else if (game.gameWeather[turn] < maxAweather - .33*Math.sqrt(maxApayout/(-betaA))) {
-			weatherReport = "dry enough";
+			game.weatherReport = "dry enough";
 			$("#dryB").removeClass("hidden");
 		}
 
 		//B2.ii Dry game.gameWeather is too dry
 		else if (game.gameWeather[turn] < maxBweather - Math.sqrt(maxBpayout/(-betaB))) {
-			weatherReport = "too dry";
+			game.weatherReport = "too dry";
 			$("#deadBdry").removeClass("hidden");
 		}
 
@@ -980,7 +980,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		//B3 Weather is in normal range
 		else if (game.gameWeather[turn] < (maxBweather + .33*Math.sqrt(maxBpayout/(-betaA))) && game.gameWeather[turn] >= (maxBweather - .33*Math.sqrt(maxBpayout/(-betaB)))) {
 			$("#rowsCropB").removeClass("hidden");
-			weatherReport = "optimal weather";
+			game.weatherReport = "optimal weather";
 		}
 
 		updateGame(betaB, maxBpayout, maxBweather); // call updateGame with values for crop B
@@ -1092,7 +1092,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		//populate spans inside all results dialogs
 	    $(".results").find("#weather_outcome").text(parseInt(game.gameWeather[turn]));
     	$(".results").find("#new_score").text(payout);
-    	$(".results").find("#weather_report").text(weatherReport);
+    	$(".results").find("#weather_report").text(game.weatherReport);
     	$(".results").find("#chosen_crop").text(game.cropchoice);
 
 	    $("#normal_results").dialog("open");
