@@ -1159,12 +1159,12 @@ $("#grow").on("click", function () {
 
 function test (testValue) {
 	if (testValue == null) {
-		console.log("Enter climateArray or indifferencePoint to see the value of the variable");
+		console.log("Enter game.climateArray or indifferencePoint to see the value of the variable");
 	}
 
-	else if (testValue == climateArray) {
+	else if (testValue == game.climateArray) {
 		climateChange();
-		return climateArray;
+		return game.climateArray;
 	}
 
 	else if (testValue == indifferencePoint) {
