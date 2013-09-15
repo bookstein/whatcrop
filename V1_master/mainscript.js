@@ -1115,9 +1115,23 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		setTimeout(addTurn, 4000);
 
 
+	//Record relevant data for the current turn
+	function recordData (game) {
+		var gameID = game.gameID;
+		var cropChoice = game.cropChoice;
+		var turn = game.turn;
+		var weather = game.gameWeather[game.turn];
+		var turnScore = payout;
+		var totalScore = game.score;
+		var time = ""; // ? ?
+		//also record date, version title (and url??)
+		alert("Data for this game is: " + playerID/*placeholder*/+ " " + gameID/*placeholder*/ + " " + cropchoice + " " + turn + " " + payout + " " + newscore + " " + timestamp/*placeholder*/);
+	};
+
+	recordData(game);
+
 	// Reset values for new turn
 	game.cropchoice = "";
-
 
 }; // End of updateGame function
 
