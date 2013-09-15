@@ -16,29 +16,29 @@ $(document).ready(function(){
 
 game = {
 
-	cropchoice = "";
-	gameWeather = [];
-	weatherReport = "";
-	historyPlot = {};
-	meanHistoricWeather = 0;
+	cropchoice: "",
+	gameWeather: [],
+	weatherReport : "",
+	historyPlot : {},
+	meanHistoricWeather : 0,
 
 	// Set number of turns per game
-    maxturn = 50;
+    maxturn : 50,
 
 	// Set crop payouts using equation Payout = beta(w-w*) + P*
 
 		// Crop A
-	betaA = -.002;
-	maxApayout = 200; //P*(A)
-	maxAweather = 400; //w*(A)
+	betaA : -.002,
+	maxApayout : 200, //P*(A)
+	maxAweather : 400, //w*(A)
 
 		// Crop B
-	betaB = -.002;
-	maxBpayout = 120; //P*(B)
-	maxBweather = 200; //w*(B)
+	betaB : -.002,
+	maxBpayout : 120, //P*(B)
+	maxBweather : 200, //w*(B)
 
 	// Manually set climate change by turn, up to game.maxturn
-	climateArray = [
+	climateArray : [
 		{mean: 400, std_dev: 75}, //0 -- initial climate
 		{mean: 400, std_dev: 75}, //1
 		{mean: 400, std_dev: 75}, //2
@@ -90,29 +90,29 @@ game = {
 		{mean: 150, std_dev: 75}, //48
 		{mean: 150, std_dev: 75}, //49
 		{mean: 150, std_dev: 75}  //50
-	];
+	],
 
 	// Roots of payout parabolas
-	gameRoots = {
+	gameRoots : {
 		topRoot: 0,
 		bottomRoot: 0
-	};
+	},
 
 	// Set bonus payments
-	bonusOneDollars = 1.25;
-	bonusTwoDollars = 0.75;
-	totalRandomPoints = 0;
-	totalOptimalPoints = 0;
+	bonusOneDollars : 1.25,
+	bonusTwoDollars : 0.75,
+	totalRandomPoints : 0,
+	totalOptimalPoints : 0,
 
 	//Turn Counter
-	turn = 0;
+	turn : 0,
 
 	//Points Counter
-	maxScore = 0;
-	score = 0; //starting score is 0
+	maxScore : 0,
+	score : 0, //starting score is 0
 
 	// Real Dollars Earned
-	realDollars = 0; //real earnings in dollars start at 0
+	realDollars : 0 //real earnings in dollars start at 0
 
 };
 
@@ -526,7 +526,7 @@ $(function initializeGame () {
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-	function makegame.gameWeather (arrayName, historicBoolean) {
+	function makeGameWeather (arrayName, historicBoolean) {
 		//Create an array of pairs of random numbers
 		var randomPairs = {
 			x: undefined,
