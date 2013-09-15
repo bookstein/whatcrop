@@ -1106,7 +1106,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 	function addTurn () {
 		game.turn = game.turn + 1;
-		$("#turns_counter").html("<h5>" + turn + "/" + game.maxturn + "</h5>");
+		$("#turns_counter").html("<h5>" + game.turn + "/" + game.maxturn + "</h5>");
 		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
 		//alert("game.gameWeather is now " + game.gameWeather[turn] + " because it is turn #" + turn);
 	};
