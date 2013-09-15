@@ -236,7 +236,7 @@ $(function initializeGame () {
 		var maxX = [upperBoundX+100];
 		var maxY = [upperBoundY+20];
 		//var ticksX = [[0, "0"], [maxAweather, maxAweather], [maxBweather, maxBweather], [maxX, maxX]];
-		var ticksY = [[0, ""], [maxApayout, maxApayout], [maxBpayout, maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
+		var ticksY = [[0, ""], [game.maxApayout, game.maxApayout], [game.maxBpayout, game.maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 		var ticksWeatherX = [[]];
 		var ticksWeatherY = [];
 
@@ -906,13 +906,13 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 
 		//A1.i Wet game.gameWeather is "wet" (wetter than normal)
-		if (game.gameWeather[turn] < maxAweather + Math.sqrt(maxApayout/(-game.betaA)) && game.gameWeather[turn] >= maxAweather + .33*Math.sqrt(maxApayout/(-game.betaA)) ) {
+		if (game.gameWeather[turn] < maxAweather + Math.sqrt(game.maxApayout/(-game.betaA)) && game.gameWeather[turn] >= maxAweather + .33*Math.sqrt(game.maxApayout/(-game.betaA)) ) {
 			game.weatherReport = "wet enough";
 			$("#wetA").removeClass("hidden");
 		}
 
 		//A1.ii Wet game.gameWeather is too wet
-		else if (game.gameWeather[turn] >= maxAweather + Math.sqrt(maxApayout/(-game.betaA)) ) {
+		else if (game.gameWeather[turn] >= maxAweather + Math.sqrt(game.maxApayout/(-game.betaA)) ) {
 			game.weatherReport = "too wet";
 			$("#deadAwet").removeClass("hidden");
 			//display too-wet crop A ("Very Wet")
@@ -921,26 +921,26 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		// A2. game.gameWeather is dry
 
 		//A2.i. dry game.gameWeather is "dry" (drier than normal)
-		else if (game.gameWeather[turn] < maxAweather - .33*Math.sqrt(maxApayout/(-game.betaA)) && game.gameWeather[turn] >= maxAweather - Math.sqrt(maxApayout/(-game.betaA))) {
+		else if (game.gameWeather[turn] < maxAweather - .33*Math.sqrt(game.maxApayout/(-game.betaA)) && game.gameWeather[turn] >= maxAweather - Math.sqrt(game.maxApayout/(-game.betaA))) {
 			game.weatherReport = "dry enough";
 			$("#dryA").removeClass("hidden");
 		}
 
 
 		//A2.ii. dry game.gameWeather is too dry
-		else if (game.gameWeather[turn] < maxAweather - Math.sqrt(maxApayout/(-game.betaA))) {
+		else if (game.gameWeather[turn] < maxAweather - Math.sqrt(game.maxApayout/(-game.betaA))) {
 			game.weatherReport = "too dry";
 			//display too-dry crop A
 			$("#deadAdry").removeClass("hidden");
 		}
 
 		// A3. game.gameWeather is normal
-		else if (game.gameWeather[turn] < (maxAweather + .33*Math.sqrt(maxApayout/(-game.betaA))) && game.gameWeather[turn] >= (maxAweather - .33*Math.sqrt(maxApayout/(-game.betaA)))) {
+		else if (game.gameWeather[turn] < (maxAweather + .33*Math.sqrt(game.maxApayout/(-game.betaA))) && game.gameWeather[turn] >= (maxAweather - .33*Math.sqrt(game.maxApayout/(-game.betaA)))) {
 			$("#rowsCropA").removeClass("hidden");
 			game.weatherReport = "optimal weather";
 		}
 
-		updateGame(game.betaA, maxApayout, maxAweather); // call updateGame with values for crop A
+		updateGame(game.betaA, game.maxApayout, maxAweather); // call updateGame with values for crop A
 	}
 
 
@@ -965,7 +965,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		// B2. game.gameWeather is dry
 
 		//B2.i Dry game.gameWeather is dry
-		else if (game.gameWeather[turn] < maxAweather - .33*Math.sqrt(maxApayout/(-game.betaA))) {
+		else if (game.gameWeather[turn] < maxAweather - .33*Math.sqrt(game.maxApayout/(-game.betaA))) {
 			game.weatherReport = "dry enough";
 			$("#dryB").removeClass("hidden");
 		}
