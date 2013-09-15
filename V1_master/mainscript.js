@@ -37,7 +37,7 @@ game = {
 	maxBpayout = 120; //P*(B)
 	maxBweather = 200; //w*(B)
 
-	// Manually set climate change by turn, up to maxturn
+	// Manually set climate change by turn, up to game.maxturn
 	climateArray = [
 		{mean: 400, std_dev: 75}, //0 -- initial climate
 		{mean: 400, std_dev: 75}, //1
@@ -117,7 +117,7 @@ game = {
 };
 
 	//Turn Counter
-	$("#turns_counter").text(turn + "/" + maxturn);
+	$("#turns_counter").text(turn + "/" + game.maxturn);
 
 	//Points Counter
 	$("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points counter
@@ -536,7 +536,7 @@ $(function initializeGame () {
 		var randomPairArray = [];
 		var normalizedArray = [];
 
-		for (var i = 0; i < maxturn; i++) {
+		for (var i = 0; i < game.maxturn; i++) {
 			randomPairs = {
 				x: Math.random(),
 				y: Math.random()
@@ -546,7 +546,7 @@ $(function initializeGame () {
 
 		// Create array of Z0s
 		function boxMullerTransformation () {
-			for (var i = 0; i < maxturn; i++) {
+			for (var i = 0; i < game.maxturn; i++) {
 				normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y);
 
 			// cutoffs for high and low values of Z0; use 5th standard deviation in std normal curve
@@ -566,7 +566,7 @@ $(function initializeGame () {
 
 		//Apply climateChange to normalizedArray as mean + Z0 * std_dev
 		function applyClimateChange () {
-			for (var i = 0; i < maxturn; i++) {
+			for (var i = 0; i < game.maxturn; i++) {
 				arrayName[i] = game.climateArray[i].mean + (normalizedArray[i]*game.climateArray[i].std_dev);
 
 				// ensures inches of rain will always be zero or greater
@@ -580,7 +580,7 @@ $(function initializeGame () {
 		}; //end of applyClimateChange
 
 		function historicWeatherArray () {
-			for (var i = 0; i < maxturn; i++) {
+			for (var i = 0; i < game.maxturn; i++) {
 				arrayName[i] = game.climateArray[0].mean + (normalizedArray[i]*game.climateArray[0].std_dev);
 			}
 
@@ -606,7 +606,7 @@ $(function initializeGame () {
 
 	//Populate spans in opening and ending dialogs
 
-	$(".turncount_instructions").text(maxturn + " turns");
+	$(".turncount_instructions").text(game.maxturn + " turns");
 	//$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
 	//$("#bonus_one_instructions").text(totalRandomPoints);
 	//$("#bonus_two_instructions").text(totalOptimalPoints);
@@ -621,7 +621,7 @@ $(function initializeGame () {
 
 		function findOptimalCrop () {
 		//Strategy: if the difference between the optimal value of the crop is closest to game.gameWeather, choose that crop at the optimal crop for that turn
-			for (var i = 0; i < maxturn; i++) {
+			for (var i = 0; i < game.maxturn; i++) {
 
 				var Adiff = game.gameWeather[i] - maxAweather;
 				var Bdiff = game.gameWeather [i] - maxBweather;
@@ -660,7 +660,7 @@ $(function initializeGame () {
 			return payout;
 		}; //end of addScores()
 
-		for (var i=0; i < maxturn; i++) {
+		for (var i=0; i < game.maxturn; i++) {
 
 			if (optimalCrops[i] === "cropA") {
 				addScores(i, game.betaA, game.maxAweather, game.maxApayout); //call addScores() with values of crop A
@@ -1106,7 +1106,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 	function addTurn () {
 		turn = turn + 1;
-		$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
+		$("#turns_counter").html("<h5>" + turn + "/" + game.maxturn + "</h5>");
 		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
 		//alert("game.gameWeather is now " + game.gameWeather[turn] + " because it is turn #" + turn);
 	};
@@ -1131,7 +1131,7 @@ function endGame () {
 //>>>>>>>>>>>>>>>>>>>>> Clicking #grow button triggers updateGame <<<<<<<<<<<<<
 
 $("#grow").on("click", function () {
-	if (($(this).hasClass("highlight"))&& turn<maxturn) {
+	if (($(this).hasClass("highlight"))&& turn<game.maxturn) {
 		// hide crop sprout graphics
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
@@ -1141,7 +1141,7 @@ $("#grow").on("click", function () {
 		setTimeout(weatherResults, 100);
 	}
 
-		else if (($(this).hasClass("highlight")) && turns === maxturn) {
+		else if (($(this).hasClass("highlight")) && turns === game.maxturn) {
 
 		//summon end-of-game dialog instead of update
 		$("#sproutA").addClass("hidden");
