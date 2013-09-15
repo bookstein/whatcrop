@@ -950,14 +950,14 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		// B1. game.gameWeather is wet
 
 		//B1.i Wet game.gameWeather is wet
-		if (game.gameWeather[turn] < maxBweather + Math.sqrt(maxBpayout/(-game.betaA)) && game.gameWeather[turn] >= maxBweather + .33*Math.sqrt(maxBpayout/(-game.betaB)) ) {
+		if (game.gameWeather[turn] < maxBweather + Math.sqrt(game.maxBpayout/(-game.betaA)) && game.gameWeather[turn] >= maxBweather + .33*Math.sqrt(game.maxBpayout/(-game.betaB)) ) {
 			game.weatherReport = "wet enough";
 			//display healthy crop B (range of normal)
 			$("#wetB").removeClass("hidden");
 		}
 
 		//B1.ii Wet game.gameWeather is too wet
-		else if (game.gameWeather[turn] >= maxBweather + Math.sqrt(maxBpayout/(-game.betaB))) {
+		else if (game.gameWeather[turn] >= maxBweather + Math.sqrt(game.maxBpayout/(-game.betaB))) {
 			game.weatherReport = "too wet";
 			$("#deadBwet").removeClass("hidden");
 		}
@@ -971,19 +971,19 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 		}
 
 		//B2.ii Dry game.gameWeather is too dry
-		else if (game.gameWeather[turn] < maxBweather - Math.sqrt(maxBpayout/(-game.betaB))) {
+		else if (game.gameWeather[turn] < maxBweather - Math.sqrt(game.maxBpayout/(-game.betaB))) {
 			game.weatherReport = "too dry";
 			$("#deadBdry").removeClass("hidden");
 		}
 
 
 		//B3 Weather is in normal range
-		else if (game.gameWeather[turn] < (maxBweather + .33*Math.sqrt(maxBpayout/(-game.betaA))) && game.gameWeather[turn] >= (maxBweather - .33*Math.sqrt(maxBpayout/(-game.betaB)))) {
+		else if (game.gameWeather[turn] < (maxBweather + .33*Math.sqrt(game.maxBpayout/(-game.betaA))) && game.gameWeather[turn] >= (maxBweather - .33*Math.sqrt(game.maxBpayout/(-game.betaB)))) {
 			$("#rowsCropB").removeClass("hidden");
 			game.weatherReport = "optimal weather";
 		}
 
-		updateGame(game.betaB, maxBpayout, maxBweather); // call updateGame with values for crop B
+		updateGame(game.betaB, game.maxBpayout, maxBweather); // call updateGame with values for crop B
 	}
 
 
