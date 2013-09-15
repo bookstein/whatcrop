@@ -664,25 +664,25 @@ $(function initializeGame () {
 
 			if (optimalCrops[i] === "cropA") {
 				addScores(i, game.betaA, game.maxAweather, game.maxApayout); //call addScores() with values of crop A
-				maxScore += payout;
+				game.maxScore += payout;
 				//console.log("The score is now " + maxScore);
 			}
 
 
 			else if (optimalCrops[i] === "cropB") {
 				addScores(i, game.betaB, game.maxBweather, game.maxBpayout); //call addScores() with values of crop B
-				maxScore += payout;
+				game.maxScore += payout;
 				//console.log("The score is now " + maxScore);
 			}
 		}
 
-		return maxScore;
+		return game.maxScore;
 	}; //end of calculateMaxScore()
 
 
 	calculateMaxScore();
 
-	console.log("The maximum possible score is " + maxScore + " points");
+	console.log("The maximum possible score is " + game.maxScore + " points");
 
 }); //end of initialization function
 
@@ -1046,7 +1046,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 			var fillHeight = parseInt($("#points_fill").css("height"));
 
 			//Ratio of points per pixel
-			var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
+			var pointsPerPixelRatio = game.maxScore/pixelHeight; //use game.maxScore for now
 
 			//Points_counter moves upward this number of pixels per turn, depending on the turn payout
 			var perTurnHeight = payout/pointsPerPixelRatio;
