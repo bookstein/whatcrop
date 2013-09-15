@@ -16,9 +16,9 @@ $(document).ready(function(){
 
 game = {
 
-	game.cropchoice = "";
-	game.gameWeather = [];
-	game.weatherReport = "";
+	cropchoice = "";
+	gameWeather = [];
+	weatherReport = "";
 	historyPlot = {};
 	meanHistoricWeather = 0;
 
@@ -498,11 +498,11 @@ $(function initializeGame () {
 
 		function chart1 () {
 			setOptions(false);
-			game.historyPlot = $.jqplot("intro_graph", [histogram], optionsObj);
+			game.game.historyPlot = $.jqplot("intro_graph", [histogram], optionsObj);
 			var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#intro_graph").width(), 10);
 			var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#intro_graph").height(), 10);
 			$("#intro_graph").width(w).height(h);
-			game.historyPlot.replot();
+			game.game.historyPlot.replot();
 		};
 
 		//draw graph in #chartdiv using optionsObj above
