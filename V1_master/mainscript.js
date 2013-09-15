@@ -123,7 +123,7 @@ game = {
 	$("#point_count").html("<h5>"+game.score+"</h5>"); //writes initial score to points counter
 
 	// Real Dollars Earned
-	$("#dollars_counter").text("$"+realDollars); //writes initial realDollars to dollars counter
+	$("#dollars_counter").text("$"+game.realDollars); //writes initial realDollars to dollars counter
 
 
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
