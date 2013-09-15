@@ -595,11 +595,11 @@ $(function initializeGame () {
 			historicWeatherArray();
 		}
 
-	}; // end function makegame.gameWeather
+	}; // end function makeGameWeather
 
-	makegame.gameWeather(game.gameWeather, false);
+	makeGameWeather(game.gameWeather, false);
 	console.log("Weather with climate change: " + game.gameWeather);
-	makegame.gameWeather(historicWeather, true);
+	makeGameWeather(historicWeather, true);
 	console.log("Historic weather: " + historicWeather);
 	drawQuadratic();
 
