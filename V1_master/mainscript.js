@@ -416,7 +416,7 @@ $(function initializeGame () {
 		      			},*/
 
 		      			y2axis:{
-		      				label: "Number of years of X rainfall",
+		      				label: "Occurrences",
 		     				labelOptions: {
             					show: !showBoolean,
             					fontSize: '11pt'
