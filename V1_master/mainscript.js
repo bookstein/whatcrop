@@ -17,14 +17,13 @@ $(document).ready(function(){
 game = {
 
 	cropchoice = "";
-	gameWeather = [];
+	game.gameWeather = [];
 	weatherReport = "";
 	historyPlot = {};
 	meanHistoricWeather = 0;
 
 	// Set number of turns per game
     maxturn = 50;
-    endOfGame = false;
 
 	// Set crop payouts using equation Payout = beta(w-w*) + P*
 
@@ -187,8 +186,8 @@ $(function initializeGame () {
 
 
 		// Call dataArrays function and create parabolaArrays for A and B
-		var plotA = dataArrays(betaA, maxAweather, maxApayout, "A");
-		var plotB = dataArrays(betaB, maxBweather, maxBpayout, "B");
+		var plotA = dataArrays(game.betaA, game.maxAweather, game.maxApayout, "A");
+		var plotB = dataArrays(game.betaB, game.maxBweather, game.maxBpayout, "B");
 
 
 		// Set upper bounds on graph
@@ -208,8 +207,8 @@ $(function initializeGame () {
 
 			upperBoundX = Math.ceil(maxRoot/100)*100;
 
-			gameRoots["topRoot"] = maxRoot;
-			gameRoots["bottomRoot"] = minRoot;
+			game.gameRoots["topRoot"] = maxRoot;
+			game.gameRoots["bottomRoot"] = minRoot;
 
 			return upperBoundX;
 		};
@@ -485,7 +484,7 @@ $(function initializeGame () {
 			            objects: [
 			                {verticalLine: {
 			                    name: 'resultsLine',
-			                    x: gameWeather[turn], // this positions the line at the current turn weather
+			                    x: game.gameWeather[turn], // this positions the line at the current turn weather
 			                    lineWidth: 4,
 			                    color: 'rgb(255, 204, 51)',
 			                    shadow: false
@@ -499,11 +498,11 @@ $(function initializeGame () {
 
 		function chart1 () {
 			setOptions(false);
-			historyPlot = $.jqplot("intro_graph", [histogram], optionsObj);
+			game.historyPlot = $.jqplot("intro_graph", [histogram], optionsObj);
 			var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#intro_graph").width(), 10);
 			var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#intro_graph").height(), 10);
 			$("#intro_graph").width(w).height(h);
-			historyPlot.replot();
+			game.historyPlot.replot();
 		};
 
 		//draw graph in #chartdiv using optionsObj above
@@ -527,7 +526,7 @@ $(function initializeGame () {
 
 	//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-	function makeGameWeather (arrayName, historicBoolean) {
+	function makegame.gameWeather (arrayName, historicBoolean) {
 		//Create an array of pairs of random numbers
 		var randomPairs = {
 			x: undefined,
@@ -568,7 +567,7 @@ $(function initializeGame () {
 		//Apply climateChange to normalizedArray as mean + Z0 * std_dev
 		function applyClimateChange () {
 			for (var i = 0; i < maxturn; i++) {
-				arrayName[i] = climateArray[i].mean + (normalizedArray[i]*climateArray[i].std_dev);
+				arrayName[i] = game.climateArray[i].mean + (normalizedArray[i]*game.climateArray[i].std_dev);
 
 				// ensures inches of rain will always be zero or greater
 				if (arrayName[i] <= 0) {
@@ -582,7 +581,7 @@ $(function initializeGame () {
 
 		function historicWeatherArray () {
 			for (var i = 0; i < maxturn; i++) {
-				arrayName[i] = climateArray[0].mean + (normalizedArray[i]*climateArray[0].std_dev);
+				arrayName[i] = game.climateArray[0].mean + (normalizedArray[i]*game.climateArray[0].std_dev);
 			}
 
 			return arrayName;
@@ -596,11 +595,11 @@ $(function initializeGame () {
 			historicWeatherArray();
 		}
 
-	}; // end function makeGameWeather
+	}; // end function makegame.gameWeather
 
-	makeGameWeather(gameWeather, false);
-	console.log("Weather with climate change: " + gameWeather);
-	makeGameWeather(historicWeather, true);
+	makegame.gameWeather(game.gameWeather, false);
+	console.log("Weather with climate change: " + game.gameWeather);
+	makegame.gameWeather(historicWeather, true);
 	console.log("Historic weather: " + historicWeather);
 	drawQuadratic();
 
@@ -621,11 +620,11 @@ $(function initializeGame () {
 		var payout = 0; //local payout variable for calculating maxScore
 
 		function findOptimalCrop () {
-		//Strategy: if the difference between the optimal value of the crop is closest to gameWeather, choose that crop at the optimal crop for that turn
+		//Strategy: if the difference between the optimal value of the crop is closest to game.gameWeather, choose that crop at the optimal crop for that turn
 			for (var i = 0; i < maxturn; i++) {
 
-				var Adiff = gameWeather[i] - maxAweather;
-				var Bdiff = gameWeather [i] - maxBweather;
+				var Adiff = game.gameWeather[i] - maxAweather;
+				var Bdiff = game.gameWeather [i] - maxBweather;
 
 				if (Math.abs(Adiff) < Math.abs(Bdiff)) {
 					optimalCrops[i] = "cropA";
@@ -646,7 +645,7 @@ $(function initializeGame () {
 		console.log("The array of optimal crops is " + optimalCrops);
 
 		function addScores (turn, beta, maxweather, maxpayout) {
-			payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
+			payout = beta * Math.pow((game.gameWeather[turn] - maxweather), 2) + maxpayout;
 
 			if (payout <= 0) {
 				payout = 0;
@@ -664,14 +663,14 @@ $(function initializeGame () {
 		for (var i=0; i < maxturn; i++) {
 
 			if (optimalCrops[i] === "cropA") {
-				addScores(i, betaA, maxAweather, maxApayout); //call addScores() with values of crop A
+				addScores(i, game.betaA, game.maxAweather, game.maxApayout); //call addScores() with values of crop A
 				maxScore += payout;
 				//console.log("The score is now " + maxScore);
 			}
 
 
 			else if (optimalCrops[i] === "cropB") {
-				addScores(i, betaB, maxBweather, maxBpayout); //call addScores() with values of crop B
+				addScores(i, game.betaB, game.maxBweather, game.maxBpayout); //call addScores() with values of crop B
 				maxScore += payout;
 				//console.log("The score is now " + maxScore);
 			}
@@ -865,19 +864,19 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 	function weatherOpacity () {
 
-		if (gameWeather[turn] >= gameRoots.topRoot) {
+		if (game.gameWeather[turn] >= gameRoots.topRoot) {
 				rainOpacity = 1, sunOpacity = 0;
 				console.log(rainOpacity, sunOpacity);
 			}
 
-			else if (gameWeather[turn] > gameRoots.bottomRoot && gameWeather[turn] < gameRoots.topRoot) {
-				rainOpacity = ((gameWeather[turn] - gameRoots.bottomRoot)/(gameRoots.topRoot - gameRoots.bottomRoot));
+			else if (game.gameWeather[turn] > gameRoots.bottomRoot && game.game.gameWeather[turn] < gameRoots.topRoot) {
+				rainOpacity = ((game.gameWeather[turn] - gameRoots.bottomRoot)/(gameRoots.topRoot - gameRoots.bottomRoot));
 				sunOpacity = 1-rainOpacity;
 				console.log(rainOpacity, sunOpacity);
 
 			}
 
-			else if (gameWeather[turn] <= gameRoots.bottomRoot) {
+			else if (game.gameWeather[turn] <= gameRoots.bottomRoot) {
 				rainOpacity = 0;
 				sunOpacity = 1;
 				console.log(rainOpacity, sunOpacity);
@@ -902,41 +901,41 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	if (cropchoice === "cropA") {
 
 
-		// A1. gameWeather is wet
+		// A1. game.gameWeather is wet
 
 
 
-		//A1.i Wet gameWeather is "wet" (wetter than normal)
-		if (gameWeather[turn] < maxAweather + Math.sqrt(maxApayout/(-betaA)) && gameWeather[turn] >= maxAweather + .33*Math.sqrt(maxApayout/(-betaA)) ) {
+		//A1.i Wet game.gameWeather is "wet" (wetter than normal)
+		if (game.gameWeather[turn] < maxAweather + Math.sqrt(maxApayout/(-betaA)) && game.gameWeather[turn] >= maxAweather + .33*Math.sqrt(maxApayout/(-betaA)) ) {
 			weatherReport = "wet enough";
 			$("#wetA").removeClass("hidden");
 		}
 
-		//A1.ii Wet gameWeather is too wet
-		else if (gameWeather[turn] >= maxAweather + Math.sqrt(maxApayout/(-betaA)) ) {
+		//A1.ii Wet game.gameWeather is too wet
+		else if (game.gameWeather[turn] >= maxAweather + Math.sqrt(maxApayout/(-betaA)) ) {
 			weatherReport = "too wet";
 			$("#deadAwet").removeClass("hidden");
 			//display too-wet crop A ("Very Wet")
 		}
 
-		// A2. gameWeather is dry
+		// A2. game.gameWeather is dry
 
-		//A2.i. dry gameWeather is "dry" (drier than normal)
-		else if (gameWeather[turn] < maxAweather - .33*Math.sqrt(maxApayout/(-betaA)) && gameWeather[turn] >= maxAweather - Math.sqrt(maxApayout/(-betaA))) {
+		//A2.i. dry game.gameWeather is "dry" (drier than normal)
+		else if (game.gameWeather[turn] < maxAweather - .33*Math.sqrt(maxApayout/(-betaA)) && game.gameWeather[turn] >= maxAweather - Math.sqrt(maxApayout/(-betaA))) {
 			weatherReport = "dry enough";
 			$("#dryA").removeClass("hidden");
 		}
 
 
-		//A2.ii. dry gameWeather is too dry
-		else if (gameWeather[turn] < maxAweather - Math.sqrt(maxApayout/(-betaA))) {
+		//A2.ii. dry game.gameWeather is too dry
+		else if (game.gameWeather[turn] < maxAweather - Math.sqrt(maxApayout/(-betaA))) {
 			weatherReport = "too dry";
 			//display too-dry crop A
 			$("#deadAdry").removeClass("hidden");
 		}
 
-		// A3. gameWeather is normal
-		else if (gameWeather[turn] < (maxAweather + .33*Math.sqrt(maxApayout/(-betaA))) && gameWeather[turn] >= (maxAweather - .33*Math.sqrt(maxApayout/(-betaA)))) {
+		// A3. game.gameWeather is normal
+		else if (game.gameWeather[turn] < (maxAweather + .33*Math.sqrt(maxApayout/(-betaA))) && game.gameWeather[turn] >= (maxAweather - .33*Math.sqrt(maxApayout/(-betaA)))) {
 			$("#rowsCropA").removeClass("hidden");
 			weatherReport = "optimal weather";
 		}
@@ -948,38 +947,38 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 	// 2. Crop B outcomes
 	else if (cropchoice === "cropB") {
 
-		// B1. gameWeather is wet
+		// B1. game.gameWeather is wet
 
-		//B1.i Wet gameWeather is wet
-		if (gameWeather[turn] < maxBweather + Math.sqrt(maxBpayout/(-betaA)) && gameWeather[turn] >= maxBweather + .33*Math.sqrt(maxBpayout/(-betaB)) ) {
+		//B1.i Wet game.gameWeather is wet
+		if (game.gameWeather[turn] < maxBweather + Math.sqrt(maxBpayout/(-betaA)) && game.gameWeather[turn] >= maxBweather + .33*Math.sqrt(maxBpayout/(-betaB)) ) {
 			weatherReport = "wet enough";
 			//display healthy crop B (range of normal)
 			$("#wetB").removeClass("hidden");
 		}
 
-		//B1.ii Wet gameWeather is too wet
-		else if (gameWeather[turn] >= maxBweather + Math.sqrt(maxBpayout/(-betaB))) {
+		//B1.ii Wet game.gameWeather is too wet
+		else if (game.gameWeather[turn] >= maxBweather + Math.sqrt(maxBpayout/(-betaB))) {
 			weatherReport = "too wet";
 			$("#deadBwet").removeClass("hidden");
 		}
 
-		// B2. gameWeather is dry
+		// B2. game.gameWeather is dry
 
-		//B2.i Dry gameWeather is dry
-		else if (gameWeather[turn] < maxAweather - .33*Math.sqrt(maxApayout/(-betaA))) {
+		//B2.i Dry game.gameWeather is dry
+		else if (game.gameWeather[turn] < maxAweather - .33*Math.sqrt(maxApayout/(-betaA))) {
 			weatherReport = "dry enough";
 			$("#dryB").removeClass("hidden");
 		}
 
-		//B2.ii Dry gameWeather is too dry
-		else if (gameWeather[turn] < maxBweather - Math.sqrt(maxBpayout/(-betaB))) {
+		//B2.ii Dry game.gameWeather is too dry
+		else if (game.gameWeather[turn] < maxBweather - Math.sqrt(maxBpayout/(-betaB))) {
 			weatherReport = "too dry";
 			$("#deadBdry").removeClass("hidden");
 		}
 
 
 		//B3 Weather is in normal range
-		else if (gameWeather[turn] < (maxBweather + .33*Math.sqrt(maxBpayout/(-betaA))) && gameWeather[turn] >= (maxBweather - .33*Math.sqrt(maxBpayout/(-betaB)))) {
+		else if (game.gameWeather[turn] < (maxBweather + .33*Math.sqrt(maxBpayout/(-betaA))) && game.gameWeather[turn] >= (maxBweather - .33*Math.sqrt(maxBpayout/(-betaB)))) {
 			$("#rowsCropB").removeClass("hidden");
 			weatherReport = "optimal weather";
 		}
@@ -1010,7 +1009,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	var payout = 0;
 
 	function newPayout () {
-		payout = beta * Math.pow((gameWeather[turn] - maxweather), 2) + maxpayout;
+		payout = beta * Math.pow((game.gameWeather[turn] - maxweather), 2) + maxpayout;
 
 		if (payout <= 0) {
 			payout = 0;
@@ -1091,7 +1090,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	    });
 
 		//populate spans inside all results dialogs
-	    $(".results").find("#weather_outcome").text(parseInt(gameWeather[turn]));
+	    $(".results").find("#weather_outcome").text(parseInt(game.gameWeather[turn]));
     	$(".results").find("#new_score").text(payout);
     	$(".results").find("#weather_report").text(weatherReport);
     	$(".results").find("#chosen_crop").text(cropchoice);
@@ -1109,7 +1108,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		turn = turn + 1;
 		$("#turns_counter").html("<h5>" + turn + "/" + maxturn + "</h5>");
 		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
-		//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
+		//alert("game.gameWeather is now " + game.gameWeather[turn] + " because it is turn #" + turn);
 	};
 
 
