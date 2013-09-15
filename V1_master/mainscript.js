@@ -745,7 +745,7 @@ $(function introDialogs () {
         position: {my: 'bottom', at: 'center center-15%', of: '#container'},
         stack: true,
         height: 'auto',
-        width: 'auto',
+        width: '375',
         dialogClass: "no-close",
 		buttons: [ { text: "Next (3 of 4)",
 			click: function() {

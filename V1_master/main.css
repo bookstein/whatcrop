@@ -259,11 +259,19 @@ header > h1 {
 	text-align: center;
 }
 
-#chartdiv, #intro_graph {
+#chartdiv {
 	height: 350px;
 	width: 100%;
 	margin-right: 0;
 	margin-left: 0;
+	position: relative;
+}
+
+#intro_graph {
+	height: 300px;
+	width: 300px;
+	margin-right: auto;
+	margin-left: auto;
 	position: relative;
 }
 
