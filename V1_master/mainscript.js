@@ -16,7 +16,6 @@ $(document).ready(function(){
 
 game = {
 
-}
 	cropchoice = "";
 	gameWeather = [];
 	weatherReport = "";
@@ -106,21 +105,25 @@ game = {
 	totalRandomPoints = 0;
 	totalOptimalPoints = 0;
 
-
-
 	//Turn Counter
 	turn = 0;
-	$("#turns_counter").text(turn + "/" + maxturn);
-	GameOver = false;
 
 	//Points Counter
 	maxScore = 0;
 	score = 0; //starting score is 0
+
+	// Real Dollars Earned
+	realDollars = 0; //real earnings in dollars start at 0
+
+};
+
+	//Turn Counter
+	$("#turns_counter").text(turn + "/" + maxturn);
+
+	//Points Counter
 	$("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points counter
 
 	// Real Dollars Earned
-
-	realDollars = 0; //real earnings in dollars start at 0
 	$("#dollars_counter").text("$"+realDollars); //writes initial realDollars to dollars counter
 
 
