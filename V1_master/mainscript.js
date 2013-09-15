@@ -120,7 +120,7 @@ game = {
 	$("#turns_counter").text(game.turn + "/" + game.maxturn);
 
 	//Points Counter
-	$("#point_count").html("<h5>"+score+"</h5>"); //writes initial score to points counter
+	$("#point_count").html("<h5>"+game.score+"</h5>"); //writes initial score to points counter
 
 	// Real Dollars Earned
 	$("#dollars_counter").text("$"+realDollars); //writes initial realDollars to dollars counter
@@ -1065,9 +1065,9 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		movePointsFlag();
 		animatePoints();
 
-		score += payout;
-		$("#point_count").html("<h5>" + score + "</h5>");
-		return score; //this updates the value of the global variable "score"
+		game.score += payout;
+		$("#point_count").html("<h5>" + game.score + "</h5>");
+		return game.score; //this updates the value of the global variable "score"
 
 
 	}; //end of function newScore
