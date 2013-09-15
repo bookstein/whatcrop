@@ -13,6 +13,10 @@ $(document).ready(function(){
 
 //>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
 
+
+game = {
+
+}
 	cropchoice = "";
 	gameWeather = [];
 	weatherReport = "";
