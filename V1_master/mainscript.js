@@ -15,6 +15,7 @@ $(document).ready(function(){
 
 
 game = {
+  gameLabel: 'control',
 
 	cropchoice: "",
 	gameWeather: [],
@@ -115,6 +116,8 @@ game = {
 	realDollars : 0 //real earnings in dollars start at 0
 
 };
+
+var serverAddress = ''; // local server
 
 	//Turn Counter
 	$("#turns_counter").text(game.turn + "/" + game.maxturn);
@@ -684,101 +687,133 @@ $(function initializeGame () {
 
 	console.log("The maximum possible score is " + game.maxScore + " points");
 
-}); //end of initialization function
+  function introDialogs () {
+    $( "#first-message" ).dialog({
+      autoOpen: true,
+      modal: true,
+      sticky: true,
+      closeOnEscape: false,
+          resizable: false,
+          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+          stack: true,
+          height: 'auto',
+          width: '375',
+          dialogClass: "no-close",
+      buttons: [ { text: "Next (1 of 4)",
+        click: function() {
+          $( this ).dialog( "close" );
+          $( "#second-message" ).dialog( "open" );
+          $("#givens").addClass("glow");
+          //$(".ui-widget-overlay").addClass("active-left");
+        }
+      } ]
+    });
 
-// >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
+    $("#second-message").dialog({
+      autoOpen: false,
+      modal: true,
+      sticky: true,
+      closeOnEscape: false,
+          resizable: false,
+          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+          stack: true,
+          height: 'auto',
+          width: '375',
+          dialogClass: "no-close",
+      buttons: [ { text: "Next (2 of 4)",
+        click: function() {
+          $( this ).dialog( "close" );
+          //$(".ui-widget-overlay").addClass("active-left");
+          $( "#third-message" ).dialog( "open" );
+          $("#givens").removeClass("glow");
+          //$("table").addClass("glow");
 
-// Open first dialog; keep other dialogs hidden
+        }
+      } ]
+    });
 
-$(function introDialogs () {
+    $("#third-message").dialog({
+      autoOpen: false,
+      modal: true,
+      sticky: true,
+      closeOnEscape: false,
+          resizable: false,
+          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+          stack: true,
+          height: 'auto',
+          width: '375',
+          dialogClass: "no-close",
+      buttons: [ { text: "Next (3 of 4)",
+        click: function() {
+          $( this ).dialog( "close" );
+          $( "#fourth-message" ).dialog( "open" );
+          $("table").removeClass("glow");
+          $("#points_bar, #points_flag").toggleClass("glow");
+          //$(".ui-widget-overlay").removeClass("active-left");
+          //$(".ui-widget-overlay").addClass("active-right");
+        }
+      } ]
+    });
 
-	$( "#first-message" ).dialog({
-		autoOpen: true,
-		modal: true,
-		sticky: true,
-		closeOnEscape: false,
-        resizable: false,
-        position: {my: 'bottom', at: 'center center-15%', of: '#container'},
-        stack: true,
-        height: 'auto',
-        width: '375',
-        dialogClass: "no-close",
-		buttons: [ { text: "Next (1 of 4)",
-			click: function() {
-				$( this ).dialog( "close" );
-				$( "#second-message" ).dialog( "open" );
-				$("#givens").addClass("glow");
-				//$(".ui-widget-overlay").addClass("active-left");
-			}
-		} ]
-	});
+    $( "#fourth-message" ).dialog({
+      autoOpen: false,
+      modal: true,
+      sticky: true,
+      closeOnEscape: false,
+          resizable: false,
+          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+          stack: true,
+          height: 'auto',
+          width: '375',
+          dialogClass: "no-close",
+      buttons: [ { text: "Start Game",
+        click: function() {
+          $( this ).dialog( "close" );
+          $("#points_bar, #points_flag").toggleClass("glow");
+          //$(".ui-widget-overlay").removeClass("active-right");
+        }
+      } ]
+    });
+  }
 
-	$("#second-message").dialog({
-		autoOpen: false,
-		modal: true,
-		sticky: true,
-		closeOnEscape: false,
-        resizable: false,
-        position: {my: 'bottom', at: 'center center-15%', of: '#container'},
-        stack: true,
-        height: 'auto',
-        width: '375',
-        dialogClass: "no-close",
-		buttons: [ { text: "Next (2 of 4)",
-			click: function() {
-				$( this ).dialog( "close" );
-				//$(".ui-widget-overlay").addClass("active-left");
-				$( "#third-message" ).dialog( "open" );
-				$("#givens").removeClass("glow");
-				//$("table").addClass("glow");
+  function createGameOnServer() {
+    return $.ajax(serverAddress + '/games', {
+      type: 'POST',
+      dataType: 'json',
+      data: { label: game.gameLabel }
+    });
+  }
 
-			}
-		} ]
-	});
+  function bootstrap() {
+    var $creatingGameDialog = $( "#creating-game-dialog" );
 
-	$("#third-message").dialog({
-		autoOpen: false,
-		modal: true,
-		sticky: true,
-		closeOnEscape: false,
-        resizable: false,
-        position: {my: 'bottom', at: 'center center-15%', of: '#container'},
-        stack: true,
-        height: 'auto',
-        width: '375',
-        dialogClass: "no-close",
-		buttons: [ { text: "Next (3 of 4)",
-			click: function() {
-				$( this ).dialog( "close" );
-				$( "#fourth-message" ).dialog( "open" );
-				$("table").removeClass("glow");
-				$("#points_bar, #points_flag").toggleClass("glow");
-				//$(".ui-widget-overlay").removeClass("active-left");
-				//$(".ui-widget-overlay").addClass("active-right");
-			}
-		} ]
-	});
+    $creatingGameDialog.dialog({
+      autoOpen: true,
+      modal: true,
+      sticky: true,
+      closeOnEscape: false,
+      resizable: false,
+      position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+      stack: true,
+      height: 'auto',
+      width: '375',
+      dialogClass: "no-close",
+    });
 
-	$( "#fourth-message" ).dialog({
-		autoOpen: false,
-		modal: true,
-		sticky: true,
-		closeOnEscape: false,
-        resizable: false,
-        position: {my: 'bottom', at: 'center center-15%', of: '#container'},
-        stack: true,
-        height: 'auto',
-        width: '375',
-        dialogClass: "no-close",
-		buttons: [ { text: "Start Game",
-			click: function() {
-				$( this ).dialog( "close" );
-				$("#points_bar, #points_flag").toggleClass("glow");
-				//$(".ui-widget-overlay").removeClass("active-right");
-			}
-		} ]
-	});
+    createGameOnServer()
+      .success(function(data) {
+        console.log(data);
+        game.gameID = data.id;
+        console.log(game);
+        $creatingGameDialog.dialog('close');
+        introDialogs();
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        $creatingGameDialog.html('Creating game failed!');
+      });
+  }
 
+  bootstrap();
 });
 
 
@@ -1117,15 +1152,21 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 	//Record relevant data for the current turn
 	function recordData (game) {
-		var gameID = game.gameID;
-		var cropChoice = game.cropChoice;
-		var turn = game.turn;
-		var weather = game.gameWeather[game.turn];
-		var turnScore = payout;
-		var totalScore = game.score;
-		var time = ""; // ? ?
-		//also record date, version title (and url??)
-		alert("Data for this game is: " + playerID/*placeholder*/+ " " + gameID/*placeholder*/ + " " + cropchoice + " " + turn + " " + payout + " " + newscore + " " + timestamp/*placeholder*/);
+    var payload = {
+      crop_choice: game.cropchoice,
+      weather:     game.gameWeather[game.turn],
+      score:       payout
+    };
+
+    $.ajax(serverAddress + '/games/' + game.gameID + '/rounds', {
+      type: 'POST',
+      dataType: 'json',
+      data: payload
+    }).success(function(data) {
+      console.log('Round recorded successfully', data);
+    }).fail(function(jqXHR, text, err) {
+      console.log('Round record failed', jqXHR, text, err);
+    });
 	};
 
 	recordData(game);
