@@ -247,7 +247,7 @@ $(function initializeGame () {
 			var range = Math.max.apply(Math, historicWeather) - 0;
 			var intervalNumber = 2*Math.ceil(Math.sqrt(historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
 			var intervalWidth = range/intervalNumber;
-			meanHistoricWeather = parseInt(range/2);
+			game.meanHistoricWeather = parseInt(range/2);
 
 
 			console.log("range: " + range + " number of intervals: " + intervalNumber + " interval width: " + intervalWidth);
@@ -498,11 +498,11 @@ $(function initializeGame () {
 
 		function chart1 () {
 			setOptions(false);
-			game.game.historyPlot = $.jqplot("intro_graph", [histogram], optionsObj);
+			game.historyPlot = $.jqplot("intro_graph", [histogram], optionsObj);
 			var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#intro_graph").width(), 10);
 			var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#intro_graph").height(), 10);
 			$("#intro_graph").width(w).height(h);
-			game.game.historyPlot.replot();
+			game.historyPlot.replot();
 		};
 
 		//draw graph in #chartdiv using optionsObj above
@@ -610,7 +610,7 @@ $(function initializeGame () {
 	//$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
 	//$("#bonus_one_instructions").text(totalRandomPoints);
 	//$("#bonus_two_instructions").text(totalOptimalPoints);
-	$("#mean_rainfall").text(meanHistoricWeather + " inches of rain");
+	$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
 
 	//Calculate Max Score --------------------------------------
 
