@@ -16,7 +16,7 @@ $(document).ready(function(){
 
 game = {
 
-	cropchoice = "";
+	game.cropchoice = "";
 	game.gameWeather = [];
 	weatherReport = "";
 	historyPlot = {};
@@ -820,7 +820,7 @@ function disableGrowButton () {
 
 function userClickedA () {
 	$("#cropA").addClass("select");
-	cropchoice = "cropA";
+	game.cropchoice = "cropA";
 	$("#sproutA").removeClass("hidden");
 	$("#sproutB").addClass("hidden");
 	$("#cropB").removeClass("select");
@@ -830,7 +830,7 @@ function userClickedA () {
 
 function userClickedB () {
 	$("#cropB").addClass("select");
-	cropchoice = "cropB";
+	game.cropchoice = "cropB";
 	$("#sproutB").removeClass("hidden");
 	$("#sproutA").addClass("hidden");
 	$("#cropA").removeClass("select");
@@ -898,7 +898,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 
 	// A. Crop A outcomes
-	if (cropchoice === "cropA") {
+	if (game.cropchoice === "cropA") {
 
 
 		// A1. game.gameWeather is wet
@@ -945,7 +945,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 
 	// 2. Crop B outcomes
-	else if (cropchoice === "cropB") {
+	else if (game.cropchoice === "cropB") {
 
 		// B1. game.gameWeather is wet
 
@@ -1093,7 +1093,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	    $(".results").find("#weather_outcome").text(parseInt(game.gameWeather[turn]));
     	$(".results").find("#new_score").text(payout);
     	$(".results").find("#weather_report").text(weatherReport);
-    	$(".results").find("#chosen_crop").text(cropchoice);
+    	$(".results").find("#chosen_crop").text(game.cropchoice);
 
 	    $("#normal_results").dialog("open");
 
@@ -1116,7 +1116,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 
 	// Reset values for new turn
-	cropchoice = "";
+	game.cropchoice = "";
 
 
 }; // End of updateGame function
