@@ -544,12 +544,11 @@ $(function initializeGame (gameVersionObject) {
 
 
 		$.jqplot.config.enablePlugins = true;
+		var historyPlot = {};
 		var historicWeather = []; // Array values filled in using historicWeatherArray() below
 
 		//Draws crop payout quadratics on canvas with jpPlot plugin
 		function drawQuadratic () {
-
-			var historyPlot = {};
 
 			function dataArrays (beta, maxweather, maxpayout, crop) {
 				// for quadratic equation 0 = ax^2 + bx + c
@@ -916,7 +915,7 @@ $(function initializeGame (gameVersionObject) {
 				var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#intro_graph").width(), 10);
 				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#intro_graph").height(), 10);
 				$("#intro_graph").width(w).height(h);
-				//historyPlot.replot();
+				historyPlot.replot();
 			};
 
 			//draw graph in #chartdiv using optionsObj above
