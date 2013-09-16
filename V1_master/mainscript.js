@@ -1111,6 +1111,7 @@ $(function initializeGame (gameVersionObject) {
     });
   };
 
+  /*
   function createGameOnServer() {
     return $.ajax(game.serverAddress + '/games', {
       type: 'POST',
@@ -1148,7 +1149,7 @@ $(function initializeGame (gameVersionObject) {
       });
   };
 
-  bootstrap();
+  bootstrap();*/
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
@@ -1464,7 +1465,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 		setTimeout(addTurn, 4000);
 
-
+/*
 	//Record relevant data for the current turn
 	function recordData (game) {
 	    var payload = {
@@ -1489,7 +1490,7 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
     	game.gameOver = true;
     }
 
-	recordData(game);
+	recordData(game);*/
 
 	// If maxturn has been reached or exceeded, this function is called
 	function endGame () {
