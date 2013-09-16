@@ -35,7 +35,8 @@ game = {
 		totalOptimalPoints : 0,
 		// Indifference point (at which crops A and B are equally good choices)
 		// and indifferentTurn (turn at which indiff point is reached)
-		indifferencePoint: payoutBwet - payoutAwet)/(payoutAdry - payoutAwet + payoutBwet - payoutBdry);
+		// Values calculated below
+		indifferencePoint: 0,
 		indifferentTurn: 0
 	},
 
@@ -290,11 +291,16 @@ $(function initializeGame (gameVersionObject) {
 		pWet = [];
 
 		function checkIndifferencePoint () {
+			var indifference = (game.discrete.payoutBwet - game.discrete.payoutAwet)/(game.discrete.payoutAdry - game.discrete.payoutAwet + game.discrete.payoutBwet - game.discrete.payoutBdry);
 			if (game.discrete.indifferencePoint >=1 || game.discrete.indifferencePoint <=0) {
 				alert("The indifference point between A and B is " + game.discrete.indifferencePoint + "!");
 			}
 
 			console.log(game.discrete.indifferencePoint);
+
+			// Assign the value of the indifference point to the game variable
+			game.discrete.indifferencePoint = indifference;
+			return game.discrete.indifferencePoint;
 		};
 
 				// B. on which turn does the probability of dry weather = indifference point?
