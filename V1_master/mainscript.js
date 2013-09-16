@@ -129,7 +129,7 @@ game = {
 	// Real Dollars Earned
 	realDollars : 0, //real earnings in dollars start at 0
 
-	// Signals end of game
+	// Signals end of game when true
 	gameOver: false,
 
 	// Data will be sent to this server address
@@ -1488,21 +1488,31 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 
 	//Record relevant data for the current turn
 	function recordData (game) {
-    var payload = {
-      crop_choice: game.cropchoice,
-      weather:     game.gameWeather[game.turn],
-      score:       payout
-    };
+	    var payload = {
+	      crop_choice: game.cropchoice,
+	      weather:     game.gameWeather[game.turn],
+	      score:       payout
+	    };
 
-    $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
-      type: 'POST',
-      dataType: 'json',
-      data: payload
-    }).success(function(data) {
-      console.log('Round recorded successfully', data);
-    }).fail(function(jqXHR, text, err) {
-      console.log('Round record failed', jqXHR, text, err);
-    });
+	    if (game.turn < game.maxturn) {
+	    	payload.gameOver = game.gameOver;
+	    }
+
+	    else if (game.turn >= game.maxturn) {
+	    	game.gameOver = true;
+	    	payload.gameOver = game.gameOver;
+	    	return payload.gameOver;
+	    }
+
+	    $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
+	      type: 'POST',
+	      dataType: 'json',
+	      data: payload
+	    }).success(function(data) {
+	      console.log('Round recorded successfully', data);
+	    }).fail(function(jqXHR, text, err) {
+	      console.log('Round record failed', jqXHR, text, err);
+	    });
 	};
 
 	recordData(game);
