@@ -99,17 +99,17 @@ game = {
 	},
 
     // Crop payouts
-    payoutAwet = 70;
-	payoutAdry = 80;
-	payoutBwet = 100;
-	payoutBdry = 50;
+    payoutAwet: 70,
+	payoutAdry: 80,
+	payoutBwet: 100,
+	payoutBdry: 50,
 
 
-	autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
+	autoFillClimateChange: true, //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
 										//If false, then manually enter the climate change values you wish to use, below.
 
 	// Set rain threshold
-	threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
+	threshold: 600, //formerly named "rainchance" -- threshold probability for rain.
 
 	// Set bonus payments
 	bonusOneDollars : 1.25,
