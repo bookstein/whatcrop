@@ -98,6 +98,19 @@ game = {
 		bottomRoot: 0
 	},
 
+    // Crop payouts
+    payoutAwet = 70;
+	payoutAdry = 80;
+	payoutBwet = 100;
+	payoutBdry = 50;
+
+
+	autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
+										//If false, then manually enter the climate change values you wish to use, below.
+
+	// Set rain threshold
+	threshold = 600; //formerly named "rainchance" -- threshold probability for rain.
+
 	// Set bonus payments
 	bonusOneDollars : 1.25,
 	bonusTwoDollars : 0.75,
@@ -131,6 +144,16 @@ game = {
 $(function initializeGame () {
 
 
+
+	function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
+		$("table").find("td#payoutAwet").text(payoutAwet );
+		$("table").find("td#payoutAdry").text(payoutAdry );
+		$("table").find("td#payoutBwet").text(payoutBwet );
+		$("table").find("td#payoutBdry").text(payoutBdry );
+	};
+
+	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
+
 	$.jqplot.config.enablePlugins = true;
 	var historicWeather = []; // Array values filled in using historicWeatherArray() below
 
@@ -156,62 +179,107 @@ $(function initializeGame () {
 			var upperNormalTheshold = newPoint(upper, "+");
 			var lowerNormalThreshold = newPoint(lower, "-");
 
-			function newPoint (threshold, sign) {
 
-				if (sign === "+") {
-					threshold[0] = maxweather + .33*Math.sqrt(maxpayout/(-beta));
-				}
+function climateChange () {
 
-				else {
-					threshold[0] = maxweather - .33*Math.sqrt(maxpayout/(-beta));
-					threshold[2] = crop;
-				}
+		var autoFillClimateChange = true; //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
+										//If false, then manually enter the climate change values you wish to use below under "else".
+		climateArray = [];
+		manualClimateArray = [];
 
-				threshold[1] = Ycoordinate(threshold[0]);
-				return threshold;
-			};
+		if (autoFillClimateChange == true) {
 
 
-			function Ycoordinate (bound) {
-				var boundPayout = beta * Math.pow((bound - maxweather), 2) + maxpayout;
-				return boundPayout;
-			};
+			for (var i =0; i < maxturn; i++) {
+				climateArray[i]=10; //<<<<<<<<<<<<<<<<<<< change this value to alter climate change.
+			}
 
 
 			//output array of (x,y) points for use in jqPlot chart: [root1, lower normal-weather bound, vertex, upper normal-weather bound, root2]
 			parabolaArray = [[root1, 0, null], lower, [maxweather, maxpayout, null], upper, [root2, 0, null]];
 
-			return parabolaArray;
-		}; //end of dataArrays
+
+			return climateArray; //assigns value of climateArray to function climateChange
+		}
+
+		else {
+			manualClimateArray[0] = 5;
+			manualClimateArray[1] = 5;
+			manualClimateArray[2] = 5;
+			manualClimateArray[3] = 5;
+			manualClimateArray[4] = 5;
+			manualClimateArray[5] = 5;
+			manualClimateArray[6] = 5;
+			manualClimateArray[7] = 5;
+			manualClimateArray[8] = 5;
+			manualClimateArray[9] = 5;
+			manualClimateArray[10] = 5;
+			manualClimateArray[11] = 5;
+			manualClimateArray[12] = 7;
+			manualClimateArray[13] = 7;
+			manualClimateArray[14] = 7;
+			manualClimateArray[15] = 7;
+			manualClimateArray[16] = 7;
+			manualClimateArray[17] = 10;
+			manualClimateArray[18] = 10;
+			manualClimateArray[19] = 10;
+			manualClimateArray[20] = 10;
+			manualClimateArray[21] = 10;
+			manualClimateArray[22] = 10;
+			manualClimateArray[23] = 10;
+			manualClimateArray[24] = 5;
+			manualClimateArray[25] = 5;
+			manualClimateArray[26] = 5;
+			manualClimateArray[27] = 5;
+			manualClimateArray[28] = 5;
+			manualClimateArray[29] = 5;
+			manualClimateArray[30] = 5;
+			manualClimateArray[31] = 5;
+			manualClimateArray[32] = 5;
+			manualClimateArray[33] = 5;
+			manualClimateArray[34] = 5;
+			manualClimateArray[35] = 5;
+			manualClimateArray[36] = 5;
+			manualClimateArray[37] = 5;
+			manualClimateArray[38] = 5;
+			manualClimateArray[39] = 5;
+			manualClimateArray[40] = 5;
+			manualClimateArray[41] = 5;
+			manualClimateArray[42] = 5;
+			manualClimateArray[43] = 5;
+			manualClimateArray[44] = 5;
+			manualClimateArray[45] = 5;
+			manualClimateArray[46] = 5;
+			manualClimateArray[47] = 5;
+			manualClimateArray[48] = 5;
+			manualClimateArray[49] = 5;
+			manualClimateArray[50] = 5;
 
 
-		// Call dataArrays function and create parabolaArrays for A and B
-		var plotA = dataArrays(game.betaA, game.maxAweather, game.maxApayout, "A");
-		var plotB = dataArrays(game.betaB, game.maxBweather, game.maxBpayout, "B");
+			climateArray = manualClimateArray; //assigns value of manualClimateArray to climateArray.
+			return climateArray;
+			}
+	};
+
+	climateChange(); // Sets climateArray to new value
+
+	// Create list of random numbers that will become weather-------
+
+	weatherArray = [];
+
+	function makeWeatherArray() {
+		for (var i = 0; i < maxturn; i++) {
+			weather = Math.floor((Math.random()*1000)+1);
+			weatherArray[i] = weather;
+		}
+		return weatherArray;
+	};
+
+	makeWeatherArray(); //sets weatherArray to new value
+
+	// Set rain thresholds as modified by climate change over course of game -------
 
 
-		// Set upper bounds on graph
-		var upperBoundX = 1000; //default value for upper bound of graph x-axis
-		var upperBoundY = 250; //default value for upper bound of graph y-axis
-
-		function findUpperBoundX () {
-		//modifies upper bound on x-axis based on largest parabola root (point at which crop value is (X,0) with largest possible value of X)
-			var root1A = plotA[0][0];
-			var root2A = plotA[4][0];
-			var root1B = plotB[0][0];
-			var root2B = plotB[4][0];
-
-			var rootArray = [root1A, root2A, root1B, root2B];
-			var maxRoot = Math.max.apply(Math, rootArray);
-			var minRoot = Math.min.apply(Math, rootArray);
-
-			upperBoundX = Math.ceil(maxRoot/100)*100;
-
-			game.gameRoots["topRoot"] = maxRoot;
-			game.gameRoots["bottomRoot"] = minRoot;
-
-			return upperBoundX;
-		};
 
 		findUpperBoundX();
 
@@ -219,35 +287,27 @@ $(function initializeGame () {
 			var vertexA = plotA[2][1];
 			var vertexB = plotB[2][1];
 
-			if (vertexA > vertexB) {
-				upperBoundY = vertexA;
-			}
 
-			else {
-				upperBoundY = vertexB;
-			}
+	function makeThresholdArray () {
 
-			return upperBoundY;
-		};
+		thresholdArray[0] = threshold; //sets first value equal to threshold
 
-		findUpperBoundY();
+		for (var i = 1; i < maxturn; i++)
+		{
+			thresholdArray[i] = thresholdArray[i-1] - (climateArray[i]);
+		}
 
-		// Set values for tick marks
-		var maxX = [upperBoundX+100];
-		var maxY = [upperBoundY+20];
-		//var ticksX = [[0, "0"], [game.maxAweather, game.maxAweather], [game.maxBweather, game.maxBweather], [maxX, maxX]];
-		var ticksY = [[0, ""], [game.maxApayout, game.maxApayout], [game.maxBpayout, game.maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
-		var ticksWeatherX = [[]];
-		var ticksWeatherY = [];
+		return thresholdArray;
+	};
+
+	makeThresholdArray(); //sets thresholdArray to new value based on climate change
 
 
 		// Create graphable data array for historicWeather using freqency of values
 		function historicWeatherHistogram () {
 
-			var range = Math.max.apply(Math, historicWeather) - 0;
-			var intervalNumber = 2*Math.ceil(Math.sqrt(historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
-			var intervalWidth = range/intervalNumber;
-			game.meanHistoricWeather = parseInt(range/2);
+
+	gameWeather = [];
 
 
 			console.log("range: " + range + " number of intervals: " + intervalNumber + " interval width: " + intervalWidth);
@@ -678,6 +738,10 @@ $(function initializeGame () {
 
 		return game.maxScore;
 	}; //end of calculateMaxScore()
+
+	$(".turncount_instructions").text(maxturn + " turns");
+	$("#bonus_one_instructions").text(totalRandomPoints);
+	$("#bonus_two_instructions").text(totalOptimalPoints);
 
 
 	calculateMaxScore();
