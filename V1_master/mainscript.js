@@ -123,6 +123,8 @@ $(function initializeGame (gameVersionObject) {
 		initializeContinuous();
 	}
 
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Initialize Discrete Game Version <<<<<<<<<<<<<<
+
 	function initializeDiscrete () {
 
 		// Populate discrete.climateArray
@@ -206,7 +208,7 @@ $(function initializeGame (gameVersionObject) {
 			thresholdArray[0] = game.discrete.threshold; //sets first value equal to threshold
 
 			for (var i = 1; i < game.maxturn; i++) {
-				thresholdArray[i] = thresholdArray[i-1] - (game.climateArray[i]);
+				thresholdArray[i] = thresholdArray[i-1] - (game.discrete.climateArray[i]);
 			}
 
 			console.log("thresholdArray is " + thresholdArray);
@@ -480,7 +482,7 @@ $(function initializeGame (gameVersionObject) {
 
 		//Populate continuous.climateArray
 
-		climateArray = [
+		game.continuous.climateArray = [
 			{mean: 400, std_dev: 75}, //0 -- initial climate
 			{mean: 400, std_dev: 75}, //1
 			{mean: 400, std_dev: 75}, //2
