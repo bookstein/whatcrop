@@ -75,17 +75,21 @@ game = {
 
 // Continuous game version
 	continuous: {
-		// Bonus thresholds, manually determined (here as a percentage of maxScore)
+		// Bonuses are manually determined as a percentage of maxScore
+		// Change the percentage of maxScore using firstBonusThreshold and secondBonusThreshold
 		firstBonusThreshold: .75,
 		secondBonusThreshold: .90,
-		// Continuous weather crop payouts
+		// bonusOneTotal, bonusTwoTotal are calculated below using the percentages above
+		bonusOneTotal: 0,
+		bonusTwoTotal: 0,
+		// Continuous weather crop payouts -- enter here
 		betaA : -.002,
 		betaB : -.002,
 		maxApayout : 200, //P*(A)
 		maxAweather : 400, //w*(A)
 		maxBpayout : 120, //P*(B)
 		maxBweather : 200, //w*(B)
-		// Roots of payout parabolas
+		// Roots of payout parabolas, calculated below
 		gameRoots : {
 			topRoot: 0,
 			bottomRoot: 0
@@ -1087,9 +1091,29 @@ $(function initializeGame (gameVersionObject) {
 
 		console.log("The maximum possible score is " + game.maxScore + " points");
 
+		// Calculate bonus points and fill in bonus-marker values
+		function bonusHeight (threshold1, threshold2, bonus1, bonus2) {
+
+			var pixelHeight = parseInt($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
+			var pointsPerPixelRatio = game.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
+
+			// Total bonuses are equal to a percentage of maxScore, determined manually in game object
+			bonus1 = parseInt(threshold1*game.maxScore);
+			bonus2 = parseInt(threshold2*game.maxScore);
+
+			$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
+			$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
+			$("#bonus1value").text(bonus1);
+			$("#bonus2value").text(bonus2);
+
+			return bonus1, bonus2;
+		};
+
+		bonusHeight(game.continuous.firstBonusThreshold, game.continuous.secondBonusThreshold, game.continuous.bonusOneTotal, game.continuous.bonusTwoTotal);
+
 		// Populate opening dialogs
-		$("#bonus_one_instructions").text(game.continuous.firstBonusThreshold*game.maxScore);
-		$("#bonus_two_instructions").text(game.continuous.secondBonusThreshold*game.maxScore);
+		$("#bonus_one_instructions").text(game.continuous.bonusOneTotal);
+		$("#bonus_two_instructions").text(game.continuous.bonusTwoTotal);
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
