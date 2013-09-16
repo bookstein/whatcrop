@@ -127,8 +127,6 @@ $(function initializeGame (gameVersionObject) {
 
 	// Populate spans in opening and ending dialogs
 	$(".turncount_instructions").text(game.maxturn + " turns");
-	$("#bonus_one_instructions").text(gameVersionObject.firstBonusThreshold);
-	$("#bonus_two_instructions").text(gameVersionObject.secondBonusThreshold);
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Initialize Discrete Game Version <<<<<<<<<<<<<<
 
@@ -469,7 +467,7 @@ $(function initializeGame (gameVersionObject) {
 
 			bonusHeight(game.discrete.firstBonusThreshold, game.discrete.secondBonusThreshold);
 
-		// Set bar graph in opening dialogs
+		// Populate opening dialogs
 
 		var dryPercent = ((1000-game.discrete.threshold)/1000)*100;
 		var wetPercent = 100 - ((1000-game.discrete.threshold)/1000)*100;
@@ -477,6 +475,8 @@ $(function initializeGame (gameVersionObject) {
 		$(".wet_percent").text(wetPercent + "%");
 		$("#sun_probability").css("height", dryPercent);
 		$("#rain_probability").css("height", wetPercent);
+		$("#bonus_one_instructions").text(game.discrete.firstBonusThreshold);
+		$("#bonus_two_instructions").text(game.discrete.secondBonusThreshold);
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -1086,6 +1086,10 @@ $(function initializeGame (gameVersionObject) {
 		calculateMaxScore();
 
 		console.log("The maximum possible score is " + game.maxScore + " points");
+
+		// Populate opening dialogs
+		$("#bonus_one_instructions").text(game.continuous.firstBonusThreshold*game.maxScore);
+		$("#bonus_two_instructions").text(game.continuous.secondBonusThreshold*game.maxScore);
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
