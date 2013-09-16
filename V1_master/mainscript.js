@@ -19,47 +19,6 @@ gameVersion = {
 
 game = {
 
-	// Discrete game version
-	discrete: {
-		// Discrete weather crop payouts
-	    payoutAwet: 70,
-		payoutAdry: 80,
-		payoutBwet: 100,
-		payoutBdry: 50,
-		// Set rain threshold
-		threshold: 600,
-		// Set bonus payments
-		bonusOneDollars : 1.25,
-		bonusTwoDollars : 0.75,
-		totalRandomPoints : 0,
-		totalOptimalPoints : 0,
-		// Indifference point (at which crops A and B are equally good choices)
-		// and indifferentTurn (turn at which indiff point is reached)
-		// Values calculated below
-		indifferencePoint: 0,
-		indifferentTurn: 0,
-		// Climate change per turn
-		climateArray: []
-	},
-
-	// Continuous game version
-	continuous: {
-		// Continuous weather crop payouts
-		betaA : -.002,
-		betaB : -.002,
-		maxApayout : 200, //P*(A)
-		maxAweather : 400, //w*(A)
-		maxBpayout : 120, //P*(B)
-		maxBweather : 200, //w*(B)
-		// Roots of payout parabolas
-		gameRoots : {
-			topRoot: 0,
-			bottomRoot: 0
-		},
-		// Manually set climate change by turn, up to game.maxturn
-		climateArray : []
-	},
-
 // Shared global variables:
 
 	// Title of game
@@ -87,7 +46,48 @@ game = {
 	gameOver: false,
 
 	// Data will be sent to this server address
-	serverAddress: '' // local server
+	serverAddress: '', // local server
+
+// Discrete game version
+	discrete: {
+		// Discrete weather crop payouts
+	    payoutAwet: 70,
+		payoutAdry: 80,
+		payoutBwet: 100,
+		payoutBdry: 50,
+		// Set rain threshold
+		threshold: 600,
+		// Set bonus payments
+		bonusOneDollars : 1.25,
+		bonusTwoDollars : 0.75,
+		totalRandomPoints : 0,
+		totalOptimalPoints : 0,
+		// Indifference point (at which crops A and B are equally good choices)
+		// and indifferentTurn (turn at which indiff point is reached)
+		// Values calculated below
+		indifferencePoint: 0,
+		indifferentTurn: 0,
+		// Climate change per turn
+		climateArray: []
+	},
+
+// Continuous game version
+	continuous: {
+		// Continuous weather crop payouts
+		betaA : -.002,
+		betaB : -.002,
+		maxApayout : 200, //P*(A)
+		maxAweather : 400, //w*(A)
+		maxBpayout : 120, //P*(B)
+		maxBweather : 200, //w*(B)
+		// Roots of payout parabolas
+		gameRoots : {
+			topRoot: 0,
+			bottomRoot: 0
+		},
+		// Manually set climate change by turn, up to game.maxturn
+		climateArray : []
+	}
 
 }; //end of game object
 
@@ -592,8 +592,8 @@ $(function initializeGame (gameVersionObject) {
 
 
 			// Call dataArrays function and create parabolaArrays for A and B
-			var plotA = dataArrays(game.betaA, game.maxAweather, game.maxApayout, "A");
-			var plotB = dataArrays(game.betaB, game.maxBweather, game.maxBpayout, "B");
+			var plotA = dataArrays(game.continous.betaA, game.continuous.maxAweather, game.continuous.maxApayout, "A");
+			var plotB = dataArrays(game.continuous.betaB, game.continuous.maxBweather, game.continuous.maxBpayout, "B");
 
 
 			// Set upper bounds on graph
