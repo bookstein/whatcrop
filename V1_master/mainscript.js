@@ -15,7 +15,11 @@ $(document).ready(function(){
 
 
 game = {
+	// Change game version
+	discreteWeather: true,
+	continuousWeather: !true,
 
+	// Global variables
 	cropchoice: "",
 	gameWeather: [],
 	weatherReport : "",
