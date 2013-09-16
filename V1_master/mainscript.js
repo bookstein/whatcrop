@@ -1491,18 +1491,9 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	    var payload = {
 	      crop_choice: game.cropchoice,
 	      weather:     game.gameWeather[game.turn],
+	      game_over:   game.gameOver,
 	      score:       payout
 	    };
-
-	    if (game.turn < game.maxturn) {
-	    	payload.gameOver = game.gameOver;
-	    }
-
-	    else if (game.turn >= game.maxturn) {
-	    	game.gameOver = true;
-	    	payload.gameOver = game.gameOver;
-	    	return payload.gameOver;
-	    }
 
 	    $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
 	      type: 'POST',
@@ -1515,19 +1506,28 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	    });
 	};
 
+    if (game.turn === game.maxturn) {
+    	game.gameOver = true;
+    }
+
 	recordData(game);
+
+	// If maxturn has been reached or exceeded, this function is called
+	function endGame () {
+		//call end-of-game dialog box
+		$("button #grow").addClass("hidden");
+
+	};
+
+	if (game.gameOver) {
+		endGame();
+	}
 
 	// Reset values for new turn
 	game.cropchoice = "";
 
 }; // End of updateGame function
 
-
-function endGame () {
-	//call end-of-game dialog box
-	$("button #grow").addClass("hidden");
-	//inclusive of last turn (50)
-};
 
 //>>>>>>>>>>>>>>>>>>>>> Clicking #grow button triggers updateGame <<<<<<<<<<<<<
 
@@ -1542,7 +1542,7 @@ $("#grow").on("click", function () {
 		setTimeout(weatherResults, 100);
 	}
 
-		else if (($(this).hasClass("highlight")) && turn === game.maxturn) {
+		else if (($(this).hasClass("highlight")) && game.turn === game.maxturn) {
 
 		//summon end-of-game dialog instead of update
 		$("#sproutA").addClass("hidden");
