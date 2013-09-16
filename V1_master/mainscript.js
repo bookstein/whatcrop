@@ -182,9 +182,10 @@ $(function initializeGame (gameVersionObject) {
 
 		function makeWeatherArray() {
 			for (var i = 0; i < game.maxturn; i++) {
-				weather = Math.floor((Math.random()*1000)+1);
+				var weather = Math.floor((Math.random()*1000)+1);
 				weatherArray[i] = weather;
 			}
+			console.log("weatherArray is " + weatherArray);
 			return weatherArray;
 		};
 
@@ -204,7 +205,7 @@ $(function initializeGame (gameVersionObject) {
 			{
 				thresholdArray[i] = thresholdArray[i-1] - (game.climateArray[i]);
 			}
-
+			console.log("thresholdArray is " + thresholdArray);
 			return thresholdArray;
 		};
 
@@ -213,26 +214,25 @@ $(function initializeGame (gameVersionObject) {
 
 		// Set game weather -------
 
-		gameWeather = [];
-
 		function makeGameWeather() { //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
 
 		for (var i = 0; i < game.maxturn; i++) {
-			if (weatherArray[i] < thresholdArray[i])
+			if (weatherArray[i] <= thresholdArray[i])
 				{
 					var perTurnWeather = "Wet";
-					gameWeather[i] = perTurnWeather;
+					game.gameWeather[i] = perTurnWeather;
 				}
 
 			if (weatherArray[i] > thresholdArray[i])
 				{
 					var perTurnWeather = "Dry";
-					gameWeather[i] = perTurnWeather;
+					game.gameWeather[i] = perTurnWeather;
 				}
 
 				} //end of for loop
 
-			return gameWeather;
+			console.log("gameweather is "+ game.gameWeather);
+			return game.gameWeather;
 		};
 
 		makeGameWeather(); //sets value of gameWeather (array containing weather for length of game)
@@ -247,19 +247,19 @@ $(function initializeGame (gameVersionObject) {
 			for (var i = 0; i < game.maxturn; i++) {
 
 
-				if (gameWeather[i] === "Wet" && game.discrete.payoutAwet > game.discrete.payoutBwet)
+				if (game.gameWeather[i] === "Wet" && game.discrete.payoutAwet > game.discrete.payoutBwet)
 				{
 					optimalCrops[i] = game.discrete.payoutAwet;
 				}
-				else if (gameWeather[i] === "Dry" && game.discrete.payoutAdry > game.discrete.payoutBdry)
+				else if (game.gameWeather[i] === "Dry" && game.discrete.payoutAdry > game.discrete.payoutBdry)
 				{
 					optimalCrops[i] = game.discrete.payoutAdry;
 				}
-				else if (gameWeather[i] === "Wet" && game.discrete.payoutBwet > game.discrete.payoutAwet)
+				else if (game.gameWeather[i] === "Wet" && game.discrete.payoutBwet > game.discrete.payoutAwet)
 				{
 					optimalCrops[i] = game.discrete.payoutBwet;
 				}
-				else if (gameWeather[i] === "Dry" && game.discrete.payoutBdry > game.discrete.payoutAdry)
+				else if (game.gameWeather[i] === "Dry" && game.discrete.payoutBdry > game.discrete.payoutAdry)
 				{
 					optimalCrops[i] = game.discrete.payoutBdry;
 				}
@@ -270,19 +270,19 @@ $(function initializeGame (gameVersionObject) {
 
 		calculateOptimalCrop(); //sets value of optimalCrops array
 
-		maxScore = 0;
+
 
 		function calculateMaxScore () {
 				for (var i=0; i < game.maxturn; i++)
 
 				{
-				maxScore += optimalCrops[i]
-				} //maxScore = maxScore + optimalTurnCrop[i]
-			return maxScore;
+				game.maxScore += optimalCrops[i]
+				}
+			return game.maxScore;
 		};
 
 		calculateMaxScore();
-		console.log("The maximum possible score is " + maxScore + " points");
+		console.log("The maximum possible score is " + game.maxScore + " points");
 
 		// Calculate Random Play bonus threshold ---------------------------------
 
@@ -446,7 +446,7 @@ $(function initializeGame (gameVersionObject) {
 			function bonusHeight (bonus1, bonus2) {
 
 				var pixelHeight = parseInt($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
-				var pointsPerPixelRatio = maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
+				var pointsPerPixelRatio = game.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
 
 				$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 				$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
