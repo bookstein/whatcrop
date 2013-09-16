@@ -1516,14 +1516,16 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 	function endGame () {
 		//call end-of-game dialog box
 		$("button #grow").addClass("hidden");
+		$("#sproutA").addClass("hidden");
+		$("#sproutB").addClass("hidden");
 
 	};
 
 	if (game.gameOver) {
-		endGame();
+		setTimeout(endGame, 1000);
 	}
 
-	// Reset values for new turn
+	// Reset crop values for new turn
 	game.cropchoice = "";
 
 }; // End of updateGame function
@@ -1532,28 +1534,11 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 //>>>>>>>>>>>>>>>>>>>>> Clicking #grow button triggers updateGame <<<<<<<<<<<<<
 
 $("#grow").on("click", function () {
-	if (($(this).hasClass("highlight"))&& game.turn<game.maxturn) {
-		// hide crop sprout graphics
+	if (($(this).hasClass("highlight"))&& game.turn <= game.maxturn) {
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
-		//call displayWeather function
-		//displayWeather();
-		//callsback updateGame function 200ms after displayWeather
 		setTimeout(weatherResults, 100);
 	}
-
-		else if (($(this).hasClass("highlight")) && game.turn === game.maxturn) {
-
-		//summon end-of-game dialog instead of update
-		$("#sproutA").addClass("hidden");
-		$("#sproutB").addClass("hidden");
-		//call displayWeather function
-		//displayWeather();
-		//callsback updateGame function 200ms after displayWeather
-		setTimeout(weatherResults, 100);
-		setTimeout(endGame, 1000);
-	}
-
 });
 
 //For Fran: test functionality of game in advance
