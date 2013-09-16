@@ -123,7 +123,10 @@ game = {
 	score : 0, //starting score is 0
 
 	// Real Dollars Earned
-	realDollars : 0 //real earnings in dollars start at 0
+	realDollars : 0, //real earnings in dollars start at 0
+
+	// Signals end of game
+	gameOver: false
 
 }; //end of game object
 
@@ -1476,7 +1479,7 @@ $("#grow").on("click", function () {
 		setTimeout(weatherResults, 100);
 	}
 
-		else if (($(this).hasClass("highlight")) && turns === game.maxturn) {
+		else if (($(this).hasClass("highlight")) && turn === game.maxturn) {
 
 		//summon end-of-game dialog instead of update
 		$("#sproutA").addClass("hidden");
