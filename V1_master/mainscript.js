@@ -186,7 +186,7 @@ $(function initializeGame (gameVersionObject) {
 
 			for (var i = 1; i < game.maxturn; i++)
 			{
-				thresholdArray[i] = thresholdArray[i-1] - (climateArray[i]);
+				thresholdArray[i] = thresholdArray[i-1] - (game.climateArray[i]);
 			}
 
 			return thresholdArray;
