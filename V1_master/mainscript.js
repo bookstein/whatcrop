@@ -1017,102 +1017,11 @@ $(function initializeGame (gameVersionObject) {
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 }); // end of initializeGame ()
 
-<<<<<<< HEAD
-
 // >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
 
 // Open first dialog; keep other dialogs hidden
 
-$(function introDialogs () {
 
-	$( "#first-message" ).dialog({
-		autoOpen: true,
-		modal: true,
-		sticky: true,
-		closeOnEscape: false,
-        resizable: false,
-        position: {my: 'bottom', at: 'center center-15%', of: '#container'},
-        stack: true,
-        height: 'auto',
-        width: '375',
-        dialogClass: "no-close",
-		buttons: [ { text: "Next (1 of 4)",
-			click: function() {
-				$( this ).dialog( "close" );
-				$( "#second-message" ).dialog( "open" );
-				$("#givens").addClass("glow");
-				//$(".ui-widget-overlay").addClass("active-left");
-			}
-		} ]
-	});
-
-	$("#second-message").dialog({
-		autoOpen: false,
-		modal: true,
-		sticky: true,
-		closeOnEscape: false,
-        resizable: false,
-        position: {my: 'bottom', at: 'center center-15%', of: '#container'},
-        stack: true,
-        height: 'auto',
-        width: '375',
-        dialogClass: "no-close",
-		buttons: [ { text: "Next (2 of 4)",
-			click: function() {
-				$( this ).dialog( "close" );
-				//$(".ui-widget-overlay").addClass("active-left");
-				$( "#third-message" ).dialog( "open" );
-				$("#givens").removeClass("glow");
-				//$("table").addClass("glow");
-
-			}
-		} ]
-	});
-
-	$("#third-message").dialog({
-		autoOpen: false,
-		modal: true,
-		sticky: true,
-		closeOnEscape: false,
-        resizable: false,
-        position: {my: 'bottom', at: 'center center-15%', of: '#container'},
-        stack: true,
-        height: 'auto',
-        width: '375',
-        dialogClass: "no-close",
-		buttons: [ { text: "Next (3 of 4)",
-			click: function() {
-				$( this ).dialog( "close" );
-				$( "#fourth-message" ).dialog( "open" );
-				$("table").removeClass("glow");
-				$("#points_bar, #points_flag").toggleClass("glow");
-				//$(".ui-widget-overlay").removeClass("active-left");
-				//$(".ui-widget-overlay").addClass("active-right");
-			}
-		} ]
-	});
-
-	$( "#fourth-message" ).dialog({
-		autoOpen: false,
-		modal: true,
-		sticky: true,
-		closeOnEscape: false,
-        resizable: false,
-        position: {my: 'bottom', at: 'center center-15%', of: '#container'},
-        stack: true,
-        height: 'auto',
-        width: '375',
-        dialogClass: "no-close",
-		buttons: [ { text: "Start Game",
-			click: function() {
-				$( this ).dialog( "close" );
-				$("#points_bar, #points_flag").toggleClass("glow");
-				//$(".ui-widget-overlay").removeClass("active-right");
-			}
-		} ]
-	});
-
-=======
   function introDialogs () {
     $( "#first-message" ).dialog({
       autoOpen: true,
@@ -1240,7 +1149,7 @@ $(function introDialogs () {
   }
 
   bootstrap();
->>>>>>> BoxMuller
+
 });
 
 
