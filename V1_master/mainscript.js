@@ -1109,7 +1109,7 @@ $(function initializeGame (gameVersionObject) {
         }
       } ]
     });
-  }
+  };
 
   function createGameOnServer() {
     return $.ajax(game.serverAddress + '/games', {
@@ -1117,7 +1117,7 @@ $(function initializeGame (gameVersionObject) {
       dataType: 'json',
       data: { label: game.gameLabel }
     });
-  }
+  };
 
   function bootstrap() {
     var $creatingGameDialog = $( "#creating-game-dialog" );
@@ -1146,30 +1146,9 @@ $(function initializeGame (gameVersionObject) {
       .fail(function(jqXHR, textStatus, errorThrown) {
         $creatingGameDialog.html('Creating game failed!');
       });
-  }
+  };
 
   bootstrap();
-
-});
-
-
-/*function dialogIntroduction () {
-	$("#second-message")
-		.on("dialogopen", function () {
-			$("#givens").toggleClass("glow")});
-		})
-		.on("dialogclose", function {
-			$("#givens table").toggleClass("glow");
-	});
-
-	$("#fourth-message").
-		.on("dialogopen", function {
-			$("#points_bar, #points_flag").toggleClass("glow");
-			$(this).on("dialogclose", function {
-			$("#points_bar, #points_flag").toggleClass("glow");
-			});
-	};
-};*/
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
