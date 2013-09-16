@@ -1518,7 +1518,26 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 		$("button #grow").addClass("hidden");
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
-
+		$("#playerID").text(game.gameID);
+		$("#total_score").text(score);
+		$("#total_dollars").text(realDollars);
+ 		$( "#end_results" ).dialog({
+	      autoOpen: false,
+	      modal: true,
+	      sticky: true,
+	      closeOnEscape: false,
+	          resizable: false,
+	          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+	          stack: true,
+	          height: 'auto',
+	          width: '375',
+	          dialogClass: "no-close",
+	      buttons: [ { text: "OK",
+	        click: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      } ]
+	    });
 	};
 
 	if (game.gameOver) {
