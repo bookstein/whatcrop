@@ -231,15 +231,15 @@ $(function initializeGame (gameVersionObject) {
 			for (var i = 0; i < game.maxturn; i++) {
 
 
-				if (gameWeather[i] === "Wet" && payoutAwet > payoutBwet)
+				if (gameWeather[i] === "Wet" && game.discrete.payoutAwet > payoutBwet)
 				{
-					optimalCrops[i] = payoutAwet;
+					optimalCrops[i] = game.discrete.payoutAwet;
 				}
 				else if (gameWeather[i] === "Dry" && payoutAdry > payoutBdry)
 				{
 					optimalCrops[i] = payoutAdry;
 				}
-				else if (gameWeather[i] === "Wet" && payoutBwet > payoutAwet)
+				else if (gameWeather[i] === "Wet" && payoutBwet > game.discrete.payoutAwet)
 				{
 					optimalCrops[i] = payoutBwet;
 				}
@@ -272,7 +272,7 @@ $(function initializeGame (gameVersionObject) {
 
 				// A. Calculate indifference point
 
-		indifferencePoint = (payoutBwet - payoutAwet)/(payoutAdry - payoutAwet + payoutBwet - payoutBdry);
+		indifferencePoint = (payoutBwet - game.discrete.payoutAwet)/(payoutAdry - game.discrete.payoutAwet + payoutBwet - payoutBdry);
 		pWet = [];
 
 		function checkIndifferencePoint () {
@@ -328,7 +328,7 @@ $(function initializeGame (gameVersionObject) {
 
 			randomPoints = [];
 			for (var i = 0; i < game.maxturn; i++) {
-				randomPoints[i] = .5*pDry[i]*payoutAdry + .5*pWet[i]*payoutAwet +
+				randomPoints[i] = .5*pDry[i]*payoutAdry + .5*pWet[i]*game.discrete.payoutAwet +
 				 .5*pDry[i]*payoutBdry + .5*pWet[i]*payoutBwet;
 			}
 
@@ -373,15 +373,15 @@ $(function initializeGame (gameVersionObject) {
 		function optimalScenario () {
 
 			// A is first optimal choice, starting condition is pWet > pDry
-			if (payoutAwet > payoutBwet) {
-				optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, payoutAwet);
+			if (game.discrete.payoutAwet > payoutBwet) {
+				optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutAdry, game.discrete.payoutAwet);
 				optimalChoice2 = optimalChoice(indifferentTurn, game.maxturn, pDry, pWet, payoutBdry, payoutBwet);
 			}
 
 			// B is first optimal choice, starting condition is pWet > pDry
-			else if (payoutBwet > payoutAwet) {
+			else if (payoutBwet > game.discrete.payoutAwet) {
 				optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, payoutBdry, payoutBwet);
-				optimalChoice2 = optimalChoice(indifferentTurn, game.maxturn, pDry, pWet, payoutAdry, payoutAwet);
+				optimalChoice2 = optimalChoice(indifferentTurn, game.maxturn, pDry, pWet, payoutAdry, game.discrete.payoutAwet);
 			}
 
 		};
