@@ -11,7 +11,7 @@
 $(document).ready(function(){
 
 
-//>>>>>>>>>>>> GLOBAL VARIABLES - change game parameters here <<<<<<<<<<<<<<<
+//>>>>>>>>>>>> GAME OBJECT - change game version and parameters here <<<<<<<<<<<<<<<
 
 
 game = {
@@ -19,35 +19,38 @@ game = {
 	discreteWeather: true,
 	continuousWeather: !true,
 
-	// Global variables
-	cropchoice: "",
-	gameWeather: [],
-	weatherReport : "",
-	historyPlot : {},
-	meanHistoricWeather : 0,
-
-	// Set number of turns per game
-    maxturn : 50,
-
-	// Set crop payouts
-
-	cropPayout : {
-
-		// Continuous weather crop payouts
-	betaA : -.002,
-	betaB : -.002,
-	maxApayout : 200, //P*(A)
-	maxAweather : 400, //w*(A)
-	maxBpayout : 120, //P*(B)
-	maxBweather : 200, //w*(B)
-
+	// Discrete game version
+	discrete: {
 		// Discrete weather crop payouts
-    payoutAwet: 70,
-	payoutAdry: 80,
-	payoutBwet: 100,
-	payoutBdry: 50
+	    payoutAwet: 70,
+		payoutAdry: 80,
+		payoutBwet: 100,
+		payoutBdry: 50,
+		// Set rain threshold
+		threshold: 600,
+		// Set bonus payments
+		bonusOneDollars : 1.25,
+		bonusTwoDollars : 0.75,
+		totalRandomPoints : 0,
+		totalOptimalPoints : 0,
+	}
 
+	// Continuous game version
+	continuous: {
+		// Continuous weather crop payouts
+		betaA : -.002,
+		betaB : -.002,
+		maxApayout : 200, //P*(A)
+		maxAweather : 400, //w*(A)
+		maxBpayout : 120, //P*(B)
+		maxBweather : 200, //w*(B)
+		// Roots of payout parabolas
+		gameRoots : {
+			topRoot: 0,
+			bottomRoot: 0
+		},
 	},
+
 
 	// Manually set climate change by turn, up to game.maxturn
 	climateArray : [
@@ -104,24 +107,15 @@ game = {
 		{mean: 150, std_dev: 75}  //50
 	],
 
-	// Roots of payout parabolas
-	gameRoots : {
-		topRoot: 0,
-		bottomRoot: 0
-	},
+	// Shared global variables:
+	cropchoice: "",
+	gameWeather: [],
+	weatherReport : "",
+	historyPlot : {},
+	meanHistoricWeather : 0,
 
-	autoFillClimateChange: true, //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
-										//If false, then manually enter the climate change values you wish to use, below.
-
-	// Set rain threshold
-	threshold: 600, //formerly named "rainchance" -- threshold probability for rain.
-
-	// Set bonus payments
-	bonusOneDollars : 1.25,
-	bonusTwoDollars : 0.75,
-	totalRandomPoints : 0,
-	totalOptimalPoints : 0,
-
+	// Set number of turns per game
+    maxturn : 50,
 	//Turn Counter
 	turn : 0,
 
@@ -132,7 +126,12 @@ game = {
 	// Real Dollars Earned
 	realDollars : 0 //real earnings in dollars start at 0
 
-};
+}; //end of game object
+
+
+// >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+$(function initializeGame () {
 
 	//Turn Counter
 	$("#turns_counter").text(game.turn + "/" + game.maxturn);
@@ -142,13 +141,6 @@ game = {
 
 	// Real Dollars Earned
 	$("#dollars_counter").text("$"+game.realDollars); //writes initial realDollars to dollars counter
-
-
-// >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-$(function initializeGame () {
-
-
 
 	function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 		$("table").find("td#payoutAwet").text(payoutAwet );
