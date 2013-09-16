@@ -1322,19 +1322,19 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 
 	function weatherOpacity () {
 
-		if (game.gameWeather[game.turn] >= game.gameRoots.topRoot) {
+		if (game.gameWeather[game.turn] >= game.continuous.gameRoots.topRoot) {
 				rainOpacity = 1, sunOpacity = 0;
 				console.log(rainOpacity, sunOpacity);
 			}
 
-			else if (game.gameWeather[game.turn] > game.gameRoots.bottomRoot && game.gameWeather[game.turn] < game.gameRoots.topRoot) {
-				rainOpacity = ((game.gameWeather[game.turn] - game.gameRoots.bottomRoot)/(game.gameRoots.topRoot - game.gameRoots.bottomRoot));
+			else if (game.gameWeather[game.turn] > game.continuous.gameRoots.bottomRoot && game.gameWeather[game.turn] < game.continuous.gameRoots.topRoot) {
+				rainOpacity = ((game.gameWeather[game.turn] - game.continuous.gameRoots.bottomRoot)/(game.continuous.gameRoots.topRoot - game.continuous.gameRoots.bottomRoot));
 				sunOpacity = 1-rainOpacity;
 				console.log(rainOpacity, sunOpacity);
 
 			}
 
-			else if (game.gameWeather[game.turn] <= game.gameRoots.bottomRoot) {
+			else if (game.gameWeather[game.turn] <= game.continuous.gameRoots.bottomRoot) {
 				rainOpacity = 0;
 				sunOpacity = 1;
 				console.log(rainOpacity, sunOpacity);
