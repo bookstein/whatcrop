@@ -1100,16 +1100,18 @@ $(function initializeGame (gameVersionObject) {
 			// Total bonuses are equal to a percentage of maxScore, determined manually in game object
 			bonus1 = parseInt(threshold1*game.maxScore);
 			bonus2 = parseInt(threshold2*game.maxScore);
+			game.continuous.bonusOneTotal = bonus1;
+			game.continuous.bonusTwoTotal = bonus2;
 
 			$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 			$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
 			$("#bonus1value").text(bonus1);
 			$("#bonus2value").text(bonus2);
 
-			return bonus1, bonus2;
+			return game.continuous.bonusOneTotal, game.continuous.bonusTwoTotal;
 		};
 
-		bonusHeight(game.continuous.firstBonusThreshold, game.continuous.secondBonusThreshold, game.continuous.bonusOneTotal, game.continuous.bonusTwoTotal);
+		bonusHeight(game.continuous.firstBonusThreshold, game.continuous.secondBonusThreshold);
 
 		// Populate opening dialogs
 		$("#bonus_one_instructions").text(game.continuous.bonusOneTotal);
