@@ -37,7 +37,9 @@ game = {
 		// and indifferentTurn (turn at which indiff point is reached)
 		// Values calculated below
 		indifferencePoint: 0,
-		indifferentTurn: 0
+		indifferentTurn: 0,
+		// Climate change per turn
+		climateArray: []
 	},
 
 	// Continuous game version
@@ -53,68 +55,15 @@ game = {
 		gameRoots : {
 			topRoot: 0,
 			bottomRoot: 0
-		}
+		},
+		// Manually set climate change by turn, up to game.maxturn
+		climateArray : []
 	},
 
 // Shared global variables:
 
 	// Title of game
 	gameLabel: 'control',
-
-	// Manually set climate change by turn, up to game.maxturn
-	climateArray : [
-		{mean: 400, std_dev: 75}, //0 -- initial climate
-		{mean: 400, std_dev: 75}, //1
-		{mean: 400, std_dev: 75}, //2
-		{mean: 400, std_dev: 75}, //3
-		{mean: 400, std_dev: 75}, //4
-		{mean: 400, std_dev: 75}, //5
-		{mean: 400, std_dev: 75}, //6
-		{mean: 400, std_dev: 75}, //7
-		{mean: 400, std_dev: 75}, //8
-		{mean: 400, std_dev: 75}, //9
-		{mean: 400, std_dev: 75}, //10
-		{mean: 300, std_dev: 75}, //11
-		{mean: 300, std_dev: 75}, //12
-		{mean: 300, std_dev: 75}, //13
-		{mean: 300, std_dev: 75}, //14
-		{mean: 300, std_dev: 75}, //15
-		{mean: 300, std_dev: 75}, //16
-		{mean: 300, std_dev: 75}, //17
-		{mean: 300, std_dev: 75}, //18
-		{mean: 300, std_dev: 75}, //19
-		{mean: 300, std_dev: 75}, //20
-		{mean: 275, std_dev: 75}, //21
-		{mean: 275, std_dev: 75}, //22
-		{mean: 275, std_dev: 75}, //23
-		{mean: 275, std_dev: 75}, //24
-		{mean: 275, std_dev: 75}, //25
-		{mean: 275, std_dev: 75}, //26
-		{mean: 275, std_dev: 75}, //27
-		{mean: 275, std_dev: 75}, //28
-		{mean: 275, std_dev: 75}, //29
-		{mean: 275, std_dev: 75}, //30
-		{mean: 275, std_dev: 75}, //31
-		{mean: 275, std_dev: 75}, //32
-		{mean: 275, std_dev: 75}, //33
-		{mean: 275, std_dev: 75}, //34
-		{mean: 275, std_dev: 75}, //35
-		{mean: 275, std_dev: 75}, //36
-		{mean: 275, std_dev: 75}, //37
-		{mean: 275, std_dev: 75}, //38
-		{mean: 275, std_dev: 75}, //39
-		{mean: 275, std_dev: 75}, //40
-		{mean: 275, std_dev: 75}, //41
-		{mean: 275, std_dev: 75}, //42
-		{mean: 275, std_dev: 75}, //43
-		{mean: 275, std_dev: 75}, //44
-		{mean: 275, std_dev: 75}, //45
-		{mean: 250, std_dev: 75}, //46
-		{mean: 200, std_dev: 75}, //47
-		{mean: 150, std_dev: 75}, //48
-		{mean: 150, std_dev: 75}, //49
-		{mean: 150, std_dev: 75}  //50
-	],
 
 	cropchoice: "",
 	gameWeather: [],
@@ -175,6 +124,61 @@ $(function initializeGame (gameVersionObject) {
 	}
 
 	function initializeDiscrete () {
+
+		// Populate discrete.climateArray
+
+		game.discrete.climateArray[0] = 5;
+		game.discrete.climateArray[1] = 5;
+		game.discrete.climateArray[2] = 5;
+		game.discrete.climateArray[3] = 5;
+		game.discrete.climateArray[4] = 5;
+		game.discrete.climateArray[5] = 5;
+		game.discrete.climateArray[6] = 5;
+		game.discrete.climateArray[7] = 5;
+		game.discrete.climateArray[8] = 5;
+		game.discrete.climateArray[9] = 5;
+		game.discrete.climateArray[10] = 5;
+		game.discrete.climateArray[11] = 5;
+		game.discrete.climateArray[12] = 7;
+		game.discrete.climateArray[13] = 7;
+		game.discrete.climateArray[14] = 7;
+		game.discrete.climateArray[15] = 7;
+		game.discrete.climateArray[16] = 7;
+		game.discrete.climateArray[17] = 10;
+		game.discrete.climateArray[18] = 10;
+		game.discrete.climateArray[19] = 10;
+		game.discrete.climateArray[20] = 10;
+		game.discrete.climateArray[21] = 10;
+		game.discrete.climateArray[22] = 10;
+		game.discrete.climateArray[23] = 10;
+		game.discrete.climateArray[24] = 5;
+		game.discrete.climateArray[25] = 5;
+		game.discrete.climateArray[26] = 5;
+		game.discrete.climateArray[27] = 5;
+		game.discrete.climateArray[28] = 5;
+		game.discrete.climateArray[29] = 5;
+		game.discrete.climateArray[30] = 5;
+		game.discrete.climateArray[31] = 5;
+		game.discrete.climateArray[32] = 5;
+		game.discrete.climateArray[33] = 5;
+		game.discrete.climateArray[34] = 5;
+		game.discrete.climateArray[35] = 5;
+		game.discrete.climateArray[36] = 5;
+		game.discrete.climateArray[37] = 5;
+		game.discrete.climateArray[38] = 5;
+		game.discrete.climateArray[39] = 5;
+		game.discrete.climateArray[40] = 5;
+		game.discrete.climateArray[41] = 5;
+		game.discrete.climateArray[42] = 5;
+		game.discrete.climateArray[43] = 5;
+		game.discrete.climateArray[44] = 5;
+		game.discrete.climateArray[45] = 5;
+		game.discrete.climateArray[46] = 5;
+		game.discrete.climateArray[47] = 5;
+		game.discrete.climateArray[48] = 5;
+		game.discrete.climateArray[49] = 5;
+		game.discrete.climateArray[50] = 5;
+
 
 		// Create list of random numbers that will become weather-------
 
@@ -473,6 +477,63 @@ $(function initializeGame (gameVersionObject) {
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	function initializeContinuous () {
+
+		//Populate continuous.climateArray
+
+		climateArray = [
+			{mean: 400, std_dev: 75}, //0 -- initial climate
+			{mean: 400, std_dev: 75}, //1
+			{mean: 400, std_dev: 75}, //2
+			{mean: 400, std_dev: 75}, //3
+			{mean: 400, std_dev: 75}, //4
+			{mean: 400, std_dev: 75}, //5
+			{mean: 400, std_dev: 75}, //6
+			{mean: 400, std_dev: 75}, //7
+			{mean: 400, std_dev: 75}, //8
+			{mean: 400, std_dev: 75}, //9
+			{mean: 400, std_dev: 75}, //10
+			{mean: 300, std_dev: 75}, //11
+			{mean: 300, std_dev: 75}, //12
+			{mean: 300, std_dev: 75}, //13
+			{mean: 300, std_dev: 75}, //14
+			{mean: 300, std_dev: 75}, //15
+			{mean: 300, std_dev: 75}, //16
+			{mean: 300, std_dev: 75}, //17
+			{mean: 300, std_dev: 75}, //18
+			{mean: 300, std_dev: 75}, //19
+			{mean: 300, std_dev: 75}, //20
+			{mean: 275, std_dev: 75}, //21
+			{mean: 275, std_dev: 75}, //22
+			{mean: 275, std_dev: 75}, //23
+			{mean: 275, std_dev: 75}, //24
+			{mean: 275, std_dev: 75}, //25
+			{mean: 275, std_dev: 75}, //26
+			{mean: 275, std_dev: 75}, //27
+			{mean: 275, std_dev: 75}, //28
+			{mean: 275, std_dev: 75}, //29
+			{mean: 275, std_dev: 75}, //30
+			{mean: 275, std_dev: 75}, //31
+			{mean: 275, std_dev: 75}, //32
+			{mean: 275, std_dev: 75}, //33
+			{mean: 275, std_dev: 75}, //34
+			{mean: 275, std_dev: 75}, //35
+			{mean: 275, std_dev: 75}, //36
+			{mean: 275, std_dev: 75}, //37
+			{mean: 275, std_dev: 75}, //38
+			{mean: 275, std_dev: 75}, //39
+			{mean: 275, std_dev: 75}, //40
+			{mean: 275, std_dev: 75}, //41
+			{mean: 275, std_dev: 75}, //42
+			{mean: 275, std_dev: 75}, //43
+			{mean: 275, std_dev: 75}, //44
+			{mean: 275, std_dev: 75}, //45
+			{mean: 250, std_dev: 75}, //46
+			{mean: 200, std_dev: 75}, //47
+			{mean: 150, std_dev: 75}, //48
+			{mean: 150, std_dev: 75}, //49
+			{mean: 150, std_dev: 75}  //50
+		];
+
 
 		$.jqplot.config.enablePlugins = true;
 		var historicWeather = []; // Array values filled in using historicWeatherArray() below
