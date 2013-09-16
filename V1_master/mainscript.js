@@ -62,8 +62,8 @@ game = {
 		// Set rain threshold
 		threshold: 600,
 		// Bonus thresholds, determined by code below
-		totalRandomPoints : 0, //formerly totalRandomPoints
-		totalOptimalPoints : 0, //formerly totalOptimalPoints
+		firstBonusThreshold : 0, //formerly totalRandomPoints
+		secondBonusThreshold : 0, //formerly totalOptimalPoints
 		// Indifference point (at which crops A and B are equally good choices)
 		// and indifferentTurn (turn at which indiff point is reached)
 		// Values calculated below
@@ -125,10 +125,10 @@ $(function initializeGame (gameVersionObject) {
 	// Real Dollars Earned - writes initial realDollars to dollars counter
 	$("#dollars_counter").text("$"+game.realDollars);
 
-	//Opening Dialogs
+	// Populate spans in opening and ending dialogs
 	$(".turncount_instructions").text(game.maxturn + " turns");
-	$("#bonus_one_instructions").text(gameVersionObject.bonusOneDollars);
-	$("#bonus_two_instructions").text(gameVersionObject.bonusTwoDollars);
+	$("#bonus_one_instructions").text(gameVersionObject.firstBonusThreshold);
+	$("#bonus_two_instructions").text(gameVersionObject.secondBonusThreshold);
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Initialize Discrete Game Version <<<<<<<<<<<<<<
 
@@ -354,7 +354,7 @@ $(function initializeGame (gameVersionObject) {
 		findTurnAtIndifferencePoint();
 		calculateProbabilityDry();
 
-		//the first bonus applies at totalRandomPoints (number of points expected with random play)
+		// firstBonusThreshold is total number of points expected with random play
 
 		function calculateRandomPlayPoints () { //expected points earned by picking A or B randomly
 
@@ -365,14 +365,14 @@ $(function initializeGame (gameVersionObject) {
 			}
 
 			for (var i = 0; i < game.maxturn; i++) {
-				game.discrete.totalRandomPoints += randomPoints[i];
+				game.discrete.firstBonusThreshold += randomPoints[i];
 			}
 
-			return game.discrete.totalRandomPoints;
+			return game.discrete.firstBonusThreshold;
 		};
 
 		calculateRandomPlayPoints();
-		console.log("The first bonus will trigger at " + game.discrete.totalRandomPoints + " points");
+		console.log("The first bonus will trigger at " + game.discrete.firstBonusThreshold + " points");
 
 		// Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
 
@@ -380,7 +380,7 @@ $(function initializeGame (gameVersionObject) {
 		optimalChoice1 = [];
 		optimalChoice2 = [];
 
-		//the second bonus applies at totalOptimalPoints (number of points expected with optimal play)
+		// secondBonusThreshold is the number of points expected with optimal play
 
 		for (var i = 0; i <= game.maxturn; ++i) {
 			optimalChoice1[i] = 0;
@@ -445,12 +445,12 @@ $(function initializeGame (gameVersionObject) {
 
 			var total2 = sumtotal2();
 
-			//totalOptimalPoints is the sum of total optimal choice 1 + total optimal choice 2
-			game.discrete.totalOptimalPoints = parseInt(total1 + total2);
-			//alert("total optimal points: " + totalOptimalPoints);
+			//secondBonusThreshold is the sum of total optimal choice 1 + total optimal choice 2
+			game.discrete.secondBonusThreshold = parseInt(total1 + total2);
+			//alert("total optimal points: " + secondBonusThreshold);
 
-			console.log("The second bonus will trigger at " + game.discrete.totalOptimalPoints + " points");
-			return game.discrete.totalOptimalPoints;
+			console.log("The second bonus will trigger at " + game.discrete.secondBonusThreshold + " points");
+			return game.discrete.secondBonusThreshold;
 		};
 
 		calculateOptimalPlayPoints();
@@ -463,16 +463,11 @@ $(function initializeGame (gameVersionObject) {
 
 				$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 				$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
-				$("#bonus1value").text(game.discrete.totalRandomPoints);
-				$("#bonus2value").text(game.discrete.totalOptimalPoints);
+				$("#bonus1value").text(game.discrete.firstBonusThreshold);
+				$("#bonus2value").text(game.discrete.secondBonusThreshold);
 			};
 
-			bonusHeight(game.discrete.totalRandomPoints, game.discrete.totalOptimalPoints);
-
-
-		//Populate spans in opening and ending dialogs
-		$("#bonus_one_instructions").text(game.discrete.totalRandomPoints);
-		$("#bonus_two_instructions").text(game.discrete.totalOptimalPoints);
+			bonusHeight(game.discrete.firstBonusThreshold, game.discrete.secondBonusThreshold);
 
 		// Set bar graph in opening dialogs
 
