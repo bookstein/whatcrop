@@ -344,14 +344,14 @@ $(function initializeGame (gameVersionObject) {
 			}
 
 			for (var i = 0; i < game.maxturn; i++) {
-				totalRandomPoints += randomPoints[i];
+				game.discrete.totalRandomPoints += randomPoints[i];
 			}
 
-			return totalRandomPoints;
+			return game.discrete.totalRandomPoints;
 		};
 
 		calculateRandomPlayPoints();
-		console.log("The first bonus will trigger at " + totalRandomPoints + " points");
+		console.log("The first bonus will trigger at " + game.discrete.totalRandomPoints + " points");
 
 		// Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
 
@@ -425,11 +425,11 @@ $(function initializeGame (gameVersionObject) {
 			var total2 = sumtotal2();
 
 			//totalOptimalPoints is the sum of total optimal choice 1 + total optimal choice 2
-			totalOptimalPoints = parseInt(total1 + total2);
+			game.discrete.totalOptimalPoints = parseInt(total1 + total2);
 			//alert("total optimal points: " + totalOptimalPoints);
 
-			console.log("The second bonus will trigger at " + totalOptimalPoints + " points");
-			return totalOptimalPoints;
+			console.log("The second bonus will trigger at " + game.discrete.totalOptimalPoints + " points");
+			return game.discrete.totalOptimalPoints;
 		};
 
 		calculateOptimalPlayPoints();
@@ -442,16 +442,16 @@ $(function initializeGame (gameVersionObject) {
 
 				$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 				$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
-				$("#bonus1value").text(totalRandomPoints);
-				$("#bonus2value").text(totalOptimalPoints);
+				$("#bonus1value").text(game.discrete.totalRandomPoints);
+				$("#bonus2value").text(game.discrete.totalOptimalPoints);
 			};
 
-			bonusHeight(totalRandomPoints, totalOptimalPoints);
+			bonusHeight(game.discrete.totalRandomPoints, game.discrete.totalOptimalPoints);
 
 
 		//Populate spans in opening and ending dialogs
-		$("#bonus_one_instructions").text(totalRandomPoints);
-		$("#bonus_two_instructions").text(totalOptimalPoints);
+		$("#bonus_one_instructions").text(game.discrete.totalRandomPoints);
+		$("#bonus_two_instructions").text(game.discrete.totalOptimalPoints);
 
 		// Set bar graph in opening dialogs
 
