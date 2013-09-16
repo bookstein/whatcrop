@@ -128,10 +128,24 @@ game = {
 }; //end of game object
 
 
-// >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 $(function initializeGame (gameVersionObject) {
 
+//Shared Elements (Both Games)
+	//Turn Counter
+	$("#turns_counter").text(game.turn + "/" + game.maxturn);
+
+	//Points Counter - writes initial score to points counter
+	$("#point_count").html("<h5>"+game.score+"</h5>");
+
+	// Real Dollars Earned - writes initial realDollars to dollars counter
+	$("#dollars_counter").text("$"+game.realDollars);
+
+	//Opening Dialogs
+	$(".turncount_instructions").text(game.maxturn + " turns");
+
+// Separate Initialization Processes (Discrete Vs Continuous)
 	if (gameVersion["discreteWeather"] === true) {
 		//runs all functions relevant to discrete game
 		gameVersionObject = game.discrete;
@@ -143,16 +157,6 @@ $(function initializeGame (gameVersionObject) {
 		gameVersionObject = game.continuous;
 		initializeContinuous();
 	}
-
-	//Turn Counter
-	$("#turns_counter").text(game.turn + "/" + game.maxturn);
-
-	//Points Counter
-	$("#point_count").html("<h5>"+game.score+"</h5>"); //writes initial score to points counter
-
-	// Real Dollars Earned
-	$("#dollars_counter").text("$"+game.realDollars); //writes initial realDollars to dollars counter
-
 
 	function initializeDiscrete () {
 
@@ -433,26 +437,8 @@ $(function initializeGame (gameVersionObject) {
 
 			bonusHeight(totalRandomPoints, totalOptimalPoints);
 
-		// Contact the server and tell it what's up
-		function tellServerWhatsUp() {
-			$.ajax({
-					url: 'http://someserver.com/game',
-					type: 'POST',
-					async: false,
-					data: {
-						probablityOfRain: 0.7
-					}
-				}).done(function() {
-					// continue processing, set up game world
-				}).failure(function() {
-					// alert the user, bail out
-				});
-		};
-
 
 		//Populate spans in opening and ending dialogs
-
-		$(".turncount_instructions").text(maxturn + " turns");
 		$("#bonus_one_instructions").text(totalRandomPoints);
 		$("#bonus_two_instructions").text(totalOptimalPoints);
 
@@ -465,7 +451,7 @@ $(function initializeGame (gameVersionObject) {
 		$("#sun_probability").css("height", dryPercent);
 		$("#rain_probability").css("height", wetPercent);
 
-	}; //end of initialization function
+	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function
 
 	function initializeContinuous () {
 
@@ -943,11 +929,6 @@ $(function initializeGame (gameVersionObject) {
 
 
 		//Populate spans in opening and ending dialogs
-
-		$(".turncount_instructions").text(game.maxturn + " turns");
-		//$("#weather_instructions").text((1000-threshold)/1000*100 + "%");
-		//$("#bonus_one_instructions").text(game.totalRandomPoints);
-		//$("#bonus_two_instructions").text(game.totalOptimalPoints);
 		$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
 
 		//Calculate Max Score --------------------------------------
@@ -1022,7 +1003,7 @@ $(function initializeGame (gameVersionObject) {
 
 		console.log("The maximum possible score is " + game.maxScore + " points");
 
-	}); //end of initializeContinuous function
+	}; // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function
 
 
 
