@@ -33,6 +33,10 @@ game = {
 		bonusTwoDollars : 0.75,
 		totalRandomPoints : 0,
 		totalOptimalPoints : 0,
+		// Indifference point (at which crops A and B are equally good choices)
+		// and indifferentTurn (turn at which indiff point is reached)
+		indifferencePoint: payoutBwet - payoutAwet)/(payoutAdry - payoutAwet + payoutBwet - payoutBdry);
+		indifferentTurn: 0
 	},
 
 	// Continuous game version
@@ -281,17 +285,16 @@ $(function initializeGame (gameVersionObject) {
 
 		// Calculate Random Play bonus threshold ---------------------------------
 
-				// A. Calculate indifference point
+				// A. Check indifference point and calculate turn at which indifference point occurs
 
-		var indifferencePoint = (game.discrete.payoutBwet - game.discrete.payoutAwet)/(game.discrete.payoutAdry - game.discrete.payoutAwet + game.discrete.payoutBwet - game.discrete.payoutBdry);
 		pWet = [];
 
 		function checkIndifferencePoint () {
-			if (indifferencePoint >=1 || indifferencePoint <=0) {
-				alert("The indifference point between A and B is " + indifferencePoint + "!");
+			if (game.indifferencePoint >=1 || game.indifferencePoint <=0) {
+				alert("The indifference point between A and B is " + game.indifferencePoint + "!");
 			}
 
-			console.log(indifferencePoint);
+			console.log(game.indifferencePoint);
 		};
 
 				// B. on which turn does the probability of dry weather = indifference point?
@@ -305,10 +308,9 @@ $(function initializeGame (gameVersionObject) {
 				console.log(pWet);
 
 			for (var i = 0; i < game.maxturn; i++) {
-				if ((pWet[i] == indifferencePoint) || (pWet[i+1] > indifferencePoint && pWet[i-1] < indifferencePoint)) {
+				if ((pWet[i] == game.indifferencePoint) || (pWet[i+1] > game.indifferencePoint && pWet[i-1] < game.indifferencePoint)) {
 					indifferentTurn = i;
 					return indifferentTurn;
-					break;
 				}
 			}
 
@@ -1552,9 +1554,9 @@ function test (testValue) {
 		return game.climateArray;
 	}
 
-	else if (testValue == indifferencePoint) {
+	else if (testValue == game.indifferencePoint) {
 		calculateIndifferencePoint();
-		return indifferencePoint;
+		return game.indifferencePoint;
 	}
 };
 
