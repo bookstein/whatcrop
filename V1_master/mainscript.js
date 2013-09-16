@@ -13,12 +13,11 @@ $(document).ready(function(){
 
 //>>>>>>>>>>>> GAME OBJECT - change game version and parameters here <<<<<<<<<<<<<<<
 
+gameVersion = {
+	discreteWeather: true
+};
 
 game = {
-	// Change game version
-	discreteWeather: true,
-	continuousWeather: !true,
-
 	// Discrete game version
 	discrete: {
 		// Discrete weather crop payouts
@@ -33,7 +32,7 @@ game = {
 		bonusTwoDollars : 0.75,
 		totalRandomPoints : 0,
 		totalOptimalPoints : 0,
-	}
+	},
 
 	// Continuous game version
 	continuous: {
@@ -48,9 +47,10 @@ game = {
 		gameRoots : {
 			topRoot: 0,
 			bottomRoot: 0
-		},
+		}
 	},
 
+	// Shared global variables:
 
 	// Manually set climate change by turn, up to game.maxturn
 	climateArray : [
@@ -107,7 +107,6 @@ game = {
 		{mean: 150, std_dev: 75}  //50
 	],
 
-	// Shared global variables:
 	cropchoice: "",
 	gameWeather: [],
 	weatherReport : "",
@@ -131,7 +130,17 @@ game = {
 
 // >>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-$(function initializeGame () {
+$(function initializeGame (gameVersionObject) {
+
+	if (gameVersion["discreteWeather"] === true) {
+		gameVersionObject = game.discrete;
+		writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
+
+	}
+
+	else {
+		gameVersionObject = game.continuous;
+	}
 
 	//Turn Counter
 	$("#turns_counter").text(game.turn + "/" + game.maxturn);
@@ -148,8 +157,6 @@ $(function initializeGame () {
 		$("table").find("td#payoutBwet").text(payoutBwet );
 		$("table").find("td#payoutBdry").text(payoutBdry );
 	};
-
-	writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
 
 	$.jqplot.config.enablePlugins = true;
 	var historicWeather = []; // Array values filled in using historicWeatherArray() below
