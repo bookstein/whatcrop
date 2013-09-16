@@ -315,8 +315,8 @@ $(function initializeGame (gameVersionObject) {
 
 			for (var i = 0; i < game.maxturn; i++) {
 				if ((pWet[i] == game.discrete.indifferencePoint) || (pWet[i+1] > game.discrete.indifferencePoint && pWet[i-1] < game.discrete.indifferencePoint)) {
-					indifferentTurn = i;
-					return indifferentTurn;
+					game.discrete.indifferentTurn = i;
+					return game.discrete.indifferentTurn;
 				}
 			}
 
@@ -393,13 +393,13 @@ $(function initializeGame (gameVersionObject) {
 
 			// A is first optimal choice, starting condition is pWet > pDry
 			if (game.discrete.payoutAwet > game.discrete.payoutBwet) {
-				optimalChoice1 = optimalChoice(0, game.indifferentTurn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
+				optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
 				optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
 			}
 
 			// B is first optimal choice, starting condition is pWet > pDry
 			else if (game.discrete.payoutBwet > game.discrete.payoutAwet) {
-				optimalChoice1 = optimalChoice(0, game.indifferentTurn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
+				optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
 				optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
 			}
 
@@ -414,7 +414,7 @@ $(function initializeGame (gameVersionObject) {
 
 
 			function sumtotal1 () {
-				for (var i = 0; i <= indifferentTurn; i++) {
+				for (var i = 0; i <= game.discrete.indifferentTurn; i++) {
 					totalOptimalChoice1 += optimalChoice1[i];
 				}
 				return totalOptimalChoice1;
@@ -423,7 +423,7 @@ $(function initializeGame (gameVersionObject) {
 			var total1 = sumtotal1();
 
 			function sumtotal2 () {
-				for (var i = 0; i > indifferentTurn, i < game.maxturn; i++) {
+				for (var i = 0; i > game.discrete.indifferentTurn, i < game.maxturn; i++) {
 					totalOptimalChoice2 += optimalChoice2[i];
 				}
 
