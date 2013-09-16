@@ -73,6 +73,9 @@ game = {
 
 // Continuous game version
 	continuous: {
+		// Manually determined bonus payments
+		bonusOneDollars: 1.25,
+		bonusTwoDollars: 0.75,
 		// Continuous weather crop payouts
 		betaA : -.002,
 		betaB : -.002,
@@ -109,9 +112,11 @@ $(function initializeGame (gameVersionObject) {
 
 	//Opening Dialogs
 	$(".turncount_instructions").text(game.maxturn + " turns");
+	$("#bonus_one_instructions").text(gameVersionObject.bonusOneDollars);
+	$("#bonus_two_instructions").text(gameVersionObject.bonusTwoDollars);
 
 // Separate Initialization Processes (Discrete Vs Continuous)
-	if (gameVersion["discreteWeather"] === true) {
+	if (gameVersion.discreteWeather === true) {
 		//runs all functions relevant to discrete game
 		gameVersionObject = game.discrete;
 		initializeDiscrete();
@@ -592,7 +597,7 @@ $(function initializeGame (gameVersionObject) {
 
 
 			// Call dataArrays function and create parabolaArrays for A and B
-			var plotA = dataArrays(game.continous.betaA, game.continuous.maxAweather, game.continuous.maxApayout, "A");
+			var plotA = dataArrays(game.continuous.betaA, game.continuous.maxAweather, game.continuous.maxApayout, "A");
 			var plotB = dataArrays(game.continuous.betaB, game.continuous.maxBweather, game.continuous.maxBpayout, "B");
 
 
@@ -1182,6 +1187,9 @@ $(function initializeGame (gameVersionObject) {
       } ]
     });
   };
+
+  //remove this function call when server functions are restored!!!
+  introDialogs();
 
   /*
   function createGameOnServer() {
