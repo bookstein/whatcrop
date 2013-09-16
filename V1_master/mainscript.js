@@ -14,7 +14,7 @@ $(document).ready(function(){
 //>>>>>>>>>>>> GAME OBJECT - change game version and parameters here <<<<<<<<<<<<<<<
 
 gameVersion = {
-	discreteWeather: true
+	discreteWeather: false
 };
 
 game = {
@@ -613,8 +613,8 @@ $(function initializeGame (gameVersionObject) {
 
 				upperBoundX = Math.ceil(maxRoot/100)*100;
 
-				game.gameRoots["topRoot"] = maxRoot;
-				game.gameRoots["bottomRoot"] = minRoot;
+				game.continuous.gameRoots.topRoot = maxRoot;
+				game.continuous.gameRoots.bottomRoot = minRoot;
 
 				return upperBoundX;
 			};
@@ -987,7 +987,7 @@ $(function initializeGame (gameVersionObject) {
 
 			function historicWeatherArray () {
 				for (var i = 0; i < game.maxturn; i++) {
-					arrayName[i] = game.climateArray[0].mean + (normalizedArray[i]*game.climateArray[0].std_dev);
+					arrayName[i] = game.continuous.climateArray[0].mean + (normalizedArray[i]*game.continuous.climateArray[0].std_dev);
 				}
 
 				return arrayName;
