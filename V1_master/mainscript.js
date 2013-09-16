@@ -29,17 +29,25 @@ game = {
 	// Set number of turns per game
     maxturn : 50,
 
-	// Set crop payouts using equation Payout = beta(w-w*) + P*
+	// Set crop payouts
 
-		// Crop A
+	cropPayout : {
+
+		// Continuous weather crop payouts
 	betaA : -.002,
+	betaB : -.002,
 	maxApayout : 200, //P*(A)
 	maxAweather : 400, //w*(A)
-
-		// Crop B
-	betaB : -.002,
 	maxBpayout : 120, //P*(B)
 	maxBweather : 200, //w*(B)
+
+		// Discrete weather crop payouts
+    payoutAwet: 70,
+	payoutAdry: 80,
+	payoutBwet: 100,
+	payoutBdry: 50
+
+	},
 
 	// Manually set climate change by turn, up to game.maxturn
 	climateArray : [
@@ -101,13 +109,6 @@ game = {
 		topRoot: 0,
 		bottomRoot: 0
 	},
-
-    // Crop payouts
-    payoutAwet: 70,
-	payoutAdry: 80,
-	payoutBwet: 100,
-	payoutBdry: 50,
-
 
 	autoFillClimateChange: true, //If true, the "for loop" below will autofill the value of climateChange inside climateArray.
 										//If false, then manually enter the climate change values you wish to use, below.
