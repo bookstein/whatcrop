@@ -133,14 +133,22 @@ game = {
 $(function initializeGame (gameVersionObject) {
 
 	if (gameVersion["discreteWeather"] === true) {
+		//runs all functions relevant to discrete game
 		gameVersionObject = game.discrete;
 		writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry);
+
 
 	}
 
 	else {
+		//runs all functions relevant to continuous game
 		gameVersionObject = game.continuous;
+		drawQuadratic();
 	}
+
+	// Set up new initialization variables
+	$.jqplot.config.enablePlugins = true;
+	var historicWeather = []; // Array values filled in using historicWeatherArray() below
 
 	//Turn Counter
 	$("#turns_counter").text(game.turn + "/" + game.maxturn);
@@ -151,6 +159,7 @@ $(function initializeGame (gameVersionObject) {
 	// Real Dollars Earned
 	$("#dollars_counter").text("$"+game.realDollars); //writes initial realDollars to dollars counter
 
+	// Fills crop payout table in discrete version
 	function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 		$("table").find("td#payoutAwet").text(payoutAwet );
 		$("table").find("td#payoutAdry").text(payoutAdry );
@@ -158,10 +167,8 @@ $(function initializeGame (gameVersionObject) {
 		$("table").find("td#payoutBdry").text(payoutBdry );
 	};
 
-	$.jqplot.config.enablePlugins = true;
-	var historicWeather = []; // Array values filled in using historicWeatherArray() below
 
-	//Draws crop payout quadratics on canvas with jpPlot plugin
+	//Draws crop payout quadratics on canvas with jpPlot plugin in continuous version
 	function drawQuadratic () {
 
 		function dataArrays (beta, maxweather, maxpayout, crop) {
@@ -202,67 +209,6 @@ function climateChange () {
 			//output array of (x,y) points for use in jqPlot chart: [root1, lower normal-weather bound, vertex, upper normal-weather bound, root2]
 			parabolaArray = [[root1, 0, null], lower, [maxweather, maxpayout, null], upper, [root2, 0, null]];
 
-
-			return climateArray; //assigns value of climateArray to function climateChange
-		}
-
-		else {
-			manualClimateArray[0] = 5;
-			manualClimateArray[1] = 5;
-			manualClimateArray[2] = 5;
-			manualClimateArray[3] = 5;
-			manualClimateArray[4] = 5;
-			manualClimateArray[5] = 5;
-			manualClimateArray[6] = 5;
-			manualClimateArray[7] = 5;
-			manualClimateArray[8] = 5;
-			manualClimateArray[9] = 5;
-			manualClimateArray[10] = 5;
-			manualClimateArray[11] = 5;
-			manualClimateArray[12] = 7;
-			manualClimateArray[13] = 7;
-			manualClimateArray[14] = 7;
-			manualClimateArray[15] = 7;
-			manualClimateArray[16] = 7;
-			manualClimateArray[17] = 10;
-			manualClimateArray[18] = 10;
-			manualClimateArray[19] = 10;
-			manualClimateArray[20] = 10;
-			manualClimateArray[21] = 10;
-			manualClimateArray[22] = 10;
-			manualClimateArray[23] = 10;
-			manualClimateArray[24] = 5;
-			manualClimateArray[25] = 5;
-			manualClimateArray[26] = 5;
-			manualClimateArray[27] = 5;
-			manualClimateArray[28] = 5;
-			manualClimateArray[29] = 5;
-			manualClimateArray[30] = 5;
-			manualClimateArray[31] = 5;
-			manualClimateArray[32] = 5;
-			manualClimateArray[33] = 5;
-			manualClimateArray[34] = 5;
-			manualClimateArray[35] = 5;
-			manualClimateArray[36] = 5;
-			manualClimateArray[37] = 5;
-			manualClimateArray[38] = 5;
-			manualClimateArray[39] = 5;
-			manualClimateArray[40] = 5;
-			manualClimateArray[41] = 5;
-			manualClimateArray[42] = 5;
-			manualClimateArray[43] = 5;
-			manualClimateArray[44] = 5;
-			manualClimateArray[45] = 5;
-			manualClimateArray[46] = 5;
-			manualClimateArray[47] = 5;
-			manualClimateArray[48] = 5;
-			manualClimateArray[49] = 5;
-			manualClimateArray[50] = 5;
-
-
-			climateArray = manualClimateArray; //assigns value of manualClimateArray to climateArray.
-			return climateArray;
-			}
 	};
 
 	climateChange(); // Sets climateArray to new value
