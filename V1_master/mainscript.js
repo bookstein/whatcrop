@@ -182,7 +182,7 @@ $(function initializeGame (gameVersionObject) {
 
 		function makeThresholdArray () {
 
-			thresholdArray[0] = threshold; //sets first value equal to threshold
+			thresholdArray[0] = game.discrete.threshold; //sets first value equal to threshold
 
 			for (var i = 1; i < game.maxturn; i++)
 			{
@@ -444,8 +444,8 @@ $(function initializeGame (gameVersionObject) {
 
 		// Set bar graph in opening dialogs
 
-		var dryPercent = ((1000-threshold)/1000)*100;
-		var wetPercent = 100 - ((1000-threshold)/1000)*100;
+		var dryPercent = ((1000-game.discrete.threshold)/1000)*100;
+		var wetPercent = 100 - ((1000-game.discrete.threshold)/1000)*100;
 		$(".dry_percent").text(dryPercent + "%");
 		$(".wet_percent").text(wetPercent + "%");
 		$("#sun_probability").css("height", dryPercent);
