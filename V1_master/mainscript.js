@@ -1025,7 +1025,7 @@ $(function initializeGame (gameVersionObject) {
 				for (var i = 0; i < game.maxturn; i++) {
 
 					var Adiff = game.gameWeather[i] - game.maxAweather;
-					var Bdiff = game.gameWeather [i] - game.maxBweather;
+					var Bdiff = game.gameWeather[i] - game.maxBweather;
 
 					if (Math.abs(Adiff) < Math.abs(Bdiff)) {
 						optimalCrops[i] = "cropA";
@@ -1064,14 +1064,14 @@ $(function initializeGame (gameVersionObject) {
 			for (var i=0; i < game.maxturn; i++) {
 
 				if (optimalCrops[i] === "cropA") {
-					addScores(i, game.betaA, game.maxAweather, game.maxApayout); //call addScores() with values of crop A
+					addScores(i, game.continuous.betaA, game.continuous.maxAweather, game.continuous.maxApayout); //call addScores() with values of crop A
 					game.maxScore += payout;
 					//console.log("The score is now " + maxScore);
 				}
 
 
 				else if (optimalCrops[i] === "cropB") {
-					addScores(i, game.betaB, game.maxBweather, game.maxBpayout); //call addScores() with values of crop B
+					addScores(i, game.continuous.betaB, game.continuous.maxBweather, game.continuous.maxBpayout); //call addScores() with values of crop B
 					game.maxScore += payout;
 					//console.log("The score is now " + maxScore);
 				}
@@ -1086,6 +1086,7 @@ $(function initializeGame (gameVersionObject) {
 		console.log("The maximum possible score is " + game.maxScore + " points");
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 }); // end of initializeGame ()
 
 // >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
