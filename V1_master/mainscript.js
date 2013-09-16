@@ -272,7 +272,7 @@ $(function initializeGame (gameVersionObject) {
 
 				// A. Calculate indifference point
 
-		indifferencePoint = (game.discrete.payoutBwet - game.discrete.payoutAwet)/(game.discrete.payoutAdry - game.discrete.payoutAwet + game.discrete.payoutBwet - game.discrete.payoutBdry);
+		var indifferencePoint = (game.discrete.payoutBwet - game.discrete.payoutAwet)/(game.discrete.payoutAdry - game.discrete.payoutAwet + game.discrete.payoutBwet - game.discrete.payoutBdry);
 		pWet = [];
 
 		function checkIndifferencePoint () {
@@ -332,7 +332,7 @@ $(function initializeGame (gameVersionObject) {
 				 .5*pDry[i]*game.discrete.payoutBdry + .5*pWet[i]*game.discrete.payoutBwet;
 			}
 
-			for (var i = 0; i < maxturn; i++) {
+			for (var i = 0; i < game.maxturn; i++) {
 				totalRandomPoints += randomPoints[i];
 			}
 
