@@ -48,6 +48,10 @@ game = {
 	// Data will be sent to this server address
 	serverAddress: '', // local server
 
+	// Bonus payments, in dollars
+	bonusOneDollars: 1.25,
+	bonusTwoDollars: 0.75,
+
 // Discrete game version
 	discrete: {
 		// Discrete weather crop payouts
@@ -57,11 +61,9 @@ game = {
 		payoutBdry: 50,
 		// Set rain threshold
 		threshold: 600,
-		// Set bonus payments
-		bonusOneDollars : 1.25,
-		bonusTwoDollars : 0.75,
-		totalRandomPoints : 0,
-		totalOptimalPoints : 0,
+		// Bonus thresholds, determined by code below
+		totalRandomPoints : 0, //formerly totalRandomPoints
+		totalOptimalPoints : 0, //formerly totalOptimalPoints
 		// Indifference point (at which crops A and B are equally good choices)
 		// and indifferentTurn (turn at which indiff point is reached)
 		// Values calculated below
@@ -73,9 +75,9 @@ game = {
 
 // Continuous game version
 	continuous: {
-		// Manually determined bonus payments
-		bonusOneDollars: 1.25,
-		bonusTwoDollars: 0.75,
+		// Bonus thresholds, manually determined (here as a percentage of maxScore)
+		firstBonusThreshold: .75,
+		secondBonusThreshold: .90,
 		// Continuous weather crop payouts
 		betaA : -.002,
 		betaB : -.002,
@@ -99,6 +101,19 @@ game = {
 
 $(function initializeGame (gameVersionObject) {
 
+	// Separate Initialization Processes (Discrete Vs Continuous)
+	if (gameVersion.discreteWeather === true) {
+		//runs all functions relevant to discrete game
+		gameVersionObject = game.discrete;
+		initializeDiscrete();
+	}
+
+	else {
+		//runs all functions relevant to continuous game
+		gameVersionObject = game.continuous;
+		initializeContinuous();
+	}
+
 //Shared Elements (Both Games)
 
 	//Turn Counter
@@ -114,19 +129,6 @@ $(function initializeGame (gameVersionObject) {
 	$(".turncount_instructions").text(game.maxturn + " turns");
 	$("#bonus_one_instructions").text(gameVersionObject.bonusOneDollars);
 	$("#bonus_two_instructions").text(gameVersionObject.bonusTwoDollars);
-
-// Separate Initialization Processes (Discrete Vs Continuous)
-	if (gameVersion.discreteWeather === true) {
-		//runs all functions relevant to discrete game
-		gameVersionObject = game.discrete;
-		initializeDiscrete();
-	}
-
-	else {
-		//runs all functions relevant to continuous game
-		gameVersionObject = game.continuous;
-		initializeContinuous();
-	}
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Initialize Discrete Game Version <<<<<<<<<<<<<<
 
