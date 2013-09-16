@@ -290,11 +290,11 @@ $(function initializeGame (gameVersionObject) {
 		pWet = [];
 
 		function checkIndifferencePoint () {
-			if (game.indifferencePoint >=1 || game.indifferencePoint <=0) {
-				alert("The indifference point between A and B is " + game.indifferencePoint + "!");
+			if (game.discrete.indifferencePoint >=1 || game.discrete.indifferencePoint <=0) {
+				alert("The indifference point between A and B is " + game.discrete.indifferencePoint + "!");
 			}
 
-			console.log(game.indifferencePoint);
+			console.log(game.discrete.indifferencePoint);
 		};
 
 				// B. on which turn does the probability of dry weather = indifference point?
@@ -308,7 +308,7 @@ $(function initializeGame (gameVersionObject) {
 				console.log(pWet);
 
 			for (var i = 0; i < game.maxturn; i++) {
-				if ((pWet[i] == game.indifferencePoint) || (pWet[i+1] > game.indifferencePoint && pWet[i-1] < game.indifferencePoint)) {
+				if ((pWet[i] == game.discrete.indifferencePoint) || (pWet[i+1] > game.discrete.indifferencePoint && pWet[i-1] < game.discrete.indifferencePoint)) {
 					indifferentTurn = i;
 					return indifferentTurn;
 				}
@@ -387,14 +387,14 @@ $(function initializeGame (gameVersionObject) {
 
 			// A is first optimal choice, starting condition is pWet > pDry
 			if (game.discrete.payoutAwet > game.discrete.payoutBwet) {
-				optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
-				optimalChoice2 = optimalChoice(indifferentTurn, game.maxturn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
+				optimalChoice1 = optimalChoice(0, game.indifferentTurn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
+				optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
 			}
 
 			// B is first optimal choice, starting condition is pWet > pDry
 			else if (game.discrete.payoutBwet > game.discrete.payoutAwet) {
-				optimalChoice1 = optimalChoice(0, indifferentTurn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
-				optimalChoice2 = optimalChoice(indifferentTurn, game.maxturn, pDry, pWet, payoutAdry, game.discrete.payoutAwet);
+				optimalChoice1 = optimalChoice(0, game.indifferentTurn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
+				optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
 			}
 
 		};
@@ -1554,9 +1554,9 @@ function test (testValue) {
 		return game.climateArray;
 	}
 
-	else if (testValue == game.indifferencePoint) {
+	else if (testValue == game.discrete.indifferencePoint) {
 		calculateIndifferencePoint();
-		return game.indifferencePoint;
+		return game.discrete.indifferencePoint;
 	}
 };
 
