@@ -27,7 +27,7 @@ game = {
 	cropchoice: "",
 	gameWeather: [],
 	weatherReport : "",
-	historyPlot : {},
+	//historyPlot : {},
 	meanHistoricWeather : 0,
 
 	// Set number of turns per game
@@ -549,6 +549,8 @@ $(function initializeGame (gameVersionObject) {
 		//Draws crop payout quadratics on canvas with jpPlot plugin
 		function drawQuadratic () {
 
+			var historyPlot = {};
+
 			function dataArrays (beta, maxweather, maxpayout, crop) {
 				// for quadratic equation 0 = ax^2 + bx + c
 				var a = beta;
@@ -910,11 +912,11 @@ $(function initializeGame (gameVersionObject) {
 
 			function chart1 () {
 				setOptions(false);
-				game.historyPlot = $.jqplot("intro_graph", [histogram], optionsObj);
+				historyPlot = $.jqplot("intro_graph", [histogram], optionsObj);
 				var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#intro_graph").width(), 10);
 				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#intro_graph").height(), 10);
 				$("#intro_graph").width(w).height(h);
-				game.historyPlot.replot();
+				//historyPlot.replot();
 			};
 
 			//draw graph in #chartdiv using optionsObj above
@@ -1330,7 +1332,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 			else if (game.gameWeather[game.turn] > game.continuous.gameRoots.bottomRoot && game.gameWeather[game.turn] < game.continuous.gameRoots.topRoot) {
 				rainOpacity = ((game.gameWeather[game.turn] - game.continuous.gameRoots.bottomRoot)/(game.continuous.gameRoots.topRoot - game.continuous.gameRoots.bottomRoot));
 				sunOpacity = 1-rainOpacity;
-				console.log(rainOpacity, sunOpacity);
+				console.log("rain opacity: " + rainOpacity + " sun opacity: " + sunOpacity);
 
 			}
 
