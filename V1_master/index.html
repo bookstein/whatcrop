@@ -116,14 +116,41 @@
 
 		<div class="instructions dialog-message ui-dialog" id="third-message" title="Game instructions">
 			<br>
-				<p>
-					In the past 50 years, the mean yearly rainfall has been about <span id="mean_rainfall"></span>.
-				</p>
+			<p>
+				In the past 50 years, the mean yearly rainfall has been about <span id="mean_rainfall"></span>.
+			</p>
 
-				<br>
-				<div id="intro_graph">
-				</div>
+			<br>
+			<div id="intro_graph" class="hidden">
+			</div>
 
+			<div id="continuous_history" class="hidden">
+				<table id="weather_bar_graph">
+					<thead colspan = "2">
+						<tr>
+							<th>Wet</th><th>Dry</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="percent">
+								<span class="wet_percent"></span>
+							</td>
+							<td class="percent">
+								<span class="dry_percent"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class = "bar">
+								<div id="rain_probability"></div> <!-- use height of div to represent probability -->
+							</td>
+							<td class = "bar">
+								<div id="sun_probability"></div> <!-- use height of div to represent probability -->
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 			<br>
 		</div>
 
