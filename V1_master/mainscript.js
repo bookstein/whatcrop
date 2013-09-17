@@ -1601,7 +1601,6 @@ function updateGame () { //this function is called and given arguments inside we
 
 	    $("#normal_results").dialog("open");
 
-
 		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
 
 	};
@@ -1611,21 +1610,17 @@ function updateGame () { //this function is called and given arguments inside we
 	function addTurn () {
 		game.turn = game.turn + 1;
 		$("#turns_counter").html("<h5>" + game.turn + "/" + game.maxturn + "</h5>");
-		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
-		//alert("game.gameWeather is now " + game.gameWeather[turn] + " because it is turn #" + turn);
 	};
-
 
 	// setTimeout(addTurn, 4000);
 
 	function newScore (payout) {
 
 		function animatePoints () {
-			//$("#points_bar").toggleClass("glow");
 
 			$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
 			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
-				//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
+
 		};
 
 		function movePointsFlag () { //increase height of #points_flag using absolute positioning
