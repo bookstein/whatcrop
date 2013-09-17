@@ -509,6 +509,9 @@ $(function initializeGame (gameVersionObject) {
 		//reveals crop payouts table in opening dialog and sidebar payout table
 		//$("#crop_payouts_table, #tablediv").removeClass("hidden");
 
+		// Call opening dialogs
+		introDialogs();
+
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	function initializeContinuous () {
@@ -1146,6 +1149,9 @@ $(function initializeGame (gameVersionObject) {
 		$("#weather_type").text(" mean yearly rainfall ");
 		$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
 
+	// Call opening dialogs
+		introDialogs();
+
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 }); // end of initializeGame ()
@@ -1245,7 +1251,7 @@ $(function initializeGame (gameVersionObject) {
   };
 
   //remove this function call when server functions are restored!!!
-  introDialogs();
+
 
   /*
   function createGameOnServer() {
