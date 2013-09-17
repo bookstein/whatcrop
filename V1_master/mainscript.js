@@ -767,7 +767,7 @@ $(function initializeGame (gameVersionObject) {
 			game.plotData = [histogram, plotA, plotB];
 
 			// Create options object for jqPlot graph using optionsObj and setOptions()
-			function setOptions (showBoolean) {
+			function setOptions (showData, showOverlay) {
 				game.optionsObj = {
 					      series:[
 
@@ -796,7 +796,7 @@ $(function initializeGame (gameVersionObject) {
 					            renderer:$.jqplot.LineRenderer,
 					            xaxis:'xaxis',
 					          	yaxis:'yaxis',
-					            show: showBoolean
+					            show: showData
 					          },
 					          {
 					            // CropB
@@ -806,7 +806,7 @@ $(function initializeGame (gameVersionObject) {
 					            renderer:$.jqplot.LineRenderer,
 					            xaxis:'xaxis',
 					          	yaxis:'yaxis',
-					            show: showBoolean
+					            show: showData
 					          }
 					      ],
 
@@ -853,17 +853,17 @@ $(function initializeGame (gameVersionObject) {
 			      				ticks: ticksWeatherX,
 			      				tickOptions:{
 			                        mark: "outside",
-			                        showLabel: !showBoolean,
+			                        showLabel: !showData,
 			                        formatString: "%#.0f",
-			                        showMark: !showBoolean,
-			                        showGridline: !showBoolean
+			                        showMark: !showData,
+			                        showGridline: !showData
 			                    }
 			      			},*/
 
 			      			y2axis:{
 			      				label: "Occurrences",
 			     				labelOptions: {
-	            					show: !showBoolean,
+	            					show: !showData,
 	            					fontSize: '11pt'
 	        					},
 			          			//renderer: $.jqplot.CategoryAxisRenderer,
@@ -873,7 +873,7 @@ $(function initializeGame (gameVersionObject) {
 
 			                	tickOptions:{
 			                        mark: "inside",
-			                        showLabel: !showBoolean,
+			                        showLabel: !showData,
 			                        formatString: "%#.0f",
 			                        showMark: false,
 			                        showGridline: false
@@ -925,7 +925,7 @@ $(function initializeGame (gameVersionObject) {
 			    		  }, // axes
 
 				      	canvasOverlay: {
-			        		show: showBoolean, // turn this on and off to show results
+			        		show: showOverlay, // turn this on and off to show results
 				            objects: [
 				                {verticalLine: {
 				                    name: 'resultsLine',
@@ -939,23 +939,31 @@ $(function initializeGame (gameVersionObject) {
 					return game.optionsObj;
 				}; //end function setOptions()
 
-			// draw graph in #continuous_history (for intro dialog) using optionsObj above
-			setOptions(false);
-			game.historyPlot = $.jqplot("continuous_history", [histogram], game.optionsObj);
-			var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
-			var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
-			$("#continuous_history").width(w).height(h);
-			//historyPlot.replot();
+			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
+			function payoutChart () {
+				setOptions(true);
+				$.jqplot("crop_payouts_chart", game.plotData, game.optionsObj);
+			};
 
+			// draw graph in #continuous_history (for intro dialog) using optionsObj above
+			function historyChart () {
+				setOptions(false);
+				game.historyPlot = $.jqplot("continuous_history", [histogram], game.optionsObj);
+				var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
+				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
+				$("#continuous_history").width(w).height(h);
+				//historyPlot.replot();
+			};
 
 			//draw graph in sidebar #chartdiv using optionsObj above
-			setOptions(true);
-			$.jqplot("chartdiv", game.plotData, game.optionsObj);
+			function givensChart () {
+				setOptions(true);
+				$.jqplot("chartdiv", game.plotData, game.optionsObj);
+			};
 
-			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
-
-			setOptions(true);
-			$.jqplot("crop_payouts_chart", game.plotData, game.optionsObj);
+			payoutChart();
+			historyChart();
+			givensChart();
 
 		}; //end of drawQuadratic()
 
