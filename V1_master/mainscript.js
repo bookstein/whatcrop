@@ -1618,33 +1618,52 @@ function updateGame () { //this function is called and given arguments inside we
 
 	// setTimeout(addTurn, 4000);
 
-	function movePointsFlag () { //increase height of #points_flag using absolute positioning
+	function newScore (payout) {
 
-		//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
-		var pixelHeight = parseInt($("#points_bar").css("height"));
+		function animatePoints () {
+			//$("#points_bar").toggleClass("glow");
 
-		//Current CSS position for #points_flag "bottom" as an integer
-		var flagHeight = parseInt($("#points_flag").css("bottom"));
+			$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
+			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
+				//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
+		};
 
-		//Current CSS height of #points_fill with "height" as an integer
-		var fillHeight = parseInt($("#points_fill").css("height"));
+		function movePointsFlag () { //increase height of #points_flag using absolute positioning
 
-		//Ratio of points per pixel
-		var pointsPerPixelRatio = game.maxScore/pixelHeight; //use game.maxScore for now
+			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
+			var pixelHeight = parseInt($("#points_bar").css("height"));
 
-		//Points_counter moves upward this number of pixels per turn, depending on the turn payout
-		var perTurnHeight = payout/pointsPerPixelRatio;
+			//Current CSS position for #points_flag "bottom" as an integer
+			var flagHeight = parseInt($("#points_flag").css("bottom"));
 
-		// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
-		flagHeight+=perTurnHeight;
-		fillHeight +=perTurnHeight;
+			//Current CSS height of #points_fill with "height" as an integer
+			var fillHeight = parseInt($("#points_fill").css("height"));
 
-		// Set new heights in CSS style rules for #points_flag and #points_fill
-		$("#points_flag").css("bottom", flagHeight);
-		$("#points_fill").css("height", fillHeight);
+			//Ratio of points per pixel
+			var pointsPerPixelRatio = game.maxScore/pixelHeight; //use game.maxScore for now
 
-		//carve up post-second-bonus pixels into fixed amount between this turn and last turn
-	};
+			//Points_counter moves upward this number of pixels per turn, depending on the turn payout
+			var perTurnHeight = payout/pointsPerPixelRatio;
+
+			// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
+			flagHeight+=perTurnHeight;
+			fillHeight +=perTurnHeight;
+
+			// Set new heights in CSS style rules for #points_flag and #points_fill
+			$("#points_flag").css("bottom", flagHeight);
+			$("#points_fill").css("height", fillHeight);
+
+			//carve up post-second-bonus pixels into fixed amount between this turn and last turn
+		};
+
+		movePointsFlag();
+		animatePoints();
+
+		game.score += payout;
+		$("#point_count").html("<h5>" + game.score + "</h5>");
+		return game.score; //this updates the value of the global variable "score"
+
+	}; //end of function newScore
 
 	function updateDiscrete (payout) {
 
@@ -1685,12 +1704,12 @@ function updateGame () { //this function is called and given arguments inside we
 
 
 
-			movePointsFlag();
-			animatePoints();
+		movePointsFlag();
+		animatePoints();
 
-			score += payout;
-			$("#point_count").html("<h5>" + score + "</h5>");
-			return score; //this updates the value of the global variable "score"
+		score += payout;
+		$("#point_count").html("<h5>" + score + "</h5>");
+		return score; //this updates the value of the global variable "score"
 
 		}; //end of function newScore()
 
@@ -1732,28 +1751,6 @@ function updateGame () { //this function is called and given arguments inside we
 
 		};
 
-		function newScore () {
-
-			function animatePoints () {
-				//$("#points_bar").toggleClass("glow");
-
-				$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
-				setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
-				//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
-	  		};
-
-
-
-
-			movePointsFlag();
-			animatePoints();
-
-			game.score += payout;
-			$("#point_count").html("<h5>" + game.score + "</h5>");
-			return game.score; //this updates the value of the global variable "score"
-
-
-		}; //end of function newScore
 
 		newPayout();
 		newScore();
