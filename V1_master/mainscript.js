@@ -1702,6 +1702,38 @@ function updateGame () { //this function is called and given arguments inside we
 
 		recordData(game);*/
 
+		// If maxturn has been reached or exceeded, this function is called
+		function endGame () {
+			//call end-of-game dialog box
+			$("button #grow").addClass("hidden");
+			$("#sproutA").addClass("hidden");
+			$("#sproutB").addClass("hidden");
+			$("#playerID").text(game.gameID);
+			$("#total_score").text(score);
+			$("#total_dollars").text(realDollars);
+	 		$( "#end_results" ).dialog({
+		      autoOpen: false,
+		      modal: true,
+		      sticky: true,
+		      closeOnEscape: false,
+		          resizable: false,
+		          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+		          stack: true,
+		          height: 'auto',
+		          width: '375',
+		          dialogClass: "no-close",
+		      buttons: [ { text: "OK",
+		        click: function() {
+		          $( this ).dialog( "close" );
+		        }
+		      } ]
+		    });
+		};
+
+		if (game.gameOver) {
+			setTimeout(endGame, 1000);
+		}
+
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	function updateDiscrete (payout) {
 
@@ -1776,65 +1808,6 @@ function updateGame () { //this function is called and given arguments inside we
 		newPayout();
 		newScore();
 
-
-	/*
-		//Record relevant data for the current turn
-		function recordData (game) {
-		    var payload = {
-		      crop_choice: game.cropchoice,
-		      weather:     game.gameWeather[game.turn],
-		      game_over:   game.gameOver,
-		      score:       payout
-		    };
-
-		    $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
-		      type: 'POST',
-		      dataType: 'json',
-		      data: payload
-		    }).success(function(data) {
-		      console.log('Round recorded successfully', data);
-		    }).fail(function(jqXHR, text, err) {
-		      console.log('Round record failed', jqXHR, text, err);
-		    });
-		};
-
-	    if (game.turn === game.maxturn) {
-	    	game.gameOver = true;
-	    }
-
-		recordData(game);*/
-
-		// If maxturn has been reached or exceeded, this function is called
-		function endGame () {
-			//call end-of-game dialog box
-			$("button #grow").addClass("hidden");
-			$("#sproutA").addClass("hidden");
-			$("#sproutB").addClass("hidden");
-			$("#playerID").text(game.gameID);
-			$("#total_score").text(score);
-			$("#total_dollars").text(realDollars);
-	 		$( "#end_results" ).dialog({
-		      autoOpen: false,
-		      modal: true,
-		      sticky: true,
-		      closeOnEscape: false,
-		          resizable: false,
-		          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
-		          stack: true,
-		          height: 'auto',
-		          width: '375',
-		          dialogClass: "no-close",
-		      buttons: [ { text: "OK",
-		        click: function() {
-		          $( this ).dialog( "close" );
-		        }
-		      } ]
-		    });
-		};
-
-		if (game.gameOver) {
-			setTimeout(endGame, 1000);
-		}
 
 	}; // end of updateContinuous
 
