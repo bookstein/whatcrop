@@ -27,7 +27,6 @@ game = {
 	cropchoice: "",
 	gameWeather: [],
 	weatherReport : "",
-	//historyPlot : {},
 	meanHistoricWeather : 0,
 
 	// Set number of turns per game
@@ -96,7 +95,13 @@ game = {
 		},
 		// Manually set climate change by turn, up to game.maxturn
 		climateArray : []
-	}
+	},
+
+	//for testing purposes
+	optionsObj: {},
+	plotData: [],
+	historyPlot: {},
+	historicWeather : [] // Array values filled in using historicWeatherArray() below
 
 }; //end of game object
 
@@ -571,8 +576,6 @@ $(function initializeGame (gameVersionObject) {
 
 
 		$.jqplot.config.enablePlugins = true;
-		var historyPlot = {};
-		var historicWeather = []; // Array values filled in using historicWeatherArray() below
 
 		//Draws crop payout quadratics on canvas with jpPlot plugin
 		function drawQuadratic () {
@@ -684,8 +687,8 @@ $(function initializeGame (gameVersionObject) {
 			// Create graphable data array for historicWeather using freqency of values
 			function historicWeatherHistogram () {
 
-				var range = Math.max.apply(Math, historicWeather) - 0;
-				var intervalNumber = 2*Math.ceil(Math.sqrt(historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
+				var range = Math.max.apply(Math, game.historicWeather) - 0;
+				var intervalNumber = 2*Math.ceil(Math.sqrt(game.historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
 				var intervalWidth = range/intervalNumber;
 				game.meanHistoricWeather = parseInt(range/2);
 
@@ -701,13 +704,13 @@ $(function initializeGame (gameVersionObject) {
 
 					var count = 0;
 
-					for (var i =0; i < historicWeather.length; i++) {
+					for (var i =0; i < game.historicWeather.length; i++) {
 
-						if (historicWeather[i] >= intervalBottom && historicWeather[i] < intervalTop) {
+						if (game.historicWeather[i] >= intervalBottom && game.historicWeather[i] < intervalTop) {
 							count += 1;
 						}
 
-						else if (newinterval === (intervalNumber-1) && historicWeather[i] >= intervalBottom) {
+						else if (newinterval === (intervalNumber-1) && game.historicWeather[i] >= intervalBottom) {
 							count +=1;
 						}
 
@@ -748,22 +751,21 @@ $(function initializeGame (gameVersionObject) {
 
 				ticksWeather();
 
-				console.log("ticksWeatherX: "+ ticksWeatherX);
+				console.log("ticksWeatherX: " + ticksWeatherX);
 				console.log("frequency array: " + frequency);
 
 				return frequency;
-			}; //end historicWeatherHistogram
+			}; //end game.historicWeatherHistogram
 
 			var histogram = historicWeatherHistogram();
 			console.log("Histogram data: " + histogram);
 
 			// variables containing all data to be plotted
-			var plotData = [histogram, plotA, plotB];
+			game.plotData = [histogram, plotA, plotB];
 
-			var optionsObj = {};
 			// Create options object for jqPlot graph using optionsObj and setOptions()
 			function setOptions (showBoolean) {
-				optionsObj = {
+				game.optionsObj = {
 					      series:[
 
 					          {
@@ -931,34 +933,26 @@ $(function initializeGame (gameVersionObject) {
 				                }}
 						]} // end of canvasOverlay
 					}; // end optionsObj object
-					return optionsObj;
+					return game.optionsObj;
 				}; //end function setOptions()
 
 			// draw graph in #continuous_history (for intro dialog) using optionsObj above
-			function chart1 () {
-				setOptions(false);
-				historyPlot = $.jqplot("continuous_history", [histogram], optionsObj);
-				var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
-				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
-				$("#continuous_history").width(w).height(h);
-				//historyPlot.replot();
-			};
+			setOptions(false);
+			game.historyPlot = $.jqplot("continuous_history", [histogram], game.optionsObj);
+			var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
+			var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
+			$("#continuous_history").width(w).height(h);
+			//historyPlot.replot();
+
 
 			//draw graph in sidebar #chartdiv using optionsObj above
-			function chart2 () {
-				setOptions(true);
-				$.jqplot("chartdiv", plotData, optionsObj);
-			};
+			setOptions(true);
+			$.jqplot("chartdiv", game.plotData, game.optionsObj);
 
 			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
-			function chart3 () {
-				setOptions(true);
-				$.jqplot("crop_payouts_chart", plotData, optionsObj);
-			};
 
-			chart1();
-			chart2();
-			chart3();
+			setOptions(true);
+			$.jqplot("crop_payouts_chart", game.plotData, game.optionsObj);
 
 		}; //end of drawQuadratic()
 
@@ -1044,8 +1038,8 @@ $(function initializeGame (gameVersionObject) {
 
 		makeGameWeather(game.gameWeather, false);
 		console.log("Weather with climate change: " + game.gameWeather);
-		makeGameWeather(historicWeather, true);
-		console.log("Historic weather: " + historicWeather);
+		makeGameWeather(game.historicWeather, true);
+		console.log("Historic weather: " + game.historicWeather);
 		drawQuadratic();
 
 		//Calculate Max Score --------------------------------------
