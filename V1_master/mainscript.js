@@ -796,7 +796,7 @@ $(function initializeGame (gameVersionObject) {
 					            renderer:$.jqplot.LineRenderer,
 					            xaxis:'xaxis',
 					          	yaxis:'yaxis',
-					            show: showData
+					            show: !showData
 					          },
 					          {
 					            // CropB
@@ -806,7 +806,7 @@ $(function initializeGame (gameVersionObject) {
 					            renderer:$.jqplot.LineRenderer,
 					            xaxis:'xaxis',
 					          	yaxis:'yaxis',
-					            show: showData
+					            show: !showData
 					          }
 					      ],
 
@@ -942,7 +942,8 @@ $(function initializeGame (gameVersionObject) {
 
 			// test chart
 
-			setOptions(true);
+			setOptions(true, true);
+			console.log(game.optionsObj);
 			$.jqplot("chartdiv", [histogram], game.optionsObj);
 
 			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
