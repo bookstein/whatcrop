@@ -495,7 +495,7 @@ $(function initializeGame (gameVersionObject) {
 		//fills in bonus information
 		$("#bonus_one_instructions").text(game.discrete.firstBonusThreshold);
 		$("#bonus_two_instructions").text(game.discrete.secondBonusThreshold);
-		//reveals crop payouts table
+		//reveals crop payouts table in opening dialog and sidebar payout table
 		$("#crop_payouts_table, #tablediv").removeClass("hidden");
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -747,8 +747,7 @@ $(function initializeGame (gameVersionObject) {
 			console.log("Histogram data: " + histogram);
 
 			// variables containing all data to be plotted
-			var allPlotData = [histogram, plotA, plotB];
-			var payoutData = [plotA, plotB];
+			var plotData = [histogram, plotA, plotB];
 
 			var optionsObj = {};
 			// Create options object for jqPlot graph using optionsObj and setOptions()
@@ -937,13 +936,13 @@ $(function initializeGame (gameVersionObject) {
 			//draw graph in sidebar #chartdiv using optionsObj above
 			function chart2 () {
 				setOptions(true);
-				$.jqplot("chartdiv", allPlotData, optionsObj);
+				$.jqplot("chartdiv", plotData, optionsObj);
 			};
 
 			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			function chart3 () {
 				setOptions(true);
-				$.jqplot("crop_payouts_chart", payoutData, optionsObj);
+				$.jqplot("crop_payouts_chart", plotData, optionsObj);
 			};
 
 			chart1();
@@ -1133,16 +1132,14 @@ $(function initializeGame (gameVersionObject) {
 		bonusHeight(game.continuous.firstBonusThreshold, game.continuous.secondBonusThreshold);
 
 	// Populate continuous opening dialogs
-		//reveals payouts graph
-		$("#crop_payouts_chart").removeClass("hidden");
+		//reveals payouts chart in sidebar and payouts chart in opening dialog
+		$("#crop_payouts_chart, #chartdiv").removeClass("hidden");
 		//fills in bonus information
 		$("#bonus_one_instructions").text(game.continuous.bonusOneTotal);
 		$("#bonus_two_instructions").text(game.continuous.bonusTwoTotal);
 		//fills in historic weather info
 		$("#weather_type").text(" mean yearly rainfall ");
 		$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
-		// reveals #chartdiv in #givens column
-		$("#chartdiv").removeClass("hidden");
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
