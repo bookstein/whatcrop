@@ -1665,11 +1665,23 @@ function updateGame () { //this function is called and given arguments inside we
 
 	}; //end of function newScore
 
+	function addBonus1 () {
+		realDollars = bonusOneDollars; //change value of realDollars to bonusOne
+		$("#dollars_counter").html("$"+realDollars);
+	};
+
+	function addBonus2 () {
+		realDollars = bonusOneDollars + bonusTwoDollars;
+		$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
+	};
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	function updateDiscrete (payout) {
 
 		var oldscore = score;
 		var newscore = oldscore + payout;
 
+// MOVE INTO OUTSIDE FUNCTION?
 		//populate spans inside results dialogs
 	    $(".results").find("#weather_outcome").text(gameWeather[turn]);
 	    $(".results").find("#new_score").text(payout);
@@ -1702,35 +1714,18 @@ function updateGame () { //this function is called and given arguments inside we
 
 		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
 
-
-
-		movePointsFlag();
-		animatePoints();
-
-		score += payout;
-		$("#point_count").html("<h5>" + score + "</h5>");
-		return score; //this updates the value of the global variable "score"
-
-		}; //end of function newScore()
-
 		newScore();
 
 		//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 
-			// WARNING: .css modifies the element's <style> property, not the CSS sheet!
+		// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
 		//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
-		function addBonus1 () {
-			realDollars = bonusOneDollars; //change value of realDollars to bonusOne
-			$("#dollars_counter").html("$"+realDollars);
-		};
-
-		function addBonus2 () {
-			realDollars = bonusOneDollars + bonusTwoDollars;
-			$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
-		};
 
 	}; // end of updateDiscrete()
+
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	function updateContinuous (beta, maxpayout, maxweather) {
 
@@ -1751,10 +1746,8 @@ function updateGame () { //this function is called and given arguments inside we
 
 		};
 
-
 		newPayout();
 		newScore();
-
 
 
 	/*
