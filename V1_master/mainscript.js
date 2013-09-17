@@ -923,14 +923,14 @@ $(function initializeGame (gameVersionObject) {
 					return optionsObj;
 				}; //end function setOptions()
 
-			// draw graph in #intro_graph (for intro dialog) using optionsObj above
+			// draw graph in #history_graph (for intro dialog) using optionsObj above
 
 			function chart1 () {
 				setOptions(false);
-				historyPlot = $.jqplot("intro_graph", [histogram], optionsObj);
-				var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#intro_graph").width(), 10);
-				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#intro_graph").height(), 10);
-				$("#intro_graph").width(w).height(h);
+				historyPlot = $.jqplot("history_graph", [histogram], optionsObj);
+				var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#history_graph").width(), 10);
+				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#history_graph").height(), 10);
+				$("#history_graph").width(w).height(h);
 				historyPlot.replot();
 			};
 
