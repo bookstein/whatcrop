@@ -335,7 +335,15 @@ td {
 	position: relative;
 }
 
-#intro_graph {
+#crop_payouts_chart {
+	height: 150px;
+	width: 350px;
+	margin-right: auto;
+	margin-left: auto;
+	position: relative;
+}
+
+#continuous_history {
 	height: 150px;
 	width: 350px;
 	margin-right: auto;
