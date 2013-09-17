@@ -1410,35 +1410,33 @@ function weatherResults (gameVersionObject) { //triggered by #grow click, calls 
 		$("#sun").addClass("displayWeather").removeClass("hidden").animate({opacity: displaySun});
 		//alert("rain opacity is: " + rainOpacity + " sun opacity is: " + sunOpacity);
 	};
+
 	displayWeather(rainOpacity, sunOpacity);
 
 	function weatherGraphics () {
 
 		function discreteWeather () {
-						if (cropchoice == "cropA" && gameWeather[turn] == "Dry") {
-						args.crop = "A";
-						args.state = "dead";
-						args.weather = "sunny";
+					if (game.cropchoice == "cropA" && game.gameWeather[game.turn] == "Dry") {
+
+						weatherResults = "sunny";
 						displaySun();
 						$("#deadA").removeClass("hidden");
 						updateGame(payoutAdry);
 						//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
 					}
 
-					else if (cropchoice == "cropA" && gameWeather[turn] == "Wet") {
-						args.crop = "A";
-						args.state = "healthy";
-						args.weather =  "rainy";
+					else if (game.cropchoice == "cropA" && game.gameWeather[game.turn] == "Wet") {
+
+						weatherResults = "rainy";
 						displayRain();
 						$("#rowsCropA").removeClass("hidden");
 						updateGame(payoutAwet);
 						//setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
 					}
 
-					else if (cropchoice == "cropB" && gameWeather[turn] == "Dry") {
-						args.crop = "B";
-						args.state = "dead";
-						args.weather = "sunny";
+					else if (game.cropchoice == "cropB" && game.gameWeather[game.turn] == "Dry") {
+
+						weatherResults = "sunny";
 						displaySun();
 						$("#deadB").removeClass("hidden");
 						updateGame(payoutBdry);
@@ -1447,10 +1445,9 @@ function weatherResults (gameVersionObject) { //triggered by #grow click, calls 
 
 					}
 
-					else if (cropchoice == "cropB" && gameWeather[turn] == "Wet"){
-						args.crop = "B";
-						args.state = "healthy";
-						args.weather = "rainy";
+					else if (game.cropchoice == "cropB" && game.gameWeather[game.turn] == "Wet"){
+
+						weatherResults = "rainy";
 						displayRain();
 						$("#rowsCropB").removeClass("hidden");
 						updateGame(payoutBwet);
@@ -1461,13 +1458,9 @@ function weatherResults (gameVersionObject) { //triggered by #grow click, calls 
 						alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
 					}
 
-
-
-					return args;
-
-				};
-
 		};
+
+
 
 		function continuousWeather () {
 			// A. Crop A outcomes
