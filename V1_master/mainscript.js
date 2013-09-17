@@ -14,7 +14,7 @@ $(document).ready(function(){
 //>>>>>>>>>>>> GAME OBJECT - change game version and parameters here <<<<<<<<<<<<<<<
 
 gameVersion = {
-	discreteWeather: true
+	discreteWeather: false
 };
 
 game = {
@@ -924,13 +924,13 @@ $(function initializeGame (gameVersionObject) {
 					return optionsObj;
 				}; //end function setOptions()
 
-			// draw graph in #history_graph (for intro dialog) using optionsObj above
+			// draw graph in #continuous_history (for intro dialog) using optionsObj above
 			function chart1 () {
 				setOptions(false);
-				historyPlot = $.jqplot("history_graph", [histogram], optionsObj);
-				var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#history_graph").width(), 10);
-				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#history_graph").height(), 10);
-				$("#history_graph").width(w).height(h);
+				historyPlot = $.jqplot("continuous_history", [histogram], optionsObj);
+				var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
+				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
+				$("#continuous_history").width(w).height(h);
 				historyPlot.replot();
 			};
 
