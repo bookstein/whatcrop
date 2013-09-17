@@ -14,7 +14,7 @@ $(document).ready(function(){
 //>>>>>>>>>>>> GAME OBJECT - change game version and parameters here <<<<<<<<<<<<<<<
 
 gameVersion = {
-	discreteWeather: false
+	discreteWeather: true
 };
 
 game = {
@@ -46,7 +46,7 @@ game = {
 	gameOver: false,
 
 	// Data will be sent to this server address
-	serverAddress: '', // local server
+	serverAddress: 'http://v2.whatcrop.org', // local server
 
 	// Bonus payments, in dollars
 	bonusOneDollars: 1.25,
