@@ -473,6 +473,14 @@ $(function initializeGame (gameVersionObject) {
 
 		// Populate opening dialogs
 
+		function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
+			$("table").find("td#payoutAwet").text(payoutAwet );
+			$("table").find("td#payoutAdry").text(payoutAdry );
+			$("table").find("td#payoutBwet").text(payoutBwet );
+			$("table").find("td#payoutBdry").text(payoutBdry );
+		};
+		writeCropPayout (game.discrete.payoutAwet, game.discrete.payoutAdry, game.discrete.payoutBwet, game.discrete.payoutBdry);
+
 		var dryPercent = ((1000-game.discrete.threshold)/1000)*100;
 		var wetPercent = 100 - ((1000-game.discrete.threshold)/1000)*100;
 		$(".dry_percent").text(dryPercent + "%");
