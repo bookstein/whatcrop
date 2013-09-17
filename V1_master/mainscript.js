@@ -1618,72 +1618,72 @@ function updateGame () { //this function is called and given arguments inside we
 
 	// setTimeout(addTurn, 4000);
 
+	function movePointsFlag () { //increase height of #points_flag using absolute positioning
+
+		//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
+		var pixelHeight = parseInt($("#points_bar").css("height"));
+
+		//Current CSS position for #points_flag "bottom" as an integer
+		var flagHeight = parseInt($("#points_flag").css("bottom"));
+
+		//Current CSS height of #points_fill with "height" as an integer
+		var fillHeight = parseInt($("#points_fill").css("height"));
+
+		//Ratio of points per pixel
+		var pointsPerPixelRatio = game.maxScore/pixelHeight; //use game.maxScore for now
+
+		//Points_counter moves upward this number of pixels per turn, depending on the turn payout
+		var perTurnHeight = payout/pointsPerPixelRatio;
+
+		// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
+		flagHeight+=perTurnHeight;
+		fillHeight +=perTurnHeight;
+
+		// Set new heights in CSS style rules for #points_flag and #points_fill
+		$("#points_flag").css("bottom", flagHeight);
+		$("#points_fill").css("height", fillHeight);
+
+		//carve up post-second-bonus pixels into fixed amount between this turn and last turn
+	};
+
 	function updateDiscrete (payout) {
 
-					var oldscore = score;
-					var newscore = oldscore + payout;
+		var oldscore = score;
+		var newscore = oldscore + payout;
 
 		//populate spans inside results dialogs
-		    $(".results").find("#weather_outcome").text(gameWeather[turn]);
-		    $(".results").find("#new_score").text(payout);
+	    $(".results").find("#weather_outcome").text(gameWeather[turn]);
+	    $(".results").find("#new_score").text(payout);
 
-			// bonus dialogs
-			if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
-				$("#bonus_results").dialog("open");
-				$("#bonus_count").text("$" + bonusOneDollars);
-				addBonus1();
-			}
+		// bonus dialogs
+		if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
+			$("#bonus_results").dialog("open");
+			$("#bonus_count").text("$" + bonusOneDollars);
+			addBonus1();
+		}
 
-			else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
-				$("#bonus_results").dialog("open");
-				$("#bonus_count").text("$" + bonusTwoDollars);
-				addBonus2();
-			}
+		else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
+			$("#bonus_results").dialog("open");
+			$("#bonus_count").text("$" + bonusTwoDollars);
+			addBonus2();
+		}
 
-			//end game dialog
-			else if (turn === maxturn) {
-				$("#end_results").dialog("open");
-				$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
-				$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
-				// $("#playerID") //need Tony's work on this
-			}
+		//end game dialog
+		else if (turn === maxturn) {
+			$("#end_results").dialog("open");
+			$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
+			$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
+			// $("#playerID") //need Tony's work on this
+		}
 
-			//normal results dialogs
-			else {
-				$("#normal_results").dialog("open");
-			}
+		//normal results dialogs
+		else {
+			$("#normal_results").dialog("open");
+		}
 
-			setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
+		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
 
 
-
-			function movePointsFlag () { //increase height of #points_flag using absolute positioning
-
-				//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
-				var pixelHeight = parseInt($("#points_bar").css("height"));
-
-				//Current CSS position for #points_flag "bottom" as an integer
-				var flagHeight = parseInt($("#points_flag").css("bottom"));
-
-				//Current CSS height of #points_fill with "height" as an integer
-				var fillHeight = parseInt($("#points_fill").css("height"));
-
-				//Ratio of points per pixel
-				var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
-
-				//Points_counter moves upward this number of pixels per turn, depending on the turn payout
-				var perTurnHeight = payout/pointsPerPixelRatio;
-
-				// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
-				flagHeight+=perTurnHeight;
-				fillHeight +=perTurnHeight;
-
-				// Set new heights in CSS style rules for #points_flag and #points_fill
-				$("#points_flag").css("bottom", flagHeight);
-				$("#points_fill").css("height", fillHeight);
-
-				//carve up post-second-bonus pixels into fixed amount between this turn and last turn
-			};
 
 			movePointsFlag();
 			animatePoints();
@@ -1743,33 +1743,7 @@ function updateGame () { //this function is called and given arguments inside we
 	  		};
 
 
-			function movePointsFlag () { //increase height of #points_flag using absolute positioning
 
-				//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
-				var pixelHeight = parseInt($("#points_bar").css("height"));
-
-				//Current CSS position for #points_flag "bottom" as an integer
-				var flagHeight = parseInt($("#points_flag").css("bottom"));
-
-				//Current CSS height of #points_fill with "height" as an integer
-				var fillHeight = parseInt($("#points_fill").css("height"));
-
-				//Ratio of points per pixel
-				var pointsPerPixelRatio = game.maxScore/pixelHeight; //use game.maxScore for now
-
-				//Points_counter moves upward this number of pixels per turn, depending on the turn payout
-				var perTurnHeight = payout/pointsPerPixelRatio;
-
-				// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
-				flagHeight+=perTurnHeight;
-				fillHeight +=perTurnHeight;
-
-				// Set new heights in CSS style rules for #points_flag and #points_fill
-				$("#points_flag").css("bottom", flagHeight);
-				$("#points_fill").css("height", fillHeight);
-
-				//carve up post-second-bonus pixels into fixed amount between this turn and last turn
-			};
 
 			movePointsFlag();
 			animatePoints();
