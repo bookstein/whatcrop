@@ -136,6 +136,12 @@ $(function initializeGame (gameVersionObject) {
 
 	function initializeDiscrete () {
 
+		// Unhide discrete version elements
+
+		$("#crop_payouts_table").removeClass("hidden");
+		$("#discrete_history").removeClass("hidden");
+		$("#tablediv").removeClass("hidden");
+
 		// Populate discrete.climateArray
 
 		game.discrete.climateArray[0] = 5;
@@ -482,7 +488,7 @@ $(function initializeGame (gameVersionObject) {
 		writeCropPayout (game.discrete.payoutAwet, game.discrete.payoutAdry, game.discrete.payoutBwet, game.discrete.payoutBdry);
 
 		//reveals bar graph of historic weather
-		$("#discrete_history").removeClass("hidden");
+		//$("#discrete_history").removeClass("hidden");
 		//fills in data for bar graph
 		$("#weather_type").text(" weather ");
 		$("#weather_modifier").text(" rainy");
@@ -496,11 +502,16 @@ $(function initializeGame (gameVersionObject) {
 		$("#bonus_one_instructions").text(game.discrete.firstBonusThreshold);
 		$("#bonus_two_instructions").text(game.discrete.secondBonusThreshold);
 		//reveals crop payouts table in opening dialog and sidebar payout table
-		$("#crop_payouts_table, #tablediv").removeClass("hidden");
+		//$("#crop_payouts_table, #tablediv").removeClass("hidden");
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	function initializeContinuous () {
+
+		// Unhide continuous version elements
+		$("#crop_payouts_chart").removeClass("hidden");
+		$("#continuous_history").removeClass("hidden");
+		$("#chartdiv").removeClass("hidden");
 
 		//Populate continuous.climateArray
 
@@ -925,7 +936,6 @@ $(function initializeGame (gameVersionObject) {
 
 			// draw graph in #continuous_history (for intro dialog) using optionsObj above
 			function chart1 () {
-				$("#continuous_history").removeClass("hidden");
 				setOptions(false);
 				historyPlot = $.jqplot("continuous_history", [histogram], optionsObj);
 				var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
@@ -936,7 +946,6 @@ $(function initializeGame (gameVersionObject) {
 
 			//draw graph in sidebar #chartdiv using optionsObj above
 			function chart2 () {
-				$("#chartdiv").removeClass("hidden");
 				setOptions(true);
 				$.jqplot("chartdiv", plotData, optionsObj);
 			};
@@ -1135,7 +1144,7 @@ $(function initializeGame (gameVersionObject) {
 
 	// Populate continuous opening dialogs
 		//reveals payouts chart in sidebar and payouts chart in opening dialog
-		$("#crop_payouts_chart, #chartdiv").removeClass("hidden");
+		//$("#crop_payouts_chart, #chartdiv").removeClass("hidden");
 		//fills in bonus information
 		$("#bonus_one_instructions").text(game.continuous.bonusOneTotal);
 		$("#bonus_two_instructions").text(game.continuous.bonusTwoTotal);
