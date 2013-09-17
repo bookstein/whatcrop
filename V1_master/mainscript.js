@@ -471,7 +471,7 @@ $(function initializeGame (gameVersionObject) {
 
 			bonusHeight(game.discrete.firstBonusThreshold, game.discrete.secondBonusThreshold);
 
-		// Populate opening dialogs
+	// Populate opening dialogs
 
 		function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 			$("table").find("td#payoutAwet").text(payoutAwet );
@@ -481,12 +481,16 @@ $(function initializeGame (gameVersionObject) {
 		};
 		writeCropPayout (game.discrete.payoutAwet, game.discrete.payoutAdry, game.discrete.payoutBwet, game.discrete.payoutBdry);
 
+		//reveals bar graph of historic weather
+		$("#discrete_history").removeClass("hidden");
+		//fills in data for bar graph
 		var dryPercent = ((1000-game.discrete.threshold)/1000)*100;
 		var wetPercent = 100 - ((1000-game.discrete.threshold)/1000)*100;
 		$(".dry_percent").text(dryPercent + "%");
 		$(".wet_percent").text(wetPercent + "%");
 		$("#sun_probability").css("height", dryPercent);
 		$("#rain_probability").css("height", wetPercent);
+		//fills in bonus information
 		$("#bonus_one_instructions").text(game.discrete.firstBonusThreshold);
 		$("#bonus_two_instructions").text(game.discrete.secondBonusThreshold);
 		$("#crop_payouts_chart").addClass("hidden");
