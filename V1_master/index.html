@@ -185,17 +185,41 @@
 		<h5>Crop Yield</h5>
 		<br>
 		<!-- Div for containing payout chart -->
-	<div id="chartdiv" class="hidden"></div>
-
-
-	<div id="turns"> <!-- turn counter div, child of section #givens -->
-		<h5>Turns Taken</h5>
-		<div id="turns_bar">
-			<!-- this div contains the actual turn count -->
-
-			<span id="turns_counter">Number of turns</span>
-
+		<div id="chartdiv" class="hidden">
 		</div>
+
+		<div id="tablediv" class="hidden">
+			<table>
+				<thead colspan="3">
+					<tr>
+						<th id="empty"><!--empty--></th>
+							<th class="Acolor"> A </th>
+							<th class="Bcolor"> B </th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td id="wetColor">Wet </td>
+					<td id="payoutAwet"></td>
+					<td id="payoutBwet"></td>
+				</tr>
+
+				<tr>
+					<td id="dryColor">Dry </td>
+					<td id="payoutAdry"></td>
+					<td id="payoutBdry"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div id="turns"> <!-- turn counter div, child of section #givens -->
+			<h5>Turns Taken</h5>
+			<div id="turns_bar">
+				<!-- this div contains the actual turn count -->
+
+				<span id="turns_counter">Number of turns</span>
+			</div>
 	</div>
 
 	</section> <!-- end of #givens -->
