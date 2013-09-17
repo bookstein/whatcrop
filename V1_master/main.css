@@ -259,6 +259,74 @@ header > h1 {
 	text-align: center;
 }
 
+
+table {
+	height: auto;
+	width: auto;
+	/*background-image: url("images/table_background.jpg");
+	background-repeat: no-repeat;
+	background-size: 220px 300px;
+	background-position: right;
+	border: 3px solid #3f3c30;*/
+	border: 1px solid #3f3c30;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+thead {
+	border-bottom: 1px dotted #3f3c30;
+	background-color: #eae9e6;
+}
+
+th {
+	font-family: Georgia, Times, serif;
+	font-size: 18px;
+	border-right: 1px dotted #3f3c30;
+	font-weight: bold;
+	width: 70px;
+	padding: 5px 15px;
+}
+
+
+td {
+	text-align: center;
+	vertical-align: middle;
+	border-bottom: 1px dotted #3f3c30;
+	border-right: 1px dotted #3f3c30;
+	width: auto;
+	color: #3f3c30;
+	margin: 0;
+	font-family: Georgia, Times, serif;
+	font-size: 16px;
+	font-weight: normal;
+	padding: 10px 25px;
+
+}
+
+#wetColor, #dryColor {
+	font-weight: bold;
+}
+
+#wetColor, #payoutAwet, #payoutBwet {
+	/*background-color: #C2DEEC;*/ /* sky blue */
+	border-top: 1px solid #3f3c30;
+}
+
+#dryColor, #payoutAdry, #payoutBdry {
+	/*background-color: #F0D2B4;*/ /* beige */
+	border-top: 1px solid #3f3c30;
+}
+
+#payoutAwet, #payoutAdry {
+	color: #820000;
+}
+
+#payoutBdry, #payoutBwet {
+	color: #3811c9;
+}
+
+
+
 #chartdiv {
 	height: 350px;
 	width: 100%;
