@@ -1675,6 +1675,33 @@ function updateGame () { //this function is called and given arguments inside we
 		$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
 	};
 
+	/*
+		//Record relevant data for the current turn
+		function recordData (game) {
+		    var payload = {
+		      crop_choice: game.cropchoice,
+		      weather:     game.gameWeather[game.turn],
+		      game_over:   game.gameOver,
+		      score:       payout
+		    };
+
+		    $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
+		      type: 'POST',
+		      dataType: 'json',
+		      data: payload
+		    }).success(function(data) {
+		      console.log('Round recorded successfully', data);
+		    }).fail(function(jqXHR, text, err) {
+		      console.log('Round record failed', jqXHR, text, err);
+		    });
+		};
+
+	    if (game.turn === game.maxturn) {
+	    	game.gameOver = true;
+	    }
+
+		recordData(game);*/
+
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	function updateDiscrete (payout) {
 
