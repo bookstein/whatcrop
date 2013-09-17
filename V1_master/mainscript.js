@@ -786,7 +786,7 @@ $(function initializeGame (gameVersionObject) {
 					          	},
 					          	xaxis:'xaxis',
 					          	yaxis:'y2axis',
-					          	show: true // change to 'false' to remove historicWeather from graph
+					          	show: showData
 					      	  },
 					      	  {
 					      	    // CropA
@@ -874,7 +874,7 @@ $(function initializeGame (gameVersionObject) {
 			                	tickOptions:{
 			                        mark: "inside",
 			                        showLabel: !showData,
-			                        formatString: "%#.0f",
+			                        //formatString: "%#.0f",
 			                        showMark: false,
 			                        showGridline: false
 			                    }
@@ -888,7 +888,7 @@ $(function initializeGame (gameVersionObject) {
 			                    },
 			                	tickOptions:{
 			                        mark: "cross",
-			                        formatString: "%#.0f",
+			                        //formatString: "%#.0f",
 			                        showMark: true,
 			                        showGridline: true
 			                    },
@@ -910,7 +910,7 @@ $(function initializeGame (gameVersionObject) {
 			                	tickOptions:{
 			                        mark: "inside",
 			                        showLabel: true,
-			                        formatString: "%#.0f",
+			                        //formatString: "%#.0f",
 			                        showMark: true,
 			                        showGridline: true
 			                    },
@@ -939,15 +939,21 @@ $(function initializeGame (gameVersionObject) {
 					return game.optionsObj;
 				}; //end function setOptions()
 
+
+			// test chart
+
+			setOptions(true);
+			$.jqplot("chartdiv", [histogram], game.optionsObj);
+
 			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
-			function payoutChart () {
-				setOptions(true);
+			/*function payoutChart () {
+				setOptions(true, false);
 				$.jqplot("crop_payouts_chart", game.plotData, game.optionsObj);
 			};
 
 			// draw graph in #continuous_history (for intro dialog) using optionsObj above
 			function historyChart () {
-				setOptions(false);
+				setOptions(false, true);
 				game.historyPlot = $.jqplot("continuous_history", [histogram], game.optionsObj);
 				var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
 				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
@@ -957,13 +963,13 @@ $(function initializeGame (gameVersionObject) {
 
 			//draw graph in sidebar #chartdiv using optionsObj above
 			function givensChart () {
-				setOptions(true);
+				setOptions(true, true);
 				$.jqplot("chartdiv", game.plotData, game.optionsObj);
-			};
+			};*/
 
-			payoutChart();
-			historyChart();
-			givensChart();
+			//payoutChart();
+			//historyChart();
+			//givensChart();
 
 		}; //end of drawQuadratic()
 
