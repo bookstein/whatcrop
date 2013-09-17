@@ -1348,7 +1348,15 @@ $("#cropB").on("click", userClickedB);
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
 
 
-function weatherResults () { //triggered by #grow click, runs updateGame with correct arguments
+function weatherResults () { //triggered by #grow click, calls updateGame with correct arguments
+
+	if (gameVersion.discreteWeather === true) {
+		gameVersionObject = discrete
+	}
+
+	else {
+		gameVersionObject = continuous
+	}
 
 	//Show weather results line on graph ("resultsLine")
 
@@ -1507,6 +1515,7 @@ function weatherResults () { //triggered by #grow click, runs updateGame with co
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
 function updateGame (beta, maxpayout, maxweather) { //this function is called and given arguments inside weatherResults function above
+
 	var payout = 0;
 
 	function newPayout () {
@@ -1683,6 +1692,13 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 //>>>>>>>>>>>>>>>>>>>>> Clicking #grow button triggers updateGame <<<<<<<<<<<<<
 
 $("#grow").on("click", function () {
+		if (gameVersion.discreteWeather == true) {
+			gameVersionObject = discrete
+		}
+		else {
+			gameVersionObject = continuous
+		}
+
 	if (($(this).hasClass("highlight"))&& game.turn <= game.maxturn) {
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
