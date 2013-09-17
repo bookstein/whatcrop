@@ -1374,27 +1374,35 @@ function weatherResults (gameVersionObject) { //triggered by #grow click, calls 
 	function weatherOpacity () {
 
 		function discreteWeatherOpacity () {
+			if (game.gameWeather[game.turn] === "Wet") {
+				rainOpacity = 1, sunOpacity = 0;
+			}
 
+			else if (game.gameWeather[game.turn] === "Dry") {
+				rainOpacity = 0, sunOpacity = 1;
+			}
+
+			return rainOpacity, sunOpacity;
 
 		};
 
 		function continuousWeatherOpacity () {
 			if (game.gameWeather[game.turn] >= game.continuous.gameRoots.topRoot) {
-					rainOpacity = 1, sunOpacity = 0;
-					console.log(rainOpacity, sunOpacity);
+				rainOpacity = 1, sunOpacity = 0;
+				//console.log(rainOpacity, sunOpacity);
 				}
 
 			else if (game.gameWeather[game.turn] > game.continuous.gameRoots.bottomRoot && game.gameWeather[game.turn] < game.continuous.gameRoots.topRoot) {
 				rainOpacity = ((game.gameWeather[game.turn] - game.continuous.gameRoots.bottomRoot)/(game.continuous.gameRoots.topRoot - game.continuous.gameRoots.bottomRoot));
 				sunOpacity = 1-rainOpacity;
-				console.log("rain opacity: " + rainOpacity + " sun opacity: " + sunOpacity);
+				//console.log("rain opacity: " + rainOpacity + " sun opacity: " + sunOpacity);
 
 			}
 
 			else if (game.gameWeather[game.turn] <= game.continuous.gameRoots.bottomRoot) {
 				rainOpacity = 0;
 				sunOpacity = 1;
-				console.log(rainOpacity, sunOpacity);
+				//console.log(rainOpacity, sunOpacity);
 			}
 
 			return rainOpacity, sunOpacity;
