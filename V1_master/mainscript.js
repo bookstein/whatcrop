@@ -1575,95 +1575,65 @@ function weatherResults (gameVersionObject) { //triggered by #grow click, calls 
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
-function updateGame (beta, maxpayout, maxweather) { //this function is called and given arguments inside weatherResults function above
+function updateGame () { //this function is called and given arguments inside weatherResults function above
 
-	function updateDiscrete () {
+	function displayResultsDialog () {
+
+		$(".results").dialog({
+			autoOpen: false,
+			modal: false,
+			closeOnEscape: false,
+			dialogClass: "no-close",
+	        resizable: false,
+	        draggable: false,
+	        position: {my: 'top', at: 'top+25%', of: '#farm'},
+	        stack: false,
+	        width: '30%'
+	});
 
 
-				// >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
+	function updateDiscrete (payout) {
 
-				function updateGame(payout) { //this function is called inside weatherResults function
-
-					cropchoice = ""; // resets value of cropchoice to ""
 					var oldscore = score;
 					var newscore = oldscore + payout;
 
-					function displayResultsDialog () {
+		//populate spans inside results dialogs
+		    $(".results").find("#weather_outcome").text(gameWeather[turn]);
+		    $(".results").find("#new_score").text(payout);
 
-						$(".results").dialog({
-							autoOpen: false,
-							modal: false,
-							closeOnEscape: false,
-							dialogClass: "no-close",
-					        resizable: false,
-					        draggable: false,
-					        position: 'center',
-					        stack: false,
-					        height: 'auto',
-					        width: 'auto'
-					    });
+			// bonus dialogs
+			if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
+				$("#bonus_results").dialog("open");
+				$("#bonus_count").text("$" + bonusOneDollars);
+				addBonus1();
+			}
 
-						//populate spans inside all results dialogs
-					    $(".results").find("#weather_outcome").text(gameWeather[turn]);
-					    $(".results").find("#new_score").text(payout);
+			else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
+				$("#bonus_results").dialog("open");
+				$("#bonus_count").text("$" + bonusTwoDollars);
+				addBonus2();
+			}
 
-						// bonus dialogs
-						if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
-							$("#bonus_results").dialog("open");
-							$("#bonus_count").text("$" + bonusOneDollars);
-							addBonus1();
-						}
+			//end game dialog
+			else if (turn === maxturn) {
+				$("#end_results").dialog("open");
+				$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
+				$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
+				// $("#playerID") //need Tony's work on this
+			}
 
-						else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
-							$("#bonus_results").dialog("open");
-							$("#bonus_count").text("$" + bonusTwoDollars);
-							addBonus2();
-						}
+			//normal results dialogs
+			else {
+				$("#normal_results").dialog("open");
+			}
 
-						//end game dialog
-						else if (turn === maxturn) {
-							$("#end_results").dialog("open");
-							$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
-							$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
-							// $("#playerID") //need Tony's work on this
-						}
-
-						//normal results dialogs
-						else {
-							$("#normal_results").dialog("open");
-						}
-
-						setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
-
-					};
-
-					setTimeout(displayResultsDialog, 500);
-
-					function fadeWeather () {
-						//setTimeout calls function after a certain time; currently 3000 ms
-					   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
-					   	$(".croprows").addClass("hidden");
-					   	$(".plant").removeClass("select");
-					   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
-					};
+			setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
 
 
-					function addTurn () {
-						turn = turn + 1;
-						$("#turns_counter").text( turn + "/" + maxturn );
-						//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
-						//alert("gameWeather is now " + gameWeather[turn] + " because it is turn #" + turn);
-					};
 
-					function newScore () {
 
-						function animatePoints () {
-							//$("#points_bar").toggleClass("glow");
 
-							$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
-							setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
-							//$(".glow").css({ "-webkit-box-shadow, -moz-box-shadow, box-shadow" }).animate()
-				  		};
+
 
 
 						function movePointsFlag () { //increase height of #points_flag using absolute positioning
@@ -1720,25 +1690,12 @@ function updateGame (beta, maxpayout, maxweather) { //this function is called an
 						$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
 					};
 
-					setTimeout(fadeWeather, 4000);
-					setTimeout(addTurn, 4000);
 
-
-					//score += payout;
-					//return score; //this updates the value of the global variable "score"
-				};
-
-
-
-				function endGame () {
-					//call end-of-game dialog box
-					$("button #grow").addClass("hidden");
-					//inclusive of last turn (50)
 				};
 
 	};
 
-	function updateContinuous () {
+	function updateContinuous (beta, maxpayout, maxweather) {
 		var payout = 0;
 
 		function newPayout () {
