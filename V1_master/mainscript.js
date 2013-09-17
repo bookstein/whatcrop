@@ -1292,7 +1292,7 @@ $(function initializeGame (gameVersionObject) {
         game.gameID = data.id;
         console.log(game);
         $creatingGameDialog.dialog('close');
-        introDialogs();
+        //introDialogs();
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
         $creatingGameDialog.html('Creating game failed!');
@@ -1348,10 +1348,18 @@ $("#cropB").on("click", userClickedB);
 //>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
 
 
-function weatherResults (gameVersionObject) { //triggered by #grow click, calls updateGame with correct arguments
+function weatherResults () { //triggered by #grow click, calls updateGame with correct arguments
+
+	// hide buttons
+	disableGrowButton();
+	$(".plant, .plant_img, #grow").addClass("hidden").css("opacity", 0);
+
+	//Identify weather display labels
+	var rainOpacity;
+	var sunOpacity;
 
 	// Call the appropriate functions
-	if (gameVersionObject === true) {
+	if (gameVersion.discreteWeather === true) {
 
 	}
 
@@ -1362,13 +1370,6 @@ function weatherResults (gameVersionObject) { //triggered by #grow click, calls 
 	//Show weather results line on graph ("resultsLine")
 	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
 
-	// hide buttons
-	disableGrowButton();
-	$(".plant, .plant_img, #grow").addClass("hidden").css("opacity", 0);
-
-	//Identify weather display labels
-	var rainOpacity;
-	var sunOpacity;
 
 	function weatherOpacity () {
 
@@ -1813,12 +1814,12 @@ function updateGame () { //this function is called and given arguments inside we
 //>>>>>>>>>>>>>>>>>>>>> Clicking #grow button triggers updateGame <<<<<<<<<<<<<
 
 $("#grow").on("click", function () {
-		if (gameVersion.discreteWeather == true) {
+		/*if (gameVersion.discreteWeather == true) {
 			gameVersionObject = discrete
 		}
 		else {
 			gameVersionObject = continuous
-		}
+		}*/
 
 	if (($(this).hasClass("highlight"))&& game.turn <= game.maxturn) {
 		$("#sproutA").addClass("hidden");
