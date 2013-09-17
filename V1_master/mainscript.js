@@ -493,7 +493,8 @@ $(function initializeGame (gameVersionObject) {
 		//fills in bonus information
 		$("#bonus_one_instructions").text(game.discrete.firstBonusThreshold);
 		$("#bonus_two_instructions").text(game.discrete.secondBonusThreshold);
-		$("#crop_payouts_chart").addClass("hidden");
+		//reveals crop payouts table
+		$("#crop_payouts_table").removeClass("hidden");
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
