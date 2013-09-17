@@ -496,7 +496,7 @@ $(function initializeGame (gameVersionObject) {
 		$("#bonus_one_instructions").text(game.discrete.firstBonusThreshold);
 		$("#bonus_two_instructions").text(game.discrete.secondBonusThreshold);
 		//reveals crop payouts table
-		$("#crop_payouts_table #tablediv").removeClass("hidden");
+		$("#crop_payouts_table, #tablediv").removeClass("hidden");
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
