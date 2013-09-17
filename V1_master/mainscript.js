@@ -1605,14 +1605,14 @@ function updateGame () { //this function is called and given arguments inside we
 
 	};
 
-	//displayResultsDialog();
+	//displayResultsDialog(); <-- call this inside each update function
 
 	function addTurn () {
 		game.turn = game.turn + 1;
 		$("#turns_counter").html("<h5>" + game.turn + "/" + game.maxturn + "</h5>");
 	};
 
-	// setTimeout(addTurn, 4000);
+	setTimeout(addTurn, 4000);
 
 	function newScore (payout) {
 
@@ -1658,7 +1658,7 @@ function updateGame () { //this function is called and given arguments inside we
 		$("#point_count").html("<h5>" + game.score + "</h5>");
 		return game.score; //this updates the value of the global variable "score"
 
-	}; //end of function newScore
+	}; //end of function newScore <-- call newScore from individual functions
 
 	function addBonus1 () {
 		realDollars = bonusOneDollars; //change value of realDollars to bonusOne
@@ -1768,7 +1768,7 @@ function updateGame () { //this function is called and given arguments inside we
 
 		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
 
-		newScore();
+		newScore(payout);
 
 		//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 
@@ -1801,8 +1801,7 @@ function updateGame () { //this function is called and given arguments inside we
 		};
 
 		newPayout();
-		newScore();
-
+		newScore(payout);
 
 	}; // end of updateContinuous
 
