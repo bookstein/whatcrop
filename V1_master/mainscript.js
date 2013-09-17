@@ -770,7 +770,6 @@ $(function initializeGame (gameVersionObject) {
 			function setOptions (showData, showOverlay) {
 				game.optionsObj = {
 					      series:[
-
 					          {
 					          	// Weather
 					          	label: "Weather",
@@ -786,7 +785,7 @@ $(function initializeGame (gameVersionObject) {
 					          	},
 					          	xaxis:'xaxis',
 					          	yaxis:'y2axis',
-					          	show: showData
+					          	show: true
 					      	  },
 					      	  {
 					      	    // CropA
@@ -796,7 +795,7 @@ $(function initializeGame (gameVersionObject) {
 					            renderer:$.jqplot.LineRenderer,
 					            xaxis:'xaxis',
 					          	yaxis:'yaxis',
-					            show: !showData
+					            show: true
 					          },
 					          {
 					            // CropB
@@ -806,7 +805,7 @@ $(function initializeGame (gameVersionObject) {
 					            renderer:$.jqplot.LineRenderer,
 					            xaxis:'xaxis',
 					          	yaxis:'yaxis',
-					            show: !showData
+					            show: true
 					          }
 					      ],
 
@@ -924,7 +923,7 @@ $(function initializeGame (gameVersionObject) {
 			      			}
 			    		  }, // axes
 
-				      	canvasOverlay: {
+				      	/*canvasOverlay: {
 			        		show: showOverlay, // turn this on and off to show results
 				            objects: [
 				                {verticalLine: {
@@ -934,24 +933,17 @@ $(function initializeGame (gameVersionObject) {
 				                    color: 'rgb(255, 204, 51)',
 				                    shadow: false
 				                }}
-						]} // end of canvasOverlay
+						]} // end of canvasOverlay */
 					}; // end optionsObj object
 					return game.optionsObj;
 				}; //end function setOptions()
 
-
-			// test chart
-
-			setOptions(true, true);
-			console.log(game.optionsObj);
-			$.jqplot("chartdiv", [histogram], game.optionsObj);
-
 			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
-			/*function payoutChart () {
+			function payoutChart () {
 				setOptions(true, false);
 				$.jqplot("crop_payouts_chart", game.plotData, game.optionsObj);
 			};
-
+/*
 			// draw graph in #continuous_history (for intro dialog) using optionsObj above
 			function historyChart () {
 				setOptions(false, true);
@@ -966,11 +958,12 @@ $(function initializeGame (gameVersionObject) {
 			function givensChart () {
 				setOptions(true, true);
 				$.jqplot("chartdiv", game.plotData, game.optionsObj);
-			};*/
-
-			//payoutChart();
+			};
+*/
+			payoutChart();
 			//historyChart();
 			//givensChart();
+			console.log("optionsObj: " + game.optionsObj);
 
 		}; //end of drawQuadratic()
 
