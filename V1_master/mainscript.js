@@ -367,7 +367,7 @@ $(function initializeGame (gameVersionObject) {
 			}
 
 			for (var i = 0; i < game.maxturn; i++) {
-				game.discrete.firstBonusThreshold += randomPoints[i];
+				game.discrete.firstBonusThreshold += parseInt(randomPoints[i]);
 			}
 
 			return game.discrete.firstBonusThreshold;
@@ -484,6 +484,8 @@ $(function initializeGame (gameVersionObject) {
 		//reveals bar graph of historic weather
 		$("#discrete_history").removeClass("hidden");
 		//fills in data for bar graph
+		$("#weather_type").text(" weather ");
+		$("#weather_modifier").text(" rainy");
 		var dryPercent = ((1000-game.discrete.threshold)/1000)*100;
 		var wetPercent = 100 - ((1000-game.discrete.threshold)/1000)*100;
 		$(".dry_percent").text(dryPercent + "%");
@@ -1030,10 +1032,6 @@ $(function initializeGame (gameVersionObject) {
 		console.log("Historic weather: " + historicWeather);
 		drawQuadratic();
 
-
-		//Populate spans in opening and ending dialogs
-		$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
-
 		//Calculate Max Score --------------------------------------
 
 		function calculateMaxScore () {
@@ -1128,9 +1126,15 @@ $(function initializeGame (gameVersionObject) {
 
 		bonusHeight(game.continuous.firstBonusThreshold, game.continuous.secondBonusThreshold);
 
-		// Populate opening dialogs
+	// Populate opening dialogs
+		//reveals paytouts graph
+		$("#crop_payouts_chart").removeClass("hidden");
+		//fills in bonus information
 		$("#bonus_one_instructions").text(game.continuous.bonusOneTotal);
 		$("#bonus_two_instructions").text(game.continuous.bonusTwoTotal);
+		//fills in historic weather info
+		$("#weather_type").text(" mean yearly rainfall ");
+		$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
