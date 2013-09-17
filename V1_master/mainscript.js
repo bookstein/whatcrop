@@ -1577,6 +1577,8 @@ function weatherResults (gameVersionObject) { //triggered by #grow click, calls 
 
 function updateGame () { //this function is called and given arguments inside weatherResults function above
 
+	// Functions shared by both versions
+
 	function displayResultsDialog () {
 
 		$(".results").dialog({
@@ -1589,8 +1591,32 @@ function updateGame () { //this function is called and given arguments inside we
 	        position: {my: 'top', at: 'top+25%', of: '#farm'},
 	        stack: false,
 	        width: '30%'
-	});
+	    });
 
+		//populate spans inside all results dialogs
+	    $(".results").find("#weather_outcome").text(parseInt(game.gameWeather[game.turn]));
+    	$(".results").find("#new_score").text(payout);
+    	$(".results").find("#weather_report").text(game.weatherReport);
+    	$(".results").find("#chosen_crop").text(game.cropchoice);
+
+	    $("#normal_results").dialog("open");
+
+
+		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
+
+	};
+
+	//displayResultsDialog();
+
+	function addTurn () {
+		game.turn = game.turn + 1;
+		$("#turns_counter").html("<h5>" + game.turn + "/" + game.maxturn + "</h5>");
+		//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
+		//alert("game.gameWeather is now " + game.gameWeather[turn] + " because it is turn #" + turn);
+	};
+
+
+	// setTimeout(addTurn, 4000);
 
 	function updateDiscrete (payout) {
 
@@ -1631,71 +1657,64 @@ function updateGame () { //this function is called and given arguments inside we
 
 
 
+			function movePointsFlag () { //increase height of #points_flag using absolute positioning
 
+				//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
+				var pixelHeight = parseInt($("#points_bar").css("height"));
 
+				//Current CSS position for #points_flag "bottom" as an integer
+				var flagHeight = parseInt($("#points_flag").css("bottom"));
 
+				//Current CSS height of #points_fill with "height" as an integer
+				var fillHeight = parseInt($("#points_fill").css("height"));
 
+				//Ratio of points per pixel
+				var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
 
-						function movePointsFlag () { //increase height of #points_flag using absolute positioning
+				//Points_counter moves upward this number of pixels per turn, depending on the turn payout
+				var perTurnHeight = payout/pointsPerPixelRatio;
 
-							//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
-							var pixelHeight = parseInt($("#points_bar").css("height"));
+				// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
+				flagHeight+=perTurnHeight;
+				fillHeight +=perTurnHeight;
 
-							//Current CSS position for #points_flag "bottom" as an integer
-							var flagHeight = parseInt($("#points_flag").css("bottom"));
+				// Set new heights in CSS style rules for #points_flag and #points_fill
+				$("#points_flag").css("bottom", flagHeight);
+				$("#points_fill").css("height", fillHeight);
 
-							//Current CSS height of #points_fill with "height" as an integer
-							var fillHeight = parseInt($("#points_fill").css("height"));
+				//carve up post-second-bonus pixels into fixed amount between this turn and last turn
+			};
 
-							//Ratio of points per pixel
-							var pointsPerPixelRatio = maxScore/pixelHeight; //use maxScore for now
+			movePointsFlag();
+			animatePoints();
 
-							//Points_counter moves upward this number of pixels per turn, depending on the turn payout
-							var perTurnHeight = payout/pointsPerPixelRatio;
+			score += payout;
+			$("#point_count").html("<h5>" + score + "</h5>");
+			return score; //this updates the value of the global variable "score"
 
-							// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
-							flagHeight+=perTurnHeight;
-							fillHeight +=perTurnHeight;
+		}; //end of function newScore()
 
-							// Set new heights in CSS style rules for #points_flag and #points_fill
-							$("#points_flag").css("bottom", flagHeight);
-							$("#points_fill").css("height", fillHeight);
+		newScore();
 
-							//carve up post-second-bonus pixels into fixed amount between this turn and last turn
-						};
+		//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 
-						movePointsFlag();
-						animatePoints();
+			// WARNING: .css modifies the element's <style> property, not the CSS sheet!
 
-						score += payout;
-						$("#point_count").html("<h5>" + score + "</h5>");
-						return score; //this updates the value of the global variable "score"
+		//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
+		function addBonus1 () {
+			realDollars = bonusOneDollars; //change value of realDollars to bonusOne
+			$("#dollars_counter").html("$"+realDollars);
+		};
 
-					}; //end of function newScore()
+		function addBonus2 () {
+			realDollars = bonusOneDollars + bonusTwoDollars;
+			$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
+		};
 
-					newScore();
-
-					//carve up post-second-bonus pixels into fixed amount between this turn and last turn
-
-						// WARNING: .css modifies the element's <style> property, not the CSS sheet!
-
-					//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
-					function addBonus1 () {
-						realDollars = bonusOneDollars; //change value of realDollars to bonusOne
-						$("#dollars_counter").html("$"+realDollars);
-					};
-
-					function addBonus2 () {
-						realDollars = bonusOneDollars + bonusTwoDollars;
-						$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
-					};
-
-
-				};
-
-	};
+	}; // end of updateDiscrete()
 
 	function updateContinuous (beta, maxpayout, maxweather) {
+
 		var payout = 0;
 
 		function newPayout () {
@@ -1765,44 +1784,7 @@ function updateGame () { //this function is called and given arguments inside we
 		newPayout();
 		newScore();
 
-		function displayResultsDialog () {
 
-			$(".results").dialog({
-				autoOpen: false,
-				modal: false,
-				closeOnEscape: false,
-				dialogClass: "no-close",
-		        resizable: false,
-		        draggable: false,
-		        position: {my: 'top', at: 'top+25%', of: '#farm'},
-		        stack: false,
-		        width: '30%'
-		    });
-
-			//populate spans inside all results dialogs
-		    $(".results").find("#weather_outcome").text(parseInt(game.gameWeather[game.turn]));
-	    	$(".results").find("#new_score").text(payout);
-	    	$(".results").find("#weather_report").text(game.weatherReport);
-	    	$(".results").find("#chosen_crop").text(game.cropchoice);
-
-		    $("#normal_results").dialog("open");
-
-
-			setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
-
-		};
-
-		displayResultsDialog();
-
-		function addTurn () {
-			game.turn = game.turn + 1;
-			$("#turns_counter").html("<h5>" + game.turn + "/" + game.maxturn + "</h5>");
-			//setTimeout(assignTurnWeather, 100); //runs function assignTurnWeather with new turn value
-			//alert("game.gameWeather is now " + game.gameWeather[turn] + " because it is turn #" + turn);
-		};
-
-
-			setTimeout(addTurn, 4000);
 
 	/*
 		//Record relevant data for the current turn
