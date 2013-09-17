@@ -471,7 +471,7 @@ $(function initializeGame (gameVersionObject) {
 
 			bonusHeight(game.discrete.firstBonusThreshold, game.discrete.secondBonusThreshold);
 
-	// Populate opening dialogs
+	// Populate discrete opening dialogs
 
 		function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 			$("table").find("td#payoutAwet").text(payoutAwet );
@@ -496,7 +496,7 @@ $(function initializeGame (gameVersionObject) {
 		$("#bonus_one_instructions").text(game.discrete.firstBonusThreshold);
 		$("#bonus_two_instructions").text(game.discrete.secondBonusThreshold);
 		//reveals crop payouts table
-		$("#crop_payouts_table").removeClass("hidden");
+		$("#crop_payouts_table #tablediv").removeClass("hidden");
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -1126,8 +1126,8 @@ $(function initializeGame (gameVersionObject) {
 
 		bonusHeight(game.continuous.firstBonusThreshold, game.continuous.secondBonusThreshold);
 
-	// Populate opening dialogs
-		//reveals paytouts graph
+	// Populate continuous opening dialogs
+		//reveals payouts graph
 		$("#crop_payouts_chart").removeClass("hidden");
 		//fills in bonus information
 		$("#bonus_one_instructions").text(game.continuous.bonusOneTotal);
@@ -1135,6 +1135,8 @@ $(function initializeGame (gameVersionObject) {
 		//fills in historic weather info
 		$("#weather_type").text(" mean yearly rainfall ");
 		$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
+		// reveals #chartdiv in #givens column
+		$("#chartdiv").removeClass("hidden");
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
