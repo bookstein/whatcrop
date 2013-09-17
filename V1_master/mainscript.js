@@ -940,10 +940,10 @@ $(function initializeGame (gameVersionObject) {
 				$.jqplot("chartdiv", allPlotData, optionsObj);
 			};
 
-			//draw graph in #crop_payout_chart of A/B payouts (intro dialog)
+			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			function chart3 () {
 				setOptions(true);
-				$.jqplot("chartdiv", payoutData, optionsObj);
+				$.jqplot("crop_payouts_chart", payoutData, optionsObj);
 			};
 
 			chart1();
