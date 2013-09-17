@@ -747,7 +747,8 @@ $(function initializeGame (gameVersionObject) {
 			console.log("Histogram data: " + histogram);
 
 			// variables containing all data to be plotted
-			var plotData = [histogram, plotA, plotB];
+			var allPlotData = [histogram, plotA, plotB];
+			var payoutData = [plotA, plotB];
 
 			var optionsObj = {};
 			// Create options object for jqPlot graph using optionsObj and setOptions()
@@ -924,7 +925,6 @@ $(function initializeGame (gameVersionObject) {
 				}; //end function setOptions()
 
 			// draw graph in #history_graph (for intro dialog) using optionsObj above
-
 			function chart1 () {
 				setOptions(false);
 				historyPlot = $.jqplot("history_graph", [histogram], optionsObj);
@@ -934,15 +934,21 @@ $(function initializeGame (gameVersionObject) {
 				historyPlot.replot();
 			};
 
-			//draw graph in #chartdiv using optionsObj above
-
+			//draw graph in sidebar #chartdiv using optionsObj above
 			function chart2 () {
 				setOptions(true);
-				$.jqplot("chartdiv", plotData, optionsObj);
+				$.jqplot("chartdiv", allPlotData, optionsObj);
+			};
+
+			//draw graph in #crop_payout_chart of A/B payouts (intro dialog)
+			function chart3 () {
+				setOptions(true);
+				$.jqplot("chartdiv", payoutData, optionsObj);
 			};
 
 			chart1();
 			chart2();
+			chart3();
 
 		}; //end of drawQuadratic()
 
