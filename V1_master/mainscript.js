@@ -1362,14 +1362,13 @@ function weatherResults (gameVersionObject) { //triggered by #grow click, calls 
 	//Show weather results line on graph ("resultsLine")
 	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
 
-	//Identify weather display labels
-	var rainOpacity;
-	var sunOpacity;
-
 	// hide buttons
 	disableGrowButton();
 	$(".plant, .plant_img, #grow").addClass("hidden").css("opacity", 0);
 
+	//Identify weather display labels
+	var rainOpacity;
+	var sunOpacity;
 
 	function weatherOpacity () {
 
