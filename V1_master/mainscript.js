@@ -1590,7 +1590,87 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
-function updateGame () { //this function is called and given arguments inside weatherResults function above
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+function updateDiscrete () {
+
+	var oldscore = score;
+	var newscore = oldscore + payout;
+
+// MOVE INTO OUTSIDE FUNCTION?
+	//populate spans inside results dialogs
+    $(".results").find("#weather_outcome").text(gameWeather[turn]);
+    $(".results").find("#new_score").text(payout);
+
+	// bonus dialogs
+	if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
+		$("#bonus_results").dialog("open");
+		$("#bonus_count").text("$" + bonusOneDollars);
+		addBonus1();
+	}
+
+	else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
+		$("#bonus_results").dialog("open");
+		$("#bonus_count").text("$" + bonusTwoDollars);
+		addBonus2();
+	}
+
+	//end game dialog
+	else if (turn === maxturn) {
+		$("#end_results").dialog("open");
+		$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
+		$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
+		// $("#playerID") //need Tony's work on this
+	}
+
+	//normal results dialogs
+	else {
+		$("#normal_results").dialog("open");
+	}
+
+	setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
+
+	updateGame(payout);
+
+	//carve up post-second-bonus pixels into fixed amount between this turn and last turn
+
+	// WARNING: .css modifies the element's <style> property, not the CSS sheet!
+
+	//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
+
+}; // end of updateDiscrete()
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Continuous Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+	function updateContinuous (beta, maxpayout, maxweather) {
+
+		var payout = 0;
+
+		function newPayout () {
+			payout = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
+
+			if (payout <= 0) {
+				payout = 0;
+			}
+
+			else if (payout > 0) {
+				payout = parseInt(payout);
+			}
+
+			return payout;
+
+		};
+
+		newPayout();
+		newScore(payout);
+
+	}; // end of updateContinuous
+
+	// Reset crop values for new turn
+		game.cropchoice = "";
+
+}; // End of updateGame function
+
+function updateGame (arguments) { //this function is called and given arguments inside weatherResults function above
 
 	// Functions shared by both versions
 
@@ -1744,86 +1824,8 @@ function updateGame () { //this function is called and given arguments inside we
 			setTimeout(endGame, 1000);
 		}
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	function updateDiscrete (payout) {
 
-		var oldscore = score;
-		var newscore = oldscore + payout;
-
-// MOVE INTO OUTSIDE FUNCTION?
-		//populate spans inside results dialogs
-	    $(".results").find("#weather_outcome").text(gameWeather[turn]);
-	    $(".results").find("#new_score").text(payout);
-
-		// bonus dialogs
-		if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
-			$("#bonus_results").dialog("open");
-			$("#bonus_count").text("$" + bonusOneDollars);
-			addBonus1();
-		}
-
-		else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
-			$("#bonus_results").dialog("open");
-			$("#bonus_count").text("$" + bonusTwoDollars);
-			addBonus2();
-		}
-
-		//end game dialog
-		else if (turn === maxturn) {
-			$("#end_results").dialog("open");
-			$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
-			$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
-			// $("#playerID") //need Tony's work on this
-		}
-
-		//normal results dialogs
-		else {
-			$("#normal_results").dialog("open");
-		}
-
-		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
-
-		newScore(payout);
-
-		//carve up post-second-bonus pixels into fixed amount between this turn and last turn
-
-		// WARNING: .css modifies the element's <style> property, not the CSS sheet!
-
-		//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
-
-	}; // end of updateDiscrete()
-
-
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-	function updateContinuous (beta, maxpayout, maxweather) {
-
-		var payout = 0;
-
-		function newPayout () {
-			payout = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
-
-			if (payout <= 0) {
-				payout = 0;
-			}
-
-			else if (payout > 0) {
-				payout = parseInt(payout);
-			}
-
-			return payout;
-
-		};
-
-		newPayout();
-		newScore(payout);
-
-	}; // end of updateContinuous
-
-	// Reset crop values for new turn
-		game.cropchoice = "";
-
-}; // End of updateGame function
+};
 
 
 //>>>>>>>>>>>>>>>>>>>>> Clicking #grow button triggers updateGame <<<<<<<<<<<<<
