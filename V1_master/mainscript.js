@@ -1518,10 +1518,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					game.weatherReport = "optimal weather";
 				}
 
-				game.args.beta = game.continuous.betaA;
-				game.args.maxpayout = game.continuous.maxApayout;
-				game.args.maxweather = game.continuous.maxAweather;
-				updateGame(args); // call updateGame with values for crop A
+				updateContinuous(betaA, maxApayout, maxAweather);); // call updateGame with values for crop A
 			}
 
 
@@ -1564,10 +1561,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					game.weatherReport = "optimal weather";
 				}
 
-				game.args.beta = game.continuous.betaB;
-				game.args.maxpayout = game.continuous.maxBpayout;
-				game.args.maxweather = game.continuous.maxBweather;
-				updateGame(args); // call updateGame with values for crop A // call updateGame with values for crop B
+				updateContinuous(betaB, maxBpayout, maxBweather); // call updateGame with values for crop A // call updateGame with values for crop B
 			}
 		}; // end of continuousWeather()
 	}; //end of weatherGraphics()
@@ -1591,7 +1585,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 // >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-function updateDiscrete () {
+function updateDiscrete (payout) {
 
 	var oldscore = score;
 	var newscore = oldscore + payout;
@@ -1641,32 +1635,27 @@ function updateDiscrete () {
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Continuous Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-	function updateContinuous (beta, maxpayout, maxweather) {
+function updateContinuous (beta, maxpayout, maxweather) {
 
-		var payout = 0;
+	var payout = 0;
 
-		function newPayout () {
-			payout = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
+	function newPayout () {
+		payout = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
 
-			if (payout <= 0) {
-				payout = 0;
-			}
+		if (payout <= 0) {
+			payout = 0;
+		}
 
-			else if (payout > 0) {
-				payout = parseInt(payout);
-			}
+		else if (payout > 0) {
+			payout = parseInt(payout);
+		}
 
-			return payout;
+		return payout;
 
-		};
+	};
 
-		newPayout();
-		newScore(payout);
-
-	}; // end of updateContinuous
-
-	// Reset crop values for new turn
-		game.cropchoice = "";
+	newPayout();
+	updateGame(payout);
 
 }; // End of updateGame function
 
@@ -1824,7 +1813,8 @@ function updateGame (arguments) { //this function is called and given arguments 
 			setTimeout(endGame, 1000);
 		}
 
-
+	// Reset crop values for new turn
+		game.cropchoice = "";
 };
 
 
