@@ -29,9 +29,6 @@ game = {
 	weatherReport : "",
 	meanHistoricWeather : 0,
 
-	// Arguments passed to updateGame
-	args: {},
-
 	// Set number of turns per game
     maxturn : 50,
 	//Turn Counter
@@ -1362,22 +1359,13 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	var rainOpacity;
 	var sunOpacity;
 
-	// Call the appropriate functions
-	if (gameVersion.discreteWeather === true) {
-
-	}
-
-	else {
-
-	}
-
 	//Show weather results line on graph ("resultsLine")
 	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
 
 
-	function weatherOpacity () {
+	function weatherOpacity (gameVersion) {
 
-		function discreteWeatherOpacity () {
+		function discrete () {
 			if (game.gameWeather[game.turn] === "Wet") {
 				rainOpacity = 1, sunOpacity = 0;
 			}
@@ -1390,7 +1378,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 		};
 
-		function continuousWeatherOpacity () {
+		function continuous () {
 			if (game.gameWeather[game.turn] >= game.continuous.gameRoots.topRoot) {
 				rainOpacity = 1, sunOpacity = 0;
 				//console.log(rainOpacity, sunOpacity);
@@ -1409,25 +1397,32 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				//console.log(rainOpacity, sunOpacity);
 			}
 
-			return rainOpacity, sunOpacity;
 		};
+
+		if (gameVersion === "discrete") {
+			discrete();
+		}
+
+		else {
+			continuous();
+		}
+
+		// feed correct opacity to displayWeather (discrete version: 1 or 0, continuous version: interpolated)
+		function displayWeather (displayRain, displaySun) {
+
+			$("#rain").addClass("displayWeather").removeClass("hidden").animate({opacity: displayRain});
+			$("#sun").addClass("displayWeather").removeClass("hidden").animate({opacity: displaySun});
+			//alert("rain opacity is: " + rainOpacity + " sun opacity is: " + sunOpacity);
+		};
+
+		displayWeather(rainOpacity, sunOpacity);
 
 	}; // end of weatherOpacity()
 
-	// feed correct opacity to displayWeather (discrete version: 1 or 0, continuous version: interpolated)
-	function displayWeather (displayRain, displaySun) {
-		weatherOpacity();
 
-		$("#rain").addClass("displayWeather").removeClass("hidden").animate({opacity: displayRain});
-		$("#sun").addClass("displayWeather").removeClass("hidden").animate({opacity: displaySun});
-		//alert("rain opacity is: " + rainOpacity + " sun opacity is: " + sunOpacity);
-	};
+	function weatherGraphics (gameVersion) {
 
-	displayWeather(rainOpacity, sunOpacity);
-
-	function weatherGraphics () {
-
-		function discreteWeather () {
+		function discrete () {
 
 			var payout = 0;
 
@@ -1477,9 +1472,11 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			updateDiscrete(payout);
 		};
 
-		function continuousWeather () {
+		function continuous () {
 			// A. Crop A outcomes
 			if (game.cropchoice === "cropA") {
+
+				updateContinuous(betaA, maxApayout, maxAweather); // call updateGame with values for crop A
 
 			// A1. game.gameWeather is wet
 				//A1.i Wet game.gameWeather is "wet" (wetter than normal)
@@ -1516,12 +1513,12 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					$("#rowsCropA").removeClass("hidden");
 					game.weatherReport = "optimal weather";
 				}
-
-				updateContinuous(betaA, maxApayout, maxAweather); // call updateGame with values for crop A
 			}
 
 			// 2. Crop B outcomes
 			else if (game.cropchoice === "cropB") {
+
+				updateContinuous(betaB, maxBpayout, maxBweather); // call updateGame with values for crop B
 
 			// B1. game.gameWeather is wet
 
@@ -1558,10 +1555,9 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					$("#rowsCropB").removeClass("hidden");
 					game.weatherReport = "optimal weather";
 				}
-
-				updateContinuous(betaB, maxBpayout, maxBweather); // call updateGame with values for crop A // call updateGame with values for crop B
 			}
 		}; // end of continuousWeather()
+
 	}; //end of weatherGraphics()
 
 	// fadeWeather: For both versions of game
@@ -1576,6 +1572,17 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	   	$(".jqplot-overlayCanvas-canvas").css('z-index', '-1'); //resets graph resultsLine to hidden
 	};
 
+	// Call the appropriate functions
+	if (gameVersion.discreteWeather === true) {
+		weatherOpacity(discrete);
+		weatherGraphics(discrete);
+	}
+
+	else {
+		weatherOpacity(continuous);
+		weatherGraphics(continuous);
+	}
+
 	setTimeout(fadeWeather, 4000);
 
 }; // end of weatherResults
@@ -1585,9 +1592,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 function updateDiscrete (payout) {
 
-
-
 	updateGame(payout);
+	console.log("Discrete payout: " + payout);
 
 	//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 
@@ -1602,24 +1608,18 @@ function updateDiscrete (payout) {
 function updateContinuous (beta, maxpayout, maxweather) {
 
 	var payout = 0;
+	var formula = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
 
-	function newPayout () {
-		payout = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
-
-		if (payout <= 0) {
+		if (formula <= 0) {
 			payout = 0;
 		}
 
-		else if (payout > 0) {
-			payout = parseInt(payout);
+		else if (formula > 0) {
+			payout = parseInt(formula);
 		}
 
-		return payout;
-
-	};
-
-	newPayout();
 	updateGame(payout);
+	console.log("continuous payout: " + payout);
 
 }; // End of updateGame function
 
