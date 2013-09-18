@@ -1518,19 +1518,19 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			// 2. Crop B outcomes
 			else if (game.cropchoice === "cropB") {
 
-				updateContinuous(betaB, maxBpayout, maxBweather); // call updateGame with values for crop B
+				updateContinuous(game.continous.betaB, game.continuous.maxBpayout, game.continuous.maxBweather); // call updateGame with values for crop B
 
 			// B1. game.gameWeather is wet
 
 				//B1.i Wet game.gameWeather is wet
-				if (game.gameWeather[game.turn] < game.continous.maxBweather + Math.sqrt(game.continous.maxBpayout/(-game.continous.betaA)) && game.gameWeather[game.turn] >= game.continous.maxBweather + .33*Math.sqrt(game.continous.maxBpayout/(-game.betaB)) ) {
+				if (game.gameWeather[game.turn] < game.continous.maxBweather + Math.sqrt(game.continous.maxBpayout/(-game.continous.betaA)) && game.gameWeather[game.turn] >= game.continous.maxBweather + .33*Math.sqrt(game.continous.maxBpayout/(-game.continous.betaB)) ) {
 					game.weatherReport = "wet enough";
 					//display healthy crop B (range of normal)
 					$("#wetB").removeClass("hidden");
 				}
 
 				//B1.ii Wet game.gameWeather is too wet
-				else if (game.gameWeather[game.turn] >= game.continous.maxBweather + Math.sqrt(game.continous.maxBpayout/(-game.betaB))) {
+				else if (game.gameWeather[game.turn] >= game.continous.maxBweather + Math.sqrt(game.continous.maxBpayout/(-game.continous.betaB))) {
 					game.weatherReport = "too wet";
 					$("#deadBwet").removeClass("hidden");
 				}
@@ -1544,14 +1544,14 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				}
 
 				//B2.ii Dry game.gameWeather is too dry
-				else if (game.gameWeather[game.turn] < game.continous.maxBweather - Math.sqrt(game.continous.maxBpayout/(-game.betaB))) {
+				else if (game.gameWeather[game.turn] < game.continous.maxBweather - Math.sqrt(game.continous.maxBpayout/(-game.continuous.betaB))) {
 					game.weatherReport = "too dry";
 					$("#deadBdry").removeClass("hidden");
 				}
 
 
 			//B3 Weather is in normal range
-				else if (game.gameWeather[game.turn] < (game.continous.maxBweather + .33*Math.sqrt(game.continous.maxBpayout/(-game.continous.betaA))) && game.gameWeather[game.turn] >= (game.continous.maxBweather - .33*Math.sqrt(game.continous.maxBpayout/(-game.betaB)))) {
+				else if (game.gameWeather[game.turn] < (game.continous.maxBweather + .33*Math.sqrt(game.continous.maxBpayout/(-game.continous.betaA))) && game.gameWeather[game.turn] >= (game.continous.maxBweather - .33*Math.sqrt(game.continous.maxBpayout/(-game.continous.betaB)))) {
 					$("#rowsCropB").removeClass("hidden");
 					game.weatherReport = "optimal weather";
 				}
