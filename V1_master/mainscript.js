@@ -1428,54 +1428,52 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 		function discreteWeather () {
 
+			var payout = 0;
+
 		// User chose crop A
 			if (game.cropchoice == "cropA" && game.gameWeather[game.turn] == "Dry") {
 
 				game.weatherResults = "sunny";
-				game.args.payout = game.discrete.payoutAdry;
+				payout = game.discrete.payoutAdry;
 				displaySun();
 				$("#deadA").removeClass("hidden");
-				//updateGame(payoutAdry);
-				//setTimeout(function () { $("#deadA").addClass("hidden"); }, 3500);
+				return payout;
 			}
 
 			else if (game.cropchoice == "cropA" && game.gameWeather[game.turn] == "Wet") {
 
 				weatherResults = "rainy";
-				game.args.payout = game.discrete.payoutAwet;
+				payout = game.discrete.payoutAwet;
 				displayRain();
 				$("#rowsCropA").removeClass("hidden");
-				//updateGame(payoutAwet);
-				//setTimeout(function () {$("#rowsCropA").addClass("hidden");}, 3500);
+				return payout;
 			}
 
 		// User chose crop B
 			else if (game.cropchoice == "cropB" && game.gameWeather[game.turn] == "Dry") {
 
 				weatherResults = "sunny";
-				game.args.payout = game.discrete.payoutBdry;
+				payout = game.discrete.payoutBdry;
 				displaySun();
 				$("#deadB").removeClass("hidden");
-				//updateGame(payoutBdry);
-				//setTimeout(function () {$("#deadB").addClass("hidden");}, 3500);
+				return payout;
 
 			}
 
 			else if (game.cropchoice == "cropB" && game.gameWeather[game.turn] == "Wet"){
 
 				weatherResults = "rainy";
-				game.args.payout = game.discrete.payoutBwet;
+				payout = game.discrete.payoutBwet;
 				displayRain();
 				$("#rowsCropB").removeClass("hidden");
-				//updateGame(payoutBwet);
-				//setTimeout(function () {$("#rowsCropB").addClass("hidden");}, 3500);
+				return payout;
 			}
 
 			else {
 				alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
 			}
 
-			updateGame(args);
+			updateDiscrete(payout);
 		};
 
 		function continuousWeather () {
