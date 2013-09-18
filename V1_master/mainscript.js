@@ -1517,9 +1517,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					game.weatherReport = "optimal weather";
 				}
 
-				updateContinuous(betaA, maxApayout, maxAweather);); // call updateGame with values for crop A
+				updateContinuous(betaA, maxApayout, maxAweather); // call updateGame with values for crop A
 			}
-
 
 			// 2. Crop B outcomes
 			else if (game.cropchoice === "cropB") {
