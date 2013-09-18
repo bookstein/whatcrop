@@ -682,7 +682,7 @@ $(function initializeGame (gameVersionObject) {
 			var maxX = [upperBoundX+100];
 			var maxY = [upperBoundY+20];
 			//var ticksX = [[0, "0"], [game.maxAweather, game.maxAweather], [game.maxBweather, game.maxBweather], [maxX, maxX]];
-			var ticksY = [[0, ""], [game.maxApayout, game.maxApayout], [game.maxBpayout, game.maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
+			var ticksY = [[0, ""], [game.continuous.maxApayout, game.continuous.maxApayout], [game.continuous.maxBpayout, game.continuous.maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
 			var ticksWeatherX = [[]];
 			var ticksWeatherY = [];
 
@@ -1064,8 +1064,8 @@ $(function initializeGame (gameVersionObject) {
 			//Strategy: if the difference between the optimal value of the crop is closest to game.gameWeather, choose that crop at the optimal crop for that turn
 				for (var i = 0; i < game.maxturn; i++) {
 
-					var Adiff = game.gameWeather[i] - game.maxAweather;
-					var Bdiff = game.gameWeather[i] - game.maxBweather;
+					var Adiff = game.gameWeather[i] - game.continuous.maxAweather;
+					var Bdiff = game.gameWeather[i] - game.continuous.maxBweather;
 
 					if (Math.abs(Adiff) < Math.abs(Bdiff)) {
 						optimalCrops[i] = "cropA";
@@ -1480,7 +1480,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 			// A1. game.gameWeather is wet
 				//A1.i Wet game.gameWeather is "wet" (wetter than normal)
-				if (game.gameWeather[game.turn] < game.continuous.maxAweather + Math.sqrt(game.maxApayout/(-game.continous.betaA)) && game.gameWeather[game.turn] >= game.continous.maxAweather + .33*Math.sqrt(game.continous.maxApayout/(-game.continous.betaA)) ) {
+				if (game.gameWeather[game.turn] < game.continuous.maxAweather + Math.sqrt(game.continuous.maxApayout/(-game.continous.betaA)) && game.gameWeather[game.turn] >= game.continous.maxAweather + .33*Math.sqrt(game.continous.maxApayout/(-game.continous.betaA)) ) {
 					game.weatherReport = "wet enough";
 					$("#wetA").removeClass("hidden");
 				}
