@@ -1476,7 +1476,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			// A. Crop A outcomes
 			if (game.cropchoice === "cropA") {
 
-				updateContinuous(betaA, maxApayout, maxAweather); // call updateGame with values for crop A
+				updateContinuous(game.continuous.betaA, game.continuous.maxApayout, game.continous.maxAweather); // call updateGame with values for crop A
 
 			// A1. game.gameWeather is wet
 				//A1.i Wet game.gameWeather is "wet" (wetter than normal)
@@ -1558,6 +1558,16 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			}
 		}; // end of continuousWeather()
 
+		if (gameVersion === "discrete") {
+			discrete();
+			console.log("Running the discrete version of weatherGraphics");
+		}
+
+		else {
+			continuous();
+			console.log("Running the continuous version of weatherGraphics");
+		}
+
 	}; //end of weatherGraphics()
 
 	// fadeWeather: For both versions of game
@@ -1574,13 +1584,15 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 	// Call the appropriate functions
 	if (gameVersion.discreteWeather === true) {
-		weatherOpacity(discrete);
-		weatherGraphics(discrete);
+		weatherOpacity("discrete");
+		weatherGraphics("discrete");
+		console.log("Calling discrete functions");
 	}
 
 	else {
-		weatherOpacity(continuous);
-		weatherGraphics(continuous);
+		weatherOpacity("continuous");
+		weatherGraphics("continuous");
+		console.log("Calling continuous functions");
 	}
 
 	setTimeout(fadeWeather, 4000);
