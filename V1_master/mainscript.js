@@ -1585,41 +1585,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 function updateDiscrete (payout) {
 
-	var oldscore = score;
-	var newscore = oldscore + payout;
 
-// MOVE INTO OUTSIDE FUNCTION?
-	//populate spans inside results dialogs
-    $(".results").find("#weather_outcome").text(gameWeather[turn]);
-    $(".results").find("#new_score").text(payout);
-
-	// bonus dialogs
-	if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
-		$("#bonus_results").dialog("open");
-		$("#bonus_count").text("$" + bonusOneDollars);
-		addBonus1();
-	}
-
-	else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
-		$("#bonus_results").dialog("open");
-		$("#bonus_count").text("$" + bonusTwoDollars);
-		addBonus2();
-	}
-
-	//end game dialog
-	else if (turn === maxturn) {
-		$("#end_results").dialog("open");
-		$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
-		$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
-		// $("#playerID") //need Tony's work on this
-	}
-
-	//normal results dialogs
-	else {
-		$("#normal_results").dialog("open");
-	}
-
-	setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
 
 	updateGame(payout);
 
@@ -1657,9 +1623,12 @@ function updateContinuous (beta, maxpayout, maxweather) {
 
 }; // End of updateGame function
 
-function updateGame (arguments) { //this function is called and given arguments inside weatherResults function above
+function updateGame (payout) { //this function is called and given arguments inside weatherResults function above
 
 	// Functions shared by both versions
+
+	var oldscore = game.score;
+	var newscore = oldscore + payout;
 
 	function displayResultsDialog () {
 
@@ -1676,16 +1645,39 @@ function updateGame (arguments) { //this function is called and given arguments 
 	    });
 
 		//populate spans inside all results dialogs
-	    $(".results").find("#weather_outcome").text(parseInt(game.gameWeather[game.turn]));
+	    $(".results").find("#weather_outcome").text(game.gameWeather[game.turn]);
     	$(".results").find("#new_score").text(payout);
     	$(".results").find("#weather_report").text(game.weatherReport);
     	$(".results").find("#chosen_crop").text(game.cropchoice);
 
-	    $("#normal_results").dialog("open");
+		// bonus dialogs
+		if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
+			$("#bonus_results").dialog("open");
+			$("#bonus_count").text("$" + bonusOneDollars);
+			addBonus1();
+		}
 
-		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
+		else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
+			$("#bonus_results").dialog("open");
+			$("#bonus_count").text("$" + bonusTwoDollars);
+			addBonus2();
+		}
 
-	};
+		//end game dialog
+		else if (turn === maxturn) {
+			$("#end_results").dialog("open");
+			$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
+			$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
+			// $("#playerID") //need Tony's work on this
+		}
+
+		//normal results dialogs
+		else {
+			$("#normal_results").dialog("open");
+		}
+
+		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
+	}; // end of displayResultsDialog()
 
 	//displayResultsDialog(); <-- call this inside each update function
 
