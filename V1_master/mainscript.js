@@ -64,8 +64,8 @@ game = {
 		// Set rain threshold
 		threshold: 600,
 		// Bonus thresholds, determined by code below
-		firstBonusThreshold : 0, //formerly totalRandomPoints
-		secondBonusThreshold : 0, //formerly totalOptimalPoints
+		bonusOneTotal : 0, //formerly totalRandomPoints
+		bonusTwoTotal : 0, //formerly totalOptimalPoints
 		// Indifference point (at which crops A and B are equally good choices)
 		// and indifferentTurn (turn at which indiff point is reached)
 		// Values calculated below
@@ -81,7 +81,7 @@ game = {
 		// Change the percentage of maxScore using firstBonusThreshold and secondBonusThreshold
 		firstBonusThreshold: .75,
 		secondBonusThreshold: .90,
-		// bonusOneTotal, bonusTwoTotal are calculated below using the percentages above
+		// actual bonus points -- bonusOneTotal, bonusTwoTotal -- are calculated below using the percentages above
 		bonusOneTotal: 0,
 		bonusTwoTotal: 0,
 		// Continuous weather crop payouts -- enter here
@@ -370,7 +370,7 @@ $(function initializeGame (gameVersionObject) {
 		findTurnAtIndifferencePoint();
 		calculateProbabilityDry();
 
-		// firstBonusThreshold is total number of points expected with random play
+		// BonusOneTotal is total number of points expected with random play
 
 		function calculateRandomPlayPoints () { //expected points earned by picking A or B randomly
 
@@ -381,14 +381,14 @@ $(function initializeGame (gameVersionObject) {
 			}
 
 			for (var i = 0; i < game.maxturn; i++) {
-				game.discrete.firstBonusThreshold += parseInt(randomPoints[i]);
+				game.discrete.bonusOneTotal += parseInt(randomPoints[i]);
 			}
 
-			return game.discrete.firstBonusThreshold;
+			return game.discrete.bonusOneTotal;
 		};
 
 		calculateRandomPlayPoints();
-		console.log("The first bonus will trigger at " + game.discrete.firstBonusThreshold + " points");
+		console.log("The first bonus will trigger at " + game.discrete.bonusOneTotal + " points");
 
 		// Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
 
@@ -396,7 +396,7 @@ $(function initializeGame (gameVersionObject) {
 		optimalChoice1 = [];
 		optimalChoice2 = [];
 
-		// secondBonusThreshold is the number of points expected with optimal play
+		// bonusTwoTotal is the number of points expected with optimal play
 
 		for (var i = 0; i <= game.maxturn; ++i) {
 			optimalChoice1[i] = 0;
@@ -461,12 +461,12 @@ $(function initializeGame (gameVersionObject) {
 
 			var total2 = sumtotal2();
 
-			//secondBonusThreshold is the sum of total optimal choice 1 + total optimal choice 2
-			game.discrete.secondBonusThreshold = parseInt(total1 + total2);
-			//alert("total optimal points: " + secondBonusThreshold);
+			//bonusTwoTotal is the sum of total optimal choice 1 + total optimal choice 2
+			game.discrete.bonusTwoTotal = parseInt(total1 + total2);
+			//alert("total optimal points: " + bonusTwoTotal);
 
-			console.log("The second bonus will trigger at " + game.discrete.secondBonusThreshold + " points");
-			return game.discrete.secondBonusThreshold;
+			console.log("The second bonus will trigger at " + game.discrete.bonusTwoTotal + " points");
+			return game.discrete.bonusTwoTotal;
 		};
 
 		calculateOptimalPlayPoints();
@@ -479,11 +479,11 @@ $(function initializeGame (gameVersionObject) {
 
 				$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 				$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
-				$("#bonus1value").text(game.discrete.firstBonusThreshold);
-				$("#bonus2value").text(game.discrete.secondBonusThreshold);
+				$("#bonus1value").text(game.discrete.bonusOneTotal);
+				$("#bonus2value").text(game.discrete.bonusTwoTotal);
 			};
 
-			bonusHeight(game.discrete.firstBonusThreshold, game.discrete.secondBonusThreshold);
+			bonusHeight(game.discrete.bonusOneTotal, game.discrete.bonusTwoTotal);
 
 	// Populate discrete opening dialogs
 
@@ -507,8 +507,8 @@ $(function initializeGame (gameVersionObject) {
 		$("#sun_probability").css("height", dryPercent);
 		$("#rain_probability").css("height", wetPercent);
 		//fills in bonus information
-		$("#bonus_one_instructions").text(game.discrete.firstBonusThreshold);
-		$("#bonus_two_instructions").text(game.discrete.secondBonusThreshold);
+		$("#bonus_one_instructions").text(game.discrete.bonusOneTotal);
+		$("#bonus_two_instructions").text(game.discrete.bonusTwoTotal);
 		//reveals crop payouts table in opening dialog and sidebar payout table
 		//$("#crop_payouts_table, #tablediv").removeClass("hidden");
 
@@ -1148,6 +1148,7 @@ $(function initializeGame (gameVersionObject) {
 			return game.continuous.bonusOneTotal, game.continuous.bonusTwoTotal;
 		};
 
+		// run bonusHeight using first and second bonus thresholds as input
 		bonusHeight(game.continuous.firstBonusThreshold, game.continuous.secondBonusThreshold);
 
 	// Populate continuous opening dialogs
@@ -1623,7 +1624,15 @@ function updateContinuous (beta, maxpayout, maxweather) {
 
 }; // End of updateGame function
 
-function updateGame (payout) { //this function is called and given arguments inside weatherResults function above
+function updateGame (payout, gameVersionObject) { //this function is called and given arguments inside weatherResults function above
+
+	if (gameVersion.discreteWeather === true) {
+		gameVersionObject="game.continuous"
+	}
+
+	else {
+		gameVersionObject="game.discrete"
+	}
 
 	// Functions shared by both versions
 
@@ -1651,20 +1660,20 @@ function updateGame (payout) { //this function is called and given arguments ins
     	$(".results").find("#chosen_crop").text(game.cropchoice);
 
 		// bonus dialogs
-		if (oldscore < totalRandomPoints && newscore >= totalRandomPoints) { //this only works now because I made totalRandomPoints global
+		if (oldscore < gameVersionObject.bonusOneTotal && newscore >= gameVersionObject.bonusOneTotal) { //this only works now because I made totalRandomPoints global
 			$("#bonus_results").dialog("open");
 			$("#bonus_count").text("$" + bonusOneDollars);
 			addBonus1();
 		}
 
-		else if (oldscore < totalOptimalPoints && newscore >= totalOptimalPoints) {
+		else if (oldscore < gameVersionObject.bonusTwoTotal && newscore >= gameVersionObject.bonusTwoTotal) {
 			$("#bonus_results").dialog("open");
 			$("#bonus_count").text("$" + bonusTwoDollars);
 			addBonus2();
 		}
 
 		//end game dialog
-		else if (turn === maxturn) {
+		else if (game.turn === maxturn) {
 			$("#end_results").dialog("open");
 			$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
 			$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
