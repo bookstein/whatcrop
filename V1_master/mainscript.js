@@ -1620,6 +1620,8 @@ function updateDiscrete (payout) {
 function updateContinuous (beta, maxpayout, maxweather) {
 
 	var payout = 0;
+
+	function calculatePayout () {
 	var formula = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
 
 		if (formula <= 0) {
@@ -1629,6 +1631,11 @@ function updateContinuous (beta, maxpayout, maxweather) {
 		else if (formula > 0) {
 			payout = parseInt(formula);
 		}
+
+		return payout;
+	};
+
+	calculatePayout();
 
 	updateGame(payout);
 	console.log("continuous payout: " + payout);
