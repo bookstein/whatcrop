@@ -1476,7 +1476,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			// A. Crop A outcomes
 			if (game.cropchoice === "cropA") {
 
-				updateContinuous(game.continuous.betaA, game.continuous.maxApayout, game.continous.maxAweather); // call updateGame with values for crop A
+				updateContinuous(game.continuous.betaA, game.continuous.maxApayout, game.continuous.maxAweather); // call updateGame with values for crop A
 
 			// A1. game.gameWeather is wet
 				//A1.i Wet game.gameWeather is "wet" (wetter than normal)
