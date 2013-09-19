@@ -815,6 +815,9 @@ $(function initializeGame (gameVersionObject) {
 			// variables containing all data to be plotted
 			game.plotData = [game.histogram, plotA, plotB];
 
+			// array holding canvasOverlay data
+			var lineArray = Array();
+
 			// Create options object for jqPlot graph using optionsObj and setOptions()
 			function setOptions (showData, showOverlay) {
 				game.optionsObj = {
@@ -975,7 +978,9 @@ $(function initializeGame (gameVersionObject) {
 						canvasOverlay: {
 			        		show: showOverlay,
 				            objects: [
-								{verticalLine: {
+
+				            	lineArray
+								/*{verticalLine: {
 				                	name: 'avgHistoricWeather',
 				                	x: game.meanHistoricWeather,
 				                	lineWidth: 2,
@@ -989,8 +994,8 @@ $(function initializeGame (gameVersionObject) {
 				                    lineWidth: 4,
 				                    color: 'rgb(255, 204, 51)',
 				                    shadow: false
-				                }}
-						]}, // end of canvasOverlay
+				                }}*/
+						]} // end of canvasOverlay
 
 					}; // end optionsObj object
 					return game.optionsObj;
@@ -998,6 +1003,15 @@ $(function initializeGame (gameVersionObject) {
 
 			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			function payoutChart () {
+				var lineArray.push( {
+					verticalLine:  {
+				                    name: 'resultsLine',
+				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+				                    lineWidth: 4,
+				                    color: 'rgb(255, 204, 51)',
+				                    shadow: false
+				                }
+						});
 				setOptions(true, false);
 				$.jqplot("crop_payouts_chart", game.plotData, game.optionsObj);
 			};
@@ -1318,7 +1332,7 @@ $(function initializeGame (gameVersionObject) {
   };
 
   //remove this function call when server functions are restored!!!
-
+/*
 
   function createGameOnServer() {
     return $.ajax(game.serverAddress + '/games', {
@@ -1357,7 +1371,7 @@ $(function initializeGame (gameVersionObject) {
       });
   };
 
-  bootstrap();
+  bootstrap();*/
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
@@ -1835,7 +1849,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 	};
 
 	//Record relevant data for the current turn
-	function recordData (game) {
+	/*function recordData (game) {
 	    var payload = {
 	      crop_choice: game.cropchoice,
 	      weather:     game.gameWeather[game.turn],
@@ -1890,7 +1904,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 
 	if (game.gameOver) {
 		setTimeout(endGame, 1000);
-	}
+	}*/
 
 	// Reset crop values for new turn
 	game.cropchoice = "";
