@@ -103,6 +103,8 @@ game = {
 	plotData: [],
 	historyPlot: {},
 	historicWeather : [] // Array values filled in using historicWeatherArray() below
+	// array holding canvasOverlay data for drawing vertical lines
+	lineArray: []
 
 }; //end of game object
 
@@ -815,9 +817,6 @@ $(function initializeGame (gameVersionObject) {
 			// variables containing all data to be plotted
 			game.plotData = [game.histogram, plotA, plotB];
 
-			// array holding canvasOverlay data for drawing vertical lines
-			var lineArray = [];
-
 			// Create options object for jqPlot graph using optionsObj and setOptions()
 			function setOptions (showData) {
 				game.optionsObj = {
@@ -979,7 +978,7 @@ $(function initializeGame (gameVersionObject) {
 			        		show: true,
 				            objects: [
 
-				            	lineArray
+				            	game.lineArray
 								/*{verticalLine: {
 				                	name: 'avgHistoricWeather',
 				                	x: game.meanHistoricWeather,
@@ -1010,9 +1009,9 @@ $(function initializeGame (gameVersionObject) {
 
 			// draw graph in #continuous_history (for intro dialog) using optionsObj above
 			function historyChart () {
-				$(".jqplot-overlayCanvas-canvas").css('z-index', '2');//send overlay canvas to front
+				$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
 				// populate canvasOverlay with the historic mean weather line
-				lineArray.push( {
+				game.lineArray.push( {
 						verticalLine: {
 					                	name: 'avgHistoricWeather',
 					                	x: game.meanHistoricWeather,
@@ -1032,8 +1031,8 @@ $(function initializeGame (gameVersionObject) {
 			//draw graph in sidebar #chartdiv using optionsObj above
 			function givensChart () {
 				//removes previous lineArray value
-				lineArray.pop();
-				lineArray.push({
+				game.lineArray.pop();
+				game.lineArray.push({
 					verticalLine: {
 				                    name: 'resultsLine',
 				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
