@@ -95,13 +95,15 @@ game = {
 			bottomRoot: 0
 		},
 		// Manually set climate change by turn, up to game.maxturn
-		climateArray : []
+		climateArray : [],
+
+		// Variable to store the payout graph that updates with weather results during the game
+		givensChart: {}
 	},
 
 	//for testing purposes
 	optionsObj: {},
 	plotData: [],
-	historyPlot: {},
 	historicWeather : [], // Array values filled in using historicWeatherArray() below
 	// array holding canvasOverlay data for drawing vertical lines
 	lineArray: []
@@ -1042,7 +1044,7 @@ $(function initializeGame (gameVersionObject) {
 				                }
 				});
 				setOptions("givensObj", true);
-				var givensChart = $.jqplot("chartdiv", game.plotData, game.optionsObj.givensObj);
+				game.continuous.givensChart = $.jqplot("chartdiv", game.plotData, game.optionsObj.givensObj);
 
 		}; //end of drawQuadratic()
 
