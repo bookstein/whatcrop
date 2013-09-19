@@ -102,7 +102,7 @@ game = {
 	optionsObj: {},
 	plotData: [],
 	historyPlot: {},
-	historicWeather : [] // Array values filled in using historicWeatherArray() below
+	historicWeather : [], // Array values filled in using historicWeatherArray() below
 	// array holding canvasOverlay data for drawing vertical lines
 	lineArray: []
 
@@ -818,8 +818,8 @@ $(function initializeGame (gameVersionObject) {
 			game.plotData = [game.histogram, plotA, plotB];
 
 			// Create options object for jqPlot graph using optionsObj and setOptions()
-			function setOptions (showData) {
-				game.optionsObj = {
+			function setOptions (objectName, showData) {
+				game.optionsObj[objectName] = {
 					      series:[
 					          {
 					          	// Weather
@@ -997,13 +997,13 @@ $(function initializeGame (gameVersionObject) {
 						]} // end of canvasOverlay
 
 					}; // end optionsObj object
-					return game.optionsObj;
+					return game.optionsObj[objectName];
 				}; //end function setOptions()
 
 			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			function payoutChart () {
 				//lineArray is empty for the opening dialog payout chart
-				setOptions(true);
+				setOptions("payoutObj", true);
 				$.jqplot("crop_payouts_chart", game.plotData, game.optionsObj);
 			};
 
@@ -1020,7 +1020,7 @@ $(function initializeGame (gameVersionObject) {
 					                	shadow: false
 					    }
 				});
-				setOptions(false);
+				setOptions("historyObj", false);
 				game.historyPlot = $.jqplot("continuous_history", [game.histogram], game.optionsObj);
 				/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
 				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
@@ -1041,7 +1041,7 @@ $(function initializeGame (gameVersionObject) {
 				                    shadow: false
 				                }
 				});
-				setOptions(true);
+				setOptions("givensObj", true);
 				$.jqplot("chartdiv", game.plotData, game.optionsObj);
 			};
 
