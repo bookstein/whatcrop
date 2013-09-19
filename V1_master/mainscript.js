@@ -1825,75 +1825,75 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 
 	// Call addBonus functions from displayResultsDialog function, triggered at same time as bonus dialogs
 	function addBonus1 () {
-		realDollars = bonusOneDollars; //change value of realDollars to bonusOne
-		$("#dollars_counter").html("$"+realDollars);
+		game.realDollars = game.bonusOneDollars; //change value of realDollars to bonusOne
+		$("#dollars_counter").html("$"+game.realDollars);
 	};
 
 	function addBonus2 () {
-		realDollars = bonusOneDollars + bonusTwoDollars;
-		$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
+		game.realDollars = game.bonusOneDollars + game.bonusTwoDollars;
+		$("#dollars_counter").html("$"+game.realDollars); //change value of realDollars to combined value of bonuses
 	};
 
-		//Record relevant data for the current turn
-		function recordData (game) {
-		    var payload = {
-		      crop_choice: game.cropchoice,
-		      weather:     game.gameWeather[game.turn],
-		      game_over:   game.gameOver,
-		      score:       payout
-		    };
+	//Record relevant data for the current turn
+	function recordData (game) {
+	    var payload = {
+	      crop_choice: game.cropchoice,
+	      weather:     game.gameWeather[game.turn],
+	      game_over:   game.gameOver,
+	      score:       payout
+	    };
 
-		    $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
-		      type: 'POST',
-		      dataType: 'json',
-		      data: payload
-		    }).success(function(data) {
-		      console.log('Round recorded successfully', data);
-		    }).fail(function(jqXHR, text, err) {
-		      console.log('Round record failed', jqXHR, text, err);
-		    });
-		};
+	    $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
+	      type: 'POST',
+	      dataType: 'json',
+	      data: payload
+	    }).success(function(data) {
+	      console.log('Round recorded successfully', data);
+	    }).fail(function(jqXHR, text, err) {
+	      console.log('Round record failed', jqXHR, text, err);
+	    });
+	};
 
-	    if (game.turn === game.maxturn) {
-	    	game.gameOver = true;
-	    }
+    if (game.turn === game.maxturn) {
+    	game.gameOver = true;
+    }
 
-		recordData(game);
+	recordData(game);
 
-		// If maxturn has been reached or exceeded, this function is called
-		function endGame () {
-			//call end-of-game dialog box
-			$("button #grow").addClass("hidden");
-			$("#sproutA").addClass("hidden");
-			$("#sproutB").addClass("hidden");
-			$("#playerID").text(game.gameID);
-			$("#total_score").text(score);
-			$("#total_dollars").text(realDollars);
-	 		$( "#end_results" ).dialog({
-		      autoOpen: false,
-		      modal: true,
-		      sticky: true,
-		      closeOnEscape: false,
-		          resizable: false,
-		          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
-		          stack: true,
-		          height: 'auto',
-		          width: '375',
-		          dialogClass: "no-close",
-		      buttons: [ { text: "OK",
-		        click: function() {
-		          $( this ).dialog( "close" );
-		        }
-		      } ]
-		    });
-		};
+	// If maxturn has been reached or exceeded, this function is called
+	function endGame () {
+		//call end-of-game dialog box
+		$("button #grow").addClass("hidden");
+		$("#sproutA").addClass("hidden");
+		$("#sproutB").addClass("hidden");
+		$("#playerID").text(game.gameID);
+		$("#total_score").text(score);
+		$("#total_dollars").text(realDollars);
+ 		$( "#end_results" ).dialog({
+	      autoOpen: false,
+	      modal: true,
+	      sticky: true,
+	      closeOnEscape: false,
+	          resizable: false,
+	          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+	          stack: true,
+	          height: 'auto',
+	          width: '375',
+	          dialogClass: "no-close",
+	      buttons: [ { text: "OK",
+	        click: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      } ]
+	    });
+	};
 
-		if (game.gameOver) {
-			setTimeout(endGame, 1000);
-		}
+	if (game.gameOver) {
+		setTimeout(endGame, 1000);
+	}
 
 	// Reset crop values for new turn
-		game.cropchoice = "";
+	game.cropchoice = "";
 };
 
 
