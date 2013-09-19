@@ -826,7 +826,7 @@ $(function initializeGame (gameVersionObject) {
 			function setOptions (objectName) {
 				game.optionsObj[objectName] = {
 					      series:[
-					          game.seriesObject
+					          game.seriesObject.objectName
 					      ],
 
 					      seriesColors: [
@@ -968,44 +968,37 @@ $(function initializeGame (gameVersionObject) {
 						]} // end of canvasOverlay
 
 					}; // end optionsObj object
-				return game.optionsObj[objectName];
-			}; //end function setOptions()
 
-			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
-			game.seriesObject["payouts"].push({
-							  {
-					      	    // CropA
-					      	    label: "Crop A",
-					            lineWidth: 2,
-					            showMarker: false,
-					            renderer:$.jqplot.LineRenderer,
-					            xaxis:'xaxis',
-					          	yaxis:'yaxis',
-					            show: !showData
-					          },
-					          {
-					            // CropB
-					            label: "Crop B",
-					            lineWidth: 2,
-					            showMarker: false,
-					            renderer:$.jqplot.LineRenderer,
-					            xaxis:'xaxis',
-					          	yaxis:'yaxis',
-					            show: !showData
-					          }
-					      });
-			game.colors.push({
-				"#820000", "#3811c9"
-			});
-			setOptions("payoutObj");
-			var payoutChart = $.jqplot("crop_payouts_chart", game.plotData, game.optionsObj.payoutObj);
-{
+				if (objectName === "payoutObj") {
+					game.seriesObject[objectName].push({
+								  {
+						      	    // CropA
+						      	    label: "Crop A",
+						            lineWidth: 2,
+						            showMarker: false,
+						            renderer:$.jqplot.LineRenderer,
+						            xaxis:'xaxis',
+						          	yaxis:'yaxis',
+						            show: true
+						          },
+						          {
+						            // CropB
+						            label: "Crop B",
+						            lineWidth: 2,
+						            showMarker: false,
+						            renderer:$.jqplot.LineRenderer,
+						            xaxis:'xaxis',
+						          	yaxis:'yaxis',
+						            show: true
+						          }
+					});
+					game.colors[objectName].push({
+									"#820000", "#3811c9"
+					});
+				}
 
-			// draw graph in #continuous_history (for intro dialog) using optionsObj above
-
-				$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
-				// populate canvasOverlay with the historic mean weather line
-				game.seriesObject.push({
+				else if (objectName === "historyObj") {
+					game.seriesObject["historyObj"].push({
 								// Weather
 					          	label: "Weather",
 					          	showMarker: false,
@@ -1022,7 +1015,7 @@ $(function initializeGame (gameVersionObject) {
 					          	yaxis:'yaxis',
 					          	show: true
 					          });
-				game.lineArray.push( {
+					game.lineArray[objectName].push( {
 						verticalLine: {
 					                	name: 'avgHistoricWeather',
 					                	x: game.meanHistoricWeather,
@@ -1030,34 +1023,47 @@ $(function initializeGame (gameVersionObject) {
 					                	color: '#565347', //gray
 					                	shadow: false
 					    }
-				});
-				game.colors.push({
-					//historic weather
-					"rgba(152, 152, 152, .7)"
-				});
-				setOptions("historyObj", false);
-				var historyChart = $.jqplot("continuous_history", [game.histogram], game.optionsObj.historyObj);
-				/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
-				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
-				$("#continuous_history").width(w).height(h);
-				//historyPlot.replot();*/
+					});
+					game.colors[objectName].push({
+						//historic weather
+						"rgba(152, 152, 152, .7)"
+					});
+				}
 
-
-			//draw graph in sidebar #chartdiv using optionsObj above
-
-				//removes previous lineArray value
-				game.lineArray.pop();
-				game.lineArray.push({
-					verticalLine: {
+				else if (objectName==="givensObj") {
+					game.lineArray[objectName].pop();
+					game.lineArray[objectName].push({
+						verticalLine: {
 				                    name: 'resultsLine',
 				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
 				                    lineWidth: 4,
 				                    color: 'rgb(255, 204, 51)',
 				                    shadow: false
 				                }
-				});
-				setOptions("givensObj", true);
-				game.continuous.givensChart = $.jqplot("chartdiv", game.plotData, game.optionsObj.givensObj);
+					});
+				}
+				return game.optionsObj[objectName];
+			}; //end function setOptions()
+
+	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
+			setOptions("payoutObj");
+			var payoutChart = $.jqplot("crop_payouts_chart", game.plotData, game.optionsObj.payoutObj);
+
+	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
+
+			$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
+			// populate canvasOverlay with the historic mean weather line
+			setOptions("historyObj");
+			var historyChart = $.jqplot("continuous_history", [game.histogram], game.optionsObj.historyObj);
+			/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
+			var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
+			$("#continuous_history").width(w).height(h);
+			//historyPlot.replot();*/
+
+
+	//CHART 3: draw graph in sidebar #chartdiv using optionsObj above
+			setOptions("givensObj");
+			game.continuous.givensChart = $.jqplot("chartdiv", game.plotData, game.optionsObj.givensObj);
 
 		}; //end of drawQuadratic()
 
