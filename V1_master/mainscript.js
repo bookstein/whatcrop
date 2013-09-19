@@ -1320,7 +1320,6 @@ $(function initializeGame (gameVersionObject) {
   //remove this function call when server functions are restored!!!
 
 
-  /*
   function createGameOnServer() {
     return $.ajax(game.serverAddress + '/games', {
       type: 'POST',
@@ -1358,7 +1357,7 @@ $(function initializeGame (gameVersionObject) {
       });
   };
 
-  bootstrap();*/
+  bootstrap();
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
