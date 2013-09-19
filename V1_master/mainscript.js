@@ -950,26 +950,26 @@ $(function initializeGame (gameVersionObject) {
 			      			}
 			    		  }, // axes
 
-				      	canvasOverlay: {
-			        		show: showOverlay, // turn this on and off to show results
+						canvasOverlay: {
+			        		show: showOverlay,
 				            objects: [
-				                {verticalLine: {
-				                    name: 'resultsLine',
-				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
-				                    lineWidth: 4,
-				                    color: 'rgb(255, 204, 51)',
-				                    shadow: false
-				                }},
-
 								{verticalLine: {
 				                	name: 'avgHistoricWeather',
 				                	x: game.meanHistoricWeather,
 				                	lineWidth: 2,
 				                	color: '#565347', //gray
 				                	shadow: false
-				                }}
+				                }},
 
-						]} // end of canvasOverlay
+				                {verticalLine: {
+				                    name: 'resultsLine',
+				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+				                    lineWidth: 4,
+				                    color: 'rgb(255, 204, 51)',
+				                    shadow: false
+				                }}
+						]}, // end of canvasOverlay
+
 					}; // end optionsObj object
 					return game.optionsObj;
 				}; //end function setOptions()
@@ -992,7 +992,7 @@ $(function initializeGame (gameVersionObject) {
 
 			//draw graph in sidebar #chartdiv using optionsObj above
 			function givensChart () {
-				setOptions(true, true);
+				setOptions(true, false);
 				$.jqplot("chartdiv", game.plotData, game.optionsObj);
 			};
 
