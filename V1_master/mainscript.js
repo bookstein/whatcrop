@@ -823,7 +823,7 @@ $(function initializeGame (gameVersionObject) {
 			game.plotData = [game.histogram, plotA, plotB];
 
 			// Create options object for jqPlot graph using optionsObj and setOptions()
-			function setOptions (objectName) {
+			function setOptions (objectName, showData) {
 
 				game.optionsObj[objectName] = {
 					      series:[
@@ -1049,14 +1049,14 @@ $(function initializeGame (gameVersionObject) {
 			}; //end function setOptions()
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
-			setOptions("payoutObj");
+			setOptions("payoutObj", true);
 			var payoutChart = $.jqplot("crop_payouts_chart", game.plotData, game.optionsObj.payoutObj);
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
 
 			$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
 			// populate canvasOverlay with the historic mean weather line
-			setOptions("historyObj");
+			setOptions("historyObj", false);
 			var historyChart = $.jqplot("continuous_history", [game.histogram], game.optionsObj.historyObj);
 			/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
 			var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
@@ -1065,7 +1065,7 @@ $(function initializeGame (gameVersionObject) {
 
 
 	//CHART 3: draw graph in sidebar #chartdiv using optionsObj above
-			setOptions("givensObj");
+			setOptions("givensObj", true);
 			game.continuous.givensChart = $.jqplot("chartdiv", game.plotData, game.optionsObj.givensObj);
 
 		}; //end of drawQuadratic()
