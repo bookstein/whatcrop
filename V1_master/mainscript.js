@@ -943,7 +943,7 @@ $(function initializeGame (gameVersionObject) {
 				setOptions(true, false);
 				$.jqplot("crop_payouts_chart", game.plotData, game.optionsObj);
 			};
-/*
+
 			// draw graph in #continuous_history (for intro dialog) using optionsObj above
 			function historyChart () {
 				setOptions(false, true);
@@ -959,10 +959,10 @@ $(function initializeGame (gameVersionObject) {
 				setOptions(true, true);
 				$.jqplot("chartdiv", game.plotData, game.optionsObj);
 			};
-*/
+
 			payoutChart();
-			//historyChart();
-			//givensChart();
+			historyChart();
+			givensChart();
 			console.log("optionsObj: " + game.optionsObj);
 
 		}; //end of drawQuadratic()
@@ -1762,7 +1762,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 
 		return game.score; //this updates the value of game score
 
-	}; //end of function newScore <-- call newScore from individual functions
+	}; //end of function newScore
 
 	newScore();
 
