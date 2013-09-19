@@ -743,7 +743,7 @@ $(function initializeGame (gameVersionObject) {
 						}
 
 						count = scaleCount;
-						console.log("scaleCount is " + scaleCount);
+						//console.log("scaleCount is " + scaleCount);
 					};
 
 					scaleToYaxis();
@@ -959,7 +959,16 @@ $(function initializeGame (gameVersionObject) {
 				                    lineWidth: 4,
 				                    color: 'rgb(255, 204, 51)',
 				                    shadow: false
+				                }},
+
+								{verticalLine: {
+				                	name: 'avgHistoricWeather',
+				                	x: game.meanHistoricWeather,
+				                	lineWidth: 2,
+				                	color: '#565347', //gray
+				                	shadow: false
 				                }}
+
 						]} // end of canvasOverlay
 					}; // end optionsObj object
 					return game.optionsObj;
