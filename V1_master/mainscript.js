@@ -824,9 +824,10 @@ $(function initializeGame (gameVersionObject) {
 
 			// Create options object for jqPlot graph using optionsObj and setOptions()
 			function setOptions (objectName) {
+
 				game.optionsObj[objectName] = {
 					      series:[
-					          game.seriesObject.objectName
+					          game.seriesObject[objectName]
 					      ],
 
 					      seriesColors: [
@@ -949,7 +950,7 @@ $(function initializeGame (gameVersionObject) {
 			        		show: true,
 				            objects: [
 
-				            	game.lineArray
+				            	game.lineArray[objectName]
 								/*{verticalLine: {
 				                	name: 'avgHistoricWeather',
 				                	x: game.meanHistoricWeather,
@@ -970,8 +971,9 @@ $(function initializeGame (gameVersionObject) {
 					}; // end optionsObj object
 
 				if (objectName === "payoutObj") {
-					game.seriesObject[objectName].push({
-								  {
+					game.seriesObject[objectName] = {};
+					game.seriesObject.objectName = {
+									"series1" : {
 						      	    // CropA
 						      	    label: "Crop A",
 						            lineWidth: 2,
@@ -981,7 +983,7 @@ $(function initializeGame (gameVersionObject) {
 						          	yaxis:'yaxis',
 						            show: true
 						          },
-						          {
+						          "series2" : {
 						            // CropB
 						            label: "Crop B",
 						            lineWidth: 2,
@@ -991,14 +993,14 @@ $(function initializeGame (gameVersionObject) {
 						          	yaxis:'yaxis',
 						            show: true
 						          }
-					});
-					game.colors[objectName].push({
+					};
+					/*game.colors[objectName].push({
 									"#820000", "#3811c9"
-					});
+					});*/
 				}
 
 				else if (objectName === "historyObj") {
-					game.seriesObject["historyObj"].push({
+					/*game.seriesObject["historyObj"].push({
 								// Weather
 					          	label: "Weather",
 					          	showMarker: false,
@@ -1027,11 +1029,11 @@ $(function initializeGame (gameVersionObject) {
 					game.colors[objectName].push({
 						//historic weather
 						"rgba(152, 152, 152, .7)"
-					});
+					});*/
 				}
 
 				else if (objectName==="givensObj") {
-					game.lineArray[objectName].pop();
+					/*game.lineArray[objectName].pop();
 					game.lineArray[objectName].push({
 						verticalLine: {
 				                    name: 'resultsLine',
@@ -1040,8 +1042,9 @@ $(function initializeGame (gameVersionObject) {
 				                    color: 'rgb(255, 204, 51)',
 				                    shadow: false
 				                }
-					});
+					});*/
 				}
+
 				return game.optionsObj[objectName];
 			}; //end function setOptions()
 
