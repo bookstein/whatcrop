@@ -860,7 +860,7 @@ $(function initializeGame (gameVersionObject) {
 			      			},*/
 
 			      			y2axis:{
-			      				label: "Occurrences",
+			      				label: "Frequency",
 			     				labelOptions: {
 	            					show: !showData,
 	            					fontSize: '11pt'
@@ -948,10 +948,10 @@ $(function initializeGame (gameVersionObject) {
 			function historyChart () {
 				setOptions(false, true);
 				game.historyPlot = $.jqplot("continuous_history", [histogram], game.optionsObj);
-				var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
+				/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
 				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
 				$("#continuous_history").width(w).height(h);
-				//historyPlot.replot();
+				//historyPlot.replot();*/
 			};
 
 			//draw graph in sidebar #chartdiv using optionsObj above
@@ -963,7 +963,7 @@ $(function initializeGame (gameVersionObject) {
 			payoutChart();
 			historyChart();
 			givensChart();
-			console.log("optionsObj: " + game.optionsObj);
+			//console.log("optionsObj: " + game.optionsObj);
 
 		}; //end of drawQuadratic()
 
