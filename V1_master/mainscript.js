@@ -1638,7 +1638,6 @@ function updateContinuous (beta, maxpayout, maxweather) {
 	calculatePayout();
 
 	updateGame(payout);
-	console.log("continuous payout: " + payout);
 
 }; // End of updateContinuous function
 
@@ -1656,6 +1655,8 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 
 	var oldscore = game.score;
 	var newscore = oldscore + payout;
+	console.log("Update game payout: " + payout);
+	console.log("Old score is " + oldscore + ", new score is " + newscore);
 
 	function displayResultsDialog () {
 
@@ -1706,7 +1707,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
 	}; // end of displayResultsDialog()
 
-	//displayResultsDialog(); <-- call this inside each update function
+	//displayResultsDialog();
 
 	function addTurn () {
 		game.turn = game.turn + 1;
@@ -1715,7 +1716,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 
 	setTimeout(addTurn, 4000);
 
-	function newScore (payout) {
+	function newScore () {
 
 		function animatePoints () {
 
@@ -1756,11 +1757,16 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 		animatePoints();
 
 		game.score += payout;
+		console.log("game score is now " + game.score);
 		$("#point_count").html("<h5>" + game.score + "</h5>");
-		return game.score; //this updates the value of the global variable "score"
+
+		return game.score; //this updates the value of game score
 
 	}; //end of function newScore <-- call newScore from individual functions
 
+	newScore();
+
+	// Call addBonus functions from displayResultsDialog function, triggered at same time as bonus dialogs
 	function addBonus1 () {
 		realDollars = bonusOneDollars; //change value of realDollars to bonusOne
 		$("#dollars_counter").html("$"+realDollars);
