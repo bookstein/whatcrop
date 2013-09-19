@@ -816,7 +816,7 @@ $(function initializeGame (gameVersionObject) {
 			game.plotData = [game.histogram, plotA, plotB];
 
 			// array holding canvasOverlay data
-			var lineArray = Array();
+			var lineArray = [];
 
 			// Create options object for jqPlot graph using optionsObj and setOptions()
 			function setOptions (showData, showOverlay) {
@@ -1003,21 +1003,24 @@ $(function initializeGame (gameVersionObject) {
 
 			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			function payoutChart () {
-				var lineArray.push( {
-					verticalLine:  {
-				                    name: 'resultsLine',
-				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
-				                    lineWidth: 4,
-				                    color: 'rgb(255, 204, 51)',
-				                    shadow: false
-				                }
-						});
+				//lineArray is empty for the opening dialog payout chart
 				setOptions(true, false);
 				$.jqplot("crop_payouts_chart", game.plotData, game.optionsObj);
 			};
 
 			// draw graph in #continuous_history (for intro dialog) using optionsObj above
 			function historyChart () {
+				$(".jqplot-overlayCanvas-canvas").css('z-index', '2');//send overlay canvas to front
+				// populate canvasOverlay with the historic mean weather line
+				lineArray.push( {
+						verticalLine: {
+					                	name: 'avgHistoricWeather',
+					                	x: game.meanHistoricWeather,
+					                	lineWidth: 2,
+					                	color: '#565347', //gray
+					                	shadow: false
+					    }
+				});
 				setOptions(false, true);
 				game.historyPlot = $.jqplot("continuous_history", [game.histogram], game.optionsObj);
 				/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
@@ -1028,6 +1031,16 @@ $(function initializeGame (gameVersionObject) {
 
 			//draw graph in sidebar #chartdiv using optionsObj above
 			function givensChart () {
+				//removes previous lineArray value
+				lineArray.pop();
+				lineArray.push({
+					verticalLine: {
+				                    name: 'resultsLine',
+				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+				                    lineWidth: 4,
+				                    color: 'rgb(255, 204, 51)',
+				                    shadow: false
+				});
 				setOptions(true, false);
 				$.jqplot("chartdiv", game.plotData, game.optionsObj);
 			};
