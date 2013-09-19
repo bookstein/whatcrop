@@ -106,7 +106,10 @@ game = {
 	plotData: [],
 	historicWeather : [], // Array values filled in using historicWeatherArray() below
 	// array holding canvasOverlay data for drawing vertical lines
-	lineArray: []
+	lineArray: [],
+	// object holding data series to be drawn in charts
+	seriesObject: {},
+	colors: {}
 
 }; //end of game object
 
@@ -820,49 +823,15 @@ $(function initializeGame (gameVersionObject) {
 			game.plotData = [game.histogram, plotA, plotB];
 
 			// Create options object for jqPlot graph using optionsObj and setOptions()
-			function setOptions (objectName, showData) {
+			function setOptions (objectName) {
 				game.optionsObj[objectName] = {
 					      series:[
-					          {
-					          	// Weather
-					          	label: "Weather",
-					          	showMarker: false,
-					          	renderer:$.jqplot.BarRenderer,
-					          	rendererOptions: {
-					          		barWidth: 10,
-					          		barPadding: 0,
-	                       			barMargin: 0,
-	                       			barWidth: 10,
-					            	fillToZero: true,
-					            	shadowAlpha: 0
-					          	},
-					          	xaxis:'xaxis',
-					          	yaxis:'yaxis',
-					          	show: true
-					      	  },
-					      	  {
-					      	    // CropA
-					      	    label: "Crop A",
-					            lineWidth: 2,
-					            showMarker: false,
-					            renderer:$.jqplot.LineRenderer,
-					            xaxis:'xaxis',
-					          	yaxis:'yaxis',
-					            show: true
-					          },
-					          {
-					            // CropB
-					            label: "Crop B",
-					            lineWidth: 2,
-					            showMarker: false,
-					            renderer:$.jqplot.LineRenderer,
-					            xaxis:'xaxis',
-					          	yaxis:'yaxis',
-					            show: true
-					          }
+					          game.seriesObject
 					      ],
 
-					      seriesColors: [/*historic weather*/ "rgba(152, 152, 152, .7)", /*color A*/ "#820000", /*color B*/ "#3811c9"],
+					      seriesColors: [
+					      		game.colors
+					      ],
 
 
 					      grid: {
@@ -999,20 +968,60 @@ $(function initializeGame (gameVersionObject) {
 						]} // end of canvasOverlay
 
 					}; // end optionsObj object
-					return game.optionsObj[objectName];
-				}; //end function setOptions()
+				return game.optionsObj[objectName];
+			}; //end function setOptions()
 
 			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
-
-				//lineArray is empty for the opening dialog payout chart
-				setOptions("payoutObj", true);
-				var payoutChart = $.jqplot("crop_payouts_chart", game.plotData, game.optionsObj.payoutObj);
-
+			game.seriesObject["payouts"].push({
+							  {
+					      	    // CropA
+					      	    label: "Crop A",
+					            lineWidth: 2,
+					            showMarker: false,
+					            renderer:$.jqplot.LineRenderer,
+					            xaxis:'xaxis',
+					          	yaxis:'yaxis',
+					            show: !showData
+					          },
+					          {
+					            // CropB
+					            label: "Crop B",
+					            lineWidth: 2,
+					            showMarker: false,
+					            renderer:$.jqplot.LineRenderer,
+					            xaxis:'xaxis',
+					          	yaxis:'yaxis',
+					            show: !showData
+					          }
+					      });
+			game.colors.push({
+				"#820000", "#3811c9"
+			});
+			setOptions("payoutObj");
+			var payoutChart = $.jqplot("crop_payouts_chart", game.plotData, game.optionsObj.payoutObj);
+{
 
 			// draw graph in #continuous_history (for intro dialog) using optionsObj above
 
 				$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
 				// populate canvasOverlay with the historic mean weather line
+				game.seriesObject.push({
+								// Weather
+					          	label: "Weather",
+					          	showMarker: false,
+					          	renderer:$.jqplot.BarRenderer,
+					          	rendererOptions: {
+					          		barWidth: 10,
+					          		barPadding: 0,
+	                       			barMargin: 0,
+	                       			barWidth: 10,
+					            	fillToZero: true,
+					            	shadowAlpha: 0
+					          	},
+					          	xaxis:'xaxis',
+					          	yaxis:'yaxis',
+					          	show: true
+					          });
 				game.lineArray.push( {
 						verticalLine: {
 					                	name: 'avgHistoricWeather',
@@ -1021,6 +1030,10 @@ $(function initializeGame (gameVersionObject) {
 					                	color: '#565347', //gray
 					                	shadow: false
 					    }
+				});
+				game.colors.push({
+					//historic weather
+					"rgba(152, 152, 152, .7)"
 				});
 				setOptions("historyObj", false);
 				var historyChart = $.jqplot("continuous_history", [game.histogram], game.optionsObj.historyObj);
