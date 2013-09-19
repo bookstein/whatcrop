@@ -815,11 +815,11 @@ $(function initializeGame (gameVersionObject) {
 			// variables containing all data to be plotted
 			game.plotData = [game.histogram, plotA, plotB];
 
-			// array holding canvasOverlay data
+			// array holding canvasOverlay data for drawing vertical lines
 			var lineArray = [];
 
 			// Create options object for jqPlot graph using optionsObj and setOptions()
-			function setOptions (showData, showOverlay) {
+			function setOptions (showData) {
 				game.optionsObj = {
 					      series:[
 					          {
@@ -976,7 +976,7 @@ $(function initializeGame (gameVersionObject) {
 			    		  }, // axes
 
 						canvasOverlay: {
-			        		show: showOverlay,
+			        		show: true,
 				            objects: [
 
 				            	lineArray
@@ -1004,7 +1004,7 @@ $(function initializeGame (gameVersionObject) {
 			//draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			function payoutChart () {
 				//lineArray is empty for the opening dialog payout chart
-				setOptions(true, false);
+				setOptions(true);
 				$.jqplot("crop_payouts_chart", game.plotData, game.optionsObj);
 			};
 
@@ -1021,7 +1021,7 @@ $(function initializeGame (gameVersionObject) {
 					                	shadow: false
 					    }
 				});
-				setOptions(false, true);
+				setOptions(false);
 				game.historyPlot = $.jqplot("continuous_history", [game.histogram], game.optionsObj);
 				/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
 				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
@@ -1041,7 +1041,7 @@ $(function initializeGame (gameVersionObject) {
 				                    color: 'rgb(255, 204, 51)',
 				                    shadow: false
 				});
-				setOptions(true, false);
+				setOptions(true);
 				$.jqplot("chartdiv", game.plotData, game.optionsObj);
 			};
 
