@@ -790,13 +790,27 @@ $(function initializeGame (gameVersionObject) {
 			game.histogram = historicWeatherHistogram();
 			console.log("Histogram data ([intervalBottom, count, null]): " + game.histogram);
 
-			// Find largest number of occurences
-			var maxCount = 0;
-			function findMax () {
+			// Find largest number of occurences: sets game.meanHistoricWeather equal to most frequent weather interval
 
+			function findMax () {
+				var countArray = [];
+				for (var i = 0; i < game.histogram.length; i++) {
+					countArray[i] = game.histogram[i][1];
+				}
+
+				var mostFrequent = Math.max.apply(Math, countArray);
+
+				for (var j = 0; j<game.histogram.length; j++) {
+					if (mostFrequent == game.histogram[j][1]) {
+						game.meanHistoricWeather = game.histogram[j][0];
+					}
+				}
+
+				return game.meanHistoricWeather;
 			};
 
-			console.log("highest value in histogram" + maxCount);
+			findMax();
+
 
 			// variables containing all data to be plotted
 			game.plotData = [game.histogram, plotA, plotB];
