@@ -706,22 +706,48 @@ $(function initializeGame (gameVersionObject) {
 					console.log(intervalBottom + " to " + intervalTop);
 
 					var count = 0;
+					var scaleCount = 0;
 
-					for (var i =0; i < game.historicWeather.length; i++) {
+					function originalCount () {
+						for (var i =0; i < game.historicWeather.length; i++) {
 
-						if (game.historicWeather[i] >= intervalBottom && game.historicWeather[i] < intervalTop) {
-							count += 1;
+							if (game.historicWeather[i] >= intervalBottom && game.historicWeather[i] < intervalTop) {
+								count += 1;
+							}
+
+							else if (newinterval === (intervalNumber-1) && game.historicWeather[i] >= intervalBottom) {
+								count +=1;
+							}
+
+							else {
+								count = count;
+							}
 						}
 
-						else if (newinterval === (intervalNumber-1) && game.historicWeather[i] >= intervalBottom) {
-							count +=1;
+						return count;
+					};
+
+					originalCount();
+
+					console.log("[" + parseInt(intervalBottom) + ", " + count + "]");
+
+					function scaleToYaxis () {
+						// Takes the average of maxA and maxB payout, multiples count by a percentage of the average,
+						// to scale "count" up to the y-axis units of payout points.
+						if (game.continuous.maxBpayout > game.continuous.maxApayout) {
+							scaleCount = count*0.10*(game.continuous.maxApayout);
 						}
 
 						else {
-							count = count;
+							scaleCount = count*0.10*(game.continuous.maxBpayout);
 						}
-					}
-					console.log("[" + parseInt(intervalBottom) + ", " + count + "]");
+
+						count = scaleCount;
+						console.log("scaleCount is " + scaleCount);
+					};
+
+					scaleToYaxis();
+
 					return [intervalBottom, count, null];
 
 				}; // end countOccurrence();
@@ -730,6 +756,7 @@ $(function initializeGame (gameVersionObject) {
 				var frequency = [];
 
 				//populates each item j in frequency array using value of countOccurrence()
+					// (countOccurence called j times, for each item in frequency array)
 				for (var j = 0; j < intervalNumber; j++) {
 					frequency[j] = countOccurrence(j);
 				}
@@ -784,7 +811,7 @@ $(function initializeGame (gameVersionObject) {
 					            	shadowAlpha: 0
 					          	},
 					          	xaxis:'xaxis',
-					          	yaxis:'y2axis',
+					          	yaxis:'yaxis',
 					          	show: true
 					      	  },
 					      	  {
@@ -860,7 +887,7 @@ $(function initializeGame (gameVersionObject) {
 			      			},*/
 
 			      			y2axis:{
-			      				label: "Frequency",
+			      				label: "Relative frequency",
 			     				labelOptions: {
 	            					show: !showData,
 	            					fontSize: '11pt'
@@ -923,7 +950,7 @@ $(function initializeGame (gameVersionObject) {
 			      			}
 			    		  }, // axes
 
-				      	/*canvasOverlay: {
+				      	canvasOverlay: {
 			        		show: showOverlay, // turn this on and off to show results
 				            objects: [
 				                {verticalLine: {
@@ -933,7 +960,7 @@ $(function initializeGame (gameVersionObject) {
 				                    color: 'rgb(255, 204, 51)',
 				                    shadow: false
 				                }}
-						]} // end of canvasOverlay */
+						]} // end of canvasOverlay
 					}; // end optionsObj object
 					return game.optionsObj;
 				}; //end function setOptions()
