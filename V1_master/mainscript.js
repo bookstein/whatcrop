@@ -27,6 +27,7 @@ game = {
 	cropchoice: "",
 	gameWeather: [],
 	weatherReport : "",
+	histogram: [],
 	meanHistoricWeather : 0,
 
 	// Set number of turns per game
@@ -693,8 +694,6 @@ $(function initializeGame (gameVersionObject) {
 				var range = Math.max.apply(Math, game.historicWeather) - 0;
 				var intervalNumber = 2*Math.ceil(Math.sqrt(game.historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
 				var intervalWidth = range/intervalNumber;
-				game.meanHistoricWeather = parseInt(range/2);
-
 
 				console.log("range: " + range + " number of intervals: " + intervalNumber + " interval width: " + intervalWidth);
 
@@ -752,7 +751,7 @@ $(function initializeGame (gameVersionObject) {
 
 				}; // end countOccurrence();
 
-				//creates empty array to fill with arrays ([interval number, count])
+				//creates empty array to fill with arrays ([interval number, count, null])
 				var frequency = [];
 
 				//populates each item j in frequency array using value of countOccurrence()
@@ -785,13 +784,22 @@ $(function initializeGame (gameVersionObject) {
 				console.log("frequency array: " + frequency);
 
 				return frequency;
-			}; //end game.historicWeatherHistogram
+			}; //end historicWeatherHistogram
 
-			var histogram = historicWeatherHistogram();
-			console.log("Histogram data: " + histogram);
+
+			game.histogram = historicWeatherHistogram();
+			console.log("Histogram data ([intervalBottom, count, null]): " + game.histogram);
+
+			// Find largest number of occurences
+			var maxCount = 0;
+			function findMax () {
+
+			};
+
+			console.log("highest value in histogram" + maxCount);
 
 			// variables containing all data to be plotted
-			game.plotData = [histogram, plotA, plotB];
+			game.plotData = [game.histogram, plotA, plotB];
 
 			// Create options object for jqPlot graph using optionsObj and setOptions()
 			function setOptions (showData, showOverlay) {
@@ -983,7 +991,7 @@ $(function initializeGame (gameVersionObject) {
 			// draw graph in #continuous_history (for intro dialog) using optionsObj above
 			function historyChart () {
 				setOptions(false, true);
-				game.historyPlot = $.jqplot("continuous_history", [histogram], game.optionsObj);
+				game.historyPlot = $.jqplot("continuous_history", [game.histogram], game.optionsObj);
 				/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
 				var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
 				$("#continuous_history").width(w).height(h);
