@@ -1834,7 +1834,6 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 		$("#dollars_counter").html("$"+realDollars); //change value of realDollars to combined value of bonuses
 	};
 
-	/*
 		//Record relevant data for the current turn
 		function recordData (game) {
 		    var payload = {
@@ -1859,7 +1858,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 	    	game.gameOver = true;
 	    }
 
-		recordData(game);*/
+		recordData(game);
 
 		// If maxturn has been reached or exceeded, this function is called
 		function endGame () {
