@@ -1040,6 +1040,7 @@ $(function initializeGame (gameVersionObject) {
 				                    lineWidth: 4,
 				                    color: 'rgb(255, 204, 51)',
 				                    shadow: false
+				                }
 				});
 				setOptions(true);
 				$.jqplot("chartdiv", game.plotData, game.optionsObj);
@@ -1241,7 +1242,7 @@ $(function initializeGame (gameVersionObject) {
 		$("#bonus_two_instructions").text(game.continuous.bonusTwoTotal);
 		//fills in historic weather info
 		$("#weather_type").text(" mean yearly rainfall ");
-		$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
+		$("#mean_rainfall").text(parseInt(game.meanHistoricWeather) + " inches of rain");
 
 	// Call opening dialogs
 		introDialogs();
