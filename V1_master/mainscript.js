@@ -1028,7 +1028,7 @@ $(function initializeGame (gameVersionObject) {
 			      			}
 			    		  }, // axes
 
-						/*canvasOverlay: {
+						canvasOverlay: {
 			        		show: true,
 				            objects:
 
@@ -1047,8 +1047,8 @@ $(function initializeGame (gameVersionObject) {
 				                    lineWidth: 4,
 				                    color: 'rgb(255, 204, 51)',
 				                    shadow: false
-				                }}
-						} // end of canvasOverlay*/
+				                }}*/
+						} // end of canvasOverlay
 
 					}; // end optionsObj object
 
