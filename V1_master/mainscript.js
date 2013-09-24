@@ -850,7 +850,7 @@ $(function initializeGame (gameVersionObject) {
 			// Create options object for jqPlot graph using optionsObj and setOptions()
 			function setOptions (seriesName, showData) {
 
-				if (seriesName === "payoutObj") {
+				if (seriesName === "payoutObj" || seriesName === "givensObj") {
 					game[seriesName]["seriesArray"][0] = {},
 					game[seriesName]["seriesArray"][1] =
 									{
@@ -881,7 +881,7 @@ $(function initializeGame (gameVersionObject) {
 				}
 
 				else if (seriesName === "historyObj") {
-					game[seriesName]["seriesArray"].push({
+					game[seriesName]["seriesArray"][0] = {
 								// Weather
 					          	label: "Weather",
 					          	showMarker: false,
@@ -897,16 +897,14 @@ $(function initializeGame (gameVersionObject) {
 					          	xaxis:'xaxis',
 					          	yaxis:'yaxis',
 					          	show: true
-					          });
+					};
+					game[seriesName]["seriesArray"][1] = {};
+					game[seriesName]["seriesArray"][2] = {};
 
 					/*game.colors[seriesName].push({
 						//historic weather
 						"rgba(152, 152, 152, .7)"
 					});*/
-				}
-
-				else if (seriesName==="givensObj") {
-
 				}
 
 				game.optionsObj[seriesName] = {
