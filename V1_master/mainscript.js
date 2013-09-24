@@ -102,7 +102,11 @@ game = {
 	},
 
 	// object for containing chart options
-	optionsObj: {},
+	optionsObj: {
+		payoutObj: {},
+		historyObj: {},
+		givensObj: {}
+	},
 
 	//for testing purposes
 	historicWeather : [], // Array values filled in using historicWeatherArray() below
@@ -111,14 +115,14 @@ game = {
 		payoutObj: [{verticalLine:{}}],
 		historyObj: [{verticalLine:{
 						name: 'avgHistoricWeather',
-			        	x: game.meanHistoricWeather,
+			        	//x: game.meanHistoricWeather,
 			        	lineWidth: 2,
 			        	color: '#565347', //gray
 			        	shadow: false
 		}}],
 		givensObj: [{verticalLine:{
 	                    name: 'resultsLine',
-	                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+	                    //x: game.gameWeather[game.turn], // this positions the line at the current turn weather
 	                    lineWidth: 4,
 	                    color: 'rgb(255, 204, 51)', //yellow
 	                    shadow: false
@@ -1024,7 +1028,7 @@ $(function initializeGame (gameVersionObject) {
 			      			}
 			    		  }, // axes
 
-						canvasOverlay: {
+						/*canvasOverlay: {
 			        		show: true,
 				            objects:
 
@@ -1043,8 +1047,8 @@ $(function initializeGame (gameVersionObject) {
 				                    lineWidth: 4,
 				                    color: 'rgb(255, 204, 51)',
 				                    shadow: false
-				                }}*/
-						} // end of canvasOverlay
+				                }}
+						} // end of canvasOverlay*/
 
 					}; // end optionsObj object
 
@@ -1059,7 +1063,7 @@ $(function initializeGame (gameVersionObject) {
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
 
-			$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
+		/*	$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
 			// populate canvasOverlay with the historic mean weather line
 			setOptions("historyObj", false);
 			var historyChart = $.jqplot("continuous_history", [game.histogram], game.optionsObj.historyObj);
@@ -1070,9 +1074,9 @@ $(function initializeGame (gameVersionObject) {
 
 
 	//CHART 3: draw graph in sidebar #chartdiv using optionsObj above
-			setOptions("givensObj", true);
+		/*	setOptions("givensObj", true);
 			game.continuous.givensChart = $.jqplot("chartdiv", [plotA, plotB], game.optionsObj.givensObj);
-
+		*/
 		}; //end of drawQuadratic()
 
 		// Removes background coloration on payout/weather chart after 30 seconds
