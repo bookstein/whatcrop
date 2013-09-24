@@ -858,8 +858,8 @@ $(function initializeGame (gameVersionObject) {
 					})*/
 				}
 
-				/*else if (seriesName === "historyObj") {
-					game.seriesArray["historyObj"].push({
+				else if (seriesName === "historyObj") {
+					game[seriesName]["seriesArray"].push({
 								// Weather
 					          	label: "Weather",
 					          	showMarker: false,
@@ -885,14 +885,14 @@ $(function initializeGame (gameVersionObject) {
 					                	shadow: false
 					    }
 					});
-					game.colors[seriesName].push({
+					/*game.colors[seriesName].push({
 						//historic weather
 						"rgba(152, 152, 152, .7)"
-					});
+					});*/
 				}
 
 				else if (seriesName==="givensObj") {
-					/*game.lineArray[seriesName].pop();
+					game.lineArray[seriesName].pop();
 					game.lineArray[seriesName].push({
 						verticalLine: {
 				                    name: 'resultsLine',
@@ -902,7 +902,7 @@ $(function initializeGame (gameVersionObject) {
 				                    shadow: false
 				                }
 					});
-				}*/
+				}
 
 				game.optionsObj[seriesName] = {
 					      series:
