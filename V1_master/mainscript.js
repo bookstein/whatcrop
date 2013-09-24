@@ -101,7 +101,7 @@ game = {
 		givensChart: {}
 	},
 
-	// object for containing chart options
+	// object for containing chart options -- function setOptions() stores output here
 	optionsObj: {
 		payoutObj: {},
 		historyObj: {},
@@ -851,7 +851,8 @@ $(function initializeGame (gameVersionObject) {
 			function setOptions (seriesName, showData) {
 
 				if (seriesName === "payoutObj") {
-					game[seriesName]["seriesArray"] = [
+					game[seriesName]["seriesArray"][0] = {},
+					game[seriesName]["seriesArray"][1] =
 									{
 						      	    // CropA
 						      	    label: "Crop A",
@@ -861,8 +862,9 @@ $(function initializeGame (gameVersionObject) {
 						            xaxis:'xaxis',
 						          	yaxis:'yaxis',
 						            show: true
-						          },
-						          {
+						          };
+
+					game[seriesName]["seriesArray"][2] = {
 						            // CropB
 						            label: "Crop B",
 						            lineWidth: 2,
@@ -872,7 +874,7 @@ $(function initializeGame (gameVersionObject) {
 						          	yaxis:'yaxis',
 						            show: true
 						          }
-					];
+					;
 					/*game.colors.push({
 							"#820000", "#3811c9"
 					})*/
