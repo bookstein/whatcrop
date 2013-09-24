@@ -118,7 +118,7 @@ game = {
 	givensObj: {
 		seriesArray: []
 	},
-	colors: {}
+	colors: []
 
 }; //end of game object
 
@@ -852,12 +852,8 @@ $(function initializeGame (gameVersionObject) {
 						          	yaxis:'yaxis',
 						            show: true
 						          }
-						    ]
-					};
-					/*game.colors[objectName].push({
-									"#820000", "#3811c9"
-					});*/
-
+					];
+				}
 
 				/*else if (objectName === "historyObj") {
 					game.seriesArray["historyObj"].push({
@@ -910,9 +906,9 @@ $(function initializeGame (gameVersionObject) {
 					          game[objectName]["seriesArray"]
 					      ,
 
-					      seriesColors: [
+					      seriesColors:
 					      		game.colors
-					      ],
+					      ,
 
 
 					      grid: {
@@ -1058,6 +1054,9 @@ $(function initializeGame (gameVersionObject) {
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			setOptions("payoutObj", true);
 			var payoutChart = $.jqplot("crop_payouts_chart", [plotA, plotB], game.optionsObj.payoutObj);
+			game.colors.push({
+							"#820000", "#3811c9"
+					})
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
 
