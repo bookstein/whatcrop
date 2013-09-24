@@ -828,10 +828,10 @@ $(function initializeGame (gameVersionObject) {
 			findMax();
 
 			// Create options object for jqPlot graph using optionsObj and setOptions()
-			function setOptions (objectName, showData) {
+			function setOptions (seriesName, showData) {
 
-				if (objectName === "payoutObj") {
-					game[objectName]["seriesArray"] = [
+				if (seriesName === "payoutObj") {
+					game[seriesName]["seriesArray"] = [
 									{
 						      	    // CropA
 						      	    label: "Crop A",
@@ -858,7 +858,7 @@ $(function initializeGame (gameVersionObject) {
 					})*/
 				}
 
-				/*else if (objectName === "historyObj") {
+				/*else if (seriesName === "historyObj") {
 					game.seriesArray["historyObj"].push({
 								// Weather
 					          	label: "Weather",
@@ -876,7 +876,7 @@ $(function initializeGame (gameVersionObject) {
 					          	yaxis:'yaxis',
 					          	show: true
 					          });
-					game.lineArray[objectName].push( {
+					game.lineArray[seriesName].push( {
 						verticalLine: {
 					                	name: 'avgHistoricWeather',
 					                	x: game.meanHistoricWeather,
@@ -885,15 +885,15 @@ $(function initializeGame (gameVersionObject) {
 					                	shadow: false
 					    }
 					});
-					game.colors[objectName].push({
+					game.colors[seriesName].push({
 						//historic weather
 						"rgba(152, 152, 152, .7)"
 					});
 				}
 
-				else if (objectName==="givensObj") {
-					/*game.lineArray[objectName].pop();
-					game.lineArray[objectName].push({
+				else if (seriesName==="givensObj") {
+					/*game.lineArray[seriesName].pop();
+					game.lineArray[seriesName].push({
 						verticalLine: {
 				                    name: 'resultsLine',
 				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
@@ -904,9 +904,9 @@ $(function initializeGame (gameVersionObject) {
 					});
 				}*/
 
-				game.optionsObj[objectName] = {
+				game.optionsObj[seriesName] = {
 					      series:
-					          game[objectName]["seriesArray"]
+					          game[seriesName]["seriesArray"]
 					      ,
 
 					      seriesColors:
@@ -1029,7 +1029,7 @@ $(function initializeGame (gameVersionObject) {
 			        		show: true,
 				            objects: [
 
-				            	game.lineArray[objectName]
+				            	game.lineArray[seriesName]
 								/*{verticalLine: {
 				                	name: 'avgHistoricWeather',
 				                	x: game.meanHistoricWeather,
@@ -1051,7 +1051,7 @@ $(function initializeGame (gameVersionObject) {
 
 
 
-				return game.optionsObj[objectName];
+				return game.optionsObj[seriesName];
 			}; //end function setOptions()
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
