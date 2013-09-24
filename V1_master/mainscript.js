@@ -138,7 +138,10 @@ game = {
 	givensObj: {
 		seriesArray: []
 	},
-	colors: []
+	colors: [],
+
+	// data to be charted
+	dataSet: []
 
 }; //end of game object
 
@@ -847,6 +850,11 @@ $(function initializeGame (gameVersionObject) {
 
 			findMax();
 
+			// dataset to be plotted
+
+			game.dataSet = [game.histogram, plotA, plotB];
+
+
 			// Create options object for jqPlot graph using optionsObj and setOptions()
 			function setOptions (seriesName, showData) {
 
@@ -1059,14 +1067,15 @@ $(function initializeGame (gameVersionObject) {
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			setOptions("payoutObj", true);
-			var payoutChart = $.jqplot("crop_payouts_chart", [plotA, plotB], game.optionsObj.payoutObj);
+			var payoutChart = $.jqplot("crop_payouts_chart", [game.dataSet], game.optionsObj.payoutObj);
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
 
-		/*	$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
+			$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
 			// populate canvasOverlay with the historic mean weather line
 			setOptions("historyObj", false);
-			var historyChart = $.jqplot("continuous_history", [game.histogram], game.optionsObj.historyObj);
+			console.log(game.optionsObj.historyObj);
+		var historyChart = $.jqplot("continuous_history", [plotA], game.optionsObj.historyObj);
 			/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
 			var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
 			$("#continuous_history").width(w).height(h);
@@ -1074,9 +1083,9 @@ $(function initializeGame (gameVersionObject) {
 
 
 	//CHART 3: draw graph in sidebar #chartdiv using optionsObj above
-		/*	setOptions("givensObj", true);
-			game.continuous.givensChart = $.jqplot("chartdiv", [plotA, plotB], game.optionsObj.givensObj);
-		*/
+			setOptions("givensObj", true);
+			game.continuous.givensChart = $.jqplot("chartdiv", [game.dataSet], game.optionsObj.givensObj);
+
 		}; //end of drawQuadratic()
 
 		// Removes background coloration on payout/weather chart after 30 seconds
