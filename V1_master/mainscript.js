@@ -101,9 +101,10 @@ game = {
 		givensChart: {}
 	},
 
-	//for testing purposes
+	// object for containing chart options
 	optionsObj: {},
-	plotData: [],
+
+	//for testing purposes
 	historicWeather : [], // Array values filled in using historicWeatherArray() below
 	// array holding canvasOverlay data for drawing vertical lines
 	lineArray: [],
@@ -826,10 +827,6 @@ $(function initializeGame (gameVersionObject) {
 
 			findMax();
 
-
-			// variables containing all data to be plotted
-			game.plotData = [game.histogram, plotA, plotB];
-
 			// Create options object for jqPlot graph using optionsObj and setOptions()
 			function setOptions (objectName, showData) {
 
@@ -1060,7 +1057,7 @@ $(function initializeGame (gameVersionObject) {
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			setOptions("payoutObj", true);
-			var payoutChart = $.jqplot("crop_payouts_chart", game.plotData, game.optionsObj.payoutObj);
+			var payoutChart = $.jqplot("crop_payouts_chart", [plotA, plotB], game.optionsObj.payoutObj);
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
 
@@ -1076,7 +1073,7 @@ $(function initializeGame (gameVersionObject) {
 
 	//CHART 3: draw graph in sidebar #chartdiv using optionsObj above
 			setOptions("givensObj", true);
-			game.continuous.givensChart = $.jqplot("chartdiv", game.plotData, game.optionsObj.givensObj);
+			game.continuous.givensChart = $.jqplot("chartdiv", [plotA, plotB], game.optionsObj.givensObj);
 
 		}; //end of drawQuadratic()
 
