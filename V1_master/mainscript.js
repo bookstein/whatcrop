@@ -107,7 +107,10 @@ game = {
 	//for testing purposes
 	historicWeather : [], // Array values filled in using historicWeatherArray() below
 	// array holding canvasOverlay data for drawing vertical lines
-	lineArray: [],
+	canvasOverlayLines: {
+		line: [],
+		line2: []
+	},
 	// objects holding data series to be drawn in charts
 	payoutObj: {
 		seriesArray: []
@@ -876,7 +879,8 @@ $(function initializeGame (gameVersionObject) {
 					          	yaxis:'yaxis',
 					          	show: true
 					          });
-					game.lineArray[seriesName].push( {
+
+					game.canvasOverlayLines[seriesName].push( {
 						verticalLine: {
 					                	name: 'avgHistoricWeather',
 					                	x: game.meanHistoricWeather,
@@ -892,8 +896,8 @@ $(function initializeGame (gameVersionObject) {
 				}
 
 				else if (seriesName==="givensObj") {
-					game.lineArray[seriesName].pop();
-					game.lineArray[seriesName].push({
+					game.canvasOverlayLines[seriesName].pop();
+					game.canvasOverlayLines[seriesName].push({
 						verticalLine: {
 				                    name: 'resultsLine',
 				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
@@ -1027,9 +1031,9 @@ $(function initializeGame (gameVersionObject) {
 
 						canvasOverlay: {
 			        		show: true,
-				            objects: [
+				            objects:
 
-				            	game.lineArray[seriesName]
+				            	game.canvasOverlayLines[seriesName]
 								/*{verticalLine: {
 				                	name: 'avgHistoricWeather',
 				                	x: game.meanHistoricWeather,
@@ -1045,7 +1049,7 @@ $(function initializeGame (gameVersionObject) {
 				                    color: 'rgb(255, 204, 51)',
 				                    shadow: false
 				                }}*/
-						]} // end of canvasOverlay
+						} // end of canvasOverlay
 
 					}; // end optionsObj object
 
