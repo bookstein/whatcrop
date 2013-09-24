@@ -107,8 +107,16 @@ game = {
 	historicWeather : [], // Array values filled in using historicWeatherArray() below
 	// array holding canvasOverlay data for drawing vertical lines
 	lineArray: [],
-	// object holding data series to be drawn in charts
-	seriesObject: {},
+	// objects holding data series to be drawn in charts
+	payoutObj: {
+		seriesArray: []
+	},
+	historyObj: {
+		seriesArray: []
+	},
+	givensObj: {
+		seriesArray: []
+	},
 	colors: {}
 
 }; //end of game object
@@ -825,10 +833,85 @@ $(function initializeGame (gameVersionObject) {
 			// Create options object for jqPlot graph using optionsObj and setOptions()
 			function setOptions (objectName, showData) {
 
+				if (objectName === "payoutObj") {
+					game[objectName]["seriesArray"] = [
+									{
+						      	    // CropA
+						      	    label: "Crop A",
+						            lineWidth: 2,
+						            showMarker: false,
+						            renderer:$.jqplot.LineRenderer,
+						            xaxis:'xaxis',
+						          	yaxis:'yaxis',
+						            show: true
+						          },
+						          {
+						            // CropB
+						            label: "Crop B",
+						            lineWidth: 2,
+						            showMarker: false,
+						            renderer:$.jqplot.LineRenderer,
+						            xaxis:'xaxis',
+						          	yaxis:'yaxis',
+						            show: true
+						          }
+						    ]
+					};
+					/*game.colors[objectName].push({
+									"#820000", "#3811c9"
+					});*/
+
+
+				/*else if (objectName === "historyObj") {
+					game.seriesArray["historyObj"].push({
+								// Weather
+					          	label: "Weather",
+					          	showMarker: false,
+					          	renderer:$.jqplot.BarRenderer,
+					          	rendererOptions: {
+					          		barWidth: 10,
+					          		barPadding: 0,
+	                       			barMargin: 0,
+	                       			barWidth: 10,
+					            	fillToZero: true,
+					            	shadowAlpha: 0
+					          	},
+					          	xaxis:'xaxis',
+					          	yaxis:'yaxis',
+					          	show: true
+					          });
+					game.lineArray[objectName].push( {
+						verticalLine: {
+					                	name: 'avgHistoricWeather',
+					                	x: game.meanHistoricWeather,
+					                	lineWidth: 2,
+					                	color: '#565347', //gray
+					                	shadow: false
+					    }
+					});
+					game.colors[objectName].push({
+						//historic weather
+						"rgba(152, 152, 152, .7)"
+					});
+				}
+
+				else if (objectName==="givensObj") {
+					/*game.lineArray[objectName].pop();
+					game.lineArray[objectName].push({
+						verticalLine: {
+				                    name: 'resultsLine',
+				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+				                    lineWidth: 4,
+				                    color: 'rgb(255, 204, 51)',
+				                    shadow: false
+				                }
+					});
+				}*/
+
 				game.optionsObj[objectName] = {
-					      series:[
-					          game.seriesObject[objectName]
-					      ],
+					      series:
+					          game[objectName]["seriesArray"]
+					      ,
 
 					      seriesColors: [
 					      		game.colors
@@ -970,80 +1053,7 @@ $(function initializeGame (gameVersionObject) {
 
 					}; // end optionsObj object
 
-				if (objectName === "payoutObj") {
-					game.seriesObject[objectName] = {};
-					game.seriesObject.objectName = {
-									"series1" : {
-						      	    // CropA
-						      	    label: "Crop A",
-						            lineWidth: 2,
-						            showMarker: false,
-						            renderer:$.jqplot.LineRenderer,
-						            xaxis:'xaxis',
-						          	yaxis:'yaxis',
-						            show: true
-						          },
-						          "series2" : {
-						            // CropB
-						            label: "Crop B",
-						            lineWidth: 2,
-						            showMarker: false,
-						            renderer:$.jqplot.LineRenderer,
-						            xaxis:'xaxis',
-						          	yaxis:'yaxis',
-						            show: true
-						          }
-					};
-					/*game.colors[objectName].push({
-									"#820000", "#3811c9"
-					});*/
-				}
 
-				else if (objectName === "historyObj") {
-					/*game.seriesObject["historyObj"].push({
-								// Weather
-					          	label: "Weather",
-					          	showMarker: false,
-					          	renderer:$.jqplot.BarRenderer,
-					          	rendererOptions: {
-					          		barWidth: 10,
-					          		barPadding: 0,
-	                       			barMargin: 0,
-	                       			barWidth: 10,
-					            	fillToZero: true,
-					            	shadowAlpha: 0
-					          	},
-					          	xaxis:'xaxis',
-					          	yaxis:'yaxis',
-					          	show: true
-					          });
-					game.lineArray[objectName].push( {
-						verticalLine: {
-					                	name: 'avgHistoricWeather',
-					                	x: game.meanHistoricWeather,
-					                	lineWidth: 2,
-					                	color: '#565347', //gray
-					                	shadow: false
-					    }
-					});
-					game.colors[objectName].push({
-						//historic weather
-						"rgba(152, 152, 152, .7)"
-					});*/
-				}
-
-				else if (objectName==="givensObj") {
-					/*game.lineArray[objectName].pop();
-					game.lineArray[objectName].push({
-						verticalLine: {
-				                    name: 'resultsLine',
-				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
-				                    lineWidth: 4,
-				                    color: 'rgb(255, 204, 51)',
-				                    shadow: false
-				                }
-					});*/
-				}
 
 				return game.optionsObj[objectName];
 			}; //end function setOptions()
