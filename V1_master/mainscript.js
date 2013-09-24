@@ -874,11 +874,7 @@ $(function initializeGame (gameVersionObject) {
 						            xaxis:'xaxis',
 						          	yaxis:'yaxis',
 						            show: true
-						          }
-					;
-					/*game.colors.push({
-							"#820000", "#3811c9"
-					})*/
+						          };
 				}
 
 				else if (seriesName === "historyObj") {
@@ -901,11 +897,6 @@ $(function initializeGame (gameVersionObject) {
 					};
 					game[seriesName]["seriesArray"][1] = {};
 					game[seriesName]["seriesArray"][2] = {};
-
-					/*game.colors[seriesName].push({
-						//historic weather
-						"rgba(152, 152, 152, .7)"
-					});*/
 				}
 
 				game.optionsObj[seriesName] = {
@@ -914,7 +905,7 @@ $(function initializeGame (gameVersionObject) {
 					      ,
 
 					      seriesColors:
-					      		game[seriesName]["colors"]
+					      		game[seriesName]["color"]
 					      ,
 
 
