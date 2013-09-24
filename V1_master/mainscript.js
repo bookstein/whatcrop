@@ -130,16 +130,17 @@ game = {
 	},
 	// objects holding data series to be drawn in charts
 	payoutObj: {
-		seriesArray: []
+		seriesArray: [],
+		color: ["#000","#820000", "#3811c9"]
 	},
 	historyObj: {
-		seriesArray: []
+		seriesArray: [],
+		color: ["rgba(152, 152, 152, .7)", "#820000", "#3811c9"]
 	},
 	givensObj: {
-		seriesArray: []
-	},
-	colors: []
-
+		seriesArray: [],
+		color: ["#000", "#820000", "#3811c9"]
+	}
 }; //end of game object
 
 
@@ -913,7 +914,7 @@ $(function initializeGame (gameVersionObject) {
 					      ,
 
 					      seriesColors:
-					      		game.colors
+					      		game[seriesName]["colors"]
 					      ,
 
 
