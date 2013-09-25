@@ -1483,7 +1483,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 			return rainOpacity, sunOpacity;
 
-		};
+		}; // end of discrete [weather opacity]
 
 		function continuous () {
 			if (game.gameWeather[game.turn] >= game.continuous.gameRoots.topRoot) {
@@ -1504,7 +1504,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				//console.log(rainOpacity, sunOpacity);
 			}
 
-		};
+		}; // end of continuous [weather opacity]
 
 		if (gameVersion === "discrete") {
 			discrete();
@@ -1527,6 +1527,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	}; // end of weatherOpacity()
 
 
+	// weatherGraphics (and interior functions, discrete() and continuous() ) selects outcomes of user choice
+		// and triggers gameUpdate functions
 	function weatherGraphics (gameVersion) {
 
 		function discrete () {
@@ -1577,7 +1579,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			}
 
 			updateDiscrete(payout);
-		};
+		}; // end of discrete [weather graphics]
 
 		function continuous () {
 			// A. Crop A outcomes
@@ -1663,21 +1665,19 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					game.weatherReport = "optimal weather";
 				}
 			}
-		}; // end of continuousWeather()
+		}; // end of continuous [weather graphics]
 
 		if (gameVersion === "discrete") {
 			discrete();
-			console.log("Running the discrete version of weatherGraphics");
 		}
 
 		else {
 			continuous();
-			console.log("Running the continuous version of weatherGraphics");
 		}
 
 	}; //end of weatherGraphics()
 
-	// fadeWeather: For both versions of game
+	// fadeWeather: removes weather graphics for both versions of game
 	function fadeWeather () {
 		//setTimeout calls function after a certain time; currently 3000 ms
 		rainOpacity = 0;
@@ -1693,15 +1693,16 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	if (gameVersion.discreteWeather === true) {
 		weatherOpacity("discrete");
 		weatherGraphics("discrete");
-		console.log("Calling discrete functions");
+		alert("Calling discrete functions");
 	}
 
 	else {
 		weatherOpacity("continuous");
 		weatherGraphics("continuous");
-		console.log("Calling continuous functions");
+		alert("Calling continuous functions");
 	}
 
+	// removes weather graphics after this many milliseconds
 	setTimeout(fadeWeather, 4000);
 
 }; // end of weatherResults
@@ -1762,10 +1763,15 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 
 	var oldscore = game.score;
 	var newscore = oldscore + payout;
-	console.log("Update game payout: " + payout);
+	console.log("For turn #" + game.turn + "Game payout: " + payout);
 	console.log("Old score is " + oldscore + ", new score is " + newscore);
 
 	function displayResultsDialog () {
+				//populate spans inside all results dialogs
+	    $(".results").find("#weather_outcome").text(parseInt(game.gameWeather[game.turn]));
+    	$(".results").find("#new_score").text(payout);
+    	$(".results").find("#weather_report").text(game.weatherReport);
+    	$(".results").find("#chosen_crop").text(game.cropchoice);
 
 		$(".results").dialog({
 			autoOpen: false,
@@ -1779,23 +1785,17 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 	        width: '30%'
 	    });
 
-		//populate spans inside all results dialogs
-	    $(".results").find("#weather_outcome").text(parseInt(game.gameWeather[game.turn]));
-    	$(".results").find("#new_score").text(payout);
-    	$(".results").find("#weather_report").text(game.weatherReport);
-    	$(".results").find("#chosen_crop").text(game.cropchoice);
-
 		// bonus dialogs
 		if (oldscore < gameVersionObject.bonusOneTotal && newscore >= gameVersionObject.bonusOneTotal) { //this only works now because I made totalRandomPoints global
-			$("#bonus_results").dialog("open");
 			$("#bonus_count").text("$" + bonusOneDollars);
 			addBonus1();
+			$("#bonus_results").dialog("open");
 		}
 
 		else if (oldscore < gameVersionObject.bonusTwoTotal && newscore >= gameVersionObject.bonusTwoTotal) {
-			$("#bonus_results").dialog("open");
 			$("#bonus_count").text("$" + bonusTwoDollars);
 			addBonus2();
+			$("#bonus_results").dialog("open");
 		}
 
 		//normal results dialogs
