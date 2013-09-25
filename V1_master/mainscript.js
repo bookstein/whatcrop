@@ -1791,13 +1791,13 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 		// bonus dialogs
 		if (oldscore < bonusOneTotal && newscore >= bonusOneTotal) { //this only works now because I made totalRandomPoints global
-			$("#bonus_count").text("$" + bonusOneDollars);
+			$("#bonus_count").text("$" + game.bonusOneDollars);
 			addBonus1();
 			$("#bonus_results").dialog("open");
 		}
 
 		else if (oldscore < bonusTwoTotal && newscore >= bonusTwoTotal) {
-			$("#bonus_count").text("$" + bonusTwoDollars);
+			$("#bonus_count").text("$" + game.bonusTwoDollars);
 			addBonus2();
 			$("#bonus_results").dialog("open");
 		}
