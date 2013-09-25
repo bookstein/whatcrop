@@ -450,14 +450,14 @@ $(function initializeGame (gameVersionObject) {
 
 		function optimalScenario () {
 
-			// A is first optimal choice, starting condition is pWet > pDry
-			if (game.discrete.payoutAwet > game.discrete.payoutBwet) {
+			// If A is the first optimal choice (regardless of starting pWet and pDry)
+			if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) > (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
 				optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
 				optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
 			}
 
-			// B is first optimal choice, starting condition is pWet > pDry
-			else if (game.discrete.payoutBwet > game.discrete.payoutAwet) {
+			// If B is first optimal choice (regardless of starting pWet and pDry)
+			else if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) <= (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
 				optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
 				optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
 			}
