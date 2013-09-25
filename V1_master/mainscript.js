@@ -1176,15 +1176,15 @@ $(function initializeGame (gameVersionObject) {
 					var Bdiff = game.gameWeather[i] - game.continuous.maxBweather;
 
 					if (Math.abs(Adiff) < Math.abs(Bdiff)) {
-						optimalCrops[i] = "cropA";
+						optimalCrops[i] = "crop A";
 					}
 
 					else if (Math.abs(Bdiff) < Math.abs(Adiff)) {
-						optimalCrops[i] = "cropB";
+						optimalCrops[i] = "crop B";
 					}
 
 					else {
-						optimalCrops[i] = "cropA";
+						optimalCrops[i] = "crop A";
 					}
 				}
 				return optimalCrops;
@@ -1211,14 +1211,14 @@ $(function initializeGame (gameVersionObject) {
 
 			for (var i=0; i < game.maxturn; i++) {
 
-				if (optimalCrops[i] === "cropA") {
+				if (optimalCrops[i] === "crop A") {
 					addScores(i, game.continuous.betaA, game.continuous.maxAweather, game.continuous.maxApayout); //call addScores() with values of crop A
 					game.maxScore += payout;
 					//console.log("The score is now " + maxScore);
 				}
 
 
-				else if (optimalCrops[i] === "cropB") {
+				else if (optimalCrops[i] === "crop B") {
 					addScores(i, game.continuous.betaB, game.continuous.maxBweather, game.continuous.maxBpayout); //call addScores() with values of crop B
 					game.maxScore += payout;
 					//console.log("The score is now " + maxScore);
@@ -1429,7 +1429,7 @@ function disableGrowButton () {
 
 function userClickedA () {
 	$("#cropA").addClass("select");
-	game.cropchoice = "cropA";
+	game.cropchoice = "crop A";
 	$("#sproutA").removeClass("hidden");
 	$("#sproutB").addClass("hidden");
 	$("#cropB").removeClass("select");
@@ -1439,7 +1439,7 @@ function userClickedA () {
 
 function userClickedB () {
 	$("#cropB").addClass("select");
-	game.cropchoice = "cropB";
+	game.cropchoice = "crop B";
 	$("#sproutB").removeClass("hidden");
 	$("#sproutA").addClass("hidden");
 	$("#cropA").removeClass("select");
@@ -1534,7 +1534,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			var payout = 0;
 
 		// User chose crop A
-			if (game.cropchoice == "cropA" && game.gameWeather[game.turn] == "Dry") {
+			if (game.cropchoice == "crop A" && game.gameWeather[game.turn] == "Dry") {
 
 				game.weatherResults = "sunny";
 				payout = game.discrete.payoutAdry;
@@ -1543,7 +1543,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				return payout;
 			}
 
-			else if (game.cropchoice == "cropA" && game.gameWeather[game.turn] == "Wet") {
+			else if (game.cropchoice == "crop A" && game.gameWeather[game.turn] == "Wet") {
 
 				weatherResults = "rainy";
 				payout = game.discrete.payoutAwet;
@@ -1553,7 +1553,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			}
 
 		// User chose crop B
-			else if (game.cropchoice == "cropB" && game.gameWeather[game.turn] == "Dry") {
+			else if (game.cropchoice == "crop B" && game.gameWeather[game.turn] == "Dry") {
 
 				weatherResults = "sunny";
 				payout = game.discrete.payoutBdry;
@@ -1563,7 +1563,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 			}
 
-			else if (game.cropchoice == "cropB" && game.gameWeather[game.turn] == "Wet"){
+			else if (game.cropchoice == "crop B" && game.gameWeather[game.turn] == "Wet"){
 
 				weatherResults = "rainy";
 				payout = game.discrete.payoutBwet;
@@ -1581,7 +1581,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 		function continuous () {
 			// A. Crop A outcomes
-			if (game.cropchoice === "cropA") {
+			if (game.cropchoice === "crop A") {
 
 				updateContinuous(game.continuous.betaA, game.continuous.maxApayout, game.continuous.maxAweather); // call updateGame with values for crop A
 
@@ -1623,7 +1623,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			}
 
 			// 2. Crop B outcomes
-			else if (game.cropchoice === "cropB") {
+			else if (game.cropchoice === "crop B") {
 
 				updateContinuous(game.continuous.betaB, game.continuous.maxBpayout, game.continuous.maxBweather); // call updateGame with values for crop B
 
