@@ -162,7 +162,7 @@ $(function initializeGame (gameVersionObject) {
 	$("#point_count").html("<h5>"+game.score+"</h5>");
 
 	// Real Dollars Earned - writes initial realDollars to dollars counter
-	$("#dollars_counter").text("$"+game.realDollars);
+	$("#dollars_counter").text("$"+game.realDollars+"0");
 
 	// Populate spans in opening and ending dialogs
 	$(".turncount_instructions").text(game.maxturn + " turns");
@@ -955,6 +955,7 @@ $(function initializeGame (gameVersionObject) {
 			      				label: "Relative frequency",
 			     				labelOptions: {
 	            					show: !showData,
+	            					fontFamily: 'Georgia, serif',
 	            					fontSize: '11pt'
 	        					},
 			          			//renderer: $.jqplot.CategoryAxisRenderer,
@@ -987,7 +988,7 @@ $(function initializeGame (gameVersionObject) {
 			          			label:'Rainfall (inches)',
 			          			labelRenderer: $.jqplot.AxisLabelRenderer,
 			         			labelOptions: {
-			            			fontFamily: 'Verdana, sans-serif',
+			            			fontFamily: 'Georgia, serif',
 			            			fontSize: '12pt'
 			          			}
 			        		},
@@ -998,6 +999,10 @@ $(function initializeGame (gameVersionObject) {
 			                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
 			                    },
 			                    label: "Points earned",
+			                    labelOptions: {
+			                    	fontFamily: 'Georgia, serif',
+	            					fontSize: '11pt'
+			                    },
 			                	tickOptions:{
 			                        mark: "inside",
 			                        showLabel: true,
