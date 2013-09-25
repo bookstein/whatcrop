@@ -1,12 +1,4 @@
-//SEMANTICS
-//threshold: defines which random numbers indicate rain and which indicate dry.
-//climateChange: makes changes to the threshold at each turn.
-//payout: these variables show payout for crop choices.
-//crop: all references to actual choices A and B (not seed, not plant)
-//
-
-///////////////////////////
-
+//TOP OF GAME
 
 $(document).ready(function(){
 
@@ -40,7 +32,7 @@ game = {
 	score : 0, //starting score is 0
 
 	// Real Dollars Earned
-	realDollars : 0, //real earnings in dollars start at 0
+	realDollars : 0.50, //real earnings in dollars start at 50 cents
 
 	// Signals end of game when true
 	gameOver: false,
@@ -1881,12 +1873,12 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 	// Call addBonus functions from displayResultsDialog function, triggered at same time as bonus dialogs
 	function addBonus1 () {
-		game.realDollars = game.bonusOneDollars; //change value of realDollars to bonusOne
+		game.realDollars += game.bonusOneDollars; //add value of bonus to realDollars
 		$("#dollars_counter").html("$"+game.realDollars);
 	};
 
 	function addBonus2 () {
-		game.realDollars = game.bonusOneDollars + game.bonusTwoDollars;
+		game.realDollars += game.bonusTwoDollars;
 		$("#dollars_counter").html("$"+game.realDollars); //change value of realDollars to combined value of bonuses
 	};
 
