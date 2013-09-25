@@ -369,8 +369,11 @@ $(function initializeGame (gameVersionObject) {
 
 				console.log(pWet);
 
+			// if 1) the probablility of wet weather (pWet) equals the indifference point, or if 2) the probability crosses the indifference point from above or 3) below,
+				// the turn at which it equals/crosses the indifferencePoint is stored in variable indifferentTurn
 			for (var i = 0; i < game.maxturn; i++) {
-				if ((pWet[i] == game.discrete.indifferencePoint) || (pWet[i+1] > game.discrete.indifferencePoint && pWet[i-1] < game.discrete.indifferencePoint)) {
+				if ((pWet[i] == game.discrete.indifferencePoint) || (pWet[i+1] > game.discrete.indifferencePoint && pWet[i-1] < game.discrete.indifferencePoint)
+						|| (pWet[i+1] < game.discrete.indifferencePoint && pWet[i-1] > game.discrete.indifferencePoint)) {
 					game.discrete.indifferentTurn = i;
 					return game.discrete.indifferentTurn;
 				}
