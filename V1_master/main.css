@@ -144,7 +144,7 @@ header > h1 {
 	display: block;
 }
 
-.dialog-message span {
+.emphasize { /* Used to emphasize specific text in dialog boxes */
 	font-weight: bold;
 }
 

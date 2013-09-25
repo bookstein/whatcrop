@@ -61,7 +61,7 @@
 		<div class="instructions dialog-message ui-dialog" id="first-message" title="Game instructions">
 				<br>
 				<p>
-				    <span>Welcome to "What Crop".</span>
+				    <span class="emphasize">Welcome to "What Crop."</span>
 				</p>
 				<br>
 				<p>
@@ -75,7 +75,7 @@
 		<!-- highlight table -->
 				<br>
 				<p>
-				  	1. For each turn, plant either <span class="Acolor">Crop A</span> or <span class="Bcolor">Crop B</span> based on your best guess about the weather.
+				  	1. For each turn, plant either <span class="Acolor emphasize">Crop A</span> or <span class="Bcolor emphasize">Crop B</span> based on your best guess about the weather.
 				  </p>
 				  <br>
 				  <p>
@@ -120,7 +120,7 @@
 		<div class="instructions dialog-message ui-dialog" id="third-message" title="Game instructions">
 			<br>
 			<p>
-				In the past 50 years, the <span id="weather_type"></span> has been about <span class="wet_percent" id="mean_rainfall"></span><span id="weather_modifier"></span>.
+				For the past 50 years, the <span id="weather_type"></span> has been about <span class="wet_percent emphasize" id="mean_rainfall"></span><span id="weather_modifier emphasize"></span>.
 			</p>
 			<br>
 			<!-- div to contain continuous version historic weather data -->
@@ -162,7 +162,7 @@
 		<!-- highlight points counter -->
 			<br>
 			<p>
-			  	4. Please play without stopping for <span class="turncount_instructions"></span>. This may take about 12 minutes.
+			  	4. Please play without stopping for <span class="turncount_instructions emphasize"></span>. This may take about 12 minutes.
 			</p>
 			<br>
 			<p>
@@ -285,21 +285,21 @@
 			<!-- dialog: Weather report and points earned -->
 			<div class="results dialog-message ui-dialog" id="normal_results" title="Results">
 					<p>
-					  	There were <span id="weather_outcome"></span> inches of rain, which was <span id="weather_report"></span> for <span id="chosen_crop"></span>.
+					  	There were <span id="weather_outcome" class="emphasize"></span> inches of rain, which was <span id="weather_report"></span> for <span id="chosen_crop"></span>.
 					</p>
 					<br>
 				  	<p>
-					  	You made <span id="new_score"></span> points!
+					  	You made <span class="emphasize" id="new_score"></span> points!
 					</p>
 			</div>
 
 			<!-- dialog: Bonus earned -->
 			<div class="results dialog-message ui-dialog" id="bonus_results" title="Results">
 					<p>
-					  	The weather was <span id="weather_outcome"></span>. You made <span id="new_score"></span> points!
+					  	The weather was <span id="weather_outcome"></span>. You made <span id="new_score" class="emphasize"></span> points!
 					</p>
 					<p>
-						You also earned a bonus of <span id="bonus_count"><span>!
+						You also earned a bonus of <span class="emphasize" id="bonus_count"></span>!
 					</p>
 			</div>
 
@@ -310,13 +310,13 @@
 					  	You made it to <span class="turncount_instructions"></span>! This ends the game.
 					</p>
 					<p>
-					  	With your score of <span id="total_score"></span>, you earned $<span id="total_dollars"></span>.
+					  	With your score of <span class="emphasize" id="total_score"></span>, you earned $<span class="emphasize" id="total_dollars"></span>.
 					</p>
 					<p>
-						Your Player ID is: <span id="playerID"></span>. Use this ID number to receive your payment.
+						Your Player ID is: <span class="emphasize" id="playerID"></span>. Use this ID number to receive your payment.
 					</p>
 					<p>
-						Thanks for playing!
+						<b>Thanks for playing!</b>
 					</p>
 						<br>
 						<img src= "images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" />
