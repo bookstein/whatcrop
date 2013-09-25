@@ -1904,7 +1904,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 	    });
 	};
 
-    if (game.turn === game.maxturn) {
+    if (game.turn === game.maxturn-1) {
     	game.gameOver = true;
     }
 
@@ -1938,8 +1938,8 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 	    });
 	};
 
-	if (game.gameOver) {
-		setTimeout(endGame, 1000);
+	if (game.gameOver === true) {
+		setTimeout(endGame, 4000);
 	}
 
 	// Reset crop values for new turn
@@ -1950,14 +1950,13 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 //>>>>>>>>>>>>>>>>>>>>> Clicking #grow button triggers updateGame <<<<<<<<<<<<<
 
 $("#grow").on("click", function () {
+	if ($(this).hasClass("highlight")) {
 		/*if (gameVersion.discreteWeather == true) {
 			gameVersionObject = discrete
 		}
 		else {
 			gameVersionObject = continuous
 		}*/
-
-	if ($(this).hasClass("highlight")) {
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
 		setTimeout(weatherResults, 100);
