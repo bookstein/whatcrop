@@ -981,7 +981,7 @@ $(function initializeGame (gameVersionObject) {
 			                        showGridline: true
 			                    },
 
-			          			label:'Inches of rain',
+			          			label:'Rainfall (inches)',
 			          			labelRenderer: $.jqplot.AxisLabelRenderer,
 			         			labelOptions: {
 			            			fontFamily: 'Verdana, sans-serif',
@@ -994,7 +994,7 @@ $(function initializeGame (gameVersionObject) {
 			          			rendererOptions:{
 			                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
 			                    },
-			                    label: "Points",
+			                    label: "Points earned",
 			                	tickOptions:{
 			                        mark: "inside",
 			                        showLabel: true,
