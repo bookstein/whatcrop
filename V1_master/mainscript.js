@@ -31,7 +31,7 @@ game = {
 	meanHistoricWeather : 0,
 
 	// Set number of turns per game
-    maxturn : 5,
+    maxturn : 3,
 	//Turn Counter
 	turn : 0,
 
@@ -1798,14 +1798,6 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 			addBonus2();
 		}
 
-		//end game dialog
-		else if (game.turn === maxturn) {
-			$("#end_results").dialog("open");
-			$("#total_score").text($("#point_count > h5").text()); //gets text of #point_count h5
-			$("#total_dollars").text($("#dollars_counter").text()); //gets text of #dollars_counter
-			// $("#playerID") //need Tony's work on this
-		}
-
 		//normal results dialogs
 		else {
 			$("#normal_results").dialog("open");
@@ -1817,11 +1809,21 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 	//displayResultsDialog();
 
 	function addTurn () {
-		game.turn = game.turn + 1;
+		if (game.turn < game.maxturn-2) {
+			game.turn = game.turn + 1;
+		}
+
+		else if (game.turn === game.maxturn-2) {
+			game.turn = game.turn + 1;
+			game.gameOver = true;
+		}
+
+		else {
+			game.turn = game.maxturn-1;
+		}
+
 		$("#turns_counter").html("<h5>" + game.turn + "/" + game.maxturn + "</h5>");
 	};
-
-	setTimeout(addTurn, 4000);
 
 	function newScore () {
 
@@ -1904,9 +1906,9 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 	    });
 	};
 
-    if (game.turn === game.maxturn-1) {
+    /*if (game.turn === game.maxturn) {
     	game.gameOver = true;
-    }
+    }*/
 
 	recordData(game);
 
@@ -1919,6 +1921,8 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 		$("#playerID").text(game.gameID);
 		$("#total_score").text(game.score);
 		$("#total_dollars").text(game.realDollars);
+		// $("#playerID") //need Tony's work on this
+
  		$( "#end_results" ).dialog({
 	      autoOpen: true,
 	      modal: true,
@@ -1944,23 +1948,33 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 
 	// Reset crop values for new turn
 	game.cropchoice = "";
+
+	//Advance to the next turn
+	addTurn();
 };
 
 
 //>>>>>>>>>>>>>>>>>>>>> Clicking #grow button triggers updateGame <<<<<<<<<<<<<
 
 $("#grow").on("click", function () {
-	if ($(this).hasClass("highlight")) {
+	if (game.turn <= game.maxturn) {
 		/*if (gameVersion.discreteWeather == true) {
 			gameVersionObject = discrete
 		}
 		else {
 			gameVersionObject = continuous
 		}*/
-		$("#sproutA").addClass("hidden");
-		$("#sproutB").addClass("hidden");
-		setTimeout(weatherResults, 100);
+		if ($(this).hasClass("highlight")) {
+			$("#sproutA").addClass("hidden");
+			$("#sproutB").addClass("hidden");
+			setTimeout(weatherResults, 100);
+		}
 	}
+
+	else if (game.turn > game.maxturn) {
+		alert("You have reached turn number " + game.maxturn + ". The game is over!");
+	}
+
 });
 
 //For Fran: test functionality of game in advance
