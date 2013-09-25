@@ -1585,8 +1585,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			// A. Crop A outcomes
 			if (game.cropchoice === "crop A") {
 
-				updateContinuous(game.continuous.betaA, game.continuous.maxApayout, game.continuous.maxAweather); // call updateGame with values for crop A
-
 			// A1. game.gameWeather is wet
 				//A1.i Wet game.gameWeather is "wet" (wetter than normal)
 				if (game.gameWeather[game.turn] < game.continuous.maxAweather + Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) && game.gameWeather[game.turn] >= game.continuous.maxAweather + .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) ) {
@@ -1622,12 +1620,12 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					$("#rowsCropA").removeClass("hidden");
 					game.weatherReport = "optimal weather";
 				}
+
+				updateContinuous(game.continuous.betaA, game.continuous.maxApayout, game.continuous.maxAweather); // call updateGame with values for crop A
 			}
 
 			// 2. Crop B outcomes
 			else if (game.cropchoice === "crop B") {
-
-				updateContinuous(game.continuous.betaB, game.continuous.maxBpayout, game.continuous.maxBweather); // call updateGame with values for crop B
 
 			// B1. game.gameWeather is wet
 
@@ -1664,8 +1662,10 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					$("#rowsCropB").removeClass("hidden");
 					game.weatherReport = "optimal weather";
 				}
+
+				updateContinuous(game.continuous.betaB, game.continuous.maxBpayout, game.continuous.maxBweather); // call updateGame with values for crop B
 			}
-			alert("weatherReport is now: " + game.weatherReport);
+
 		}; // end of continuous [weather graphics]
 
 		if (gameVersion === "discrete") {
