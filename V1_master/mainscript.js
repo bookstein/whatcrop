@@ -1665,6 +1665,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					game.weatherReport = "optimal weather";
 				}
 			}
+			alert("weatherReport is now: " + game.weatherReport);
 		}; // end of continuous [weather graphics]
 
 		if (gameVersion === "discrete") {
@@ -1693,13 +1694,11 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	if (gameVersion.discreteWeather === true) {
 		weatherOpacity("discrete");
 		weatherGraphics("discrete");
-		alert("Calling discrete functions");
 	}
 
 	else {
 		weatherOpacity("continuous");
 		weatherGraphics("continuous");
-		alert("Calling continuous functions");
 	}
 
 	// removes weather graphics after this many milliseconds
@@ -1749,14 +1748,19 @@ function updateContinuous (beta, maxpayout, maxweather) {
 
 }; // End of updateContinuous function
 
-function updateGame (payout, gameVersionObject) { //this function is called and given arguments inside weatherResults function above
+function updateGame (payout) { //this function is called and given arguments inside weatherResults function above
+
+	var bonusOneTotal;
+	var bonusTwoTotal;
 
 	if (gameVersion.discreteWeather === true) {
-		gameVersionObject="game.continuous"
+		bonusOneTotal = game.discrete.bonusOneTotal;
+		bonusTwoTotal = game.discrete.bonusTwoTotal;
 	}
 
 	else {
-		gameVersionObject="game.discrete"
+		bonusOneTotal = game.continuous.bonusOneTotal;
+		bonusTwoTotal = game.continuous.bonusTwoTotal;
 	}
 
 	// Functions shared by both versions
@@ -1767,7 +1771,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 	console.log("Old score is " + oldscore + ", new score is " + newscore);
 
 	function displayResultsDialog () {
-				//populate spans inside all results dialogs
+		//populate spans inside all results dialogs
 	    $(".results").find("#weather_outcome").text(parseInt(game.gameWeather[game.turn]));
     	$(".results").find("#new_score").text(payout);
     	$(".results").find("#weather_report").text(game.weatherReport);
@@ -1786,13 +1790,13 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 	    });
 
 		// bonus dialogs
-		if (oldscore < gameVersionObject.bonusOneTotal && newscore >= gameVersionObject.bonusOneTotal) { //this only works now because I made totalRandomPoints global
+		if (oldscore < bonusOneTotal && newscore >= bonusOneTotal) { //this only works now because I made totalRandomPoints global
 			$("#bonus_count").text("$" + bonusOneDollars);
 			addBonus1();
 			$("#bonus_results").dialog("open");
 		}
 
-		else if (oldscore < gameVersionObject.bonusTwoTotal && newscore >= gameVersionObject.bonusTwoTotal) {
+		else if (oldscore < bonusTwoTotal && newscore >= bonusTwoTotal) {
 			$("#bonus_count").text("$" + bonusTwoDollars);
 			addBonus2();
 			$("#bonus_results").dialog("open");
