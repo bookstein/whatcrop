@@ -279,7 +279,7 @@ $(function initializeGame (gameVersionObject) {
 					game.gameWeather[i] = perTurnWeather;
 				}
 
-			if (weatherArray[i] > thresholdArray[i])
+			else if (weatherArray[i] > thresholdArray[i])
 				{
 					var perTurnWeather = "Dry";
 					game.gameWeather[i] = perTurnWeather;
