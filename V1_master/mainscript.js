@@ -1930,11 +1930,11 @@ function updateGame (payout) { //this function is called and given arguments ins
 	          height: 'auto',
 	          width: '375',
 	          dialogClass: "no-close",
-	      buttons: [ { text: "OK",
+	      /*buttons: [ { text: "OK",
 	        click: function() {
 	          $( this ).dialog( "close" );
 	        }
-	      } ]
+	      } ]*/
 	    });
 	};
 
