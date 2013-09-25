@@ -31,7 +31,7 @@ game = {
 	meanHistoricWeather : 0,
 
 	// Set number of turns per game
-    maxturn : 50,
+    maxturn : 5,
 	//Turn Counter
 	turn : 0,
 
@@ -1368,7 +1368,7 @@ $(function initializeGame (gameVersionObject) {
   };
 
   //remove this function call when server functions are restored!!!
-/*
+  /*
 
   function createGameOnServer() {
     return $.ajax(game.serverAddress + '/games', {
@@ -1407,7 +1407,7 @@ $(function initializeGame (gameVersionObject) {
       });
   };
 
-  bootstrap();*/
+  bootstrap(); */
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
@@ -1885,7 +1885,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 	};
 
 	//Record relevant data for the current turn
-	/*function recordData (game) {
+	function recordData (game) {
 	    var payload = {
 	      crop_choice: game.cropchoice,
 	      weather:     game.gameWeather[game.turn],
@@ -1917,10 +1917,10 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
 		$("#playerID").text(game.gameID);
-		$("#total_score").text(score);
-		$("#total_dollars").text(realDollars);
+		$("#total_score").text(game.score);
+		$("#total_dollars").text(game.realDollars);
  		$( "#end_results" ).dialog({
-	      autoOpen: false,
+	      autoOpen: true,
 	      modal: true,
 	      sticky: true,
 	      closeOnEscape: false,
@@ -1940,7 +1940,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 
 	if (game.gameOver) {
 		setTimeout(endGame, 1000);
-	}*/
+	}
 
 	// Reset crop values for new turn
 	game.cropchoice = "";
@@ -1957,7 +1957,7 @@ $("#grow").on("click", function () {
 			gameVersionObject = continuous
 		}*/
 
-	if (($(this).hasClass("highlight"))&& game.turn <= game.maxturn) {
+	if ($(this).hasClass("highlight")) {
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
 		setTimeout(weatherResults, 100);
