@@ -61,10 +61,9 @@ table {
 
 /*Universal Rules, from Styleguide >>>>>>>>>>>>>>>*/
 section {
-	border: 1px solid #eae9e6;
 	border-radius: 5px;
 	padding: 10px;
-	margin: 10px;
+	margin: 5px;
 
 }
 
@@ -274,7 +273,8 @@ nav h5 {
 
 #givens {
 	display: inline-block;
-	min-width: 25%;
+	min-width: 20%;
+	max-width: 25%;
 	min-height: 550px;
 	text-align: center;
 }
@@ -387,8 +387,9 @@ td {
 	);
 		z-index: 0;
 		opacity: .2;
-		height: 105%;
-		width: 100%;
+		height: auto;
+		width: inherit;
+		padding: 2px;
 }
 
 .jqplot-event-canvas {
@@ -461,7 +462,7 @@ td {
 	min-height: auto;
 	max-width: 48%;
 	position: relative;
-
+	padding: 0;
 }
 
 
@@ -471,7 +472,7 @@ td {
 	z-index: 1;
 	margin: 0 auto;
 	padding: 0;
-	}
+}
 
 	/*NOTE: medium-sized default image file width =600px! Original default image width=700 */
 
@@ -725,7 +726,7 @@ button.plant {
 #score {
 	display: inline-block;
 	padding: 10px;
-	min-width: 15%;
+	min-width: 20%;
 	max-width: 25%;
 	min-height: 550px;
 	background-image: url('images/coinstack.png');
