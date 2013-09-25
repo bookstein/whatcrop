@@ -1536,7 +1536,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 		// User chose crop A
 			if (game.cropchoice == "crop A" && game.gameWeather[game.turn] == "Dry") {
 
-				game.weatherResults = "sunny";
+				game.weatherReport = "sunny";
 				payout = game.discrete.payoutAdry;
 				displaySun();
 				$("#deadA").removeClass("hidden");
@@ -1545,7 +1545,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 			else if (game.cropchoice == "crop A" && game.gameWeather[game.turn] == "Wet") {
 
-				weatherResults = "rainy";
+				game.weatherReport = "rainy";
 				payout = game.discrete.payoutAwet;
 				displayRain();
 				$("#rowsCropA").removeClass("hidden");
@@ -1555,7 +1555,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 		// User chose crop B
 			else if (game.cropchoice == "crop B" && game.gameWeather[game.turn] == "Dry") {
 
-				weatherResults = "sunny";
+				game.weatherReport = "sunny";
 				payout = game.discrete.payoutBdry;
 				displaySun();
 				$("#deadB").removeClass("hidden");
@@ -1565,7 +1565,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 			else if (game.cropchoice == "crop B" && game.gameWeather[game.turn] == "Wet"){
 
-				weatherResults = "rainy";
+				game.weatherReport = "rainy";
 				payout = game.discrete.payoutBwet;
 				displayRain();
 				$("#rowsCropB").removeClass("hidden");
