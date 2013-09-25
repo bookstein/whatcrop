@@ -49,28 +49,7 @@
 	<body onkeydown="keydown(event)" onkeyup="keyup(event)" onclick="mouseclick(event)"> -->
 
 <header>
-	<h1>Which crop will you plant?</h1>
-		<br>
-	<!--<div id="instructions_dropdown" class="instructions">
-		<h4> How to play </h4><br>
-		<p> Choose which crop you'd like to plant this season: either crop A or crop B. You will make money on your crops depending on the weather that season. To see how much money you'll make on each crop depending on the weather, see the graph on the left below. Thanks for playing! </p><br>
-		<a href="#"> >Hide instructions</a>
-	</div> -->
-
-
-		<div class="instructions dialog-message ui-dialog" id="first-message" title="Game instructions">
-				<br>
-				<p>
-				    <span class="emphasize">Welcome to "What Crop."</span>
-				</p>
-				<br>
-				<p>
-				    By playing, you are contributing the academic understanding of economic decision-making.
-				</p>
-		</div>
-
-		<!-- add dialog-message ui-dialog classes to next dialog box -->
-
+	<h1>Which Crop Will You Choose?</h1>
 		<div class="instructions dialog-message ui-dialog" id="second-message" title="Game instructions">
 		<!-- highlight table -->
 				<br>
@@ -173,61 +152,41 @@
 			<br>
 		</div>
 
-
+<!--
 		<div class="instructions dialog-message ui-dialog" id="creating-game-dialog" title="Creating game">
                         <p>Creating Game...</p>
-		</div>
+		</div> -->
 </header>
+
+<nav>
+	<div id="turns"> <!-- turn counter div, child of section #givens -->
+		<h5>Turns Taken</h5>
+		<span id="turns_counter">Number of turns</span>
+	</div>
+	<div id="dollars"><!-- displays real dollars earned. Child of #points -->
+
+			<h5>Dollars Earned</h5>
+			<span id="dollars_counter">$0.50</span>
+	</div><!-- end of #dollars -->
+
+		<div class="instructions dialog-message ui-dialog" id="first-message" title="Game instructions">
+				<br>
+				<p>
+				    <span class="emphasize">Welcome to "What Crop."</span>
+				</p>
+				<br>
+				<p>
+				    By playing, you are contributing the academic understanding of economic decision-making.
+				</p>
+	</div>
+</nav>
 
 <div id="container"><!-- formerly simply the "canvas" element in original. Parent of all divs -->
 	<!-- <p>Your browser does not support these images.</p>--> <!-- if background image fails to load, this message will appear -->
 	<!-- //script to write data to file (see original code)
 		//write "catch" for ajax request in different browsers
 		//should I write one JS file for the whole thing, or mini JS files for specific purposes? Should I basically just externalize most of the code that the guy wrote? -->
-	<section id="givens"> <!-- Contains infographics explaining value of A and B, weather distribution (if any) as well as turn counter -->
 
-		<h5>Crop Yield</h5>
-		<br>
-		<br>
-		<!-- Div for containing payout chart -->
-		<div id="chartdiv" class="hidden">
-		</div>
-
-		<div id="tablediv" class="hidden">
-			<table>
-				<thead colspan="3">
-					<tr>
-						<th id="empty"><!--empty--></th>
-							<th class="Acolor"> A </th>
-							<th class="Bcolor"> B </th>
-					</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td id="wetColor">Wet </td>
-					<td id="payoutAwet"></td>
-					<td id="payoutBwet"></td>
-				</tr>
-
-				<tr>
-					<td id="dryColor">Dry </td>
-					<td id="payoutAdry"></td>
-					<td id="payoutBdry"></td>
-				</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div id="turns"> <!-- turn counter div, child of section #givens -->
-			<h5>Turns Taken</h5>
-			<div id="turns_bar">
-				<!-- this div contains the actual turn count -->
-
-				<span id="turns_counter">Number of turns</span>
-			</div>
-	</div>
-
-	</section> <!-- end of #givens -->
 
 	<section id="choice_screen"><!-- sibling of .dashboard and .givens, parent of .dialog. Named canvas to indicate area of screen with interactive visual elements -->
 		<!-- background image default, medium-width: see CSS "background" property -->
@@ -341,6 +300,41 @@
 
 	</section> <!-- end of #choice_screen (parent) -->
 
+	<section id="givens"> <!-- Contains infographics explaining value of A and B, weather distribution (if any) as well as turn counter -->
+		<br>
+		<h5>Crop Yield</h5>
+		<br>
+		<!-- Div for containing payout chart -->
+		<div id="chartdiv" class="hidden">
+		</div>
+
+		<div id="tablediv" class="hidden">
+			<table>
+				<thead colspan="3">
+					<tr>
+						<th id="empty"><!--empty--></th>
+							<th class="Acolor"> A </th>
+							<th class="Bcolor"> B </th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td id="wetColor">Wet </td>
+					<td id="payoutAwet"></td>
+					<td id="payoutBwet"></td>
+				</tr>
+
+				<tr>
+					<td id="dryColor">Dry </td>
+					<td id="payoutAdry"></td>
+					<td id="payoutBdry"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+	</section> <!-- end of #givens -->
 	<section id="score"> <!-- sibling of #choice_screen. Contains points counter, real dollars counter -->
 		<br>
 		<h5>Points Earned </h5>
@@ -369,12 +363,6 @@
 			</div> <!-- end of #points_fill -->
 
 		</div> <!-- end of #points_bar -->
-
-			<div id="dollars"><!-- displays real dollars earned. Child of #points -->
-
-			<h4>Dollars Earned:</h4><span id="dollars_counter">$0.50</span>
-
-			</div><!-- end of #dollars -->
 
 	</section> <!-- end of #points -->
 
