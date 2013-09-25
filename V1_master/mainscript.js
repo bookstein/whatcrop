@@ -1780,7 +1780,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 	    });
 
 		//populate spans inside all results dialogs
-	    $(".results").find("#weather_outcome").text(game.gameWeather[game.turn]);
+	    $(".results").find("#weather_outcome").text(parseInt(game.gameWeather[game.turn]));
     	$(".results").find("#new_score").text(payout);
     	$(".results").find("#weather_report").text(game.weatherReport);
     	$(".results").find("#chosen_crop").text(game.cropchoice);
@@ -1806,7 +1806,7 @@ function updateGame (payout, gameVersionObject) { //this function is called and 
 		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
 	}; // end of displayResultsDialog()
 
-	//displayResultsDialog();
+	displayResultsDialog();
 
 	function addTurn () {
 		if (game.turn < game.maxturn-2) {
