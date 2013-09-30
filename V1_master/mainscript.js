@@ -23,7 +23,7 @@ game = {
 	meanHistoricWeather : 0,
 
 	// Set number of turns per game
-    maxturn : 3,
+    maxturn : 50,
 	//Turn Counter
 	turn : 0,
 
@@ -1062,7 +1062,7 @@ $(function initializeGame (gameVersionObject) {
 			// populate canvasOverlay with the historic mean weather line
 			setOptions("historyObj", false);
 			console.log(game.optionsObj.historyObj);
-	//var historyChart = $.jqplot("continuous_history", [game.histogram, nullSet, nullSet], game.optionsObj.historyObj);
+			var historyChart = $.jqplot("continuous_history", [game.histogram, [null], [null]], game.optionsObj.historyObj);
 			/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
 			var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
 			$("#continuous_history").width(w).height(h);
