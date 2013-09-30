@@ -103,7 +103,9 @@ game = {
 
 	//for testing purposes
 	historicWeather : [], // Array values filled in using historicWeatherArray() below
-	// array holding canvasOverlay data for drawing vertical lines
+	plotA: [],
+	plotB: []
+
 }; //end of game object
 
 
@@ -674,8 +676,8 @@ $(function initializeGame (gameVersionObject) {
 
 
 			// Call dataArrays function and create parabolaArrays for A and B
-			var plotA = dataArrays(game.continuous.betaA, game.continuous.maxAweather, game.continuous.maxApayout, "A");
-			var plotB = dataArrays(game.continuous.betaB, game.continuous.maxBweather, game.continuous.maxBpayout, "B");
+			game.plotA = dataArrays(game.continuous.betaA, game.continuous.maxAweather, game.continuous.maxApayout, "A");
+			game.plotB = dataArrays(game.continuous.betaB, game.continuous.maxBweather, game.continuous.maxBpayout, "B");
 
 
 			// Set upper bounds on graph
@@ -684,10 +686,10 @@ $(function initializeGame (gameVersionObject) {
 
 			function findUpperBoundX () {
 			//modifies upper bound on x-axis based on largest parabola root (point at which crop value is (X,0) with largest possible value of X)
-				var root1A = plotA[0][0];
-				var root2A = plotA[4][0];
-				var root1B = plotB[0][0];
-				var root2B = plotB[4][0];
+				var root1A = game.plotA[0][0];
+				var root2A = game.plotA[4][0];
+				var root1B = game.plotB[0][0];
+				var root2B = game.plotB[4][0];
 
 				var rootArray = [root1A, root2A, root1B, root2B];
 				var maxRoot = Math.max.apply(Math, rootArray);
@@ -704,8 +706,8 @@ $(function initializeGame (gameVersionObject) {
 			findUpperBoundX();
 
 			function findUpperBoundY () {
-				var vertexA = plotA[2][1];
-				var vertexB = plotB[2][1];
+				var vertexA = game.plotA[2][1];
+				var vertexB = game.plotB[2][1];
 
 				if (vertexA > vertexB) {
 					upperBoundY = vertexA;
@@ -1043,7 +1045,7 @@ $(function initializeGame (gameVersionObject) {
 			}; //end function setOptions()
 
 	// writes crop payout dataset to game object
-			game.continuous.payoutData = [[null], plotA, plotB];
+			game.continuous.payoutData = [[null], game.plotA, game.plotB];
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			setOptions("payoutObj", false);
@@ -1459,6 +1461,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 	//Show weather results line on graph ("resultsLine")
 		// update value of X
+	game.continuous.givensChart.destroy();
+	game.optionsObj.givensObj.canvasOverlay.objects = [];
 	game.optionsObj.givensObj.canvasOverlay.objects =[
 		{verticalLine:{
 					name: 'resultsLine',
@@ -1469,7 +1473,11 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 		}}
 	];
 	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
-	game.continuous.givensChart =$.jqplot("chartdiv", game.continuous.payoutData, game.optionsObj.givensObj);
+
+	$(function(){
+		game.continuous.givensChart = $.jqplot("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
+	});
+	//game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.optionsObj.givensObj);
 
 	function weatherOpacity (gameVersion) {
 
