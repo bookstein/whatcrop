@@ -103,24 +103,31 @@ game = {
 	//for testing purposes
 	historicWeather : [], // Array values filled in using historicWeatherArray() below
 	// array holding canvasOverlay data for drawing vertical lines
+	myArray: [{verticalLine:{
+						name: 'resultsLine',
+	                    //x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+	                    lineWidth: 4,
+	                    color: 'rgb(255, 204, 51)', //yellow
+	                    shadow: false
+		}}],
 	canvasOverlayLines: {
 		payoutObj: {verticalLine:{
 						name: 'resultsLine',
-	                    //x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+	                    x: 100, // this positions the line at the current turn weather
 	                    lineWidth: 4,
 	                    color: 'rgb(255, 204, 51)', //yellow
 	                    shadow: false
 		}},
 		historyObj: {verticalLine:{
 						name: 'avgHistoricWeather',
-			        	//x: game.meanHistoricWeather,
+			        	x: 500,
 			        	lineWidth: 2,
 			        	color: '#565347', //gray
 			        	shadow: false
 		}},
 		givensObj: {verticalLine:{
 	                    name: 'resultsLine',
-	                    //x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+	                    x: 900, // this positions the line at the current turn weather
 	                    lineWidth: 4,
 	                    color: 'rgb(255, 204, 51)', //yellow
 	                    shadow: false
@@ -1030,9 +1037,7 @@ $(function initializeGame (gameVersionObject) {
 			        		show: true,
 				            objects:
 
-
-
-
+				            	[game.canvasOverlayLines[seriesName]]
 
 						} // end of canvasOverlay
 
