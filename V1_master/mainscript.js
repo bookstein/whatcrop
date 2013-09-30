@@ -109,30 +109,7 @@ game = {
 	                    lineWidth: 4,
 	                    color: 'rgb(255, 204, 51)', //yellow
 	                    shadow: false
-		}}],
-	canvasOverlayLines: {
-		payoutObj: {verticalLine:{
-						name: 'resultsLine',
-	                    x: 100, // this positions the line at the current turn weather
-	                    lineWidth: 4,
-	                    color: 'rgb(255, 204, 51)', //yellow
-	                    shadow: false
-		}},
-		historyObj: {verticalLine:{
-						name: 'avgHistoricWeather',
-			        	x: 500,
-			        	lineWidth: 2,
-			        	color: '#565347', //gray
-			        	shadow: false
-		}},
-		givensObj: {verticalLine:{
-	                    name: 'resultsLine',
-	                    x: 900, // this positions the line at the current turn weather
-	                    lineWidth: 4,
-	                    color: 'rgb(255, 204, 51)', //yellow
-	                    shadow: false
-		}}
-	}
+		}}]
 }; //end of game object
 
 
@@ -614,20 +591,39 @@ $(function initializeGame (gameVersionObject) {
 		$.jqplot.config.enablePlugins = true;
 
 		// objects containing data series arrays and canvas overlay arrays to be drawn in continuous payout and historic weather charts
+
 		chartObjects = {
 			payoutObj: {
 				seriesArray: [],
-				canvasOverlayLine: [],
+				canvasOverlayLine: {verticalLine:{
+						name: 'resultsLine',
+	                    x: 100, // this positions the line at the current turn weather
+	                    lineWidth: 4,
+	                    color: 'rgb(255, 204, 51)', //yellow
+	                    shadow: false
+				}},
 				color: ["#000","#820000", "#3811c9"]
 			},
 			historyObj: {
 				seriesArray: [],
-				canvasOverlayLine: [],
+				canvasOverlayLine: {verticalLine:{
+						name: 'avgHistoricWeather',
+			        	x: 500,
+			        	lineWidth: 2,
+			        	color: '#565347', //gray
+			        	shadow: false
+				}},
 				color: ["rgba(152, 152, 152, .7)", "#820000", "#3811c9"]
 			},
 			givensObj: {
 				seriesArray: [],
-				canvasOverlayLine: [],
+				canvasOverlayLine: {verticalLine:{
+						name: 'resultsLine',
+	                    x: 100, // this positions the line at the current turn weather
+	                    lineWidth: 4,
+	                    color: 'rgb(255, 204, 51)', //yellow
+	                    shadow: false
+				}},
 				color: ["#000", "#820000", "#3811c9"]
 			}
 		};
@@ -866,8 +862,8 @@ $(function initializeGame (gameVersionObject) {
 			function setOptions (seriesName, showData) {
 
 				if (seriesName === "payoutObj" || seriesName === "givensObj") {
-					game[seriesName]["seriesArray"][0] = {};
-					game[seriesName]["seriesArray"][1] =
+					chartObjects[seriesName]["seriesArray"][0] = {};
+					chartObjects[seriesName]["seriesArray"][1] =
 									{
 						      	    // CropA
 						      	    label: "Crop A",
@@ -879,7 +875,7 @@ $(function initializeGame (gameVersionObject) {
 						            show: true
 						          };
 
-					game[seriesName]["seriesArray"][2] = {
+					chartObjects[seriesName]["seriesArray"][2] = {
 						            // CropB
 						            label: "Crop B",
 						            lineWidth: 2,
@@ -892,7 +888,7 @@ $(function initializeGame (gameVersionObject) {
 				}
 
 				else if (seriesName === "historyObj") {
-					game[seriesName]["seriesArray"][0] = {
+					chartObjects[seriesName]["seriesArray"][0] = {
 								// Weather
 					          	label: "Weather",
 					          	showMarker: false,
@@ -909,8 +905,8 @@ $(function initializeGame (gameVersionObject) {
 					          	yaxis:'yaxis',
 					          	show: true
 					};
-					game[seriesName]["seriesArray"][1] = {};
-					game[seriesName]["seriesArray"][2] = {};
+					chartObjects[seriesName]["seriesArray"][1] = {};
+					chartObjects[seriesName]["seriesArray"][2] = {};
 				}
 
 				game.optionsObj[seriesName] = {
@@ -1043,7 +1039,7 @@ $(function initializeGame (gameVersionObject) {
 			        		show: true,
 				            objects:
 
-				            	[game.canvasOverlayLines[seriesName]]
+				            	[chartObjects.canvasOverlayLine[seriesName]]
 
 						} // end of canvasOverlay
 
