@@ -911,11 +911,11 @@ $(function initializeGame (gameVersionObject) {
 
 				game.optionsObj[seriesName] = {
 					      series:
-					          game[seriesName]["seriesArray"]
+					          chartObjects[seriesName]["seriesArray"]
 					      ,
 
 					      seriesColors:
-					      		game[seriesName]["color"]
+					      		chartObjects[seriesName]["color"]
 					      ,
 
 
@@ -1039,7 +1039,7 @@ $(function initializeGame (gameVersionObject) {
 			        		show: true,
 				            objects:
 
-				            	[chartObjects.canvasOverlayLine[seriesName]]
+				            	[chartObjects[seriesName]["canvasOverlayLine"]]
 
 						} // end of canvasOverlay
 
