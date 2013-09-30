@@ -90,6 +90,7 @@ game = {
 		climateArray : [],
 
 		// Variable to store the payout graph that updates with weather results during the game
+		payoutData: {},
 		givensChart: {}
 	},
 
@@ -1041,12 +1042,12 @@ $(function initializeGame (gameVersionObject) {
 				return game.optionsObj[seriesName];
 			}; //end function setOptions()
 
-	// placeholder empty dataset
-			var payoutData = [[null], plotA, plotB];
+	// writes crop payout dataset to game object
+			game.continuous.payoutData = [[null], plotA, plotB];
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			setOptions("payoutObj", false);
-			var payoutChart = $.jqplot("crop_payouts_chart", payoutData, game.optionsObj.payoutObj);
+			var payoutChart = $.jqplot("crop_payouts_chart", game.continuous.payoutData, game.optionsObj.payoutObj);
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
 
@@ -1061,7 +1062,7 @@ $(function initializeGame (gameVersionObject) {
 
 	//CHART 3: draw graph in sidebar #chartdiv using optionsObj above
 			setOptions("givensObj", false);
-			game.continuous.givensChart = $.jqplot("chartdiv", payoutData, game.optionsObj.givensObj);
+			game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.optionsObj.givensObj);
 
 		}; //end of drawQuadratic()
 
