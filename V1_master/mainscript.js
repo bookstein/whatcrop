@@ -104,21 +104,27 @@ game = {
 	historicWeather : [], // Array values filled in using historicWeatherArray() below
 	// array holding canvasOverlay data for drawing vertical lines
 	canvasOverlayLines: {
-		payoutObj: [{verticalLine:{}}],
-		historyObj: [{verticalLine:{
+		payoutObj: {verticalLine:{
+						name: 'resultsLine',
+	                    //x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+	                    lineWidth: 4,
+	                    color: 'rgb(255, 204, 51)', //yellow
+	                    shadow: false
+		}},
+		historyObj: {verticalLine:{
 						name: 'avgHistoricWeather',
 			        	//x: game.meanHistoricWeather,
 			        	lineWidth: 2,
 			        	color: '#565347', //gray
 			        	shadow: false
-		}}],
-		givensObj: [{verticalLine:{
+		}},
+		givensObj: {verticalLine:{
 	                    name: 'resultsLine',
 	                    //x: game.gameWeather[game.turn], // this positions the line at the current turn weather
 	                    lineWidth: 4,
 	                    color: 'rgb(255, 204, 51)', //yellow
 	                    shadow: false
-		}}]
+		}}
 	},
 	// objects holding data series to be drawn in charts
 	payoutObj: {
@@ -847,7 +853,7 @@ $(function initializeGame (gameVersionObject) {
 			function setOptions (seriesName, showData) {
 
 				if (seriesName === "payoutObj" || seriesName === "givensObj") {
-					game[seriesName]["seriesArray"][0] = {},
+					game[seriesName]["seriesArray"][0] = {};
 					game[seriesName]["seriesArray"][1] =
 									{
 						      	    // CropA
@@ -954,7 +960,7 @@ $(function initializeGame (gameVersionObject) {
 			      			y2axis:{
 			      				label: "Relative frequency",
 			     				labelOptions: {
-	            					show: !showData,
+	            					show: showData,
 	            					fontFamily: 'Georgia, serif',
 	            					fontSize: '11pt'
 	        					},
@@ -965,7 +971,7 @@ $(function initializeGame (gameVersionObject) {
 
 			                	tickOptions:{
 			                        mark: "inside",
-			                        showLabel: !showData,
+			                        showLabel: showData,
 			                        //formatString: "%#.0f",
 			                        showMark: false,
 			                        showGridline: false
@@ -1024,44 +1030,28 @@ $(function initializeGame (gameVersionObject) {
 			        		show: true,
 				            objects:
 
-				            	game.canvasOverlayLines[seriesName]
-								/*{verticalLine: {
-				                	name: 'avgHistoricWeather',
-				                	x: game.meanHistoricWeather,
-				                	lineWidth: 2,
-				                	color: '#565347', //gray
-				                	shadow: false
-				                }},
 
-				                {verticalLine: {
-				                    name: 'resultsLine',
-				                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
-				                    lineWidth: 4,
-				                    color: 'rgb(255, 204, 51)',
-				                    shadow: false
-				                }}*/
+
+
+
 						} // end of canvasOverlay
 
 					}; // end optionsObj object
-
-
 
 				return game.optionsObj[seriesName];
 			}; //end function setOptions()
 
 	// placeholder empty dataset
-	var payoutData = [[null], plotA, plotB];
+			var payoutData = [[null], plotA, plotB];
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
-			setOptions("payoutObj", true);
+			setOptions("payoutObj", false);
 			var payoutChart = $.jqplot("crop_payouts_chart", payoutData, game.optionsObj.payoutObj);
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
 
 			$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
-			// populate canvasOverlay with the historic mean weather line
-			setOptions("historyObj", false);
-			console.log(game.optionsObj.historyObj);
+			setOptions("historyObj", true);
 			var historyChart = $.jqplot("continuous_history", [game.histogram, [null], [null]], game.optionsObj.historyObj);
 			/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
 			var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
@@ -1070,7 +1060,7 @@ $(function initializeGame (gameVersionObject) {
 
 
 	//CHART 3: draw graph in sidebar #chartdiv using optionsObj above
-			setOptions("givensObj", true);
+			setOptions("givensObj", false);
 			game.continuous.givensChart = $.jqplot("chartdiv", payoutData, game.optionsObj.givensObj);
 
 		}; //end of drawQuadratic()
