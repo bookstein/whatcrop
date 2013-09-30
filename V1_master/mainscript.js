@@ -1457,7 +1457,9 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	var sunOpacity;
 
 	//Show weather results line on graph ("resultsLine")
-
+		// update value of X
+	game.optionsObj.givensObj.canvasOverlay["x"] = game.gameWeather[turn];
+	game.continuous.givensChart = $.jqplot("chartdiv", payoutData, game.optionsObj.givensObj);
 	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
 
 
