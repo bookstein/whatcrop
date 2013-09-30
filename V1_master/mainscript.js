@@ -1458,19 +1458,17 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 	//Show weather results line on graph ("resultsLine")
 		// update value of X
-	game.optionsObj.givensObj.canvasOverlay.objects =
-		[
-			{verticalLine:{
-						name: 'resultsLine',
-	                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
-	                    lineWidth: 4,
-	                    color: 'rgb(255, 204, 51)', //yellow
-	                    shadow: false
-				}}
-		];
-	game.continuous.givensChart = $.jqplot("chartdiv", payoutData, game.optionsObj.givensObj);
+	game.optionsObj.givensObj.canvasOverlay.objects =[
+		{verticalLine:{
+					name: 'resultsLine',
+                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+                    lineWidth: 4,
+                    color: 'rgb(255, 204, 51)', //yellow
+                    shadow: false
+		}}
+	];
 	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
-
+	//game.continuous.givensChart.replot();
 
 	function weatherOpacity (gameVersion) {
 
