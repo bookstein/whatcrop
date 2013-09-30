@@ -132,19 +132,6 @@ game = {
 	                    color: 'rgb(255, 204, 51)', //yellow
 	                    shadow: false
 		}}
-	},
-	// objects holding data series to be drawn in charts
-	payoutObj: {
-		seriesArray: [],
-		color: ["#000","#820000", "#3811c9"]
-	},
-	historyObj: {
-		seriesArray: [],
-		color: ["rgba(152, 152, 152, .7)", "#820000", "#3811c9"]
-	},
-	givensObj: {
-		seriesArray: [],
-		color: ["#000", "#820000", "#3811c9"]
 	}
 }; //end of game object
 
@@ -625,6 +612,23 @@ $(function initializeGame (gameVersionObject) {
 
 
 		$.jqplot.config.enablePlugins = true;
+
+		// objects containing data series arrays and canvas overlay arrays to be drawn in continuous payout and historic weather charts
+		payoutObj = {
+			seriesArray: [],
+			canvasOverlayLine: [],
+			color: ["#000","#820000", "#3811c9"]
+		};
+		historyObj = {
+			seriesArray: [],
+			canvasOverlayLine: [],
+			color: ["rgba(152, 152, 152, .7)", "#820000", "#3811c9"]
+		};
+		givensObj: {
+			seriesArray: [],
+			canvasOverlayLine: [],
+			color: ["#000", "#820000", "#3811c9"]
+		};
 
 		//Draws crop payout quadratics on canvas with jpPlot plugin
 		function drawQuadratic () {
