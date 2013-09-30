@@ -90,7 +90,7 @@ game = {
 		climateArray : [],
 
 		// Variable to store the payout graph that updates with weather results during the game
-		payoutData: {},
+		payoutData: [],
 		givensChart: {}
 	},
 
