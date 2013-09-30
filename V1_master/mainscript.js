@@ -93,7 +93,7 @@ game = {
 		givensChart: {}
 	},
 
-	// object for containing chart options -- function setOptions() stores output here
+	// Contains continuous game chart options. setOptions() function stores completed objects here
 	optionsObj: {
 		payoutObj: {},
 		historyObj: {},
@@ -103,13 +103,6 @@ game = {
 	//for testing purposes
 	historicWeather : [], // Array values filled in using historicWeatherArray() below
 	// array holding canvasOverlay data for drawing vertical lines
-	myArray: [{verticalLine:{
-						name: 'resultsLine',
-	                    //x: game.gameWeather[game.turn], // this positions the line at the current turn weather
-	                    lineWidth: 4,
-	                    color: 'rgb(255, 204, 51)', //yellow
-	                    shadow: false
-		}}]
 }; //end of game object
 
 
@@ -597,7 +590,7 @@ $(function initializeGame (gameVersionObject) {
 				seriesArray: [],
 				canvasOverlayLine: {verticalLine:{
 						name: 'resultsLine',
-	                    x: 100, // this positions the line at the current turn weather
+	                    x: game.gameWeather[turn], // this positions the line at the current turn weather
 	                    lineWidth: 4,
 	                    color: 'rgb(255, 204, 51)', //yellow
 	                    shadow: false
@@ -608,7 +601,7 @@ $(function initializeGame (gameVersionObject) {
 				seriesArray: [],
 				canvasOverlayLine: {verticalLine:{
 						name: 'avgHistoricWeather',
-			        	x: 500,
+			        	x: game.meanHistoricWeather,
 			        	lineWidth: 2,
 			        	color: '#565347', //gray
 			        	shadow: false
@@ -619,7 +612,7 @@ $(function initializeGame (gameVersionObject) {
 				seriesArray: [],
 				canvasOverlayLine: {verticalLine:{
 						name: 'resultsLine',
-	                    x: 100, // this positions the line at the current turn weather
+	                    x: game.gameWeather[turn], // this positions the line at the current turn weather
 	                    lineWidth: 4,
 	                    color: 'rgb(255, 204, 51)', //yellow
 	                    shadow: false
@@ -1464,6 +1457,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	var sunOpacity;
 
 	//Show weather results line on graph ("resultsLine")
+
 	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
 
 
