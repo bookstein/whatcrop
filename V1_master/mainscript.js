@@ -1066,6 +1066,7 @@ $(function initializeGame (gameVersionObject) {
 	// writes crop payout dataset to game object
 			game.continuous.payoutData = [[null], game.plotA, game.plotB];
 
+	// Makes legend label colors match swatch colors
 		$.jqplot.postDrawHooks.push(function() {
 		    var swatches = $('table.jqplot-table-legend tr td.jqplot-table-legend-swatch');
 		    var labels = $('table.jqplot-table-legend tr td.jqplot-table-legend-label');
@@ -1075,6 +1076,7 @@ $(function initializeGame (gameVersionObject) {
 		        $(this).css('color',color );
 		    });
 		});
+
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			setOptions("payoutObj", true);
@@ -1490,6 +1492,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 	//Show weather results line on graph ("resultsLine")
 		// update value of X
+	game.continuous.givensChart.destroy();
 	game.optionsObj.givensObj.canvasOverlay.objects = [];
 	game.optionsObj.givensObj.canvasOverlay.objects =[
 		{verticalLine:{
@@ -1502,11 +1505,11 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	];
 	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
 
-	$(function(){
-		//game.continuous.givensChart = $.jqplot("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
-		game.continuous.givensChart.redraw("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
-	});
-	//game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.optionsObj.givensObj);
+	//$(function(){
+	//	game.continuous.givensChart = $.jqplot("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
+		//game.continuous.givensChart.redraw("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
+	//});
+	game.continuous.givensChart = $.jqplot("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
 
 	function weatherOpacity (gameVersion) {
 
