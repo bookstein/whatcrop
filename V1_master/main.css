@@ -308,7 +308,7 @@ th {
 }
 
 
-td {
+#tablediv td {
 	text-align: center;
 	vertical-align: middle;
 	border-bottom: 1px dotted #3f3c30;
@@ -346,7 +346,6 @@ td {
 }
 
 
-
 #chartdiv {
 	height: auto;
 	width: 100%;
@@ -356,7 +355,7 @@ td {
 }
 
 #crop_payouts_chart {
-	height: 150px;
+	height: 250px;
 	width: 350px;
 	margin-right: auto;
 	margin-left: auto;

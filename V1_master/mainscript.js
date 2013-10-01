@@ -939,12 +939,31 @@ $(function initializeGame (gameVersionObject) {
 
 					       //pointLabels uses the final value in parabolaArray[i] as its data
 					          pointLabels: {
-					          	show: true,
+					          	show: showData,
 					          	location:'nw',
 					          	ypadding:3,
 					          	xpadding:3
 					          }
 					      },
+
+					      legend: {
+						    renderer: $.jqplot.EnhancedLegendRenderer,
+						    show: !showData,
+						    location: "ne",
+						    labels: ["", "Crop A", "Crop B"],
+						    showSwatches: true,
+					        placement: "insideGrid",
+					        yoffset: "10px",
+					        xoffset: "10px",
+					        fontSize: "11px",
+					        //textColor: "#820000",
+					        border: "0px",
+						    rendererOptions: {
+						        numberRows: 3,
+						        seriesToggle: false
+							}
+						  },
+
 					      axesDefaults: {
 	        				labelRenderer: $.jqplot.CanvasAxisLabelRenderer
 	    				  },
@@ -1047,8 +1066,18 @@ $(function initializeGame (gameVersionObject) {
 	// writes crop payout dataset to game object
 			game.continuous.payoutData = [[null], game.plotA, game.plotB];
 
+		$.jqplot.postDrawHooks.push(function() {
+		    var swatches = $('table.jqplot-table-legend tr td.jqplot-table-legend-swatch');
+		    var labels = $('table.jqplot-table-legend tr td.jqplot-table-legend-label');
+		    labels.each(function(index) {
+		        //turn the label's text color to the swatch's color
+		        var color = $(swatches[index]).find("div div").css('background-color');
+		        $(this).css('color',color );
+		    });
+		});
+
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
-			setOptions("payoutObj", false);
+			setOptions("payoutObj", true);
 			var payoutChart = $.jqplot("crop_payouts_chart", game.continuous.payoutData, game.optionsObj.payoutObj);
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
@@ -1461,7 +1490,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 	//Show weather results line on graph ("resultsLine")
 		// update value of X
-	game.continuous.givensChart.destroy();
 	game.optionsObj.givensObj.canvasOverlay.objects = [];
 	game.optionsObj.givensObj.canvasOverlay.objects =[
 		{verticalLine:{
@@ -1475,7 +1503,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
 
 	$(function(){
-		game.continuous.givensChart = $.jqplot("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
+		//game.continuous.givensChart = $.jqplot("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
+		game.continuous.givensChart.redraw("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
 	});
 	//game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.optionsObj.givensObj);
 
