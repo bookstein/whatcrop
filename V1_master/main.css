@@ -363,7 +363,7 @@ th {
 }
 
 #continuous_history {
-	height: 150px;
+	height: 250px;
 	width: 350px;
 	margin-right: auto;
 	margin-left: auto;
@@ -371,10 +371,9 @@ th {
 }
 
 .jqplot-grid-canvas {
-	background-image: linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
+	/*background-image: linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
 	background-image: -o-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
 	background-image: -moz-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
-	/*background-image: -webkit-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);*/
 	background-image: -ms-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
 	background-image: -webkit-gradient(
 		linear,
@@ -383,7 +382,7 @@ th {
 		color-stop(0.33, rgb(255, 204, 51)),
 		color-stop(0.5, rgb(200, 200, 200)),
 		color-stop(0.84, rgb(0, 200, 500))
-	);
+	);*/
 		z-index: 0;
 		opacity: .2;
 		height: auto;

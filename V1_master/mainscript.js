@@ -1493,7 +1493,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	//Show weather results line on graph ("resultsLine")
 		// update value of X
 	game.continuous.givensChart.destroy();
-	game.optionsObj.givensObj.canvasOverlay.objects = [];
 	game.optionsObj.givensObj.canvasOverlay.objects =[
 		{verticalLine:{
 					name: 'resultsLine',
@@ -1504,12 +1503,12 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 		}}
 	];
 	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
+	 game.continuous.givensChart.replot();
 
 	//$(function(){
 	//	game.continuous.givensChart = $.jqplot("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
 		//game.continuous.givensChart.redraw("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
 	//});
-	game.continuous.givensChart = $.jqplot("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
 
 	function weatherOpacity (gameVersion) {
 
