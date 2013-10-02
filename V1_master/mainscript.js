@@ -1603,6 +1603,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 			}; //end of findPayout()
 
+			findPayout();
 			updateDiscrete(payout);
 
 		}; // end of discrete [weather graphics]
@@ -1756,9 +1757,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 function updateDiscrete (payout) {
-
 	updateGame(payout);
-	console.log("updateDiscrete running. Discrete payout: " + payout);
 
 	//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 
@@ -1795,7 +1794,6 @@ function updateContinuous (beta, maxpayout, maxweather) {
 }; // End of updateContinuous function
 
 function updateGame (payout) { //this function is called and given arguments inside weatherResults function above
-	console.log("NOW UPDATING GAME!");
 	var bonusOneTotal;
 	var bonusTwoTotal;
 
@@ -1813,7 +1811,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 	var oldscore = game.score;
 	var newscore = oldscore + payout;
-	console.log("For turn #" + game.turn + "Game payout: " + payout);
+	console.log("For turn # " + game.turn + "Game payout: " + payout);
 	console.log("Old score is " + oldscore + ", new score is " + newscore);
 
 	function displayResultsDialog () {
