@@ -1567,7 +1567,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 					game.weatherReport = "sunny";
 					payout = game.discrete.payoutAdry;
-					$("#deadA").removeClass("hidden");
+					$("#deadAdry").removeClass("hidden");
 					return payout;
 				}
 
@@ -1584,7 +1584,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 					game.weatherReport = "sunny";
 					payout = game.discrete.payoutBdry;
-					$("#deadB").removeClass("hidden");
+					$("#deadBdry").removeClass("hidden");
 					return payout;
 
 				}
