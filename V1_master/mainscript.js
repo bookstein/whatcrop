@@ -1816,10 +1816,16 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 	function displayResultsDialog () {
 		//populate spans inside all results dialogs
-	    $(".results").find("#weather_outcome").text(parseInt(game.gameWeather[game.turn]));
+	    if (gameVersion.discreteWeather == true) {
+	    	$(".results").find("#weather_outcome").text("Weather: " + game.gameWeather[game.turn] + " and ");
+	    }
+	    else {
+	    	$(".results").find("#weather_outcome").text("Weather: " + parseInt(game.gameWeather[game.turn]) + " inches of rain, which was ");
+	    }
+
     	$(".results").find("#new_score").text(payout);
     	$(".results").find("#weather_report").text(game.weatherReport);
-    	$(".results").find("#chosen_crop").text(game.cropchoice);
+    	$(".results").find("#chosen_crop").text(" for " + game.cropchoice);
 
 		$(".results").dialog({
 			autoOpen: false,
