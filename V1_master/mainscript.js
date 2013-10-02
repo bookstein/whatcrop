@@ -2003,7 +2003,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 	}
 
 	//Advance to the next turn
-	addTurn();
+	setTimeout(addTurn, 4000);
 };
 
 
