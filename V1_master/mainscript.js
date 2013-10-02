@@ -11,11 +11,10 @@ gameVersion = {
 
 game = {
 
-// Shared global variables:
-
 	// Title of game
 	gameLabel: 'control',
 
+	// Shared global variables:
 	cropchoice: "",
 	gameWeather: [],
 	weatherReport : "",
@@ -26,6 +25,8 @@ game = {
     maxturn : 10,
 	//Turn Counter
 	turn : 0,
+	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
+	turnLength: 4000,
 
 	//Points Counter
 	maxScore : 0,
@@ -1099,7 +1100,7 @@ $(function initializeGame (gameVersionObject) {
 			$(".jqplot-grid-canvas").css('background-image', 'none');
 		};
 
-		setTimeout(removeChartBackground, 60000);
+		setTimeout(removeChartBackground, game.turnLength*5);
 
 		//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -1723,7 +1724,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 	// fadeWeather: removes weather graphics for both versions of game
 	function fadeWeather () {
-		//setTimeout calls function after a certain time; currently 3000 ms
 		rainOpacity = 0;
 		sunOpacity = 0;
 	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
@@ -1745,7 +1745,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	}
 
 	// removes weather graphics after this many milliseconds
-	setTimeout(fadeWeather, 4000);
+	setTimeout(fadeWeather, game.turnLength);
 
 }; // end of weatherResults
 
@@ -1855,10 +1855,10 @@ function updateGame (payout) { //this function is called and given arguments ins
 			$("#normal_results").dialog("open");
 		}
 
-		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
+		setTimeout(function() {$( ".results" ).dialog( "close" )}, .75*game.turnLength);
 	}; // end of displayResultsDialog()
 
-	setTimeout(displayResultsDialog, 1000);
+	setTimeout(displayResultsDialog, .25*game.turnLength);
 
 	function addTurn () {
 		if (game.turn < game.maxturn-2) {
@@ -1882,7 +1882,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 		function animatePoints () {
 
 			$("#points_bar").animate({ boxShadow : "0 0 15px 10px #ffcc33" });
-			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, 3500);
+			setTimeout(function () {$("#points_bar").animate({boxShadow : "0 0 0 0 #fff" })}, .9*game.turnLength);
 
 		};
 
@@ -1999,11 +1999,11 @@ function updateGame (payout) { //this function is called and given arguments ins
 	};
 
 	if (game.gameOver === true) {
-		setTimeout(endGame, 4000);
+		setTimeout(endGame, game.turnLength);
 	}
 
 	//Advance to the next turn
-	setTimeout(addTurn, 4000);
+	setTimeout(addTurn, game.turnLength);
 };
 
 
@@ -2020,7 +2020,7 @@ $("#grow").on("click", function () {
 		if ($(this).hasClass("highlight")) {
 			$("#sproutA").addClass("hidden");
 			$("#sproutB").addClass("hidden");
-			setTimeout(weatherResults, 100);
+			setTimeout(weatherResults, 0.025*game.turnLength);
 		}
 	}
 
