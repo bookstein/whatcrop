@@ -1870,7 +1870,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 			game.turn = game.maxturn-1;
 		}
 
-		$("#turns_counter").html("<h5>" + game.turn + "/" + game.maxturn + "</h5>");
+		$("#turns_counter").text(game.turn + "/" + game.maxturn);
 	};
 
 	function newScore () {
