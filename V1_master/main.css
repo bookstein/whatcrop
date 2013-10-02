@@ -303,9 +303,11 @@ th {
 	padding: 5px 15px;
 }
 
+td {
+	text-align: center;
+}
 
 #tablediv td, #intro_table td {
-	text-align: center;
 	vertical-align: middle;
 	border-bottom: 1px dotted #3f3c30;
 	border-right: 1px dotted #3f3c30;
