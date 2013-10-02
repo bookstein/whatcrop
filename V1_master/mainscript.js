@@ -1823,7 +1823,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 	    	$(".results").find("#weather_outcome").text("Weather: " + parseInt(game.gameWeather[game.turn]) + " inches of rain, which was ");
 	    }
 
-    	$(".results").find("#new_score").text(payout);
+    	$(".results").find("#new_score").text(payout + " points");
     	$(".results").find("#weather_report").text(game.weatherReport);
     	$(".results").find("#chosen_crop").text(" for " + game.cropchoice);
 
