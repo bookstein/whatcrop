@@ -23,7 +23,7 @@ game = {
 	meanHistoricWeather : 0,
 
 	// Set number of turns per game
-    maxturn : 50,
+    maxturn : 10,
 	//Turn Counter
 	turn : 0,
 
@@ -1731,8 +1731,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
 	   	$(".jqplot-overlayCanvas-canvas").css('z-index', '-1'); //resets graph resultsLine to hidden
-	   	// Reset crop values for new turn
-		game.cropchoice = "";
 	};
 
 	// Call the appropriate functions
@@ -1815,14 +1813,16 @@ function updateGame (payout) { //this function is called and given arguments ins
 	function displayResultsDialog () {
 		//populate spans inside all results dialogs
 	    if (gameVersion.discreteWeather == true) {
-	    	$(".results").find("#weather_outcome").text("Weather: " + game.gameWeather[game.turn] + " and ");
+	    	$(".results").find("#weather_outcome").text("Weather: " + game.gameWeather[game.turn]);
+	    	$(".results").find("#weather_report").text(" and " + game.weatherReport);
 	    }
 	    else {
-	    	$(".results").find("#weather_outcome").text("Weather: " + parseInt(game.gameWeather[game.turn]) + " inches of rain, which was ");
+	    	$(".results").find("#weather_outcome").text("Weather: " + parseInt(game.gameWeather[game.turn]) + " inches of rain");
+	    	$(".results").find("#weather_report").text(", which was " + game.weatherReport);
 	    }
 
     	$(".results").find("#new_score").text(payout + " points");
-    	$(".results").find("#weather_report").text(game.weatherReport);
+
     	$(".results").find("#chosen_crop").text(" for " + game.cropchoice);
 
 		$(".results").dialog({
