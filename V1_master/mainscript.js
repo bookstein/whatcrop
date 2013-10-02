@@ -1279,8 +1279,8 @@ $(function initializeGame (gameVersionObject) {
 		//reveals payouts chart in sidebar and payouts chart in opening dialog
 		//$("#crop_payouts_chart, #chartdiv").removeClass("hidden");
 		//fills in bonus information
-		$("#bonus_one_instructions").text(game.continuous.bonusOneTotal);
-		$("#bonus_two_instructions").text(game.continuous.bonusTwoTotal);
+		$("#bonus_one_instructions").text(parseInt(game.continuous.bonusOneTotal));
+		$("#bonus_two_instructions").text(parseInt(game.continuous.bonusTwoTotal));
 		//fills in historic weather info
 		$("#weather_type").text(" mean yearly rainfall ");
 		$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
