@@ -386,7 +386,7 @@ $(function initializeGame (gameVersionObject) {
 			}
 
 			for (var i = 0; i < game.maxturn; i++) {
-				game.discrete.bonusOneTotal += parseInt(randomPoints[i]);
+				game.discrete.bonusOneTotal += parseFloat(randomPoints[i]);
 			}
 
 			return game.discrete.bonusOneTotal;
@@ -467,7 +467,7 @@ $(function initializeGame (gameVersionObject) {
 			var total2 = sumtotal2();
 
 			//bonusTwoTotal is the sum of total optimal choice 1 + total optimal choice 2
-			game.discrete.bonusTwoTotal = parseInt(total1 + total2);
+			game.discrete.bonusTwoTotal = parseFloat(total1 + total2);
 			//alert("total optimal points: " + bonusTwoTotal);
 
 			console.log("The second bonus will trigger at " + game.discrete.bonusTwoTotal + " points");
@@ -479,7 +479,7 @@ $(function initializeGame (gameVersionObject) {
 		// Set height of bonus markers
 			function bonusHeight (bonus1, bonus2) {
 
-				var pixelHeight = parseInt($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
+				var pixelHeight = parseFloat($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
 				var pointsPerPixelRatio = game.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
 
 				$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
@@ -1086,10 +1086,6 @@ $(function initializeGame (gameVersionObject) {
 			$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
 			setOptions("historyObj", true);
 			var historyChart = $.jqplot("continuous_history", [game.histogram, [null], [null]], game.optionsObj.historyObj);
-			/*var w = parseInt($(".jqplot-yaxis").width(), 10) + parseInt($("#continuous_history").width(), 10);
-			var h = parseInt($(".jqplot-title").height(), 10) + parseInt($(".jqplot-xaxis").height(), 10) + parseInt($("#continuous_history").height(), 10);
-			$("#continuous_history").width(w).height(h);
-			//historyPlot.replot();*/
 
 
 	//CHART 3: draw graph in sidebar #chartdiv using optionsObj above
@@ -1225,7 +1221,7 @@ $(function initializeGame (gameVersionObject) {
 				}
 
 				else if (payout > 0) {
-					payout = parseInt(payout);
+					payout = parseFloat(payout);
 					//console.log("The payout for " + turn + " is " + payout);
 				}
 
@@ -1259,12 +1255,12 @@ $(function initializeGame (gameVersionObject) {
 		// Calculate bonus points and fill in bonus-marker values
 		function bonusHeight (threshold1, threshold2, bonus1, bonus2) {
 
-			var pixelHeight = parseInt($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
+			var pixelHeight = parseFloat($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
 			var pointsPerPixelRatio = game.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
 
 			// Total bonuses are equal to a percentage of maxScore, determined manually in game object
-			bonus1 = parseInt(threshold1*game.maxScore);
-			bonus2 = parseInt(threshold2*game.maxScore);
+			bonus1 = parseFloat(threshold1*game.maxScore);
+			bonus2 = parseFloat(threshold2*game.maxScore);
 			game.continuous.bonusOneTotal = bonus1;
 			game.continuous.bonusTwoTotal = bonus2;
 
@@ -1781,7 +1777,7 @@ function updateContinuous (beta, maxpayout, maxweather) {
 		}
 
 		else if (formula > 0) {
-			payout = parseInt(formula);
+			payout = parseFloat(formula);
 		}
 
 		return payout;
@@ -1891,13 +1887,13 @@ function updateGame (payout) { //this function is called and given arguments ins
 		function movePointsFlag () { //increase height of #points_flag using absolute positioning
 
 			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
-			var pixelHeight = parseInt($("#points_bar").css("height"));
+			var pixelHeight = parseFloat($("#points_bar").css("height"));
 
 			//Current CSS position for #points_flag "bottom" as an integer
-			var flagHeight = parseInt($("#points_flag").css("bottom"));
+			var flagHeight = parseFloat($("#points_flag").css("bottom"));
 
 			//Current CSS height of #points_fill with "height" as an integer
-			var fillHeight = parseInt($("#points_fill").css("height"));
+			var fillHeight = parseFloat($("#points_fill").css("height"));
 
 			//Ratio of points per pixel
 			var pointsPerPixelRatio = game.maxScore/pixelHeight; //use game.maxScore for now
@@ -1907,7 +1903,11 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 			// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
 			flagHeight+=perTurnHeight;
-			fillHeight +=perTurnHeight;
+			fillHeight = flagHeight + 20;
+			console.log("flagHeight: " + flagHeight);
+			console.log("fillHeight: " + fillHeight);
+			console.log("perTurnHeight = payout/pointsPerPixelRatio: " + payout + "/" + pointsPerPixelRatio + "=" + perTurnHeight);
+			console.log("flagHeight - fillHeight:" + parseFloat(flagHeight-fillHeight));
 
 			// Set new heights in CSS style rules for #points_flag and #points_fill
 			$("#points_flag").css("bottom", flagHeight);
