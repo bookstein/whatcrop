@@ -321,14 +321,15 @@ $(function initializeGame (gameVersionObject) {
 
 		function checkIndifferencePoint () {
 			var indifference = (game.discrete.payoutBwet - game.discrete.payoutAwet)/(game.discrete.payoutAdry - game.discrete.payoutAwet + game.discrete.payoutBwet - game.discrete.payoutBdry);
-			if (game.discrete.indifferencePoint >=1 || game.discrete.indifferencePoint <=0) {
-				alert("The indifference point between A and B is " + game.discrete.indifferencePoint + "!");
+			if (indifference >=1 || indifference <=0) {
+				alert("The indifference point between A and B is " + indifference + "!");
 			}
 
 			console.log(game.discrete.indifferencePoint);
-
-			// Assign the value of the indifference point to the game variable
-			game.discrete.indifferencePoint = indifference;
+			else {
+				// Assign the value of the indifference point to the game variable
+				game.discrete.indifferencePoint = indifference;
+			}
 			return game.discrete.indifferencePoint;
 		};
 
@@ -1564,7 +1565,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 				game.weatherReport = "sunny";
 				payout = game.discrete.payoutAdry;
-				displaySun();
 				$("#deadA").removeClass("hidden");
 				return payout;
 			}
@@ -1573,7 +1573,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 				game.weatherReport = "rainy";
 				payout = game.discrete.payoutAwet;
-				displayRain();
 				$("#rowsCropA").removeClass("hidden");
 				return payout;
 			}
@@ -1583,7 +1582,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 				game.weatherReport = "sunny";
 				payout = game.discrete.payoutBdry;
-				displaySun();
 				$("#deadB").removeClass("hidden");
 				return payout;
 
@@ -1593,7 +1591,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 				game.weatherReport = "rainy";
 				payout = game.discrete.payoutBwet;
-				displayRain();
 				$("#rowsCropB").removeClass("hidden");
 				return payout;
 			}
