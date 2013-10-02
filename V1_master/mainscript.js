@@ -1857,10 +1857,10 @@ function updateGame (payout) { //this function is called and given arguments ins
 			$("#normal_results").dialog("open");
 		}
 
-		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3500);
+		setTimeout(function() {$( ".results" ).dialog( "close" )}, 3000);
 	}; // end of displayResultsDialog()
 
-	displayResultsDialog();
+	setTimeout(displayResultsDialog, 1000);
 
 	function addTurn () {
 		if (game.turn < game.maxturn-2) {
