@@ -513,8 +513,8 @@ $(function initializeGame (gameVersionObject) {
 		$("#sun_probability").css("height", dryPercent);
 		$("#rain_probability").css("height", wetPercent);
 		//fills in bonus information
-		$("#bonus_one_instructions").text(game.discrete.bonusOneTotal);
-		$("#bonus_two_instructions").text(game.discrete.bonusTwoTotal);
+		$("#bonus_one_instructions").text(parseInt(game.discrete.bonusOneTotal));
+		$("#bonus_two_instructions").text(parseInt(game.discrete.bonusTwoTotal));
 		//reveals crop payouts table in opening dialog and sidebar payout table
 		//$("#crop_payouts_table, #tablediv").removeClass("hidden");
 
