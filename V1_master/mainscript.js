@@ -1821,7 +1821,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 	    	$(".results").find("#weather_report").text(", which was " + game.weatherReport);
 	    }
 
-    	$(".results").find("#new_score").text(payout + " points");
+    	$(".results").find("#new_score").text(parseInt(payout) + " points");
 
     	$(".results").find("#chosen_crop").text(" for " + game.cropchoice);
 
