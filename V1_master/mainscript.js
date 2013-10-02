@@ -6,7 +6,7 @@ $(document).ready(function(){
 //>>>>>>>>>>>> GAME OBJECT - change game version and parameters here <<<<<<<<<<<<<<<
 
 gameVersion = {
-	discreteWeather: true
+	discreteWeather: false
 };
 
 game = {
