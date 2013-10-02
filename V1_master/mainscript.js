@@ -1919,7 +1919,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 		game.score += payout;
 		console.log("game score is now " + game.score);
-		$("#point_count").html("<h5>" + game.score + "</h5>");
+		$("#point_count").html("<h5>" + parseInt(game.score) + "</h5>");
 
 		return game.score; //this updates the value of game score
 
