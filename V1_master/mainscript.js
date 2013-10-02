@@ -1288,7 +1288,7 @@ $(function initializeGame (gameVersionObject) {
 		$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-  bootstrap();
+	bootstrap();
 }); // end of initializeGame ()
 
 // >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
@@ -1385,8 +1385,6 @@ $(function initializeGame (gameVersionObject) {
     });
   };
 
-  //remove this function call when server functions are restored!!!
-  /*
 
   function createGameOnServer() {
     return $.ajax(game.serverAddress + '/games', {
@@ -1437,9 +1435,6 @@ $(function initializeGame (gameVersionObject) {
 					});
       });
   };
-
-
-  bootstrap(); */
 
 // >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
 
