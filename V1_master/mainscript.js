@@ -1561,46 +1561,50 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 			var payout = 0;
 
-		// User chose crop A
-			if (game.cropchoice == "crop A" && game.gameWeather[game.turn] == "Dry") {
+			function findPayout () {
+				// User chose crop A
+				if (game.cropchoice == "crop A" && game.gameWeather[game.turn] == "Dry") {
 
-				game.weatherReport = "sunny";
-				payout = game.discrete.payoutAdry;
-				$("#deadA").removeClass("hidden");
-				return payout;
-			}
+					game.weatherReport = "sunny";
+					payout = game.discrete.payoutAdry;
+					$("#deadA").removeClass("hidden");
+					return payout;
+				}
 
-			else if (game.cropchoice == "crop A" && game.gameWeather[game.turn] == "Wet") {
+				else if (game.cropchoice == "crop A" && game.gameWeather[game.turn] == "Wet") {
 
-				game.weatherReport = "rainy";
-				payout = game.discrete.payoutAwet;
-				$("#rowsCropA").removeClass("hidden");
-				return payout;
-			}
+					game.weatherReport = "rainy";
+					payout = game.discrete.payoutAwet;
+					$("#rowsCropA").removeClass("hidden");
+					return payout;
+				}
 
-		// User chose crop B
-			else if (game.cropchoice == "crop B" && game.gameWeather[game.turn] == "Dry") {
+				// User chose crop B
+				else if (game.cropchoice == "crop B" && game.gameWeather[game.turn] == "Dry") {
 
-				game.weatherReport = "sunny";
-				payout = game.discrete.payoutBdry;
-				$("#deadB").removeClass("hidden");
-				return payout;
+					game.weatherReport = "sunny";
+					payout = game.discrete.payoutBdry;
+					$("#deadB").removeClass("hidden");
+					return payout;
 
-			}
+				}
 
-			else if (game.cropchoice == "crop B" && game.gameWeather[game.turn] == "Wet"){
+				else if (game.cropchoice == "crop B" && game.gameWeather[game.turn] == "Wet"){
 
-				game.weatherReport = "rainy";
-				payout = game.discrete.payoutBwet;
-				$("#rowsCropB").removeClass("hidden");
-				return payout;
-			}
+					game.weatherReport = "rainy";
+					payout = game.discrete.payoutBwet;
+					$("#rowsCropB").removeClass("hidden");
+					return payout;
+				}
 
-			else {
-				alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
-			}
+				else {
+					alert("Error: did you choose a crop? Please choose Crop A or Crop B and try again!");
+				}
+
+			}; //end of findPayout()
 
 			updateDiscrete(payout);
+
 		}; // end of discrete [weather graphics]
 
 		function continuous () {
@@ -1754,7 +1758,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 function updateDiscrete (payout) {
 
 	updateGame(payout);
-	console.log("Discrete payout: " + payout);
+	console.log("updateDiscrete running. Discrete payout: " + payout);
 
 	//carve up post-second-bonus pixels into fixed amount between this turn and last turn
 
@@ -1791,7 +1795,7 @@ function updateContinuous (beta, maxpayout, maxweather) {
 }; // End of updateContinuous function
 
 function updateGame (payout) { //this function is called and given arguments inside weatherResults function above
-
+	console.log("NOW UPDATING GAME!");
 	var bonusOneTotal;
 	var bonusTwoTotal;
 
