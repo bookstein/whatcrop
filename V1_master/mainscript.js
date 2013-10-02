@@ -484,8 +484,8 @@ $(function initializeGame (gameVersionObject) {
 
 				$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 				$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
-				$("#bonus1value").text(game.discrete.bonusOneTotal);
-				$("#bonus2value").text(game.discrete.bonusTwoTotal);
+				$("#bonus1value").text(parseInt(game.discrete.bonusOneTotal));
+				$("#bonus2value").text(parseInt(game.discrete.bonusTwoTotal));
 			};
 
 			bonusHeight(game.discrete.bonusOneTotal, game.discrete.bonusTwoTotal);
@@ -1266,8 +1266,8 @@ $(function initializeGame (gameVersionObject) {
 
 			$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 			$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
-			$("#bonus1value").text(bonus1);
-			$("#bonus2value").text(bonus2);
+			$("#bonus1value").text(parseInt(bonus1));
+			$("#bonus2value").text(parseInt(bonus2));
 
 			return game.continuous.bonusOneTotal, game.continuous.bonusTwoTotal;
 		};
