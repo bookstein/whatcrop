@@ -515,9 +515,6 @@ $(function initializeGame (gameVersionObject) {
 		//reveals crop payouts table in opening dialog and sidebar payout table
 		//$("#crop_payouts_table, #tablediv").removeClass("hidden");
 
-		// Call opening dialogs
-		introDialogs();
-
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	function initializeContinuous () {
@@ -1288,13 +1285,10 @@ $(function initializeGame (gameVersionObject) {
 		$("#bonus_two_instructions").text(game.continuous.bonusTwoTotal);
 		//fills in historic weather info
 		$("#weather_type").text(" mean yearly rainfall ");
-		$("#mean_rainfall").text(parseInt(game.meanHistoricWeather) + " inches of rain");
-
-	// Call opening dialogs
-		introDialogs();
-
+		$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+  bootstrap();
 }); // end of initializeGame ()
 
 // >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
@@ -1424,12 +1418,26 @@ $(function initializeGame (gameVersionObject) {
         game.gameID = data.id;
         console.log(game);
         $creatingGameDialog.dialog('close');
-        //introDialogs();
+        introDialogs();
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
-        $creatingGameDialog.html('Creating game failed!');
+        $creatingGameDialog
+          .html(
+						'<p>Unable to create a game on the server!</p>' +
+					  '<p>You can play the game, but your progress will not be saved.</p>'
+          )
+          .dialog({ buttons: [ {
+              text: 'Continue Without Saving',
+							icons: { primary: 'ui-icon-alert' },
+              click: function() {
+                $(this).dialog('close');
+                introDialogs();
+              }
+            } ]
+					});
       });
   };
+
 
   bootstrap(); */
 
@@ -1930,25 +1938,29 @@ function updateGame (payout) { //this function is called and given arguments ins
 		$("#dollars_counter").html("$"+game.realDollars); //change value of realDollars to combined value of bonuses
 	};
 
-	//Record relevant data for the current turn
-	function recordData (game) {
-	    var payload = {
-	      crop_choice: game.cropchoice,
-	      weather:     game.gameWeather[game.turn],
-	      game_over:   game.gameOver,
-	      score:       payout
-	    };
+		//Record relevant data for the current turn
+		function recordData (game) {
+			// Ensure game created on server
+			if (game.gameID === undefined) { return; }
 
-	    $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
-	      type: 'POST',
-	      dataType: 'json',
-	      data: payload
-	    }).success(function(data) {
-	      console.log('Round recorded successfully', data);
-	    }).fail(function(jqXHR, text, err) {
-	      console.log('Round record failed', jqXHR, text, err);
-	    });
-	};
+			var payload = {
+			    crop_choice: game.cropchoice,
+			    weather:     game.gameWeather[game.turn],
+			    game_over:   game.gameOver,
+			    score:       payout
+			  };
+
+			  $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
+			    type: 'POST',
+			    dataType: 'json',
+			    data: payload
+			  }).success(function(data) {
+			    console.log('Round recorded successfully', data);
+			  }).fail(function(jqXHR, text, err) {
+			    console.log('Round record failed', jqXHR, text, err);
+			  });
+		};
+
 
     /*if (game.turn === game.maxturn) {
     	game.gameOver = true;
