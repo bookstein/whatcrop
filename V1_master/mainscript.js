@@ -1731,6 +1731,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
 	   	$(".jqplot-overlayCanvas-canvas").css('z-index', '-1'); //resets graph resultsLine to hidden
+	   	// Reset crop values for new turn
+		game.cropchoice = "";
 	};
 
 	// Call the appropriate functions
@@ -1904,10 +1906,6 @@ function updateGame (payout) { //this function is called and given arguments ins
 			// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
 			flagHeight+=perTurnHeight;
 			fillHeight = flagHeight + 20;
-			console.log("flagHeight: " + flagHeight);
-			console.log("fillHeight: " + fillHeight);
-			console.log("perTurnHeight = payout/pointsPerPixelRatio: " + payout + "/" + pointsPerPixelRatio + "=" + perTurnHeight);
-			console.log("flagHeight - fillHeight:" + parseFloat(flagHeight-fillHeight));
 
 			// Set new heights in CSS style rules for #points_flag and #points_fill
 			$("#points_flag").css("bottom", flagHeight);
@@ -2003,9 +2001,6 @@ function updateGame (payout) { //this function is called and given arguments ins
 	if (game.gameOver === true) {
 		setTimeout(endGame, 4000);
 	}
-
-	// Reset crop values for new turn
-	game.cropchoice = "";
 
 	//Advance to the next turn
 	addTurn();
