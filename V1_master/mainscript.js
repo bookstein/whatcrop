@@ -1493,26 +1493,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	var rainOpacity;
 	var sunOpacity;
 
-	//Show weather results line on graph ("resultsLine")
-		// update value of X
-	game.continuous.givensChart.destroy();
-	game.optionsObj.givensObj.canvasOverlay.objects =[
-		{verticalLine:{
-					name: 'resultsLine',
-                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
-                    lineWidth: 4,
-                    color: 'rgb(255, 204, 51)', //yellow
-                    shadow: false
-		}}
-	];
-	$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
-	 game.continuous.givensChart.replot();
-
-	//$(function(){
-	//	game.continuous.givensChart = $.jqplot("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
-		//game.continuous.givensChart.redraw("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
-	//});
-
 	function weatherOpacity (gameVersion) {
 
 		function discrete () {
@@ -1529,6 +1509,26 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 		}; // end of discrete [weather opacity]
 
 		function continuous () {
+			//Show weather results line on graph ("resultsLine")
+				// update value of X
+			game.continuous.givensChart.destroy();
+			game.optionsObj.givensObj.canvasOverlay.objects =[
+				{verticalLine:{
+							name: 'resultsLine',
+		                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+		                    lineWidth: 4,
+		                    color: 'rgb(255, 204, 51)', //yellow
+		                    shadow: false
+				}}
+			];
+			$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
+			 game.continuous.givensChart.replot();
+
+			//$(function(){
+			//	game.continuous.givensChart = $.jqplot("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
+				//game.continuous.givensChart.redraw("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
+			//});
+
 			if (game.gameWeather[game.turn] >= game.continuous.gameRoots.topRoot) {
 				rainOpacity = 1, sunOpacity = 0;
 				//console.log(rainOpacity, sunOpacity);
