@@ -322,10 +322,9 @@ $(function initializeGame (gameVersionObject) {
 		function checkIndifferencePoint () {
 			var indifference = (game.discrete.payoutBwet - game.discrete.payoutAwet)/(game.discrete.payoutAdry - game.discrete.payoutAwet + game.discrete.payoutBwet - game.discrete.payoutBdry);
 			if (indifference >=1 || indifference <=0) {
-				alert("The indifference point between A and B is " + indifference + "!");
+				alert("WARNING: the indifference point between A and B is: " + indifference + " !");
 			}
 
-			console.log(game.discrete.indifferencePoint);
 			else {
 				// Assign the value of the indifference point to the game variable
 				game.discrete.indifferencePoint = indifference;
@@ -341,19 +340,21 @@ $(function initializeGame (gameVersionObject) {
 					pWet[i] = thresholdArray[i]/1000;
 			}
 
-				console.log(pWet);
+				console.log("pWet is " + pWet);
 
 			// if 1) the probablility of wet weather (pWet) equals the indifference point, or if 2) the probability crosses the indifference point from above or 3) below,
 				// the turn at which it equals/crosses the indifferencePoint is stored in variable indifferentTurn
 			for (var i = 0; i < game.maxturn; i++) {
-				if ((pWet[i] == game.discrete.indifferencePoint) || (pWet[i+1] > game.discrete.indifferencePoint && pWet[i-1] < game.discrete.indifferencePoint)
+				if ((pWet[i] === game.discrete.indifferencePoint) || (pWet[i+1] > game.discrete.indifferencePoint && pWet[i-1] < game.discrete.indifferencePoint)
 						|| (pWet[i+1] < game.discrete.indifferencePoint && pWet[i-1] > game.discrete.indifferencePoint)) {
 					game.discrete.indifferentTurn = i;
 					return game.discrete.indifferentTurn;
 				}
 			}
 
-			alert("There is no turn at which the probability of dry weather equals the indifference point!");
+			if (game.discrete.indifferentTurn == 0 || game.discrete.indifferentTurn >= game.maxturn) {
+				alert("There is no turn during the game at which the probability of dry weather equals the indifference point!");
+			}
 		};
 
 				// C. Calculate probability of dry weather for all turns.
