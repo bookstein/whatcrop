@@ -1284,7 +1284,7 @@ $(function initializeGame (gameVersionObject) {
 		$("#bonus_two_instructions").text(parseInt(game.continuous.bonusTwoTotal));
 		//fills in historic weather info
 		$("#weather_type").text(" mean yearly rainfall ");
-		$("#mean_rainfall").text(game.meanHistoricWeather + " inches of rain");
+		$("#mean_rainfall").text(parseInt(game.meanHistoricWeather) + " inches of rain");
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	bootstrap();
