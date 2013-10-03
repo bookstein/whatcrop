@@ -1813,12 +1813,12 @@ function updateGame (payout) { //this function is called and given arguments ins
 	function displayResultsDialog () {
 		//populate spans inside all results dialogs
 	    if (gameVersion.discreteWeather == true) {
-	    	$(".results").find("#weather_outcome").text("Weather: " + game.gameWeather[game.turn]);
+	    	$(".results").find("#weather_outcome").text(game.gameWeather[game.turn]);
 	    	$(".results").find("#weather_report").text(" and " + game.weatherReport);
 	    }
 	    else {
-	    	$(".results").find("#weather_outcome").text("Weather: " + parseInt(game.gameWeather[game.turn]) + " inches of rain");
-	    	$(".results").find("#weather_report").text(", which was " + game.weatherReport);
+	    	$(".results").find("#weather_outcome").text(parseInt(game.gameWeather[game.turn]) + " inches of rain");
+	    	$(".results").find("#weather_report").removeClass("emphasize").text(", which was " + game.weatherReport);
 	    }
 
     	$(".results").find("#new_score").text(parseInt(payout) + " points");
