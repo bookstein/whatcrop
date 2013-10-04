@@ -3,12 +3,14 @@
 $(document).ready(function(){
 
 
-//>>>>>>>>>>>> GAME OBJECT - change game version and parameters here <<<<<<<<<<<<<<<
+//>>>>>>>>>>>> 1. GAME OBJECT - change game version and parameters here <<<<<<<<<<<<<<<
 
+// Switches game between discrete and continuous versions
 gameVersion = {
 	discreteWeather: false
 };
 
+// Game-wide variables
 game = {
 
 	// Title of game
@@ -110,7 +112,9 @@ game = {
 }; //end of game object
 
 
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> GAME SET-UP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>> 2. GAME SET-UP -- discrete and continuous initialization functions <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+// >>>>>>>>>>>>>>>>>> 2.A Initialize discrete version <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 $(function initializeGame (gameVersionObject) {
 
@@ -519,6 +523,8 @@ $(function initializeGame (gameVersionObject) {
 		//$("#crop_payouts_table, #tablediv").removeClass("hidden");
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>2.B Initialize continuous version <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	function initializeContinuous () {
 
@@ -1290,7 +1296,7 @@ $(function initializeGame (gameVersionObject) {
 	bootstrap();
 }); // end of initializeGame ()
 
-// >>>>>>>>>>>>>>>>>>>> 2. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>>>>>> 3. INTRO DIALOGS. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
 
 // Open first dialog; keep other dialogs hidden
 
@@ -1384,6 +1390,7 @@ $(function initializeGame (gameVersionObject) {
     });
   };
 
+// >>>>>>>>>>>>>>>>>>>> 4. SERVER. Game is created on server. On completion, intro dialogs launched. >>>>>>>>>>>>>>>>>>>>
 
   function createGameOnServer() {
     return $.ajax(game.serverAddress + '/games', {
@@ -1435,7 +1442,7 @@ $(function initializeGame (gameVersionObject) {
       });
   };
 
-// >>>>>>>>>>>>>>>>>> 3. User chooses crop. Grow button is highlighted. >>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>>>> 5. CROP CHOICE. User chooses crop. Grow button is highlighted. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 
@@ -1479,7 +1486,7 @@ $("#cropA").on("click", userClickedA);
 $("#cropB").on("click", userClickedB);
 
 
-//>>>>>>>>>>>>>>>>>> 4. User clicks "grow" button. Results appear. >>>>>>>>>>>>>>>>>>>>>>>>
+//>>>>>>>>>>>>>>>>>> 6. WEATHER RESULTS. Crop and weather graphics selected based on weather and user choice.  >>>>>>>>>>>>>>>>>>>>>>>>
 
 
 function weatherResults () { //triggered by #grow click, calls updateGame with correct arguments
@@ -1491,6 +1498,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	//Identify weather display labels
 	var rainOpacity;
 	var sunOpacity;
+
+	// 6.A Weather opacity chosen for discrete and continuous games separately. <<<<<<<<<<<<<<<<<<
 
 	function weatherOpacity (gameVersion) {
 
@@ -1549,9 +1558,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 	}; // end of weatherOpacity()
 
-
-	// weatherGraphics (and interior functions, discrete() and continuous() ) selects outcomes of user choice
-		// and triggers gameUpdate functions
+	// 6.B Weather graphics selected (see interior functions for discrete and continuous versions) based on user crop choice, <<<<<<<
+		// triggering gameUpdate functions
 	function weatherGraphics (gameVersion) {
 
 		function discrete () {
@@ -1722,7 +1730,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 	}; //end of weatherGraphics()
 
-	// fadeWeather: removes weather graphics for both versions of game
+	// 6.C Fade out weather graphics for both versions of game <<<<<<<<<<<<<<<<
 	function fadeWeather () {
 		rainOpacity = 0;
 		sunOpacity = 0;
@@ -1749,9 +1757,9 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 }; // end of weatherResults
 
-// >>>>>>>>>>> 5. Game updates and loops back to the beginning of the code >>>>>>>>>>>>>>>>>>>
+// >>>>>>>>>>> 7. UPDATE GAME. Game updates score and turn, and loops back to (5) crop choice >>>>>>>>>>>>>>>>>>>
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 7.A Discrete Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 function updateDiscrete (payout) {
 	updateGame(payout);
 
@@ -1763,7 +1771,7 @@ function updateDiscrete (payout) {
 
 }; // end of updateDiscrete()
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Continuous Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 7.B Continuous Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 function updateContinuous (beta, maxpayout, maxweather) {
 
@@ -1788,6 +1796,9 @@ function updateContinuous (beta, maxpayout, maxweather) {
 	updateGame(payout);
 
 }; // End of updateContinuous function
+
+// 7.C Using calculated payout, game displays results dialogs, calculates bonus if applicable,  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	// updates score and score display, adds turn
 
 function updateGame (payout) { //this function is called and given arguments inside weatherResults function above
 	var bonusOneTotal;
@@ -1837,7 +1848,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 	        width: '30%'
 	    });
 
-		// bonus dialogs
+		// Bonus dialogs
 		if (oldscore < bonusOneTotal && newscore >= bonusOneTotal) { //this only works now because I made totalRandomPoints global
 			$("#bonus_count").text("$" + game.bonusOneDollars);
 			addBonus1();
@@ -1850,7 +1861,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 			$("#bonus_results").dialog("open");
 		}
 
-		//normal results dialogs
+		//Normal results dialogs
 		else {
 			$("#normal_results").dialog("open");
 		}
@@ -1938,7 +1949,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 		$("#dollars_counter").html("$"+game.realDollars); //change value of realDollars to combined value of bonuses
 	};
 
-		//Record relevant data for the current turn
+	//7.D Server receives selected data for the current turn
 		function recordData (game) {
 			// Ensure game created on server
 			if (game.gameID === undefined) { return; }
@@ -1961,11 +1972,6 @@ function updateGame (payout) { //this function is called and given arguments ins
 			  });
 		};
 
-
-    /*if (game.turn === game.maxturn) {
-    	game.gameOver = true;
-    }*/
-
 	recordData(game);
 
 	// If maxturn has been reached or exceeded, this function is called
@@ -1977,7 +1983,6 @@ function updateGame (payout) { //this function is called and given arguments ins
 		$("#playerID").text(game.gameID);
 		$("#total_score").text(game.score);
 		$("#total_dollars").text(game.realDollars);
-		// $("#playerID") //need Tony's work on this
 
  		$( "#end_results" ).dialog({
 	      autoOpen: true,
@@ -1990,11 +1995,6 @@ function updateGame (payout) { //this function is called and given arguments ins
 	          height: 'auto',
 	          width: '375',
 	          dialogClass: "no-close",
-	      /*buttons: [ { text: "OK",
-	        click: function() {
-	          $( this ).dialog( "close" );
-	        }
-	      } ]*/
 	    });
 	};
 
@@ -2007,16 +2007,11 @@ function updateGame (payout) { //this function is called and given arguments ins
 };
 
 
-//>>>>>>>>>>>>>>>>>>>>> Clicking #grow button triggers updateGame <<<<<<<<<<<<<
+//>>>>>>>>>>>>>>>>>>>>> 8. "GROW" BUTTON. Clicking Grow button (#grow) runs weather results, which runs all following functions <<<<<<<<<<<<<
 
 $("#grow").on("click", function () {
 	if (game.turn <= game.maxturn) {
-		/*if (gameVersion.discreteWeather == true) {
-			gameVersionObject = discrete
-		}
-		else {
-			gameVersionObject = continuous
-		}*/
+
 		if ($(this).hasClass("highlight")) {
 			$("#sproutA").addClass("hidden");
 			$("#sproutB").addClass("hidden");
@@ -2030,7 +2025,7 @@ $("#grow").on("click", function () {
 
 });
 
-//For Fran: test functionality of game in advance
+//9. TESTING. Tests functionality of game in advance
 
 function test (testValue) {
 	if (testValue == null) {
