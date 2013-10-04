@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: false
+	discreteWeather: true
 };
 
 // Game-wide variables
@@ -114,8 +114,6 @@ game = {
 
 // >>>>>>>>>>>>>>>>> 2. GAME SET-UP -- discrete and continuous initialization functions <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-// >>>>>>>>>>>>>>>>>> 2.A Initialize discrete version <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
 $(function initializeGame (gameVersionObject) {
 
 	// Separate Initialization Processes (Discrete Vs Continuous)
@@ -145,7 +143,7 @@ $(function initializeGame (gameVersionObject) {
 	// Populate spans in opening and ending dialogs
 	$(".turncount_instructions").text(game.maxturn + " turns");
 
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Initialize Discrete Game Version <<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>> 2.A Initialize discrete version <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	function initializeDiscrete () {
 
@@ -207,7 +205,6 @@ $(function initializeGame (gameVersionObject) {
 		game.discrete.climateArray[47] = 5;
 		game.discrete.climateArray[48] = 5;
 		game.discrete.climateArray[49] = 5;
-		game.discrete.climateArray[50] = 5;
 
 
 		// Create list of random numbers that will become weather-------
