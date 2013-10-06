@@ -216,7 +216,7 @@ $(function initializeGame (gameVersionObject) {
 				var weather = Math.floor((Math.random()*1000)+1);
 				weatherArray[i] = weather;
 			}
-			console.log("weatherArray is " + weatherArray);
+
 			return weatherArray;
 		};
 
@@ -262,7 +262,6 @@ $(function initializeGame (gameVersionObject) {
 
 				} //end of for loop
 
-			console.log("gameweather is "+ game.gameWeather);
 			return game.gameWeather;
 		};
 
@@ -313,7 +312,6 @@ $(function initializeGame (gameVersionObject) {
 		};
 
 		calculateMaxScore();
-		console.log("The maximum possible score is " + game.maxScore + " points");
 
 		// Calculate Random Play bonus threshold ---------------------------------
 
@@ -342,7 +340,6 @@ $(function initializeGame (gameVersionObject) {
 					pWet[i] = thresholdArray[i]/1000;
 			}
 
-				console.log("pWet is " + pWet);
 
 			// if 1) the probablility of wet weather (pWet) equals the indifference point, or if 2) the probability crosses the indifference point from above or 3) below,
 				// the turn at which it equals/crosses the indifferencePoint is stored in variable indifferentTurn
@@ -395,7 +392,6 @@ $(function initializeGame (gameVersionObject) {
 		};
 
 		calculateRandomPlayPoints();
-		console.log("The first bonus will trigger at " + game.discrete.bonusOneTotal + " points");
 
 		// Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
 
@@ -472,25 +468,24 @@ $(function initializeGame (gameVersionObject) {
 			game.discrete.bonusTwoTotal = parseFloat(total1 + total2);
 			//alert("total optimal points: " + bonusTwoTotal);
 
-			console.log("The second bonus will trigger at " + game.discrete.bonusTwoTotal + " points");
 			return game.discrete.bonusTwoTotal;
 		};
 
 		calculateOptimalPlayPoints();
 
 		// Set height of bonus markers
-			function bonusHeight (bonus1, bonus2) {
+		function bonusHeight (bonus1, bonus2) {
 
-				var pixelHeight = parseFloat($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
-				var pointsPerPixelRatio = game.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
+			var pixelHeight = parseFloat($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
+			var pointsPerPixelRatio = game.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
 
-				$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
-				$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
-				$("#bonus1value").text(parseInt(game.discrete.bonusOneTotal));
-				$("#bonus2value").text(parseInt(game.discrete.bonusTwoTotal));
-			};
+			$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
+			$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
+			$("#bonus1value").text(parseInt(game.discrete.bonusOneTotal));
+			$("#bonus2value").text(parseInt(game.discrete.bonusTwoTotal));
+		};
 
-			bonusHeight(game.discrete.bonusOneTotal, game.discrete.bonusTwoTotal);
+		bonusHeight(game.discrete.bonusOneTotal, game.discrete.bonusTwoTotal);
 
 	// Populate discrete opening dialogs
 
@@ -502,8 +497,6 @@ $(function initializeGame (gameVersionObject) {
 		};
 		writeCropPayout (game.discrete.payoutAwet, game.discrete.payoutAdry, game.discrete.payoutBwet, game.discrete.payoutBdry);
 
-		//reveals bar graph of historic weather
-		//$("#discrete_history").removeClass("hidden");
 		//fills in data for bar graph
 		$("#weather_type").text(" weather ");
 		$("#weather_modifier").text(" rainy");
@@ -516,8 +509,6 @@ $(function initializeGame (gameVersionObject) {
 		//fills in bonus information
 		$("#bonus_one_instructions").text(parseInt(game.discrete.bonusOneTotal));
 		$("#bonus_two_instructions").text(parseInt(game.discrete.bonusTwoTotal));
-		//reveals crop payouts table in opening dialog and sidebar payout table
-		//$("#crop_payouts_table, #tablediv").removeClass("hidden");
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -826,9 +817,6 @@ $(function initializeGame (gameVersionObject) {
 
 				ticksWeather();
 
-				console.log("ticksWeatherX: " + ticksWeatherX);
-				console.log("frequency array: " + frequency);
-
 				return frequency;
 			}; //end historicWeatherHistogram
 
@@ -971,18 +959,6 @@ $(function initializeGame (gameVersionObject) {
 	        				labelRenderer: $.jqplot.CanvasAxisLabelRenderer
 	    				  },
 					      axes: {
-							/*x2axis: {
-			      				//label: "Historic weather distribution",
-			      				//padMin: 0,
-			      				ticks: ticksWeatherX,
-			      				tickOptions:{
-			                        mark: "outside",
-			                        showLabel: !showData,
-			                        formatString: "%#.0f",
-			                        showMark: !showData,
-			                        showGridline: !showData
-			                    }
-			      			},*/
 
 			      			y2axis:{
 			      				label: "Relative frequency",
@@ -1051,7 +1027,7 @@ $(function initializeGame (gameVersionObject) {
 				            			fontSize: '12pt',
 			          				}*/
 			      			}
-			    		  }, // axes
+			    		  }, // end of axes
 
 						canvasOverlay: {
 			        		show: true,
@@ -1179,9 +1155,9 @@ $(function initializeGame (gameVersionObject) {
 		}; // end function makeGameWeather
 
 		makeGameWeather(game.gameWeather, false);
-		console.log("Weather with climate change: " + game.gameWeather);
+
 		makeGameWeather(game.historicWeather, true);
-		console.log("Historic weather: " + game.historicWeather);
+
 		drawQuadratic();
 
 		//Calculate Max Score --------------------------------------
@@ -1214,7 +1190,6 @@ $(function initializeGame (gameVersionObject) {
 			}; // end of findOptimalCrop()
 
 			findOptimalCrop(); //sets value of optimalCrops array
-			console.log("The array of optimal crops is " + optimalCrops);
 
 			function addScores (turn, beta, maxweather, maxpayout) {
 				payout = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
@@ -1254,8 +1229,6 @@ $(function initializeGame (gameVersionObject) {
 
 		calculateMaxScore();
 
-		console.log("The maximum possible score is " + game.maxScore + " points");
-
 		// Calculate bonus points and fill in bonus-marker values
 		function bonusHeight (threshold1, threshold2, bonus1, bonus2) {
 
@@ -1280,8 +1253,6 @@ $(function initializeGame (gameVersionObject) {
 		bonusHeight(game.continuous.firstBonusThreshold, game.continuous.secondBonusThreshold);
 
 	// Populate continuous opening dialogs
-		//reveals payouts chart in sidebar and payouts chart in opening dialog
-		//$("#crop_payouts_chart, #chartdiv").removeClass("hidden");
 		//fills in bonus information
 		$("#bonus_one_instructions").text(parseInt(game.continuous.bonusOneTotal));
 		$("#bonus_two_instructions").text(parseInt(game.continuous.bonusTwoTotal));
