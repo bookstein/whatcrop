@@ -7,7 +7,8 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: true
+	discreteWeather: true,
+	testing: false
 };
 
 // Game-wide variables
@@ -1358,7 +1359,7 @@ $(function initializeGame (gameVersionObject) {
     });
   };
 
-// >>>>>>>>>>>>>>>>>>>> 4. SERVER. Game is created on server. On completion, intro dialogs launched. >>>>>>>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>>>>>> 4. CREATE GAME ON SERVER. Game is created on server. On completion, introDialogs run. >>>>>>>>>>>>>>>>>>>>
 
   function createGameOnServer() {
     return $.ajax(game.serverAddress + '/games', {
@@ -1463,7 +1464,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	disableGrowButton();
 	$(".plant, .plant_img, #grow").addClass("hidden").css("opacity", 0);
 
-	//Identify weather display labels
+	//Declare weather display labels
 	var rainOpacity;
 	var sunOpacity;
 
@@ -1597,10 +1598,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
 			 game.continuous.givensChart.replot();
 
-			//$(function(){
-			//	game.continuous.givensChart = $.jqplot("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
-				//game.continuous.givensChart.redraw("chartdiv", [[null], game.plotA, game.plotB], game.optionsObj.givensObj);
-			//});
 
 			// A. Crop A outcomes
 			if (game.cropchoice === "crop A") {
@@ -1731,12 +1728,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 function updateDiscrete (payout) {
 	updateGame(payout);
 
-	//carve up post-second-bonus pixels into fixed amount between this turn and last turn
-
-	// WARNING: .css modifies the element's <style> property, not the CSS sheet!
-
-	//updates dollars counter if bonus is reached. These functions are called from displayResultsDialog above
-
 }; // end of updateDiscrete()
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 7.B Continuous Game Update <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1786,8 +1777,6 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 	var oldscore = game.score;
 	var newscore = oldscore + payout;
-	console.log("For turn # " + game.turn + "Game payout: " + payout);
-	console.log("Old score is " + oldscore + ", new score is " + newscore);
 
 	function displayResultsDialog () {
 		//populate spans inside all results dialogs
@@ -1897,7 +1886,6 @@ function updateGame (payout) { //this function is called and given arguments ins
 		animatePoints();
 
 		game.score += payout;
-		console.log("game score is now " + game.score);
 		$("#point_count").html("<h5>" + parseInt(game.score) + "</h5>");
 
 		return game.score; //this updates the value of game score
@@ -1918,27 +1906,27 @@ function updateGame (payout) { //this function is called and given arguments ins
 	};
 
 	//7.D Server receives selected data for the current turn
-		function recordData (game) {
-			// Ensure game created on server
-			if (game.gameID === undefined) { return; }
+	function recordData (game) {
+		// Ensure game created on server
+		if (game.gameID === undefined) { return; }
 
-			var payload = {
-			    crop_choice: game.cropchoice,
-			    weather:     game.gameWeather[game.turn],
-			    game_over:   game.gameOver,
-			    score:       payout
-			  };
+		var payload = {
+		    crop_choice: game.cropchoice,
+		    weather:     game.gameWeather[game.turn],
+		    game_over:   game.gameOver,
+		    score:       payout
+		  };
 
-			  $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
-			    type: 'POST',
-			    dataType: 'json',
-			    data: payload
-			  }).success(function(data) {
-			    console.log('Round recorded successfully', data);
-			  }).fail(function(jqXHR, text, err) {
-			    console.log('Round record failed', jqXHR, text, err);
-			  });
-		};
+		  $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
+		    type: 'POST',
+		    dataType: 'json',
+		    data: payload
+		  }).success(function(data) {
+		    console.log('Round recorded successfully', data);
+		  }).fail(function(jqXHR, text, err) {
+		    console.log('Round record failed', jqXHR, text, err);
+		  });
+	};
 
 	recordData(game);
 
@@ -2009,6 +1997,8 @@ function test (testValue) {
 		calculateIndifferencePoint();
 		return game.discrete.indifferencePoint;
 	}
+
+	//add a bunch of console.logs
 };
 
 }); //End of .ready ()
