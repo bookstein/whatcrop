@@ -7,6 +7,7 @@
 	<style type="text/css">
 		p {font-size: 16px; color: black; font-family: "Times New Roman";}
 		.code {color:black; font-family: "Courier"; background-color: #e6e6ff; font-size: 14px;}
+		.comment {color:gray; font-family: "Courier"; font-size: 14px;}
 		.note {color: red; font-size: 14px;}
 		.console {color: purple; font-family: "Courier"; background-color: #e6e6e6; font-size: 14px;}
 		.indent {padding-left: 10px;}
@@ -17,6 +18,14 @@
 		#nav a:hover {color: white; text-decoration: underline;}
 		a {text-decoration: none; color: blue;}
 		.back {font-size: 10px; color: blue; font-family: "Verdana"; display: block; margin: 5px;}
+		footer {background-image: none;}
+		.example {list-style-type: none;}
+		#objectnote {background-color: #e6e6e6;}
+		/*For example in #objectnote*/
+		.line1 {color: green; line-height: 1.2em;}
+		.line2 {color: blue; padding-left: 10px; line-height: 1.2em;}
+		.line3 {color: purple; padding-left: 20px; line-height: 1.2em;}
+
 	</style>
 
 </head>
@@ -39,7 +48,7 @@
 			<h2>i. mainscript.js Javascript file</h2>
 			<br>
 				<ul>
-					<li><a href = "#js1">GAME OBJECTS.</a> Change game version and all(<a href="#js2">*</a>) parameters here</li>
+					<li><a href = "#js1">GAME OBJECT.</a> Change game version and all(<a href="#js2">*</a>) parameters here</li>
 					<li><a href = "#js2">GAME SET-UP.</a> Discrete and continuous initialization functions</li>
 					 	<ul class="indent">
 					 		<li> <a href="#js2.A">A.</a> Initialize discrete version</li>
@@ -67,30 +76,43 @@
 
 				<br><br>
 
-			<h3 id="js1">1. Game Objects</h3>
+			<h3 id="js1">1. Game Object</h3>
 			<a href="#js"><span class="back">Back to top</span></a>
-			<span class="note">NOTE: Referencing a variable inside an object outside of the object requires that you preface the variable with the object's name.</span>
-			<p>Example:
-				<p><span class="code">game.discrete.climateArray</span> looks inside the object named game for the object named discrete and finds climateArray.
-				</p>
+			<p>
+				<span class="note">NOTE: The game-level variables listed below are those you are expected to interact with. These are the parameters you have control over!</span>
+			</p>
+			<br>
+			<div id="objectnote">
+				<h5> A note about Javascript objects: </h5>
 				<br>
-				<p>
-					<span class="code indent">game = { <br>
-					discrete: { <br>
-						climateArray: [] <br>
-					} <br>
-				};</span> <br>
+				<p>An object in Javascript is denoted with curly braces { }.</p>
+				<p>An array is denoted with brackets [ ].</p>
+				<p><span class="note">When an object or array or other data is stored inside an object, you must use "dot notation" to represent the path to that data -- using the containing object(s') name(s).</span></p>
+				<br>
+				<p>"Dot notation" example:</p>
+					<p><span class="code">game.discrete.climateArray</span> looks inside the object named <span class="code">game</span> for the object named <span class="code">discrete</span> and finds the array <span class="code">climateArray</span>.
+					</p>
+					<br>
+					<p>
+						<span class="code line1">game = { </span> <span class="comment">// object</span>
+							<br>
+							<span class="code line2">discrete: { </span> <span class="comment">// object inside object </span>
+							<br>
+								<span class="code line3">climateArray: [] </span> <span class="comment">// array inside object </span>
+							<br>
+						<span class="code line2"> }; <br>
+					<span class="code line1">};</span>
+					<br>
+					</p>
 				</p>
-			</p>
-			<p>If you type game.discrete.climateArray into your web console and hit enter, you should the contents of the array.
-			</p>
-			<p>
-				<span class="code console">[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 10, 10, 10, 10, 10, 10, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]</span>
-			</p>
-			<p>
-				<span class="note">NOTE: The game-level variables listed below are those you are expected to interact with. The remainder are used for game functioning purposes. These are the parameters you have control over!</span>
-			</p>
-
+				<p>If you type <span class="code">game.discrete.climateArray</span> into your <a href="http://developers.google.com/chrome-developer-tools/docs/console">web console</a> and hit enter, you should see the contents of the array.
+				</p>
+				<p>
+					<span class="code console">[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 10, 10, 10, 10, 10, 10, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]</span>
+				</p>
+			</div>
+			<br>
+			<h5>Universal variables</h5>
 			<ul>
 				<li><span class="code">discreteWeather: true</span> //if false, continuous version runs. If additional versions of the game are added, this variable can be changed to hold specific string values instead of a Boolean true/false</li>
 				<li><span class="code">testing: false </span>//if true, all game-level values will print in the web console, allowing for review. Also play 1 round of the game to confirm variables.</li>
@@ -114,8 +136,8 @@
 						<li>using <span class="code">climateArray</span>, an array (<span class="code">thresholdArray</span>) is created to store the threshold values for each turn.</li>
 					</ul>
 				<li><span class="code">climateArray: [] </span>// go to <a href="#js2.A">section 2.A (Initialize discrete version)</a> to manually enter each of the values of the climate array. Each value in the array represents the delta in the threshold for the next turn.</li>
-				<li><span class="note">NOTE: If climateArray values are positive, the threshold will decrease over time.</span></li>
-				<li><span class="note">NOTE: You must have at least maxturn number of values for climateArray (0 up to maxturn-1), otherwise the game will break. Having excess values of climateArray is fine.</span></li>
+				<li><span class="note">NOTE: If <span class="code">climateArray</span> values are positive, <span class="code">threshold</span> will decrease over time.</span></li>
+				<li><span class="note">NOTE: You must have at least <span class="code">maxturn</span> number of values for <span class="code">climateArray</span> (0 up to maxturn-1), otherwise the game will break. Having excess values of <span class="code">climateArray</span> is fine.</span></li>
 			</ul>
 			<br>
 			<h5 id="js1.B">Continuous game variables</h5>
@@ -126,8 +148,8 @@
 				<li><span class="code">maxApayout, maxBpayout </span>// the vertex of the payout quadratic for A and B</li>
 				<li><span class="code">maxAweather, maxBweather </span>// the x-axis value (weather, in inches of rain) at vertex</li>
 				<li><span class="code">climateArray: [] </span>// go to <a href="#js2.B">section 2.B (Initialize continuous version)</a> to manually enter each of the values of the climate array (mean and standard deviation).</li>
-					<ul>
-						<li>Format: <span class="code">{mean: 400, std_dev: 75}</span></li>
+					<ul class="indent">
+						<li class="example">I.e.:<span class="code">{mean: 400, std_dev: 75}</span></li>
 					</ul>
 				<li>NOTE: The values inside <span class="code">climateArray</span> are applied to the Box-Muller-normalized array (<span class="code">normalizedArray</span>) to return the final <span class="code">game.gameWeather array.</span></li>
 			</ul>
@@ -257,19 +279,19 @@
 			<h5 id="js7.C" class="indent">Game update</h5>
 			<ul>
 				<li>Depending on the game version, local variables <span class="code">bonusOneTotal</span> and <span class="code">bonusTwoTotal</span> are set equal to the game-level bonus threshold variables of the same name.</li>
-				<li><span class="code">displayResultsDialog populates the results dialog with the payout, <span class="code">game.gameWeather</span> (either Wet/Dry or inches of rain), and <span class="code">weatherReport </span>(a string that qualifies the weather outcome) as appropriate for the game version.</li>
-				<li class="indent">“Bonus dialogs” are triggered instead of the normal dialog (ID <span class="code">#normal_results</span> in the HTML file) if the <span class="code">oldscore</span> and <span class="code">newscore</span> bookend a bonus threshold.</li>
+				<li><span class="code">displayResultsDialog</span> populates the results dialog with the payout, <span class="code">game.gameWeather</span> (either Wet/Dry or inches of rain), and <span class="code">weatherReport </span>(a string that qualifies the weather outcome) as appropriate for the game version.</li>
+				<li class="indent">Bonus dialogs are triggered instead of the normal dialog (ID <span class="code">#normal_results</span> in the HTML file) if the <span class="code">oldscore</span> and <span class="code">newscore</span> bookend a bonus threshold.</li>
 				<li class="indent">The same code also calls the bonus functions (<span class="code">addBonus1, addBonus2</span>)  that change <span class="code">realDollars</span> (player dollars earned) when appropriate.</li>
 				<li class="indent"><span class="code">displayResultsDialog</span> called after a length of time equalling a proportion of <span class="code">game.turnLength</span>, allowing graphics to be revealed first.</li>
-				<li class="indent"><span class="code console">setTimeout(displayResultsDialog, .25*game.turnLength);</span></li>
+				<li class="indent example"><span class="code console">setTimeout(displayResultsDialog, .25*game.turnLength);</span></li>
 				<li class="indent">Dialogs are closed after a length of time equalling a proportion of <span class="code">game.turnLength.</span></li>
-				<li class="indent"><span class="code console">setTimeout(function() {$( ".results" ).dialog( "close" )},.75*game.turnLength);</span></li>
+				<li class="indent example"><span class="code console">setTimeout(function() {$( ".results" ).dialog( "close" )},.75*game.turnLength);</span></li>
 				<li><span class="code">addTurn</span> progresses the game to the next turn after <span class="code">game.turnLength</span> time.</li>
 				<li class="indent">Using if-else statements, it determines if the game will continue. If <span class="code">game.gameOver = false</span>, the game continues.</li>
 				<li class="indent">Two turns before <span class="code">maxturn</span>, <span class="code">gameOver</span> is set to <span class="code">true</span>. Therefore, after the game updates at <span class="code">maxturn-1</span>, the game is over. (maxturn number of turns has been taken at maxturn-1 due to zero-indexing)</li>
 				<li class="indent"><span class="code">addTurn</span> is the last function called inside <span class="code">updateGame</span>, so that the code doesn't run until current data has been captured by the server.</li>
 				<li><span class="code">newScore</span> changes the height and readout of the points bar to reflect the new game score.</li>
-				<li>endGame is called if <span class="code">gameOver = true</span>. After <span class="code">game.turnLength</span> period of time, the ending screen and dialog will appear.</li>
+				<li><span class="code">endGame</span> is called if <span class="code">gameOver = true</span>. After <span class="code">game.turnLength</span> period of time, the ending screen and dialog will appear.</li>
 				<li class="indent">This function populates the end dialog and causes a <span class="code">modal</span> background to cover up the  game screen.</li>
 				<li class="indent">The end dialog shows the player their player ID (which is the same as the <span class="code">gameID</span> listed in the database).</li>
 			</ul>
