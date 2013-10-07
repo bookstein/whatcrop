@@ -460,6 +460,10 @@ td {
 	padding: 0;
 }
 
+#broken_images {
+	position: absolute;
+	top: 0;
+}
 
 #farm { /*using default_background_medium.png. formerly background image within choice_screen*/
 	width: 100%;

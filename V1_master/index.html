@@ -206,13 +206,13 @@
 
 	</section> <!-- end of #givens -->
 	<section id="choice_screen"><!-- sibling of .dashboard and .givens, parent of .dialog. Named canvas to indicate area of screen with interactive visual elements -->
-		<!-- background image default, medium-width: see CSS "background" property -->
-		<img id="farm" src="images/default_background_medium.png" alt="Your farm" />
-
 		<!-- This text will appear if background image does not load -->
-		<p>
+		<p id="broken_images">
 			Your browser does not support these images. Please try either <a href="http://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/">Firefox</a>, which are both free Internet browsers you can download.
 		</p>
+
+		<!-- background image default, medium-width: see CSS "background" property -->
+		<img id="farm" src="images/default_background_medium.png" alt="Your farm" />
 
 		<!-- all weather images, CSS set to display: none -->
 		<img class="weather hidden" id="rain" src="images/rain.png" alt="Rain" />
