@@ -9,9 +9,9 @@
 		.code {color:black; font-family: "Courier"; background-color: #e6e6ff; font-size: 14px;}
 		.comment {color:gray; font-family: "Courier"; font-size: 14px;}
 		.note {color: red; font-size: 14px;}
-		.console {color: purple; font-family: "Courier"; background-color: #e6e6e6; font-size: 14px;}
+		.console {color: purple; font-family: "Courier"; background-color: #e6e6e6; font-size: 14px; margin-left: 50px;}
 		.indent {padding-left: 10px;}
-		ul li {margin-left: 45px; list-style-type: circle; font-size: 16px; line-height: 1.2em;}
+		ul li {margin-left: 45px; list-style-type: circle; font-size: 16px; line-height: 1.2em; padding-bottom: 5px;}
 		#js {text-align: left; margin: 10px;}
 		nav li {color: white; display: inline-block;}
 		#nav a {color: white; text-decoration: none;}
@@ -20,8 +20,8 @@
 		.back {font-size: 10px; color: blue; font-family: "Verdana"; display: block; margin: 5px;}
 		footer {background-image: none;}
 		.example {list-style-type: none;}
-		#objectnote {background-color: #e6e6e6;}
 		/*For example in #objectnote*/
+		#objectnote {background-color: #e6e6e6;}
 		.line1 {color: green; line-height: 1.2em;}
 		.line2 {color: blue; padding-left: 10px; line-height: 1.2em;}
 		.line3 {color: purple; padding-left: 20px; line-height: 1.2em;}
@@ -151,7 +151,7 @@
 					<ul class="indent">
 						<li class="example">I.e.:<span class="code">{mean: 400, std_dev: 75}</span></li>
 					</ul>
-				<li>NOTE: The values inside <span class="code">climateArray</span> are applied to the Box-Muller-normalized array (<span class="code">normalizedArray</span>) to return the final <span class="code">game.gameWeather array.</span></li>
+				<li><span class="note">NOTE: The values inside <span class="code">climateArray</span> are applied to the Box-Muller-normalized array (<span class="code">normalizedArray</span>) to return the final <span class="code">game.gameWeather array.</span></span></li>
 			</ul>
 
 			<br>
@@ -230,9 +230,9 @@
 			<br>
 			<ul>
 				<li><span class="code">createGameOnServer</span> uses the game label (<span class="code">game.gameLabel</span>) to create a new game on the server with this label.</li>
-				<li>A dialog saying “Creating game” appears automatically while the game is loading.</li>
+				<li>A dialog saying -Creating game- appears automatically while the game is loading.</li>
 				<li class="indent">If the game is successfully created, the intro dialogs are launched using the introDialogs function.</li>
-				<li class="indent">If for any reason the server fails to create the game, a dialog will read “Unable to create the game.” The user will still be able to play, but data will not be recorded on the server.</li>
+				<li class="indent">If for any reason the server fails to create the game, a dialog will read -Unable to create the game.- The user will still be able to play, but data will not be recorded on the server.</li>
 			</ul>
 			<br>
 			<h3 id="js5">5. Crop Choice</h3>
@@ -240,9 +240,9 @@
 			<br>
 			<ul>
 				<li>The area of the screen where the user chooses a crop is called <span class="code">choice_screen</span> in the HTML. It encompasses all the buttons and the background graphics.</li>
-				<li>The “Grow” button (HTML ID tag <span class="code">#grow</span>) will only respond to clicking if it has the class “<span class="code">highlight</span>.”</li>
-				<li class="indent">The button reads “Choose a crop” when disabled (has class “<span class="code">disabled</span>”)</li>
-				<li class="indent">The button reads “Grow this crop” only after the user has clicked a crop icon, which adds the class “highlight” to the button.</li>
+				<li>The Grow button (HTML ID tag <span class="code">#grow</span>) will only respond to clicking if it has the class <span class="code">highlight</span>.</li>
+				<li class="indent">The button reads -Choose a crop- when disabled (has class <span class="code">disabled</span>)</li>
+				<li class="indent">The button reads -Grow this crop- only after the user has clicked a crop icon, which adds the class highlight to the button.</li>
 				<li>Only clicking on an image with ID <span class="code">#cropA</span> or <span class="code">#cropB</span> enables the Grow button.</li>
 			</ul>
 			<br>
@@ -255,8 +255,8 @@
 				<li id="js6.A"><span class="code">weatherOpacity</span> function takes parameter <span class="code">gameVersion</span> to run either the discrete or continuous function determining the opacity of the rain and sun graphics (rainOpacity, sunOpacity).</li>
 				<li><span class="code">displayWeather</span> uses these values to display the rain and sun graphics.</li>
 				<li id="js6.B"><span class="code">weatherGraphics</span> function also takes a parameter gameVersion to run either a discrete or continuous function. Each function finds the payout associated with the user's crop choice and that turn's weather.</li>
-				<li class="indent">In the discrete function, a series of if-else statements pair “Crop A” or “Crop B” with “Wet” or “Dry.”</li>
-				<li class="indent">In the continuous function, the “givens” graph (showing payouts) is redrawn with the <span class="code">canvasOverlay</span> line showing the turn weather. A series of if-else statements determine background graphics: first by determining if A or B was selected, then by comparing <span class="code">gameWeather</span> to a specific point along the payout graph as determined by Fran's functions.</li>
+				<li class="indent">In the discrete function, a series of if-else statements pair Crop A or Crop B with Wet or Dry.</li>
+				<li class="indent">In the continuous function, the <span class="code">#givens</span> graph (showing payouts) is redrawn with the <span class="code">canvasOverlay</span> line showing the turn weather. A series of if-else statements determine background graphics: first by determining if A or B was selected, then by comparing <span class="code">gameWeather</span> to a specific point along the payout graph as determined by Fran's functions.</li>
 				<li id="js6.C" class="indent"><span class="code">fadeWeather</span> removes the background graphics, restores the buttons, and returns weather opacity to zero. It animates the transition from graphics to buttons over the course of 1000 ms. fadeWeather is called after <span class="code">game.turnLength</span> milliseconds (the length of time from clicking <span class="code">#grow</span> to new turn).</li>
 			</ul>
 			<br>
