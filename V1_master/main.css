@@ -495,8 +495,14 @@ td {
 	width: 95%;
 	position: absolute;
 	left: 0;
-	bottom: 20px;
+	bottom: 10px;
 	z-index: 2;
+}
+
+#deadAdry {
+	position: absolute;
+	left: 0;
+	bottom: 0;
 }
 
 button.plant {
