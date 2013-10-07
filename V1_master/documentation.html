@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="main.css" />
 
 	<style type="text/css">
-		p {font-size: 16px; color: black; font-family: "Times New Roman"}
+		p {font-size: 16px; color: black; font-family: "Times New Roman";}
 		.code {color:black; font-family: "Courier"; background-color: #e6e6ff; font-size: 14px;}
 		.note {color: red; font-size: 14px;}
 		.console {color: purple; font-family: "Courier"; background-color: #e6e6e6; font-size: 14px;}
@@ -16,6 +16,7 @@
 		#nav a {color: white; text-decoration: none;}
 		#nav a:hover {color: white; text-decoration: underline;}
 		a {text-decoration: none; color: blue;}
+		.back {font-size: 10px; color: blue; font-family: "Verdana"; display: block; margin: 5px;}
 	</style>
 
 </head>
@@ -67,6 +68,7 @@
 				<br><br>
 
 			<h3 id="js1">1. Game Objects</h3>
+			<a href="#js"><span class="back">Back to top</span></a>
 			<span class="note">NOTE: Referencing a variable inside an object outside of the object requires that you preface the variable with the object's name.</span>
 			<p>Example:
 				<p><span class="code">game.discrete.climateArray</span> looks inside the object named game for the object named discrete and finds climateArray.
@@ -132,6 +134,7 @@
 
 			<br>
 			<h3 id="js2">2. Game Set-Up</h3>
+			<a href="#js"><span class="back">Back to top</span></a>
 			<br>
 			<span class="note">NOTE: The only code you will need to touch outside of the <a href="#js1">game object </a> is <span class="code">climateArray</span>, which requires you to manually fill in the desired values inside both the discrete and continuous initialization functions.</span>
 			<br>
@@ -192,6 +195,7 @@
 			<br>
 
 			<h3 id="js3">3. Intro Dialogs</h3>
+			<a href="#js"><span class="back">Back to top</span></a>
 			<br>
 			<ul>
 				<li><span class="code">introDialogs</span> sets options for the introductory dialogs. Only the first intro dialog is automatically opened (<span class="code">autoOpen = true</span>) and the remainder are opened on click.</li>
@@ -220,6 +224,7 @@
 			<br>
 
 			<h3 id="js6">6. Weather Results</h3>
+			<a href="#js"><span class="back">Back to top</span></a>
 			<br>
 			<ul>
 				<li>All buttons are hidden.</li>
@@ -233,19 +238,21 @@
 			<br>
 
 			<h3 id="js7">7. Update Game</h3>
-			<h5 id="js7.A">Discrete game update</h5>
+			<a href="#js"><span class="back">Back to top</span></a>
+			<br>
+			<h5 id="js7.A" class="indent">Discrete game update</h5>
 				<ul>
 					<li>Calls the function <span class="code">updateGame</span> using the payout calculated in <span class="code">weatherResults</span> as an argument.</li>
 				</ul>
 			<br>
-			<h5 id="js7.B">Continuous game update</h5>
+			<h5 id="js7.B" class="indent">Continuous game update</h5>
 				<ul>
 					<li>Calculates payout using quadratic formula, with x as <span class="code">game.gameWeather</span> for current turn</li>
 					<li class="indent">If the formula amounts to less than zero, payout is set to zero.</li>
 					<li class="indent">Calls the function <span class="code">updateGamev using the new payout calculation as an argument.</li>
 				</ul>
 			<br>
-			<h5 id="js7.C">Game update</h5>
+			<h5 id="js7.C" class="indent">Game update</h5>
 			<ul>
 				<li>Depending on the game version, local variables <span class="code">bonusOneTotal</span> and <span class="code">bonusTwoTotal</span> are set equal to the game-level bonus threshold variables of the same name.</li>
 				<li><span class="code">displayResultsDialog populates the results dialog with the payout, <span class="code">game.gameWeather</span> (either Wet/Dry or inches of rain), and <span class="code">weatherReport </span>(a string that qualifies the weather outcome) as appropriate for the game version.</li>
@@ -265,7 +272,7 @@
 				<li class="indent">The end dialog shows the player their player ID (which is the same as the <span class="code">gameID</span> listed in the database).</li>
 			</ul>
 			<br>
-			<h5 id="js7.D">Server receives data</h5>
+			<h5 id="js7.D" class="indent">Server receives data</h5>
 			<br>
 				<ul>
 				<li><span class="code">recordData</span> sends the following information to the server in one payload, provided that the game has a corresponding record on the server:</li>
@@ -275,7 +282,8 @@
 				<li class="indent">the score for the turn (<span class="code">payout</span>)</li>
 			</ul>
 			<br>
-			<h3 id="js8">8. “Grow” Button</h3>
+			<h3 id="js8">8. Grow Button</h3>
+			<a href="#js"><span class="back">Back to top</span></a>
 			<br>
 			<ul>
 				<li>The code here triggers all functions except for the initialization functions, which run on game creation.</li>
@@ -284,6 +292,7 @@
 			</ul>
 			<br>
 			<h3 id="js9">9. Testing</h3>
+			<a href="#js"><span class="back">Back to top</span></a>
 			<br>
 			<ul>
 				<li>Running the test function will print all game-wide values in the web console.</li>
