@@ -4,25 +4,25 @@
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 	<title>Which Crop?</title>
-	<link rel="stylesheet" type="text/css" href="main.css" />
-	<script src="jquery1.10.1.js" type="text/javascript"></script> <!--uncompressed version for development purposes. Switch for .min when development is done -->
+	<link rel="stylesheet" type="text/css" href="main.css" /> <!-- CSS style rules -->
+	<script src="jquery1.10.1.min.js" type="text/javascript"></script> <!-- minimized version of jQuery1.10.1 -->
 	<script src="jquery-migrate-1.2.1.js"></script>
-	<script src="mainscript.js" type="text/javascript"></script> <!-- script containing jQuery and Javascript for all main game functions -->
+	<script src="mainscript.js" type="text/javascript"></script> <!-- script containing jQuery and Javascript -->
 
-<!-- scripts and stylesheets for jQuery UI dialog boxes -->
+<!-- jQuery UI dialog boxes -->
 
 	<!-- copied and pasted from the UI demo -->
  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 	<!-- customized themeroller files -->
-	<link href="jQuery_UI/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet"> <!-- custom-theme css overrode the general jquery-ui.css -->
+	<link href="jQuery_UI/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet"> <!-- custom-theme css, overrides jquery-ui.css -->
 	<script src="jQuery_UI/custom-theme/jquery-ui-1.10.3.custom.js" type="text/javascript"></script> <!-- custome-theme js -->
 
 	<!-- Edwin Martin's jQuery plugin for shadow animation -->
 	<script src="jquery_animate_shadow.js"></script>
 
-<!-- jqplot plugin, css, and excanvas support for IE 6,7,8 -->
-	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="excanvas.js"></script><![endif]-->
+<!-- jqPlot (chart) plugin -->
+	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="excanvas.js"></script><![endif]--><!--excanvas support for IE 6,7,8-->
 	<script language="javascript" type="text/javascript" src="jqPlot/jquery.jqplot.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="jqPlot/jquery.jqplot.css" />
 	<script type="text/javascript" src ="jqPlot/jqplot.barRenderer.min.js"></script>
@@ -40,7 +40,6 @@
 <header>
 	<h1>Which Crop Will You Choose?</h1>
 		<div class="instructions dialog-message ui-dialog" id="second-message" title="Game instructions">
-		<!-- highlight table -->
 				<br>
 				<p>
 				  	1. For each turn, plant either <span class="Acolor emphasize">Crop A</span> or <span class="Bcolor emphasize">Crop B</span> based on your best guess about the weather.
@@ -161,12 +160,14 @@
 		<div class="instructions dialog-message ui-dialog" id="first-message" title="Game instructions">
 				<br>
 				<p>
-				    <span class="emphasize">Welcome to "What Crop."</span>
+				    <span class="emphasize">Welcome to the game "What Crop."</span>
 				</p>
 				<br>
 				<p>
 				    By playing, you are contributing the academic understanding of economic decision-making.
 				</p>
+				<br>
+				<img id="screenshot" src="images/game_screenshot.png" />
 	</div>
 </nav>
 
@@ -253,6 +254,11 @@
 			<img src="images/SeedpacketB.png" alt="B"/>
 			<h4 class="Bcolor">Crop B </h4>
 		</button>
+
+		<!-- This text will appear if background image does not load -->
+		<p id="broken_images">
+			Your browser does not support these images. Please try either <a href="http://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/">Firefox</a>, which are both free Internet browsers you can download.
+		</p>
 
 		<div id="results_dialogs" class="hidden"> <!-- div containing all results dialogs for the game -->
 			<!-- dialog: Weather report and points earned -->
