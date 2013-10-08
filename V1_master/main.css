@@ -294,6 +294,15 @@ nav h5 {
 	text-align: center;
 }
 
+#legend {
+	width: 75px;
+	height: 50px;
+	position: absolute;
+	top: 15px;
+	right: 10px;
+	z-index: 10;
+}
+
 
 table {
 	height: auto;
