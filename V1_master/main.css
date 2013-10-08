@@ -163,6 +163,10 @@ nav h5 {
 	display: block;
 }
 
+#first-message {
+	text-align: center;
+}
+
 .emphasize { /* Used to emphasize specific text in dialog boxes */
 	font-weight: bold;
 }
