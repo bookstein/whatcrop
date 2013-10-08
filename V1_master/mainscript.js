@@ -1001,7 +1001,7 @@ $(function initializeGame (gameVersionObject) {
 			          			label:'Points',
 			          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 									labelOptions: {
-				            			fontFamily: 'Verdana, sans-serif',
+				            			fontFamily: 'Georgia, serif',
 				            			fontSize: '12pt',
 				            			show: showLabel
 			          				}
