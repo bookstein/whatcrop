@@ -1286,8 +1286,6 @@ $(function initializeGame (gameVersionObject) {
         click: function() {
           $( this ).dialog( "close" );
           $( "#second-message" ).dialog( "open" );
-          $("#givens").addClass("glow");
-          //$(".ui-widget-overlay").addClass("active-left");
         }
       } ]
     });
