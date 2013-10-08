@@ -440,7 +440,7 @@ td {
 	font-size: 14px;
 	padding: 5px;
 	z-index: 2;
-	font-weight: normal;
+	font-weight: bold;
 }
 
 .jqplot-xaxis-tick, .jqplot-x2axis-tick {

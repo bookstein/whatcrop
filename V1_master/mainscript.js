@@ -898,6 +898,11 @@ $(function initializeGame (gameVersionObject) {
 				}
 
 				game.optionsObj[seriesName] = {
+					      title: {
+						        text: 'Crop Yield in Points Earned',   // title for the plot
+						        show: showData,
+						    },
+
 					      series:
 					          chartObjects[seriesName]["seriesArray"]
 					      ,
