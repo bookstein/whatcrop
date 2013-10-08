@@ -1316,10 +1316,11 @@ $(function initializeGame (gameVersionObject) {
 	       buttons: {
 	      	"Next (4 of 5)": function () {
 	      		$(this).dialog("close");
+	      		$("#final-message").dialog("open");
 	      	},
 	      	"Back": function () {
 	      		$(this).dialog("close");
-	      		$("#final-message").dialog("open");
+	      		$("#third-message").dialog("open");
 	      	}
 	      }
     });
