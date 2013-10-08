@@ -719,7 +719,7 @@ $(function initializeGame (gameVersionObject) {
 
 			// Set values for tick marks
 			var maxX = [upperBoundX+100];
-			var maxY = [upperBoundY+20];
+			var maxY = [upperBoundY+50];
 			//var ticksX = [[0, "0"], [game.maxAweather, game.maxAweather], [game.maxBweather, game.maxBweather], [maxX, maxX]];
 			var ticksY = [[0, ""], [game.continuous.maxApayout, game.continuous.maxApayout], [game.continuous.maxBpayout, game.continuous.maxBpayout], [upperBoundY, ""], [maxY, ""]];
 			var ticksWeatherX = [[]];
@@ -898,11 +898,6 @@ $(function initializeGame (gameVersionObject) {
 				}
 
 				game.optionsObj[seriesName] = {
-					      title: {
-						        text: 'Crop Yield in Points Earned',   // title for the plot
-						        show: showData,
-						    },
-
 					      series:
 					          chartObjects[seriesName]["seriesArray"]
 					      ,
@@ -913,11 +908,10 @@ $(function initializeGame (gameVersionObject) {
 
 
 					      grid: {
-			        		//drawGridlines: true,
+			        		drawGridlines: true,
 			        		shadow: false,
 			        		borderWidth: 1,
 			        		drawBorder: true,
-			        		//background: "rgba(0, 200, 500, 0.05)",
 			        	  },
 
 			        	  // The "seriesDefaults" option is an options object that will
@@ -937,29 +931,12 @@ $(function initializeGame (gameVersionObject) {
 					       //pointLabels uses the final value in parabolaArray[i] as its data
 					          pointLabels: {
 					          	show: showData,
-					          	location:'nw',
+					          	location:'n',
 					          	ypadding:3,
-					          	xpadding:3
+					          	xpadding:3,
+					          	formatString: "%#.0f"
 					          }
 					      },
-
-					     /* legend: {
-						    renderer: $.jqplot.EnhancedLegendRenderer,
-						    show: !showData,
-						    location: "ne",
-						    labels: ["", "Crop A", "Crop B"],
-						    showSwatches: true,
-					        placement: "insideGrid",
-					        yoffset: "10px",
-					        xoffset: "10px",
-					        fontSize: "11px",
-					        //textColor: "#820000",
-					        border: "0px",
-						    rendererOptions: {
-						        numberRows: 3,
-						        seriesToggle: false
-							}
-						  },*/
 
 					      axesDefaults: {
 	        				labelRenderer: $.jqplot.CanvasAxisLabelRenderer
@@ -1016,7 +993,7 @@ $(function initializeGame (gameVersionObject) {
 
 			                	tickOptions:{
 			                        mark: "cross",
-			                        showLabel: true,
+			                        showLabel: showData,
 			                        //formatString: "%#.0f",
 			                        showMark: true,
 			                        showGridline: true
@@ -1046,17 +1023,6 @@ $(function initializeGame (gameVersionObject) {
 
 	// writes crop payout dataset to game object
 			game.continuous.payoutData = [[null], game.plotA, game.plotB];
-
-	// Makes legend label colors match swatch colors
-		$.jqplot.postDrawHooks.push(function() {
-		    var swatches = $('table.jqplot-table-legend tr td.jqplot-table-legend-swatch');
-		    var labels = $('table.jqplot-table-legend tr td.jqplot-table-legend-label');
-		    labels.each(function(index) {
-		        //turn the label's text color to the swatch's color
-		        var color = $(swatches[index]).find("div div").css('background-color');
-		        $(this).css('color',color );
-		    });
-		});
 
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
@@ -1283,7 +1249,7 @@ $(function initializeGame (gameVersionObject) {
           height: 'auto',
           width: '375',
           dialogClass: "no-close",
-      buttons: [ { text: "Next (1 of 4)",
+      buttons: [ { text: "Next (1 of 5)",
         click: function() {
           $( this ).dialog( "close" );
           $( "#second-message" ).dialog( "open" );
@@ -1303,7 +1269,7 @@ $(function initializeGame (gameVersionObject) {
           width: '375',
           dialogClass: "no-close",
       buttons: {
-      	"Next (2 of 4)": function () {
+      	"Next (2 of 5)": function () {
       		$(this).dialog("close");
       		$( "#third-message" ).dialog( "open" );
       	},
@@ -1326,7 +1292,7 @@ $(function initializeGame (gameVersionObject) {
           width: '375',
           dialogClass: "no-close",
 	      buttons: {
-	      	"Next (3 of 4)": function () {
+	      	"Next (3 of 5)": function () {
 	      		$(this).dialog("close");
 	      		$( "#fourth-message" ).dialog( "open" );
 	      	},
@@ -1349,12 +1315,34 @@ $(function initializeGame (gameVersionObject) {
           width: '375',
           dialogClass: "no-close",
 	       buttons: {
+	      	"Next (4 of 5)": function () {
+	      		$(this).dialog("close");
+	      	},
+	      	"Back": function () {
+	      		$(this).dialog("close");
+	      		$("#final-message").dialog("open");
+	      	}
+	      }
+    });
+
+    $( "#final-message" ).dialog({
+      autoOpen: false,
+      modal: true,
+      sticky: true,
+      closeOnEscape: false,
+          resizable: false,
+          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+          stack: true,
+          height: 'auto',
+          width: '375',
+          dialogClass: "no-close",
+	       buttons: {
 	      	"Start Game": function () {
 	      		$(this).dialog("close");
 	      	},
 	      	"Back": function () {
 	      		$(this).dialog("close");
-	      		$("#third-message").dialog("open");
+	      		$("#fourth-message").dialog("open");
 	      	}
 	      }
     });
