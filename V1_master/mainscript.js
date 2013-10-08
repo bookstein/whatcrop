@@ -25,7 +25,7 @@ game = {
 	meanHistoricWeather : 0,
 
 	// Set number of turns per game
-    maxturn : 50,
+    maxturn : 10,
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
@@ -1243,7 +1243,7 @@ $(function initializeGame (gameVersionObject) {
       sticky: true,
       closeOnEscape: false,
           resizable: false,
-          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+          position: {my: 'bottom', at: 'center center-25%', of: '#container'},
           stack: true,
           height: 'auto',
           width: '375',
@@ -1262,7 +1262,7 @@ $(function initializeGame (gameVersionObject) {
       sticky: true,
       closeOnEscape: false,
           resizable: false,
-          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+          position: {my: 'bottom', at: 'center center-25%', of: '#container'},
           stack: true,
           height: 'auto',
           width: '375',
@@ -1285,7 +1285,7 @@ $(function initializeGame (gameVersionObject) {
       sticky: true,
       closeOnEscape: false,
           resizable: false,
-          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+          position: {my: 'bottom', at: 'center center-25%', of: '#container'},
           stack: true,
           height: 'auto',
           width: '375',
@@ -1308,7 +1308,7 @@ $(function initializeGame (gameVersionObject) {
       sticky: true,
       closeOnEscape: false,
           resizable: false,
-          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+          position: {my: 'bottom', at: 'center center-25%', of: '#container'},
           stack: true,
           height: 'auto',
           width: '375',
@@ -1331,7 +1331,7 @@ $(function initializeGame (gameVersionObject) {
       sticky: true,
       closeOnEscape: false,
           resizable: false,
-          position: {my: 'bottom', at: 'center center-15%', of: '#container'},
+          position: {my: 'bottom', at: 'center center-25%', of: '#container'},
           stack: true,
           height: 'auto',
           width: '375',
@@ -1876,30 +1876,40 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 		function movePointsFlag () { //increase height of #points_flag using absolute positioning
 
-			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
-			var pixelHeight = parseFloat($("#points_bar").css("height"));
+			if (game.score < game.bonusTwoTotal) {
+				//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
+				var pixelHeight = parseFloat($("#points_bar").css("height"));
 
-			//Current CSS position for #points_flag "bottom" as an integer
-			var flagHeight = parseFloat($("#points_flag").css("bottom"));
+				//Current CSS position for #points_flag "bottom" as an integer
+				var flagHeight = parseFloat($("#points_flag").css("bottom"));
 
-			//Current CSS height of #points_fill with "height" as an integer
-			var fillHeight = parseFloat($("#points_fill").css("height"));
+				//Current CSS height of #points_fill with "height" as an integer
+				var fillHeight = parseFloat($("#points_fill").css("height"));
 
-			//Ratio of points per pixel
-			var pointsPerPixelRatio = game.maxScore/pixelHeight; //use game.maxScore for now
+				//Ratio of points per pixel
+				var pointsPerPixelRatio = game.maxScore/pixelHeight; //use game.maxScore for now
 
-			//Points_counter moves upward this number of pixels per turn, depending on the turn payout
-			var perTurnHeight = payout/pointsPerPixelRatio;
+				//Points_counter moves upward this number of pixels per turn, depending on the turn payout
+				var perTurnHeight = payout/pointsPerPixelRatio;
 
-			// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
-			flagHeight+=perTurnHeight;
-			fillHeight = flagHeight + 20;
+				// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
+				flagHeight+=perTurnHeight;
+				fillHeight = flagHeight + 20;
 
-			// Set new heights in CSS style rules for #points_flag and #points_fill
-			$("#points_flag").css("bottom", flagHeight);
-			$("#points_fill").css("height", fillHeight);
+				// Set new heights in CSS style rules for #points_flag and #points_fill
+				$("#points_flag").css("bottom", flagHeight);
+				$("#points_fill").css("height", fillHeight);
+			}
 
-			//carve up post-second-bonus pixels into fixed amount between this turn and last turn
+			else if (game.score >= game.bonusTwoTotal) {
+				var remainingHeight = pixelHeight - fillHeight;
+
+				var remainingPixelsPerTurn = remainingHeight/(game.maxturn-game.turn);
+
+				flagHeight+=remainingPixelsPerTurn;
+				fillHeight = flagHeight+20;
+			}
+
 		};
 
 		movePointsFlag();
