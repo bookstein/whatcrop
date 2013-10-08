@@ -183,6 +183,11 @@ nav h5 {
 	margin-left: auto;
 }
 
+
+.ui-button {
+	float: right;
+}
+
 #screenshot {
 	width: 229px;
 	height: 200px;

@@ -1303,16 +1303,16 @@ $(function initializeGame (gameVersionObject) {
           height: 'auto',
           width: '375',
           dialogClass: "no-close",
-      buttons: [ { text: "Next (2 of 4)",
-        click: function() {
-          $( this ).dialog( "close" );
-          //$(".ui-widget-overlay").addClass("active-left");
-          $( "#third-message" ).dialog( "open" );
-          $("#givens").removeClass("glow");
-          //$("table").addClass("glow");
-
-        }
-      } ]
+      buttons: {
+      	"Next (2 of 4)": function () {
+      		$(this).dialog("close");
+      		$( "#third-message" ).dialog( "open" );
+      	},
+      	"Back": function () {
+      		$(this).dialog("close");
+      		$("#first-message").dialog("open");
+      	}
+      }
     });
 
     $("#third-message").dialog({
@@ -1326,16 +1326,16 @@ $(function initializeGame (gameVersionObject) {
           height: 'auto',
           width: '375',
           dialogClass: "no-close",
-      buttons: [ { text: "Next (3 of 4)",
-        click: function() {
-          $( this ).dialog( "close" );
-          $( "#fourth-message" ).dialog( "open" );
-          $("table").removeClass("glow");
-          $("#points_bar, #points_flag").toggleClass("glow");
-          //$(".ui-widget-overlay").removeClass("active-left");
-          //$(".ui-widget-overlay").addClass("active-right");
-        }
-      } ]
+	      buttons: {
+	      	"Next (3 of 4)": function () {
+	      		$(this).dialog("close");
+	      		$( "#fourth-message" ).dialog( "open" );
+	      	},
+	      	"Back": function () {
+	      		$(this).dialog("close");
+	      		$("#second-message").dialog("open");
+	      	}
+	      }
     });
 
     $( "#fourth-message" ).dialog({
@@ -1349,13 +1349,15 @@ $(function initializeGame (gameVersionObject) {
           height: 'auto',
           width: '375',
           dialogClass: "no-close",
-      buttons: [ { text: "Start Game",
-        click: function() {
-          $( this ).dialog( "close" );
-          $("#points_bar, #points_flag").toggleClass("glow");
-          //$(".ui-widget-overlay").removeClass("active-right");
-        }
-      } ]
+	       buttons: {
+	      	"Start Game": function () {
+	      		$(this).dialog("close");
+	      	},
+	      	"Back": function () {
+	      		$(this).dialog("close");
+	      		$("#third-message").dialog("open");
+	      	}
+	      }
     });
   };
 
