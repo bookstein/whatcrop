@@ -386,17 +386,17 @@ td {
 
 
 .jqplot-xaxis {
-	background-image: linear-gradient(left 0, #F2C900 35%, #eae9e6 60%, #99CCFF 75%);
-	background-image: -o-linear-gradient(left 0, #F2C900 35%, #eae9e6 60%, #99CCFF 75%);
-	background-image: -moz-linear-gradient(left 0, #F2C900 35%, #eae9e6 60%, #99CCFF 75%);
-	background-image: -ms-linear-gradient(left 0, #F2C900 35%, #eae9e6 60%, #99CCFF 75%);
+	background-image: linear-gradient(left 0, #F2C900 15%, #eae9e6 50%, #99CCFF 85%);
+	background-image: -o-linear-gradient(left 0, #F2C900 15%, #eae9e6 50%, #99CCFF 85%);
+	background-image: -moz-linear-gradient(left 0, #F2C900 15%, #eae9e6 50%, #99CCFF 85%);
+	background-image: -ms-linear-gradient(left 0, #F2C900 15%, #eae9e6 50%, #99CCFF 85%);
 	background-image: -webkit-gradient(
 		linear,
 		left 0,
 		right 0,
-		color-stop(0.35, #F2C900),
-		color-stop(0.6, #eae9e6),
-		color-stop(0.75, #99CCFF)
+		color-stop(0.15, #F2C900),
+		color-stop(0.5, #eae9e6),
+		color-stop(0.85, #99CCFF)
 	);
 	padding: 0 2px 0 2px;
 }
