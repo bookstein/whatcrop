@@ -378,24 +378,33 @@ td {
 	position: relative;
 }
 
-.jqplot-grid-canvas {
-	/*background-image: linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
-	background-image: -o-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
-	background-image: -moz-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
-	background-image: -ms-linear-gradient(left 0, rgb(255, 204, 51) 33%, rgb(200, 200, 200) 50%, rgb(0, 200, 500) 84%);
+.jqplot-yaxis {
+	background-color: white;
+	z-index: 1;
+}
+
+.jqplot-xaxis {
+	background-image: linear-gradient(left 0, #F2C900 35%, #eae9e6 60%, #99CCFF 75%);
+	background-image: -o-linear-gradient(left 0, #F2C900 35%, #eae9e6 60%, #99CCFF 75%);
+	background-image: -moz-linear-gradient(left 0, #F2C900 35%, #eae9e6 60%, #99CCFF 75%);
+	background-image: -ms-linear-gradient(left 0, #F2C900 35%, #eae9e6 60%, #99CCFF 75%);
 	background-image: -webkit-gradient(
 		linear,
 		left 0,
 		right 0,
-		color-stop(0.33, rgb(255, 204, 51)),
-		color-stop(0.5, rgb(200, 200, 200)),
-		color-stop(0.84, rgb(0, 200, 500))
-	);*/
-		z-index: 0;
-		opacity: .2;
-		height: auto;
-		width: inherit;
-		padding: 2px;
+		color-stop(0.35, #F2C900),
+		color-stop(0.6, #eae9e6),
+		color-stop(0.75, #99CCFF)
+	);
+	padding: 0 2px 0 2px;
+}
+
+.jqplot-grid-canvas	{
+	z-index: 0;
+	opacity: .3;
+	height: auto;
+	width: inherit;
+	padding: 2px;
 }
 
 .jqplot-event-canvas {

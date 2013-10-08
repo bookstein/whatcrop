@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: true,
+	discreteWeather: false,
 	testing: false
 };
 
@@ -1080,7 +1080,7 @@ $(function initializeGame (gameVersionObject) {
 			$(".jqplot-grid-canvas").css('background-image', 'none');
 		};
 
-		setTimeout(removeChartBackground, game.turnLength*5);
+		//setTimeout(removeChartBackground, game.turnLength*5);
 
 		//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
