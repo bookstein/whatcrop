@@ -1609,16 +1609,12 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				if (game.gameWeather[game.turn] < game.continuous.maxAweather + Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) && game.gameWeather[game.turn] >= game.continuous.maxAweather + .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) ) {
 					game.weatherReport = "wet enough";
 					$("#wetA").removeClass("hidden");
-					rainsound.currenttime=0;
-					rainsound.play();
 				}
 
 				//A1.ii Wet game.gameWeather is too wet
 				else if (game.gameWeather[game.turn] >= game.continuous.maxAweather + Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) ) {
 					game.weatherReport = "too wet";
 					$("#deadAwet").removeClass("hidden");
-					rainsound.currenttime=0;
-					rainsound.play();
 				}
 
 			// A2. game.gameWeather is dry
@@ -1627,8 +1623,6 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				else if (game.gameWeather[game.turn] < game.continuous.maxAweather - .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) && game.gameWeather[game.turn] >= game.continuous.maxAweather - Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) {
 					game.weatherReport = "dry enough";
 					$("#dryA").removeClass("hidden");
-					sunsound.currenttime=0;
-					sunsound.play();
 				}
 
 
@@ -1637,16 +1631,12 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					game.weatherReport = "too dry";
 					//display too-dry crop A
 					$("#deadAdry").removeClass("hidden");
-					sunsound.currenttime=0;
-					sunsound.play();
 				}
 
 			// A3. game.gameWeather is normal
 				else if (game.gameWeather[game.turn] < (game.continuous.maxAweather + .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) && game.gameWeather[game.turn] >= (game.continuous.maxAweather - .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)))) {
 					$("#rowsCropA").removeClass("hidden");
 					game.weatherReport = "optimal weather";
-					rainsound.currenttime=0;
-					rainsound.play();
 				}
 
 				updateContinuous(game.continuous.betaA, game.continuous.maxApayout, game.continuous.maxAweather); // call updateGame with values for crop A
@@ -1662,16 +1652,12 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					game.weatherReport = "wet enough";
 					//display healthy crop B (range of normal)
 					$("#wetB").removeClass("hidden");
-					rainsound.currenttime=0;
-					rainsound.play();
 				}
 
 				//B1.ii Wet game.gameWeather is too wet
 				else if (game.gameWeather[game.turn] >= game.continuous.maxBweather + Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB))) {
 					game.weatherReport = "too wet";
 					$("#deadBwet").removeClass("hidden");
-					rainsound.currenttime=0;
-					rainsound.play();
 				}
 
 			// B2. game.gameWeather is dry
@@ -1680,16 +1666,12 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				else if (game.gameWeather[game.turn] < game.continuous.maxAweather - .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) {
 					game.weatherReport = "dry enough";
 					$("#dryB").removeClass("hidden");
-					sunsound.currenttime=0;
-					sunsound.play();
 				}
 
 				//B2.ii Dry game.gameWeather is too dry
 				else if (game.gameWeather[game.turn] < game.continuous.maxBweather - Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB))) {
 					game.weatherReport = "too dry";
 					$("#deadBdry").removeClass("hidden");
-					sunsound.currenttime=0;
-					sunsound.play();
 				}
 
 
@@ -1697,12 +1679,21 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				else if (game.gameWeather[game.turn] < (game.continuous.maxBweather + .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaA))) && game.gameWeather[game.turn] >= (game.continuous.maxBweather - .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB)))) {
 					$("#rowsCropB").removeClass("hidden");
 					game.weatherReport = "optimal weather";
-					rainsound.currenttime=0;
-					rainsound.play();
 				}
 
 				updateContinuous(game.continuous.betaB, game.continuous.maxBpayout, game.continuous.maxBweather); // call updateGame with values for crop B
 			}
+
+			if (game.weatherReport === "optimal weather" || game.weatherReport === "wet enough" || game.weatherReport === "too wet") {
+				rainsound.currenttime=0;
+				rainsound.play();
+			}
+
+			else {
+				sunsound.currenttime=0;
+				sunsound.play();
+			}
+
 
 		}; // end of continuous [weather graphics]
 
@@ -1892,7 +1883,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 				//Points_counter moves upward this number of pixels per turn, depending on the turn payout
 				var perTurnHeight = payout/pointsPerPixelRatio;
 
-				if (game.score > game.bonusTwoTotal) {
+				if (game.score > game.discrete.bonusTwoTotal && game.score > game.continuous.bonusTwoTotal) {
 					var remainingHeight = pixelHeight - fillHeight;
 					var remainingPixelsPerTurn = remainingHeight/(game.maxturn-game.turn);
 
