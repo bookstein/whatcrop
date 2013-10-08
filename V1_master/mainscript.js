@@ -720,9 +720,8 @@ $(function initializeGame (gameVersionObject) {
 			// Set values for tick marks
 			var maxX = [upperBoundX+100];
 			var maxY = [upperBoundY+50];
-			//var ticksX = [[0, "0"], [game.maxAweather, game.maxAweather], [game.maxBweather, game.maxBweather], [maxX, maxX]];
 			var ticksY = [[0, ""], [game.continuous.maxApayout, game.continuous.maxApayout], [game.continuous.maxBpayout, game.continuous.maxBpayout], [upperBoundY, ""], [maxY, ""]];
-			var ticksWeatherX = [[]];
+			var ticksWeatherX = [[]]; // populated below
 			var ticksWeatherY = [];
 
 
@@ -847,7 +846,7 @@ $(function initializeGame (gameVersionObject) {
 			findMax();
 
 		// Create options object for jqPlot graph using optionsObj and setOptions()
-			function setOptions (seriesName, showData) {
+			function setOptions (seriesName, showData, showLabel) {
 
 				if (seriesName === "payoutObj" || seriesName === "givensObj") {
 					chartObjects[seriesName]["seriesArray"][0] = {};
@@ -954,7 +953,6 @@ $(function initializeGame (gameVersionObject) {
 			          			rendererOptions:{
 			                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
 			                    },
-
 			                	tickOptions:{
 			                        mark: "inside",
 			                        showLabel: showData,
@@ -999,12 +997,13 @@ $(function initializeGame (gameVersionObject) {
 			                        showGridline: true
 			                    },
 
-			          			/*label:'Points',
+			          			label:'Points',
 			          			labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 									labelOptions: {
 				            			fontFamily: 'Verdana, sans-serif',
 				            			fontSize: '12pt',
-			          				}*/
+				            			show: showLabel
+			          				}
 			      			}
 			    		  }, // end of axes
 
@@ -1026,18 +1025,18 @@ $(function initializeGame (gameVersionObject) {
 
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
-			setOptions("payoutObj", true);
+			setOptions("payoutObj", true, false);
 			var payoutChart = $.jqplot("crop_payouts_chart", game.continuous.payoutData, game.optionsObj.payoutObj);
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
 
 			$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
-			setOptions("historyObj", false);
+			setOptions("historyObj", false, false);
 			var historyChart = $.jqplot("continuous_history", [game.histogram, [null], [null]], game.optionsObj.historyObj);
 
 
 	//CHART 3: draw graph in sidebar #chartdiv using optionsObj above
-			setOptions("givensObj", false);
+			setOptions("givensObj", false, true);
 			game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.optionsObj.givensObj);
 
 		}; //end of drawQuadratic()

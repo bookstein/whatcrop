@@ -383,6 +383,10 @@ td {
 	z-index: 1;
 }
 
+.jqplot-y2axis {
+	background-color: white;
+	z-index: 1;
+}
 
 
 .jqplot-xaxis {
