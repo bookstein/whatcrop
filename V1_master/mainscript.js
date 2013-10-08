@@ -1640,7 +1640,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				}
 
 				updateContinuous(game.continuous.betaA, game.continuous.maxApayout, game.continuous.maxAweather); // call updateGame with values for crop A
-			}
+
+			} // end of A
 
 			// 2. Crop B outcomes
 			else if (game.cropchoice === "crop B") {
@@ -1682,7 +1683,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				}
 
 				updateContinuous(game.continuous.betaB, game.continuous.maxBpayout, game.continuous.maxBweather); // call updateGame with values for crop B
-			}
+
+			} // end of B
 
 			if (game.weatherReport === "optimal weather" || game.weatherReport === "wet enough" || game.weatherReport === "too wet") {
 				rainsound.currenttime=0;
@@ -1958,7 +1960,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
 		$("#playerID").text(game.gameID);
-		$("#total_score").text(game.score);
+		$("#total_score").text(parseInt(game.score));
 		$("#total_dollars").text(game.realDollars);
 
  		$( "#end_results" ).dialog({
