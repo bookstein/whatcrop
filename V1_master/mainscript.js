@@ -927,15 +927,15 @@ $(function initializeGame (gameVersionObject) {
 			            		shadow: false,
 					          },
 
-					          /*
+
 					       //pointLabels uses the final value in parabolaArray[i] as its data
 					          pointLabels: {
-					          	show: true,
+					          	show: showData,
 					          	location:'n',
 					          	ypadding:3,
 					          	xpadding:3,
 					          	formatString: "%#.0f"
-					          }*/
+					          }
 					      },
 
 					      axesDefaults: {
@@ -943,10 +943,10 @@ $(function initializeGame (gameVersionObject) {
 	    				  },
 					      axes: {
 
-			      			y2axis:{
+			      			/*y2axis:{
 			      				label: "Relative frequency",
 			     				labelOptions: {
-	            					show: showData,
+	            					show: false,
 	            					fontFamily: 'Georgia, serif',
 	            					fontSize: '11pt'
 	        					},
@@ -956,12 +956,12 @@ $(function initializeGame (gameVersionObject) {
 			                    },
 			                	tickOptions:{
 			                        mark: "inside",
-			                        showLabel: showData,
+			                        showLabel: showLabel,
 			                        //formatString: "%#.0f",
 			                        showMark: false,
 			                        showGridline: false
 			                    }
-			      			},
+			      			},*/
 
 			        		xaxis:{
 			        			ticks: ticksWeatherX,
@@ -1026,7 +1026,7 @@ $(function initializeGame (gameVersionObject) {
 
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
-			setOptions("payoutObj", true, false);
+			setOptions("payoutObj", true, true);
 			var payoutChart = $.jqplot("crop_payouts_chart", game.continuous.payoutData, game.optionsObj.payoutObj);
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
