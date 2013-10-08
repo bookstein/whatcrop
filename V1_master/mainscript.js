@@ -1877,7 +1877,6 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 		function movePointsFlag () { //increase height of #points_flag using absolute positioning
 
-			if (game.score < game.bonusTwoTotal) {
 				//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
 				var pixelHeight = parseFloat($("#points_bar").css("height"));
 
@@ -1893,23 +1892,23 @@ function updateGame (payout) { //this function is called and given arguments ins
 				//Points_counter moves upward this number of pixels per turn, depending on the turn payout
 				var perTurnHeight = payout/pointsPerPixelRatio;
 
-				// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
-				flagHeight+=perTurnHeight;
-				fillHeight = flagHeight + 20;
+				if (game.score > game.bonusTwoTotal) {
+					var remainingHeight = pixelHeight - fillHeight;
+					var remainingPixelsPerTurn = remainingHeight/(game.maxturn-game.turn);
 
-				// Set new heights in CSS style rules for #points_flag and #points_fill
-				$("#points_flag").css("bottom", flagHeight);
-				$("#points_fill").css("height", fillHeight);
-			}
+					flagHeight+=remainingPixelsPerTurn;
+					fillHeight = flagHeight+20;
+				}
 
-			else if (game.score >= game.bonusTwoTotal) {
-				var remainingHeight = pixelHeight - fillHeight;
+				else {
+					// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
+					flagHeight+=perTurnHeight;
+					fillHeight = flagHeight + 20;
 
-				var remainingPixelsPerTurn = remainingHeight/(game.maxturn-game.turn);
-
-				flagHeight+=remainingPixelsPerTurn;
-				fillHeight = flagHeight+20;
-			}
+					// Set new heights in CSS style rules for #points_flag and #points_fill
+					$("#points_flag").css("bottom", flagHeight);
+					$("#points_fill").css("height", fillHeight);
+				}
 
 		};
 
