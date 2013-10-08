@@ -8,7 +8,7 @@ $(document).ready(function(){
 // Switches game between discrete and continuous versions
 gameVersion = {
 	discreteWeather: false,
-	testing: false
+	testing: true
 };
 
 // Game-wide variables
@@ -237,7 +237,6 @@ $(function initializeGame (gameVersionObject) {
 				thresholdArray[i] = thresholdArray[i-1] - (game.discrete.climateArray[i]);
 			}
 
-			console.log("thresholdArray is " + thresholdArray);
 			return thresholdArray;
 		};
 
@@ -322,14 +321,10 @@ $(function initializeGame (gameVersionObject) {
 
 		function checkIndifferencePoint () {
 			var indifference = (game.discrete.payoutBwet - game.discrete.payoutAwet)/(game.discrete.payoutAdry - game.discrete.payoutAwet + game.discrete.payoutBwet - game.discrete.payoutBdry);
-			if (indifference >=1 || indifference <=0) {
-				alert("WARNING: the indifference point between A and B is: " + indifference + " !");
-			}
 
-			else {
-				// Assign the value of the indifference point to the game variable
-				game.discrete.indifferencePoint = indifference;
-			}
+			// Assign the value of the indifference point to the game variable
+			game.discrete.indifferencePoint = indifference;
+
 			return game.discrete.indifferencePoint;
 		};
 
@@ -730,14 +725,14 @@ $(function initializeGame (gameVersionObject) {
 				var intervalNumber = 2*Math.ceil(Math.sqrt(game.historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
 				var intervalWidth = range/intervalNumber;
 
-				console.log("range: " + range + " number of intervals: " + intervalNumber + " interval width: " + intervalWidth);
+				//console.log("range: " + range + " number of intervals: " + intervalNumber + " interval width: " + intervalWidth);
 
 				function countOccurrence(newinterval) { //this functions runs for each interval
 
 					var intervalBottom = newinterval*intervalWidth;
 					var intervalTop = ((newinterval+1)*intervalWidth);
 
-					console.log(intervalBottom + " to " + intervalTop);
+					//console.log(intervalBottom + " to " + intervalTop);
 
 					var count = 0;
 					var scaleCount = 0;
@@ -763,7 +758,7 @@ $(function initializeGame (gameVersionObject) {
 
 					originalCount();
 
-					console.log("[" + parseInt(intervalBottom) + ", " + count + "]");
+					//console.log("[" + parseInt(intervalBottom) + ", " + count + "]");
 
 					function scaleToYaxis () {
 						// Takes the average of maxA and maxB payout, multiples count by a percentage of the average,
@@ -820,7 +815,7 @@ $(function initializeGame (gameVersionObject) {
 
 
 			game.histogram = historicWeatherHistogram();
-			console.log("Histogram data ([intervalBottom, count, null]): " + game.histogram);
+			//console.log("Histogram data ([intervalBottom, count, null]): " + game.histogram);
 
 			// Find largest number of occurences: sets game.meanHistoricWeather equal to most frequent weather interval
 
@@ -2004,22 +1999,33 @@ $("#grow").on("click", function () {
 
 //9. TESTING. Tests functionality of game in advance
 
+if (gameVersion.testing) {
+	test();
+}
+
 function test (testValue) {
 	if (testValue == null) {
-		console.log("Enter game.climateArray or indifferencePoint to see the value of the variable");
+		testValue = prompt("Enter game.discrete.climateArray, game.continuous.climateArray, or game.discrete.indifferencePoint to see the value of the variable. Make sure your web console is open!");
 	}
 
-	else if (testValue == game.climateArray) {
-		climateChange();
-		return game.climateArray;
+	else if (testValue === game.discrete.climateArray) {
+		console.log("Discrete climateArray: " + game.discrete.climateArray);
 	}
 
-	else if (testValue == game.discrete.indifferencePoint) {
-		calculateIndifferencePoint();
-		return game.discrete.indifferencePoint;
+	else if (testValue === game.continuous.climateArray) {
+		console.log("Continuous climateArray: " + game.continuous.climateArray);
 	}
 
-	//add a bunch of console.logs
+	else if (testValue === game.discrete.indifferencePoint) {
+		if (game.discrete.indifferencePoint >=1 || game.discrete.indifferencePoint <=0) {
+			alert("WARNING: the indifference point between A and B is: " + indifference + " !");
+		}
+
+		else {
+			console.log("Discrete indifference point: " + game.discrete.indifferencePoint);
+		}
+	}
+
 };
 
 }); //End of .ready ()
