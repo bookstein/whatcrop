@@ -930,7 +930,7 @@ $(function initializeGame (gameVersionObject) {
 
 					       //pointLabels uses the final value in parabolaArray[i] as its data
 					          pointLabels: {
-					          	show: showData,
+					          	show: true,
 					          	location:'n',
 					          	ypadding:3,
 					          	xpadding:3,
@@ -1032,7 +1032,7 @@ $(function initializeGame (gameVersionObject) {
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
 
 			$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
-			setOptions("historyObj", true);
+			setOptions("historyObj", false);
 			var historyChart = $.jqplot("continuous_history", [game.histogram, [null], [null]], game.optionsObj.historyObj);
 
 
