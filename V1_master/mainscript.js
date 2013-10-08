@@ -518,9 +518,7 @@ $(function initializeGame (gameVersionObject) {
 	function initializeContinuous () {
 
 		// Unhide continuous version elements
-		$("#crop_payouts_chart").removeClass("hidden");
-		$("#continuous_history").removeClass("hidden");
-		$("#chartdiv").removeClass("hidden");
+		$("#crop_payouts_chart, #continuous_history, #continuous_payout").removeClass("hidden");
 
 		//Populate continuous.climateArray
 

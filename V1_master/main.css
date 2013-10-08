@@ -294,15 +294,6 @@ nav h5 {
 	text-align: center;
 }
 
-#legend {
-	width: 75px;
-	height: 50px;
-	position: absolute;
-	top: 15px;
-	right: 10px;
-	z-index: 10;
-}
-
 
 table {
 	height: auto;
@@ -366,13 +357,32 @@ td {
 	color: #3811c9;
 }
 
+#legend {
+	position: absolute;
+	top: 15px;
+	right: 10px;
+	z-index: 10;
+	width: 75px;
+	height: 50px;
+}
 
-#chartdiv {
+#crop_payouts_chart, #continuous_history {
+	border: 3px dotted #eae9e6;
+	padding-right: 3px;
+	padding-left: 3px;
+}
+
+#continuous_payout, #chartdiv {
 	height: auto;
 	width: 100%;
 	margin-right: auto;
 	margin-left: auto;
 	position: relative;
+}
+
+#chartdiv {
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
 #crop_payouts_chart {
