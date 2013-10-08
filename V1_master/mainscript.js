@@ -721,7 +721,7 @@ $(function initializeGame (gameVersionObject) {
 			var maxX = [upperBoundX+100];
 			var maxY = [upperBoundY+20];
 			//var ticksX = [[0, "0"], [game.maxAweather, game.maxAweather], [game.maxBweather, game.maxBweather], [maxX, maxX]];
-			var ticksY = [[0, ""], [game.continuous.maxApayout, game.continuous.maxApayout], [game.continuous.maxBpayout, game.continuous.maxBpayout], [upperBoundY, upperBoundY], [maxY, ""]];
+			var ticksY = [[0, ""], [game.continuous.maxApayout, game.continuous.maxApayout], [game.continuous.maxBpayout, game.continuous.maxBpayout], [upperBoundY, ""], [maxY, ""]];
 			var ticksWeatherX = [[]];
 			var ticksWeatherY = [];
 
@@ -938,7 +938,7 @@ $(function initializeGame (gameVersionObject) {
 					          }
 					      },
 
-					      legend: {
+					     /* legend: {
 						    renderer: $.jqplot.EnhancedLegendRenderer,
 						    show: !showData,
 						    location: "ne",
@@ -954,7 +954,7 @@ $(function initializeGame (gameVersionObject) {
 						        numberRows: 3,
 						        seriesToggle: false
 							}
-						  },
+						  },*/
 
 					      axesDefaults: {
 	        				labelRenderer: $.jqplot.CanvasAxisLabelRenderer
@@ -1008,13 +1008,9 @@ $(function initializeGame (gameVersionObject) {
 			          			rendererOptions:{
 			                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
 			                    },
-			                    label: "Points earned",
-			                    labelOptions: {
-			                    	fontFamily: 'Georgia, serif',
-	            					fontSize: '11pt'
-			                    },
+
 			                	tickOptions:{
-			                        mark: "inside",
+			                        mark: "cross",
 			                        showLabel: true,
 			                        //formatString: "%#.0f",
 			                        showMark: true,
