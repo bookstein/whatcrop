@@ -927,6 +927,7 @@ $(function initializeGame (gameVersionObject) {
 			            		shadow: false,
 					          },
 
+					          /*
 					       //pointLabels uses the final value in parabolaArray[i] as its data
 					          pointLabels: {
 					          	show: true,
@@ -934,7 +935,7 @@ $(function initializeGame (gameVersionObject) {
 					          	ypadding:3,
 					          	xpadding:3,
 					          	formatString: "%#.0f"
-					          }
+					          }*/
 					      },
 
 					      axesDefaults: {
@@ -1246,7 +1247,7 @@ $(function initializeGame (gameVersionObject) {
           position: {my: 'bottom', at: 'center center-25%', of: '#container'},
           stack: true,
           height: 'auto',
-          width: '375',
+          width: '400',
           dialogClass: "no-close",
       buttons: [ { text: "Next (1 of 5)",
         click: function() {
@@ -1265,7 +1266,7 @@ $(function initializeGame (gameVersionObject) {
           position: {my: 'bottom', at: 'center center-25%', of: '#container'},
           stack: true,
           height: 'auto',
-          width: '375',
+          width: '400',
           dialogClass: "no-close",
       buttons: {
       	"Next (2 of 5)": function () {
@@ -1288,7 +1289,7 @@ $(function initializeGame (gameVersionObject) {
           position: {my: 'bottom', at: 'center center-25%', of: '#container'},
           stack: true,
           height: 'auto',
-          width: '375',
+          width: '400',
           dialogClass: "no-close",
 	      buttons: {
 	      	"Next (3 of 5)": function () {
@@ -1311,7 +1312,7 @@ $(function initializeGame (gameVersionObject) {
           position: {my: 'bottom', at: 'center center-25%', of: '#container'},
           stack: true,
           height: 'auto',
-          width: '375',
+          width: '400',
           dialogClass: "no-close",
 	       buttons: {
 	      	"Next (4 of 5)": function () {
@@ -1334,7 +1335,7 @@ $(function initializeGame (gameVersionObject) {
           position: {my: 'bottom', at: 'center center-25%', of: '#container'},
           stack: true,
           height: 'auto',
-          width: '375',
+          width: '400',
           dialogClass: "no-close",
 	       buttons: {
 	      	"Start Game": function () {

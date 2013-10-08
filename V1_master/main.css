@@ -163,7 +163,7 @@ nav h5 {
 	display: block;
 }
 
-#first-message {
+#first-message p, #first-message h6 {
 	text-align: center;
 }
 
