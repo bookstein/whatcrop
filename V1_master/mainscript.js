@@ -100,13 +100,13 @@ game = {
 			givensObj: {}
 		},
 
+		// Array values filled in using historicWeatherArray() below
+		historicWeather : [],
+
 		// Stores the payout graph (inside "chartdiv") that updates with weather results during the game
 		payoutData: [],
 		givensChart: {}
-	},
-
-	//for testing purposes
-	historicWeather : [], // Array values filled in using historicWeatherArray() below
+	}
 
 }; //end of game object
 
@@ -684,8 +684,8 @@ $(function initializeGame (gameVersionObject) {
 			// Create graphable data array for historicWeather using freqency of values
 			function historicWeatherHistogram () {
 
-				var range = Math.max.apply(Math, game.historicWeather) - 0;
-				var intervalNumber = 2*Math.ceil(Math.sqrt(game.historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
+				var range = Math.max.apply(Math, game.continuous.historicWeather) - 0;
+				var intervalNumber = 2*Math.ceil(Math.sqrt(game.continuous.historicWeather.length)); // total intervals is 8 and the interval numbers are 0,1,2,3,4,5,6,7 in the case of 50 turns
 				var intervalWidth = range/intervalNumber;
 
 				//console.log("range: " + range + " number of intervals: " + intervalNumber + " interval width: " + intervalWidth);
@@ -701,13 +701,13 @@ $(function initializeGame (gameVersionObject) {
 					var scaleCount = 0;
 
 					function originalCount () {
-						for (var i =0; i < game.historicWeather.length; i++) {
+						for (var i =0; i < game.continuous.historicWeather.length; i++) {
 
-							if (game.historicWeather[i] >= intervalBottom && game.historicWeather[i] < intervalTop) {
+							if (game.continuous.historicWeather[i] >= intervalBottom && game.continuous.historicWeather[i] < intervalTop) {
 								count += 1;
 							}
 
-							else if (newinterval === (intervalNumber-1) && game.historicWeather[i] >= intervalBottom) {
+							else if (newinterval === (intervalNumber-1) && game.continuous.historicWeather[i] >= intervalBottom) {
 								count +=1;
 							}
 
@@ -1115,7 +1115,7 @@ $(function initializeGame (gameVersionObject) {
 
 		makeGameWeather(game.gameWeather, false);
 
-		makeGameWeather(game.historicWeather, true);
+		makeGameWeather(game.continuous.historicWeather, true);
 
 		drawQuadratic();
 
