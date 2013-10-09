@@ -808,7 +808,7 @@ $(function initializeGame (gameVersionObject) {
 				seriesArray: [],
 				canvasOverlayLine: {verticalLine:{
 						name: 'resultsLine',
-	                    x: undefined, // this positions the line at the current turn weather
+	                    x: undefined, // this positions the line on the x-axis
 	                    lineWidth: 4,
 	                    color: 'rgb(255, 204, 51)', //yellow
 	                    shadow: false
@@ -830,7 +830,7 @@ $(function initializeGame (gameVersionObject) {
 				seriesArray: [],
 				canvasOverlayLine: {verticalLine:{
 						name: 'resultsLine',
-	                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+	                    x: undefined, // this positions the line on the x-axis
 	                    lineWidth: 4,
 	                    color: 'rgb(255, 204, 51)', //yellow
 	                    shadow: false
@@ -1025,7 +1025,6 @@ $(function initializeGame (gameVersionObject) {
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
 
-			$("#continuous_history.jqplot-overlayCanvas-canvas").css('z-index', '3');//send overlay canvas to front
 			setOptions("historyObj", false, false);
 			var historyChart = $.jqplot("continuous_history", [game.histogram, [null], [null]], game.optionsObj.historyObj);
 
@@ -1038,7 +1037,7 @@ $(function initializeGame (gameVersionObject) {
 
 		// Removes background coloration on payout/weather chart after 30 seconds
 		function removeChartBackground () {
-			$(".jqplot-grid-canvas").css('background-image', 'none');
+			$(".jqplot-xaxis").css('background-image', 'none');
 		};
 
 		//setTimeout(removeChartBackground, game.turnLength*5);
@@ -1598,7 +1597,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 		                    shadow: false
 				}}
 			];
-			$(".jqplot-overlayCanvas-canvas").css('z-index', '3');
+
 			 game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.optionsObj.givensObj);
 
 
@@ -1718,7 +1717,9 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	   	$(".croprows").addClass("hidden");
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
-	   	$(".jqplot-overlayCanvas-canvas").css('z-index', '-1'); //resets graph resultsLine to hidden
+	   	game.continuous.givensChart.destroy();
+	   	game.optionsObj.givensObj.canvasOverlay.objects[0].verticalLine.x = undefined; //resets x value of weather resultsLine
+	   	game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.optionsObj.givensObj);
 	};
 
 	// Call the appropriate functions
