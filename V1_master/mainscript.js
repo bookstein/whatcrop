@@ -15,7 +15,7 @@ gameVersion = {
 game = {
 
 	// Title of game
-	gameLabel: 'step-change',
+	gameLabel: 't1',
 
 	// Shared global variables:
 	cropchoice: "",
@@ -25,7 +25,7 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 50,
+    maxturn : 75,
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
@@ -51,10 +51,10 @@ game = {
 // Discrete game version
 	discrete: {
 		// Discrete weather crop payouts
-	    payoutAwet: 80,
-		payoutAdry: 10,
-		payoutBwet: 55,
-		payoutBdry: 30,
+	    payoutAwet: 55,
+		payoutAdry: 30,
+		payoutBwet: 80,
+		payoutBdry: 10,
 		// Set rain threshold
 		threshold: 750,
 		// Bonus thresholds, determined by code below
@@ -169,27 +169,27 @@ $(function initializeGame (gameVersionObject) {
 		game.discrete.climateArray[12] = 0;
 		game.discrete.climateArray[13] = 0;
 		game.discrete.climateArray[14] = 0;
-		game.discrete.climateArray[15] = 500;
-		game.discrete.climateArray[16] = 0;
-		game.discrete.climateArray[17] = 0;
-		game.discrete.climateArray[18] = 0;
-		game.discrete.climateArray[19] = 0;
-		game.discrete.climateArray[20] = 0;
-		game.discrete.climateArray[21] = 0;
-		game.discrete.climateArray[22] = 0;
-		game.discrete.climateArray[23] = 0;
-		game.discrete.climateArray[24] = 0;
-		game.discrete.climateArray[25] = 0;
-		game.discrete.climateArray[26] = 0;
-		game.discrete.climateArray[27] = 0;
-		game.discrete.climateArray[28] = 0;
-		game.discrete.climateArray[29] = 0;
-		game.discrete.climateArray[30] = 0;
-		game.discrete.climateArray[31] = 0;
-		game.discrete.climateArray[32] = 0;
-		game.discrete.climateArray[33] = 0;
-		game.discrete.climateArray[34] = 0;
-		game.discrete.climateArray[35] = 0;
+		game.discrete.climateArray[15] = 0;
+		game.discrete.climateArray[16] = 25;
+		game.discrete.climateArray[17] = 25;
+		game.discrete.climateArray[18] = 25;
+		game.discrete.climateArray[19] = 25;
+		game.discrete.climateArray[20] = 25;
+		game.discrete.climateArray[21] = 25;
+		game.discrete.climateArray[22] = 25;
+		game.discrete.climateArray[23] = 25;
+		game.discrete.climateArray[24] = 25;
+		game.discrete.climateArray[25] = 25;
+		game.discrete.climateArray[26] = 25;
+		game.discrete.climateArray[27] = 25;
+		game.discrete.climateArray[28] = 25;
+		game.discrete.climateArray[29] = 25;
+		game.discrete.climateArray[30] = 25;
+		game.discrete.climateArray[31] = 25;
+		game.discrete.climateArray[32] = 25;
+		game.discrete.climateArray[33] = 25;
+		game.discrete.climateArray[34] = 25;
+		game.discrete.climateArray[35] = 25;
 		game.discrete.climateArray[36] = 0;
 		game.discrete.climateArray[37] = 0;
 		game.discrete.climateArray[38] = 0;
@@ -1506,11 +1506,11 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 		// feed correct opacity to displayWeather (discrete version: 1 or 0, continuous version: interpolated)
 		function displayWeather (displayRain, displaySun) {
 
-			if (rainOpacity > 0 && sunOpacity == 0) {
+			if (displayRain > 0 && displaySun == 0) {
 				$("#rain").addClass("displayWeather").removeClass("hidden").animate({opacity: displayRain});
 			}
 
-			else if (sunOpacity > 0 && rainOpacity == 0) {
+			else if (displaySun > 0 && displayRain == 0) {
 				$("#sun").addClass("displayWeather").removeClass("hidden").animate({opacity: displaySun});
 			}
 
