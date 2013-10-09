@@ -821,10 +821,10 @@ $(function initializeGame (gameVersionObject) {
 						name: 'avgHistoricWeather',
 			        	x: game.meanHistoricWeather,
 			        	lineWidth: 4,
-			        	color: '#565347', //gray
+			        	color: '#3811c9', //blue
 			        	shadow: false
 				}},
-				color: ["rgba(152, 152, 152, .7)", "#820000", "#3811c9"]
+				color: ["rgba(152, 152, 152, 1)", "#820000", "#3811c9"]
 			},
 			givensObj: {
 				seriesArray: [],
@@ -1238,6 +1238,7 @@ $(function initializeGame (gameVersionObject) {
 
 
   function introDialogs () {
+
     $( "#first-message" ).dialog({
       autoOpen: true,
       modal: true,

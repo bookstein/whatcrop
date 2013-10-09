@@ -442,7 +442,7 @@ td {
 
 
 .jqplot-overlayCanvas-canvas {
-	z-index: -1; /* Overlay canvas is hidden until weatherResults() changes z-index*/
+	z-index: 2;
 }
 
 .jqplot-point-label {
