@@ -7,8 +7,8 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: true,
-	testing: true
+	discreteWeather: false,
+	testing: false
 };
 
 // Game-wide variables
@@ -2007,16 +2007,21 @@ $("#grow").on("click", function () {
 
 function test () {
 
+	console.log("Now running test function! See below for output");
+
 	if (gameVersion.discreteWeather) {
-		console.log("Now running test function");
+
+		console.log(game.discrete);
 
 		if (game.discrete.indifferencePoint >=1 || game.discrete.indifferencePoint <=0) {
 			console.log("WARNING: the indifference point between A and B is: " + game.discrete.indifferencePoint + "!");
 		}
 
-		else {
-			console.log("Discrete indifference point: " + game.discrete.indifferencePoint);
-		}
+	}
+
+	else if (!gameVersion.discreteWeather) {
+
+		console.log(game.continuous);
 	}
 
 };
