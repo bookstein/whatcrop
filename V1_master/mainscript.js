@@ -25,7 +25,7 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 75,
+    maxturn : 50,
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
