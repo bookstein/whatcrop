@@ -576,41 +576,6 @@ $(function initializeGame (gameVersionObject) {
 
 		// objects containing data series arrays and canvas overlay arrays to be drawn in continuous payout and historic weather charts
 
-		chartObjects = {
-			payoutObj: {
-				seriesArray: [],
-				canvasOverlayLine: {verticalLine:{
-						name: 'resultsLine',
-	                    x: 100, // this positions the line at the current turn weather
-	                    lineWidth: 4,
-	                    color: 'rgb(255, 204, 51)', //yellow
-	                    shadow: false
-				}},
-				color: ["#000","#820000", "#3811c9"]
-			},
-			historyObj: {
-				seriesArray: [],
-				canvasOverlayLine: {verticalLine:{
-						name: 'avgHistoricWeather',
-			        	x: 100,
-			        	lineWidth: 4,
-			        	color: '#565347', //gray
-			        	shadow: false
-				}},
-				color: ["rgba(152, 152, 152, .7)", "#820000", "#3811c9"]
-			},
-			givensObj: {
-				seriesArray: [],
-				canvasOverlayLine: {verticalLine:{
-						name: 'resultsLine',
-	                    x: 100, // this positions the line at the current turn weather
-	                    lineWidth: 4,
-	                    color: 'rgb(255, 204, 51)', //yellow
-	                    shadow: false
-				}},
-				color: ["#000", "#820000", "#3811c9"]
-			}
-		};
 
 		//Draws crop payout quadratics on canvas with jpPlot plugin
 		function drawQuadratic () {
@@ -837,6 +802,42 @@ $(function initializeGame (gameVersionObject) {
 			};
 
 			findMax();
+
+		chartObjects = {
+			payoutObj: {
+				seriesArray: [],
+				canvasOverlayLine: {verticalLine:{
+						name: 'resultsLine',
+	                    x: undefined, // this positions the line at the current turn weather
+	                    lineWidth: 4,
+	                    color: 'rgb(255, 204, 51)', //yellow
+	                    shadow: false
+				}},
+				color: ["#000","#820000", "#3811c9"]
+			},
+			historyObj: {
+				seriesArray: [],
+				canvasOverlayLine: {verticalLine:{
+						name: 'avgHistoricWeather',
+			        	x: game.meanHistoricWeather,
+			        	lineWidth: 4,
+			        	color: '#565347', //gray
+			        	shadow: false
+				}},
+				color: ["rgba(152, 152, 152, .7)", "#820000", "#3811c9"]
+			},
+			givensObj: {
+				seriesArray: [],
+				canvasOverlayLine: {verticalLine:{
+						name: 'resultsLine',
+	                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+	                    lineWidth: 4,
+	                    color: 'rgb(255, 204, 51)', //yellow
+	                    shadow: false
+				}},
+				color: ["#000", "#820000", "#3811c9"]
+			}
+		};
 
 		// Create options object for jqPlot graph using optionsObj and setOptions()
 			function setOptions (seriesName, showData, showLabel) {
@@ -1590,7 +1591,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			game.optionsObj.givensObj.canvasOverlay.objects =[
 				{verticalLine:{
 							name: 'resultsLine',
-		                    x: 100, // this positions the line at the current turn weather
+		                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
 		                    lineWidth: 4,
 		                    color: 'rgb(255, 204, 51)', //yellow
 		                    shadow: false
