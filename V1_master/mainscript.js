@@ -1449,8 +1449,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	$(".plant, .plant_img, #grow").addClass("hidden").css("opacity", 0);
 
 	//Declare weather display labels
-	var rainOpacity;
-	var sunOpacity;
+	var rainOpacity = 0;
+	var sunOpacity = 0;
 
 	//Declare sound files
 	var rainsound = new Audio("sound/rainstick_3.0.mp3");
@@ -1506,9 +1506,18 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 		// feed correct opacity to displayWeather (discrete version: 1 or 0, continuous version: interpolated)
 		function displayWeather (displayRain, displaySun) {
 
-			$("#rain").addClass("displayWeather").removeClass("hidden").animate({opacity: displayRain});
-			$("#sun").addClass("displayWeather").removeClass("hidden").animate({opacity: displaySun});
-			//alert("rain opacity is: " + rainOpacity + " sun opacity is: " + sunOpacity);
+			if (rainOpacity > 0 && sunOpacity == 0) {
+				$("#rain").addClass("displayWeather").removeClass("hidden").animate({opacity: displayRain});
+			}
+
+			else if (sunOpacity > 0 && rainOpacity == 0) {
+				$("#sun").addClass("displayWeather").removeClass("hidden").animate({opacity: displaySun});
+			}
+
+			else {
+				$("#rain").addClass("displayWeather").removeClass("hidden").animate({opacity: displayRain});
+				$("#sun").addClass("displayWeather").removeClass("hidden").animate({opacity: displaySun});
+			}
 		};
 
 		displayWeather(rainOpacity, sunOpacity);
@@ -1993,7 +2002,7 @@ $("#grow").on("click", function () {
 		if ($(this).hasClass("highlight")) {
 			$("#sproutA").addClass("hidden");
 			$("#sproutB").addClass("hidden");
-			setTimeout(weatherResults, 0.025*game.turnLength);
+			weatherResults();
 		}
 	}
 
