@@ -1376,9 +1376,9 @@ $(function initializeGame (gameVersionObject) {
 
     createGameOnServer()
       .success(function(data) {
-        console.log(data);
+        //console.log(data);
         game.gameID = data.id;
-        console.log(game);
+        //console.log(game);
         $creatingGameDialog.dialog('close');
         introDialogs();
       })
@@ -1936,8 +1936,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 		    crop_choice: game.cropchoice,
 		    weather:     game.gameWeather[game.turn],
 		    game_over:   game.gameOver,
-		    score:       payout,
-		    params:      game
+		    score:       payout
 		  };
 
 		  $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
