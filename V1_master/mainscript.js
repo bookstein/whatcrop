@@ -264,7 +264,7 @@ $(function initializeGame (gameVersionObject) {
 		};
 
 		makeThresholdArray(); //sets thresholdArray to new value based on climate change
-
+		console.log("threshold array: " + thresholdArray);
 
 		// Set game weather -------
 
@@ -2048,12 +2048,13 @@ function test () {
 		console.log(game.discrete);
 
 		if (game.discrete.indifferencePoint >=1 || game.discrete.indifferencePoint <=0) {
-			console.log("WARNING: the indifference point between A and B is: " + game.discrete.indifferencePoint + "!");
+			alert("WARNING: the indifference point between A and B is: " + game.discrete.indifferencePoint + "!");
 		}
 
-		else if (game.discrete.indifferentTurn == 0 || game.discrete.indifferentTurn >= game.maxturn) {
+		if (game.discrete.indifferentTurn == 0 || game.discrete.indifferentTurn >= game.maxturn) {
 			alert("There is no turn during the game at which the probability of dry weather equals the indifference point!");
 		}
+
 	}
 
 	else if (!gameVersion.discreteWeather) {
