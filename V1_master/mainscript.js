@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: false,
+	discreteWeather: true,
 	testing: true
 };
 
@@ -1222,7 +1222,13 @@ $(function initializeGame (gameVersionObject) {
 		$("#mean_rainfall").text(parseInt(game.meanHistoricWeather) + " inches of rain");
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+	// If gameVersion.testing = true, the test function at the bottom of the code will run after initialization is complete
+	if (gameVersion.testing) {
+		setTimeout(test, 1000);
+	}
+
 	bootstrap();
+
 }); // end of initializeGame ()
 
 // >>>>>>>>>>>>>>>>>>>> 3. INTRO DIALOGS. Game is introduced in a series of dialog boxes. User clicks through. >>>>>>>>>>>>>>>>>>>>
@@ -1999,26 +2005,13 @@ $("#grow").on("click", function () {
 
 //9. TESTING. Tests functionality of game in advance
 
-if (gameVersion.testing) {
-	test();
-}
+function test () {
 
-function test (testValue) {
-	if (testValue == null) {
-		testValue = prompt("Enter game.discrete.climateArray, game.continuous.climateArray, or game.discrete.indifferencePoint to see the value of the variable. Make sure your web console is open!");
-	}
+	if (gameVersion.discreteWeather) {
+		console.log("Now running test function");
 
-	else if (testValue === game.discrete.climateArray) {
-		console.log("Discrete climateArray: " + game.discrete.climateArray);
-	}
-
-	else if (testValue === game.continuous.climateArray) {
-		console.log("Continuous climateArray: " + game.continuous.climateArray);
-	}
-
-	else if (testValue === game.discrete.indifferencePoint) {
 		if (game.discrete.indifferencePoint >=1 || game.discrete.indifferencePoint <=0) {
-			alert("WARNING: the indifference point between A and B is: " + indifference + " !");
+			console.log("WARNING: the indifference point between A and B is: " + game.discrete.indifferencePoint + "!");
 		}
 
 		else {
