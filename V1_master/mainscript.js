@@ -204,6 +204,31 @@ $(function initializeGame (gameVersionObject) {
 		game.discrete.climateArray[47] = 0;
 		game.discrete.climateArray[48] = 0;
 		game.discrete.climateArray[49] = 0;
+		game.discrete.climateArray[50] = 0;
+		game.discrete.climateArray[51] = 0;
+		game.discrete.climateArray[52] = 0;
+		game.discrete.climateArray[53] = 0;
+		game.discrete.climateArray[54] = 0;
+		game.discrete.climateArray[55] = 0;
+		game.discrete.climateArray[56] = 0;
+		game.discrete.climateArray[57] = 0;
+		game.discrete.climateArray[58] = 0;
+		game.discrete.climateArray[59] = 0;
+		game.discrete.climateArray[60] = 0;
+		game.discrete.climateArray[61] = 0;
+		game.discrete.climateArray[62] = 0;
+		game.discrete.climateArray[63] = 0;
+		game.discrete.climateArray[64] = 0;
+		game.discrete.climateArray[65] = 0;
+		game.discrete.climateArray[66] = 0;
+		game.discrete.climateArray[67] = 0;
+		game.discrete.climateArray[68] = 0;
+		game.discrete.climateArray[69] = 0;
+		game.discrete.climateArray[70] = 0;
+		game.discrete.climateArray[71] = 0;
+		game.discrete.climateArray[72] = 0;
+		game.discrete.climateArray[73] = 0;
+		game.discrete.climateArray[74] = 0;
 
 
 		// Create list of random numbers that will become weather-------
