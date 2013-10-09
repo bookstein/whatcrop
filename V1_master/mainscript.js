@@ -259,7 +259,7 @@ $(function initializeGame (gameVersionObject) {
 			for (var i = 1; i < game.maxturn; i++) {
 				thresholdArray[i] = thresholdArray[i-1] - (game.discrete.climateArray[i]);
 			}
-
+			console.log("threshold array: " + thresholdArray);
 			return thresholdArray;
 		};
 
