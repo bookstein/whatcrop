@@ -9,8 +9,8 @@
 		.code {color:black; font-family: "Courier"; background-color: #e6e6ff; font-size: 14px;}
 		.comment {color:gray; font-family: "Courier"; font-size: 14px;}
 		.note {color: red; font-size: 14px;}
-		.console {color: purple; font-family: "Courier"; background-color: #e6e6e6; font-size: 14px; margin-left: 50px;}
-		.indent {padding-left: 10px;}
+		.console {color: purple; font-family: "Courier"; background-color: #e6e6e6; font-size: 14px;}
+		.indent {padding-left: 25px;}
 		ul li {margin-left: 45px; list-style-type: circle; font-size: 16px; line-height: 1.2em; padding-bottom: 5px;}
 		#js {text-align: left; margin: 10px;}
 		nav li {color: white; display: inline-block;}
@@ -312,7 +312,7 @@
 			<br>
 			<ul>
 				<li>The code here triggers all functions except for the initialization functions, which run on game creation.</li>
-				<li>If the grow button has the “<span class="code">highlight</span>” class, then a click on the grow button causes <span class="code">weatherResults</span> to run after a small fraction of time proportional to <span class="code">game.turnLength</span>.</li>
+				<li>If the grow button has the <span class="code">highlight</span> class, then a click on the grow button causes <span class="code">weatherResults</span> to run after a small fraction of time proportional to <span class="code">game.turnLength</span>.</li>
 				<li class="indent"><span class="code">weatherResults</span> causes all further functions to run. It is very important that the grow button always call <span class="code">weatherResults</span>, or nothing will happen after clicking the grow button.</li>
 			</ul>
 			<br>
@@ -320,9 +320,10 @@
 			<a href="#js"><span class="back">Back to top</span></a>
 			<br>
 			<ul>
-				<li>Running the test function will print all game-wide values in the web console.</li>
+				<li>Running the <span class="code">test</span> function will print all game-wide values in the web console.</li>
+				<li class="indent">You will see <span class="console">Now running the test function!</span> in the web console if the function is being run. Look below that line for the printout of the game-level variables.</li>
 				<li>Also play one round of the game to confirm functioning.</li>
-				<li>Run the test function by changing <span class="code">gameVersion.testing</span> to <span class="code">true</span></li>
+				<li>Run the <span class="code">test</span> function by changing <span class="code">gameVersion.testing</span> to <span class="code">true</span>, uploading the changes, and refreshing the page</li>
 			</ul>
 			<br>
 		</section>
