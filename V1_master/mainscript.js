@@ -7,15 +7,15 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: true,
-	testing: true
+	discreteWeather: false,
+	testing: false
 };
 
 // Game-wide variables
 game = {
 
 	// Title of game
-	gameLabel: 't1',
+	gameLabel: 'c1',
 
 	// Shared global variables:
 	cropchoice: "",
@@ -79,12 +79,12 @@ game = {
 		bonusOneTotal: 0,
 		bonusTwoTotal: 0,
 		// Continuous weather crop payouts -- enter here
-		betaA : -.002,
-		betaB : -.002,
+		betaA : -.004,
+		betaB : -.001,
 		maxApayout : 200, //P*(A)
-		maxAweather : 400, //w*(A)
+		maxAweather : 800, //w*(A)
 		maxBpayout : 120, //P*(B)
-		maxBweather : 200, //w*(B)
+		maxBweather : 450, //w*(B)
 		// Roots of payout parabolas, calculated below
 		gameRoots : {
 			topRoot: 0,
@@ -259,12 +259,11 @@ $(function initializeGame (gameVersionObject) {
 			for (var i = 1; i < game.maxturn; i++) {
 				thresholdArray[i] = thresholdArray[i-1] - (game.discrete.climateArray[i]);
 			}
-			console.log("threshold array: " + thresholdArray);
+
 			return thresholdArray;
 		};
 
 		makeThresholdArray(); //sets thresholdArray to new value based on climate change
-		console.log("threshold array: " + thresholdArray);
 
 		// Set game weather -------
 
@@ -537,57 +536,57 @@ $(function initializeGame (gameVersionObject) {
 		//Populate continuous.climateArray
 
 		game.continuous.climateArray = [
-			{mean: 400, std_dev: 75}, //0 -- initial climate
-			{mean: 400, std_dev: 75}, //1
-			{mean: 400, std_dev: 75}, //2
-			{mean: 400, std_dev: 75}, //3
-			{mean: 400, std_dev: 75}, //4
-			{mean: 400, std_dev: 75}, //5
-			{mean: 400, std_dev: 75}, //6
-			{mean: 400, std_dev: 75}, //7
-			{mean: 400, std_dev: 75}, //8
-			{mean: 400, std_dev: 75}, //9
-			{mean: 400, std_dev: 75}, //10
-			{mean: 300, std_dev: 75}, //11
-			{mean: 300, std_dev: 75}, //12
-			{mean: 300, std_dev: 75}, //13
-			{mean: 300, std_dev: 75}, //14
-			{mean: 300, std_dev: 75}, //15
-			{mean: 300, std_dev: 75}, //16
-			{mean: 300, std_dev: 75}, //17
-			{mean: 300, std_dev: 75}, //18
-			{mean: 300, std_dev: 75}, //19
-			{mean: 300, std_dev: 75}, //20
-			{mean: 275, std_dev: 75}, //21
-			{mean: 275, std_dev: 75}, //22
-			{mean: 275, std_dev: 75}, //23
-			{mean: 275, std_dev: 75}, //24
-			{mean: 275, std_dev: 75}, //25
-			{mean: 275, std_dev: 75}, //26
-			{mean: 275, std_dev: 75}, //27
-			{mean: 275, std_dev: 75}, //28
-			{mean: 275, std_dev: 75}, //29
-			{mean: 275, std_dev: 75}, //30
-			{mean: 275, std_dev: 75}, //31
-			{mean: 275, std_dev: 75}, //32
-			{mean: 275, std_dev: 75}, //33
-			{mean: 275, std_dev: 75}, //34
-			{mean: 275, std_dev: 75}, //35
-			{mean: 275, std_dev: 75}, //36
-			{mean: 275, std_dev: 75}, //37
-			{mean: 275, std_dev: 75}, //38
-			{mean: 275, std_dev: 75}, //39
-			{mean: 275, std_dev: 75}, //40
-			{mean: 275, std_dev: 75}, //41
-			{mean: 275, std_dev: 75}, //42
-			{mean: 275, std_dev: 75}, //43
-			{mean: 275, std_dev: 75}, //44
-			{mean: 275, std_dev: 75}, //45
-			{mean: 250, std_dev: 75}, //46
-			{mean: 200, std_dev: 75}, //47
-			{mean: 150, std_dev: 75}, //48
-			{mean: 150, std_dev: 75}, //49
-			{mean: 150, std_dev: 75}  //50
+			{mean: 750, std_dev: 80}, //0 -- initial climate
+			{mean: 750, std_dev: 80}, //1
+			{mean: 750, std_dev: 80}, //2
+			{mean: 750, std_dev: 80}, //3
+			{mean: 750, std_dev: 80}, //4
+			{mean: 750, std_dev: 80}, //5
+			{mean: 750, std_dev: 80}, //6
+			{mean: 750, std_dev: 80}, //7
+			{mean: 750, std_dev: 80}, //8
+			{mean: 750, std_dev: 80}, //9
+			{mean: 750, std_dev: 80}, //10
+			{mean: 750, std_dev: 80}, //11
+			{mean: 750, std_dev: 80}, //12
+			{mean: 750, std_dev: 80}, //13
+			{mean: 750, std_dev: 80}, //14
+			{mean: 350, std_dev: 80}, //15
+			{mean: 350, std_dev: 80}, //16
+			{mean: 350, std_dev: 80}, //17
+			{mean: 350, std_dev: 80}, //18
+			{mean: 350, std_dev: 80}, //19
+			{mean: 350, std_dev: 80}, //20
+			{mean: 350, std_dev: 80}, //21
+			{mean: 350, std_dev: 80}, //22
+			{mean: 350, std_dev: 80}, //23
+			{mean: 350, std_dev: 80}, //24
+			{mean: 350, std_dev: 80}, //25
+			{mean: 350, std_dev: 80}, //26
+			{mean: 350, std_dev: 80}, //27
+			{mean: 350, std_dev: 80}, //28
+			{mean: 350, std_dev: 80}, //29
+			{mean: 350, std_dev: 80}, //30
+			{mean: 350, std_dev: 80}, //31
+			{mean: 350, std_dev: 80}, //32
+			{mean: 350, std_dev: 80}, //33
+			{mean: 350, std_dev: 80}, //34
+			{mean: 350, std_dev: 80}, //35
+			{mean: 350, std_dev: 80}, //36
+			{mean: 350, std_dev: 80}, //37
+			{mean: 350, std_dev: 80}, //38
+			{mean: 350, std_dev: 80}, //39
+			{mean: 350, std_dev: 80}, //40
+			{mean: 350, std_dev: 80}, //41
+			{mean: 350, std_dev: 80}, //42
+			{mean: 350, std_dev: 80}, //43
+			{mean: 350, std_dev: 80}, //44
+			{mean: 350, std_dev: 80}, //45
+			{mean: 350, std_dev: 80}, //46
+			{mean: 350, std_dev: 80}, //47
+			{mean: 350, std_dev: 80}, //48
+			{mean: 350, std_dev: 80}, //49
+			{mean: 350, std_dev: 80}  //50
 		];
 
 
