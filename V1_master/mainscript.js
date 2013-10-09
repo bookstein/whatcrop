@@ -107,8 +107,6 @@ game = {
 
 	//for testing purposes
 	historicWeather : [], // Array values filled in using historicWeatherArray() below
-	plotA: [],
-	plotB: []
 
 }; //end of game object
 
@@ -629,8 +627,8 @@ $(function initializeGame (gameVersionObject) {
 
 
 			// Call dataArrays function and create parabolaArrays for A and B
-			game.plotA = dataArrays(game.continuous.betaA, game.continuous.maxAweather, game.continuous.maxApayout, "A");
-			game.plotB = dataArrays(game.continuous.betaB, game.continuous.maxBweather, game.continuous.maxBpayout, "B");
+			var plotA = dataArrays(game.continuous.betaA, game.continuous.maxAweather, game.continuous.maxApayout, "A");
+			var plotB = dataArrays(game.continuous.betaB, game.continuous.maxBweather, game.continuous.maxBpayout, "B");
 
 
 			// Set upper bounds on graph
@@ -639,10 +637,10 @@ $(function initializeGame (gameVersionObject) {
 
 			function findUpperBoundX () {
 			//modifies upper bound on x-axis based on largest parabola root (point at which crop value is (X,0) with largest possible value of X)
-				var root1A = game.plotA[0][0];
-				var root2A = game.plotA[4][0];
-				var root1B = game.plotB[0][0];
-				var root2B = game.plotB[4][0];
+				var root1A = plotA[0][0];
+				var root2A = plotA[4][0];
+				var root1B = plotB[0][0];
+				var root2B = plotB[4][0];
 
 				var rootArray = [root1A, root2A, root1B, root2B];
 				var maxRoot = Math.max.apply(Math, rootArray);
@@ -659,8 +657,8 @@ $(function initializeGame (gameVersionObject) {
 			findUpperBoundX();
 
 			function findUpperBoundY () {
-				var vertexA = game.plotA[2][1];
-				var vertexB = game.plotB[2][1];
+				var vertexA = plotA[2][1];
+				var vertexB = plotB[2][1];
 
 				if (vertexA > vertexB) {
 					upperBoundY = vertexA;
@@ -1016,7 +1014,7 @@ $(function initializeGame (gameVersionObject) {
 			}; //end function setOptions()
 
 	// writes crop payout dataset to game object
-			game.continuous.payoutData = [[null], game.plotA, game.plotB];
+			game.continuous.payoutData = [[null], plotA, plotB];
 
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
