@@ -93,16 +93,16 @@ game = {
 		// Manually set climate change by turn, up to game.maxturn
 		climateArray : [],
 
-		// Variable to store the payout graph that updates with weather results during the game
+		// Contains continuous game chart options. setOptions() function stores completed objects here
+		optionsObj: {
+			payoutObj: {},
+			historyObj: {},
+			givensObj: {}
+		},
+
+		// Stores the payout graph (inside "chartdiv") that updates with weather results during the game
 		payoutData: [],
 		givensChart: {}
-	},
-
-	// Contains continuous game chart options. setOptions() function stores completed objects here
-	optionsObj: {
-		payoutObj: {},
-		historyObj: {},
-		givensObj: {}
 	},
 
 	//for testing purposes
@@ -890,7 +890,7 @@ $(function initializeGame (gameVersionObject) {
 					chartObjects[seriesName]["seriesArray"][2] = {};
 				}
 
-				game.optionsObj[seriesName] = {
+				game.continuous.optionsObj[seriesName] = {
 					      series:
 					          chartObjects[seriesName]["seriesArray"]
 					      ,
@@ -1012,7 +1012,7 @@ $(function initializeGame (gameVersionObject) {
 
 					}; // end optionsObj object
 
-				return game.optionsObj[seriesName];
+				return game.continuous.optionsObj[seriesName];
 			}; //end function setOptions()
 
 	// writes crop payout dataset to game object
@@ -1021,17 +1021,17 @@ $(function initializeGame (gameVersionObject) {
 
 	//CHART 1: draw graph in #crop_payouts_chart of A/B payouts (intro dialog)
 			setOptions("payoutObj", true, true);
-			var payoutChart = $.jqplot("crop_payouts_chart", game.continuous.payoutData, game.optionsObj.payoutObj);
+			var payoutChart = $.jqplot("crop_payouts_chart", game.continuous.payoutData, game.continuous.optionsObj.payoutObj);
 
 	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
 
 			setOptions("historyObj", false, false);
-			var historyChart = $.jqplot("continuous_history", [game.histogram, [null], [null]], game.optionsObj.historyObj);
+			var historyChart = $.jqplot("continuous_history", [game.histogram, [null], [null]], game.continuous.optionsObj.historyObj);
 
 
 	//CHART 3: draw graph in sidebar #chartdiv using optionsObj above
 			setOptions("givensObj", false, true);
-			game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.optionsObj.givensObj);
+			game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.continuous.optionsObj.givensObj);
 
 		}; //end of drawQuadratic()
 
@@ -1588,7 +1588,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			//Show weather results line on graph ("resultsLine")
 				// update value of X
 			//game.continuous.givensChart.destroy();
-			game.optionsObj.givensObj.canvasOverlay.objects =[
+			game.continuous.optionsObj.givensObj.canvasOverlay.objects =[
 				{verticalLine:{
 							name: 'resultsLine',
 		                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
@@ -1598,7 +1598,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				}}
 			];
 
-			 game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.optionsObj.givensObj);
+			 game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.continuous.optionsObj.givensObj);
 
 
 			// A. Crop A outcomes
@@ -1717,9 +1717,10 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	   	$(".croprows").addClass("hidden");
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
+	   	// resets payout chart (chartdiv), removing weather resultsLine
 	   	game.continuous.givensChart.destroy();
-	   	game.optionsObj.givensObj.canvasOverlay.objects[0].verticalLine.x = undefined; //resets x value of weather resultsLine
-	   	game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.optionsObj.givensObj);
+	   	game.continuous.optionsObj.givensObj.canvasOverlay.objects[0].verticalLine.x = undefined;
+	   	game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.continuous.optionsObj.givensObj);
 	};
 
 	// Call the appropriate functions
