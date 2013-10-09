@@ -15,7 +15,7 @@ gameVersion = {
 game = {
 
 	// Title of game
-	gameLabel: 'control',
+	gameLabel: 'treatment',
 
 	// Shared global variables:
 	cropchoice: "",
@@ -1936,7 +1936,8 @@ function updateGame (payout) { //this function is called and given arguments ins
 		    crop_choice: game.cropchoice,
 		    weather:     game.gameWeather[game.turn],
 		    game_over:   game.gameOver,
-		    score:       payout
+		    score:       payout,
+		    params:      game
 		  };
 
 		  $.ajax(game.serverAddress + '/games/' + game.gameID + '/rounds', {
