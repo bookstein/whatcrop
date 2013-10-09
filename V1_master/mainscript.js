@@ -7,15 +7,15 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: false,
-	testing: false
+	discreteWeather: true,
+	testing: true
 };
 
 // Game-wide variables
 game = {
 
 	// Title of game
-	gameLabel: 'treatment',
+	gameLabel: 'step-change',
 
 	// Shared global variables:
 	cropchoice: "",
@@ -25,7 +25,7 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 10,
+    maxturn : 50,
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
@@ -51,12 +51,12 @@ game = {
 // Discrete game version
 	discrete: {
 		// Discrete weather crop payouts
-	    payoutAwet: 70,
-		payoutAdry: 80,
-		payoutBwet: 100,
-		payoutBdry: 50,
+	    payoutAwet: 80,
+		payoutAdry: 10,
+		payoutBwet: 55,
+		payoutBdry: 30,
 		// Set rain threshold
-		threshold: 600,
+		threshold: 750,
 		// Bonus thresholds, determined by code below
 		bonusOneTotal : 0, //formerly totalRandomPoints
 		bonusTwoTotal : 0, //formerly totalOptimalPoints
@@ -154,56 +154,56 @@ $(function initializeGame (gameVersionObject) {
 
 		// Populate discrete.climateArray
 
-		game.discrete.climateArray[0] = 5;
-		game.discrete.climateArray[1] = 5;
-		game.discrete.climateArray[2] = 5;
-		game.discrete.climateArray[3] = 5;
-		game.discrete.climateArray[4] = 5;
-		game.discrete.climateArray[5] = 5;
-		game.discrete.climateArray[6] = 5;
-		game.discrete.climateArray[7] = 5;
-		game.discrete.climateArray[8] = 5;
-		game.discrete.climateArray[9] = 5;
-		game.discrete.climateArray[10] = 5;
-		game.discrete.climateArray[11] = 5;
-		game.discrete.climateArray[12] = 7;
-		game.discrete.climateArray[13] = 7;
-		game.discrete.climateArray[14] = 7;
-		game.discrete.climateArray[15] = 7;
-		game.discrete.climateArray[16] = 7;
-		game.discrete.climateArray[17] = 10;
-		game.discrete.climateArray[18] = 10;
-		game.discrete.climateArray[19] = 10;
-		game.discrete.climateArray[20] = 10;
-		game.discrete.climateArray[21] = 10;
-		game.discrete.climateArray[22] = 10;
-		game.discrete.climateArray[23] = 10;
-		game.discrete.climateArray[24] = 5;
-		game.discrete.climateArray[25] = 5;
-		game.discrete.climateArray[26] = 5;
-		game.discrete.climateArray[27] = 5;
-		game.discrete.climateArray[28] = 5;
-		game.discrete.climateArray[29] = 5;
-		game.discrete.climateArray[30] = 5;
-		game.discrete.climateArray[31] = 5;
-		game.discrete.climateArray[32] = 5;
-		game.discrete.climateArray[33] = 5;
-		game.discrete.climateArray[34] = 5;
-		game.discrete.climateArray[35] = 5;
-		game.discrete.climateArray[36] = 5;
-		game.discrete.climateArray[37] = 5;
-		game.discrete.climateArray[38] = 5;
-		game.discrete.climateArray[39] = 5;
-		game.discrete.climateArray[40] = 5;
-		game.discrete.climateArray[41] = 5;
-		game.discrete.climateArray[42] = 5;
-		game.discrete.climateArray[43] = 5;
-		game.discrete.climateArray[44] = 5;
-		game.discrete.climateArray[45] = 5;
-		game.discrete.climateArray[46] = 5;
-		game.discrete.climateArray[47] = 5;
-		game.discrete.climateArray[48] = 5;
-		game.discrete.climateArray[49] = 5;
+		game.discrete.climateArray[0] = 0;
+		game.discrete.climateArray[1] = 0;
+		game.discrete.climateArray[2] = 0;
+		game.discrete.climateArray[3] = 0;
+		game.discrete.climateArray[4] = 0;
+		game.discrete.climateArray[5] = 0;
+		game.discrete.climateArray[6] = 0;
+		game.discrete.climateArray[7] = 0;
+		game.discrete.climateArray[8] = 0;
+		game.discrete.climateArray[9] = 0;
+		game.discrete.climateArray[10] = 0;
+		game.discrete.climateArray[11] = 0;
+		game.discrete.climateArray[12] = 0;
+		game.discrete.climateArray[13] = 0;
+		game.discrete.climateArray[14] = 0;
+		game.discrete.climateArray[15] = 500;
+		game.discrete.climateArray[16] = 0;
+		game.discrete.climateArray[17] = 0;
+		game.discrete.climateArray[18] = 0;
+		game.discrete.climateArray[19] = 0;
+		game.discrete.climateArray[20] = 0;
+		game.discrete.climateArray[21] = 0;
+		game.discrete.climateArray[22] = 0;
+		game.discrete.climateArray[23] = 0;
+		game.discrete.climateArray[24] = 0;
+		game.discrete.climateArray[25] = 0;
+		game.discrete.climateArray[26] = 0;
+		game.discrete.climateArray[27] = 0;
+		game.discrete.climateArray[28] = 0;
+		game.discrete.climateArray[29] = 0;
+		game.discrete.climateArray[30] = 0;
+		game.discrete.climateArray[31] = 0;
+		game.discrete.climateArray[32] = 0;
+		game.discrete.climateArray[33] = 0;
+		game.discrete.climateArray[34] = 0;
+		game.discrete.climateArray[35] = 0;
+		game.discrete.climateArray[36] = 0;
+		game.discrete.climateArray[37] = 0;
+		game.discrete.climateArray[38] = 0;
+		game.discrete.climateArray[39] = 0;
+		game.discrete.climateArray[40] = 0;
+		game.discrete.climateArray[41] = 0;
+		game.discrete.climateArray[42] = 0;
+		game.discrete.climateArray[43] = 0;
+		game.discrete.climateArray[44] = 0;
+		game.discrete.climateArray[45] = 0;
+		game.discrete.climateArray[46] = 0;
+		game.discrete.climateArray[47] = 0;
+		game.discrete.climateArray[48] = 0;
+		game.discrete.climateArray[49] = 0;
 
 
 		// Create list of random numbers that will become weather-------
@@ -343,10 +343,6 @@ $(function initializeGame (gameVersionObject) {
 					game.discrete.indifferentTurn = i;
 					return game.discrete.indifferentTurn;
 				}
-			}
-
-			if (game.discrete.indifferentTurn == 0 || game.discrete.indifferentTurn >= game.maxturn) {
-				alert("There is no turn during the game at which the probability of dry weather equals the indifference point!");
 			}
 		};
 
@@ -1716,9 +1712,11 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
 	   	// resets payout chart (chartdiv), removing weather resultsLine
-	   	game.continuous.givensChart.destroy();
-	   	game.continuous.optionsObj.givensObj.canvasOverlay.objects[0].verticalLine.x = undefined;
-	   	game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.continuous.optionsObj.givensObj);
+	   	if (!gameVersion.discreteWeather) {
+		   	game.continuous.givensChart.destroy();
+		   	game.continuous.optionsObj.givensObj.canvasOverlay.objects[0].verticalLine.x = undefined;
+		   	game.continuous.givensChart = $.jqplot("chartdiv", game.continuous.payoutData, game.continuous.optionsObj.givensObj);
+		}
 	};
 
 	// Call the appropriate functions
@@ -2019,6 +2017,9 @@ function test () {
 			console.log("WARNING: the indifference point between A and B is: " + game.discrete.indifferencePoint + "!");
 		}
 
+		else if (game.discrete.indifferentTurn == 0 || game.discrete.indifferentTurn >= game.maxturn) {
+			alert("There is no turn during the game at which the probability of dry weather equals the indifference point!");
+		}
 	}
 
 	else if (!gameVersion.discreteWeather) {
