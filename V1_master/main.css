@@ -358,12 +358,11 @@ td {
 }
 
 #legend {
-	position: absolute;
-	top: 15px;
-	right: 10px;
 	z-index: 10;
-	width: 75px;
-	height: 50px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: -5px;
+	width: 150px;
 }
 
 #crop_payouts_chart, #continuous_history {
