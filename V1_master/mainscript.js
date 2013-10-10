@@ -7,15 +7,15 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: false,
-	testing: false
+	discreteWeather: false, //INPUT
+	testing: false //INPUT
 };
 
 // Game-wide variables
 game = {
 
 	// Title of game
-	gameLabel: 'c1',
+	gameLabel: 'c1', //INPUT
 
 	// Shared global variables:
 	cropchoice: "",
@@ -25,38 +25,38 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 50,
+    maxturn : 50, //INPUT
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
-	turnLength: 4000,
+	turnLength: 4000, //INPUT
 
 	//Points Counter
 	maxScore : 0,
 	score : 0, //starting score is 0
 
 	// Real Dollars Earned
-	realDollars : 0.50, //real earnings in dollars start at 50 cents
+	realDollars : 0.50, //INPUT
 
 	// Signals end of game when true
 	gameOver: false,
 
 	// Data will be sent to this server address
-	serverAddress: 'http://v2.whatcrop.org', // local server
+	serverAddress: 'http://v2.whatcrop.org',
 
 	// Bonus payments, in dollars
-	bonusOneDollars: 1.25,
-	bonusTwoDollars: 0.75,
+	bonusOneDollars: 1.25, //INPUT
+	bonusTwoDollars: 0.75, //INPUT
 
 // Discrete game version
 	discrete: {
 		// Discrete weather crop payouts
-	    payoutAwet: 55,
-		payoutAdry: 30,
-		payoutBwet: 80,
-		payoutBdry: 10,
+	    payoutAwet: 55, //INPUT
+		payoutAdry: 30, //INPUT
+		payoutBwet: 80, //INPUT
+		payoutBdry: 10, //INPUT
 		// Set rain threshold
-		threshold: 750,
+		threshold: 750, //INPUT
 		// Bonus thresholds, determined by code below
 		bonusOneTotal : 0, //formerly totalRandomPoints
 		bonusTwoTotal : 0, //formerly totalOptimalPoints
@@ -73,18 +73,18 @@ game = {
 	continuous: {
 		// Bonuses are manually determined as a percentage of maxScore
 		// Change the percentage of maxScore using firstBonusThreshold and secondBonusThreshold
-		firstBonusThreshold: .75,
-		secondBonusThreshold: .90,
+		firstBonusThreshold: .75, //INPUT
+		secondBonusThreshold: .90, //INPUT
 		// actual bonus points -- bonusOneTotal, bonusTwoTotal -- are calculated below using the percentages above
 		bonusOneTotal: 0,
 		bonusTwoTotal: 0,
 		// Continuous weather crop payouts -- enter here
-		betaA : -.004,
-		betaB : -.001,
-		maxApayout : 200, //P*(A)
-		maxAweather : 800, //w*(A)
-		maxBpayout : 120, //P*(B)
-		maxBweather : 450, //w*(B)
+		betaA : -.004, //INPUT
+		betaB : -.001, //INPUT
+		maxApayout : 200, //P*(A) //INPUT
+		maxAweather : 800, //w*(A) //INPUT
+		maxBpayout : 120, //P*(B) //INPUT
+		maxBweather : 450, //w*(B) //INPUT
 		// Roots of payout parabolas, calculated below
 		gameRoots : {
 			topRoot: 0,
@@ -152,7 +152,7 @@ $(function initializeGame (gameVersionObject) {
 		$("#discrete_history").removeClass("hidden");
 		$("#tablediv").removeClass("hidden");
 
-		// Populate discrete.climateArray
+		// Populate discrete.climateArray //INPUT
 
 		game.discrete.climateArray[0] = 0;
 		game.discrete.climateArray[1] = 0;
@@ -441,7 +441,7 @@ $(function initializeGame (gameVersionObject) {
 		// Unhide continuous version elements
 		$("#crop_payouts_chart, #continuous_history, #continuous_payout").removeClass("hidden");
 
-		//Populate continuous.climateArray
+		//Populate continuous.climateArray //INPUT
 
 		game.continuous.climateArray = [
 			{mean: 750, std_dev: 80}, //0 -- initial climate

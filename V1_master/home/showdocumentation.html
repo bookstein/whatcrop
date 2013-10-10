@@ -25,13 +25,14 @@
 			</div>
 			<nav id="subnav">
 				<ul>
-					<li><a class="docs" href = "#js"> i. mainscript.js (Javascript file) </a></li>
-					<li><a class="docs" href="#html">ii. index.html (HTML file) </a></li>
-					<li><a class="docs" href="#css"> iii. main.css (CSS file)</a> </li>
+					<li><a class="docs" href="#versions"> i. Game version instructions </a></li>
+					<li><a class="docs" href = "#js"> ii. Outline of mainscript.js (Javascript file) </a></li>
+					<li><a class="docs" href="#html">iii. Outline of index.html (HTML file) </a></li>
+					<li><a class="docs" href="#css"> iv. Outline of main.css (CSS file)</a> </li>
 				</ul>
 			</nav>
 		</header>
-		<p class="note center">NOTE: You can find similar code descriptions in index.html and mainscript.js themselves, in gray 'comment' text.</p>
+		<p class="note center">NOTE: You can find similar code descriptions in the code files themselves, in gray 'comment' text.</p>
 		<div id="container">
 			<div id="pdf">
 				<!-- Web2PDF Converter Button BEGIN -->
@@ -42,8 +43,45 @@
 				<!-- Web2PDF Converter Button END -->
 			</div>
 			<br>
+			<section id="versions" class="highlightnote">
+				<h2>i. Game version instructions</h2>
+				<a href="#nav"><span class="back">Back to top</span></a>
+				<br>
+				<p>Use these instructions to change the parameters of the game, test the version, and upload to the whatcrop server.</p>
+				<br>
+				<h3>Changing Game Parameters</h3>
+				<ul>
+					<li>Open the mainscript.js file on your computer.</li>
+					<li>Change the value of any variable with the comment <span class="comment">// INPUT</span> next to it, or consult the outline of <span class="code">mainscript.js</span> to see which variables you should change.</li>
+					<li>Save your changes but do not change the name of the file (mainscript.js) unless you are prepared to change the name in the <span class="code">head</span> of <span class="code">index.html</span>. As long as each copy of mainscript.js is stored in a separate folder with a separate copy of index.html and main.css, you will be able to maintain different copies of files with the same name.</li>
+					<li class="note">VERY IMPORTANT: Write down the name of the <span class="code">label</span> (e.g. <span class="code">"D-control1"</span>) you give this game version, as this string is the key to tracking your data in the database. In the same place, record the parameters you used for this game.</li>
+				</ul>
+				<br>
+				<h3>To test your new parameters:</h3>
+				<ul>
+					<li>At the top of mainscript.js, change <span class="code">testing</span> to <span class="code">true</span>.</li>
+					<li>Open the file in your web brower by clicking File > Open File.</li>
+					<li>Open the web console to see the results of the <span class="code">test</span> function.</li>
+					<li class="note">Note that you can copy and paste the results of the test (which logs the game object, containing all your parameters) into the file where you track labels.</li>
+				</ul>
+				<br>
+				<h3>To upload the new version to the whatcrop server:</h3>
+				<ul>
+					<li>Make a new directory (folder) inside <span class="code">v2.whatcrop.org</span>.</li>
+					<li class="indent">Use directory names like c, t1, t2 and the resultant url to control which version of the game users play.</li>
+					<li class="note">VERY IMPORTANT: The database will only record results of games stored in the <span class="code">v2.whatcrop.org</span> folder, NOT whatcrop.org.(<span class="code">whatcrop.org</span> is now used to hold the pages of your public-facing website.)</li>
+					<li>Upload your new game version to the correct directory through Filezilla.</li>
+				</ul>
+				<br>
+				<h3>For future development of the game:</h3>
+				<ul>
+					<li>Note that right now the game is set up as a binary: either <span class="code">discreteWeather = true</span> OR <span class="code">discreteWeather = false</span>.</li>
+					<li>To add additional versions of the game, simply change this system to rely on a string or numerical value as a trigger instead of the Boolean <span class="code">true/false</span>.</li>
+				</ul>
+			</section>
+
 			<section id="js">
-				<h2>i. mainscript.js Javascript file</h2>
+				<h2>ii. mainscript.js Javascript file</h2>
 				<a href="#nav"><span class="back">Back to top</span></a>
 				<br>
 				<ul>
@@ -83,7 +121,7 @@
 					</p>
 					<br>
 
-					<div id="objectnote">
+					<div class="highlightnote">
 						<h5> A note about Javascript objects: </h5>
 						<br>
 						<p>An object in Javascript is denoted with curly braces { }.</p>
@@ -165,11 +203,13 @@
 					<span class="note">*NOTE: The only code you will need to touch outside of the <a href="#js1">game object </a> is <span class="code">climateArray</span>, which requires you to manually fill in the desired values inside both the discrete and continuous initialization functions.</span>
 					<br>
 					<ul>
-					<li>If <span class="code">discreteWeather</span> is true, discrete initialization function will run.</li>
-					<li>If <span class="code">discreteWeather</span> is <span class="code">false</span> (else), continuous initialization function will run. If more versions of the game are added, an additional “else if” statement should be added to cover the additional option.</li>
-					<li>At the end of the overarching initialization function initializeGame (after the discrete or continuous version has run), a function called <span class="code">bootstrap</span> initializes the game on the server.</li>
+						<li>If <span class="code">discreteWeather</span> is true, discrete initialization function will run.</li>
+						<li>If <span class="code">discreteWeather</span> is <span class="code">false</span> (the <span class="code">else</span> case), continuous initialization function will run. If more versions of the game are added, an additional <span class="code">else if</span> statement should be added to cover the additional option.</li>
+						<li>At the end of the overarching initialization function initializeGame (after the discrete or continuous version has run), a function called <span class="code">bootstrap</span> initializes the game on the server.</li>
+						<li class="note">NOTE: Upon request, <span class="code">makeGameWeather</span> and <span class="code">calculateMaxScore</span> functions were scrambled using online Javascript scrambler to prevent people from reading code. Variable named <span class="code">gameWeather</span> was also scrambled (to <span class="code">gamtaeWeher</span>) in order to prevent users from easily seeing which variable contains the game weather. </li>
+						<li class="indent note">CAUTION: Code scrambling may cause errors.</li>
 					</ul>
-
+					<br>
 					<h5 id="js2.A">Discrete Initialization</h5>
 					<ul>
 						<li>Reveals discrete version elements, such as the payout table.</li>
@@ -345,7 +385,7 @@
 			</section> <!-- end of js section -->
 
 			<section id="html">
-				<h2>ii. index.html (HTML file)</h2>
+				<h2>iii. index.html (HTML file)</h2>
 				<a href="#nav"><span class="back">Back to top</span></a>
 				<br>
 				<ul>
@@ -441,7 +481,7 @@
 				</ul>
 			</section>
 			<section id="css">
-				<h2>iii. main.css (CSS file)</h2>
+				<h2>iv. main.css (CSS file)</h2>
 				<a href="#nav"><span class="back">Back to top</span></a>
 				<ul>
 					<li>Search the CSS file using the class or ID of any given element to find its styling rules.</li>

@@ -248,7 +248,7 @@ a {text-decoration: none; color: #3811c9;}
 footer {background-image: none;}
 .example {list-style-type: none;}
 /*For example in #objectnote*/
-#objectnote {background-color: #e6e6e6;}
+.highlightnote {background-color: #e6e6e6;}
 .line1 {color: green; line-height: 1.2em;}
 .line2 {color: #3811c9; padding-left: 10px; line-height: 1.2em;}
 .line3 {color: purple; padding-left: 20px; line-height: 1.2em;}
