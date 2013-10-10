@@ -239,7 +239,7 @@ footer img {
 .console {color: purple; font-family: "Courier"; background-color: #e6e6e6; font-size: 14px;}
 .indent {padding-left: 25px;}
 ul li {margin-left: 45px; list-style-type: circle; font-size: 16px; line-height: 1.2em; padding-bottom: 5px;}
-#js {text-align: left; margin: 10px;}
+#js, #html, #css {text-align: left; margin: 10px;}
 nav li {color: white; display: inline-block;}
 #nav a {color: white; text-decoration: none;}
 #nav a:hover {color: white; text-decoration: underline;}

@@ -1,9 +1,3 @@
-/*SEMANTICS:
-	"plant" refers to action of planting;
-	"crop" refers to A and B;
-	"grow" refers to action of committing the crop (having chosen to plant it);
-*/
-
 
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
@@ -57,9 +51,8 @@ table {
 	border-spacing: 0;
 }
 
-/*>>>>>>>>>>>>>>>>>>>>>>>>>>> New CSS rules for V1 Master <<<<<<<<<<<<<<<<<<<<<<<<<*/
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>> Basic styling rules <<<<<<<<<<<<<<<<<<<<<<<<<*/
 
-/*Universal Rules, from Styleguide >>>>>>>>>>>>>>>*/
 section {
 	border-radius: 5px;
 	padding: 10px;

@@ -25,9 +25,9 @@
 			</div>
 			<nav id="subnav">
 				<ul>
-					<li><a class="docs" href = "#js"> i. mainscript.js Javascript file </a></li>
-					<li><a class="docs" href="">ii. index.html HTML file </a></li>
-					<li><a class="docs" href=""> iii. main.css CSS file</a> </li>
+					<li><a class="docs" href = "#js"> i. mainscript.js (Javascript file) </a></li>
+					<li><a class="docs" href="#html">ii. index.html (HTML file) </a></li>
+					<li><a class="docs" href="#css"> iii. main.css (CSS file)</a> </li>
 				</ul>
 			</nav>
 		</header>
@@ -44,6 +44,7 @@
 			<br>
 			<section id="js">
 				<h2>i. mainscript.js Javascript file</h2>
+				<a href="#nav"><span class="back">Back to top</span></a>
 				<br>
 				<ul>
 					<li><a href = "#js1">GAME OBJECT.</a> Change game version and all(<a href="#js2">*</a>) parameters here</li>
@@ -74,263 +75,386 @@
 
 				<br><br>
 
-				<h3 id="js1">1. Game Object</h3>
-				<a href="#js"><span class="back">Back to top</span></a>
-				<p>
-					<span class="note">NOTE: The game-level variables listed below are those you are expected to interact with. These are the parameters you have control over!</span>
-				</p>
-				<br>
-
-				<div id="objectnote">
-					<h5> A note about Javascript objects: </h5>
-					<br>
-					<p>An object in Javascript is denoted with curly braces { }.</p>
-					<p>An array is denoted with brackets [ ].</p>
-					<p><span class="note">When an object or array or other data is stored inside an object, you must use "dot notation" to represent the path to that data -- using the containing object(s') name(s).</span></p>
-					<br>
-					<p>"Dot notation" example:</p>
-						<p><span class="code">game.discrete.climateArray</span> looks inside the object named <span class="code">game</span> for the object named <span class="code">discrete</span> and finds the array <span class="code">climateArray</span>.
-						</p>
-						<br>
-						<p>
-							<span class="code line1">game = { </span> <span class="comment">// object</span>
-								<br>
-								<span class="code line2">discrete: { </span> <span class="comment">// object inside object </span>
-								<br>
-									<span class="code line3">climateArray: [] </span> <span class="comment">// array inside object </span>
-								<br>
-							<span class="code line2"> }; <br>
-						<span class="code line1">};</span>
-						<br>
-						</p>
-					</p>
-					<p>If you type <span class="code">game.discrete.climateArray</span> into your <a href="http://developers.google.com/chrome-developer-tools/docs/console">web console</a> and hit enter, you should see the contents of the array.
-					</p>
+				<section id="js1">
+					<h3>1. Game Object</h3>
+					<a href="#js"><span class="back">Back to top</span></a>
 					<p>
-						<span class="code console">[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 10, 10, 10, 10, 10, 10, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]</span>
+						<span class="note">NOTE: The game-level variables listed below are those you are expected to interact with. These are the parameters you have control over!</span>
 					</p>
-				</div>
-
-				<br>
-				<h5>Universal variables</h5>
-				<ul>
-					<li><span class="code">discreteWeather: true</span> //if false, continuous version runs. If additional versions of the game are added, this variable can be changed to hold specific string values instead of a Boolean true/false</li>
-					<li><span class="code">testing: false </span>//if true, all game-level values will print in the web console, allowing for review. Also play 1 round of the game to confirm variables.</li>
-					<li><span class="code">gameLabel: </span>//string value, enter title of game (e.g. <span class="code">control</span>)</li>
-					<li><span class="code">maxturn: </span>//enter any integer</li>
-					<li><span class="note">NOTE: The first turn is always 0. Therefore, setting maxturn: 50 will cause all game.maxturn-dependent arrays to be indexed [0,1,2...49].</span></li>
-					<li><span class="code">turnLength: 4000 </span>//total length of each turn, from the time when the user clicks the grow button to the next round, in milliseconds</li>
-					<li><span class="code">realDollars: 0.50 </span>//any number. Represents starting value in dollars that the player earns</li>
-					<li><span class="code">serverAddress: http://v2.whatcrop.org </span>//string containing the address of the local server</li>
-					<li><span class="code">bonusOneDollars, bonusTwoDollars: </span>//any number, representing monetary value of bonus payments</li>
 					<br>
-				</ul>
-				<br>
-				<h5 id="js1.A">Discrete game variables</h5>
-				<br>
-				<ul>
-					<li><span class="code">payoutAwet, payoutAdry, payoutBwet, payoutBdry </span>// any number, crop payouts in points</li>
-					<li><span class="code">threshold </span>// any number between 1 and 1000.</li>
+
+					<div id="objectnote">
+						<h5> A note about Javascript objects: </h5>
+						<br>
+						<p>An object in Javascript is denoted with curly braces { }.</p>
+						<p>An array is denoted with brackets [ ].</p>
+						<p><span class="note">When an object or array or other data is stored inside an object, you must use "dot notation" to represent the path to that data -- using the containing object(s') name(s).</span></p>
+						<br>
+						<p>"Dot notation" example:</p>
+							<p><span class="code">game.discrete.climateArray</span> looks inside the object named <span class="code">game</span> for the object named <span class="code">discrete</span> and finds the array <span class="code">climateArray</span>.
+							</p>
+							<br>
+							<p>
+								<span class="code line1">game = { </span> <span class="comment">// object</span>
+									<br>
+									<span class="code line2">discrete: { </span> <span class="comment">// object inside object </span>
+									<br>
+										<span class="code line3">climateArray: [] </span> <span class="comment">// array inside object </span>
+									<br>
+								<span class="code line2"> }; <br>
+							<span class="code line1">};</span>
+							<br>
+							</p>
+						</p>
+						<p>If you type <span class="code">game.discrete.climateArray</span> into your <a href="http://developers.google.com/chrome-developer-tools/docs/console">web console</a> and hit enter, you should see the contents of the array.
+						</p>
+						<p>
+							<span class="code console">[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 10, 10, 10, 10, 10, 10, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]</span>
+						</p>
+					</div>
+
+					<br>
+					<h5>Universal variables</h5>
+					<ul>
+						<li><span class="code">discreteWeather: true</span> //if false, continuous version runs. If additional versions of the game are added, this variable can be changed to hold specific string values instead of a Boolean true/false</li>
+						<li><span class="code">testing: false </span>//if true, all game-level values will print in the web console, allowing for review. Also play 1 round of the game to confirm variables.</li>
+						<li><span class="code">gameLabel: </span>//string value, enter title of game (e.g. <span class="code">control</span>)</li>
+						<li><span class="code">maxturn: </span>//enter any integer</li>
+						<li><span class="note">NOTE: The first turn is always 0. Therefore, setting maxturn: 50 will cause all game.maxturn-dependent arrays to be indexed [0,1,2...49].</span></li>
+						<li><span class="code">turnLength: 4000 </span>//total length of each turn, from the time when the user clicks the grow button to the next round, in milliseconds</li>
+						<li><span class="code">realDollars: 0.50 </span>//any number. Represents starting value in dollars that the player earns</li>
+						<li><span class="code">serverAddress: http://v2.whatcrop.org </span>//string containing the address of the local server</li>
+						<li><span class="code">bonusOneDollars, bonusTwoDollars: </span>//any number, representing monetary value of bonus payments</li>
+						<br>
+					</ul>
+					<br>
+					<h5 id="js1.A">Discrete game variables</h5>
+					<br>
+					<ul>
+						<li><span class="code">payoutAwet, payoutAdry, payoutBwet, payoutBdry </span>// any number, crop payouts in points</li>
+						<li><span class="code">threshold </span>// any number between 1 and 1000.</li>
+							<ul>
+								<li>In the random-number weather draw, any number below the threshold represents Wet weather, and any number above the threshold represents Dry weather</li>
+								<li>using <span class="code">climateArray</span>, an array (<span class="code">thresholdArray</span>) is created to store the threshold values for each turn.</li>
+							</ul>
+						<li><span class="code">climateArray: [] </span>// go to <a href="#js2.A">section 2.A (Initialize discrete version)</a> to manually enter each of the values of the climate array. Each value in the array represents the delta in the threshold for the next turn.</li>
+						<li><span class="note">NOTE: If <span class="code">climateArray</span> values are positive, <span class="code">threshold</span> will decrease over time.</span></li>
+						<li><span class="note">NOTE: You must have at least <span class="code">maxturn</span> number of values for <span class="code">climateArray</span> (0 up to maxturn-1), otherwise the game will break. Having excess values of <span class="code">climateArray</span> is fine.</span></li>
+					</ul>
+					<br>
+					<h5 id="js1.B">Continuous game variables</h5>
+					<br>
+					<ul>
+						<li><span class="code">firstBonusThreshold, secondBonusThreshold: // a decimal between 0 and 1. Represents the percentage of maxScore a user must reach to trigger each bonus.</li>
+						<li><span class="code">betaA, betaB: </span>// manually enter values for crop A and B to determine payout quadratic</li>
+						<li><span class="code">maxApayout, maxBpayout </span>// the vertex of the payout quadratic for A and B</li>
+						<li><span class="code">maxAweather, maxBweather </span>// the x-axis value (weather, in inches of rain) at vertex</li>
+						<li><span class="code">climateArray: [] </span>// go to <a href="#js2.B">section 2.B (Initialize continuous version)</a> to manually enter each of the values of the climate array (mean and standard deviation).</li>
+							<ul class="indent">
+								<li class="example">I.e.:<span class="code">{mean: 400, std_dev: 75}</span></li>
+							</ul>
+						<li><span class="note">NOTE: The values inside <span class="code">climateArray</span> are applied to the Box-Muller-normalized array (<span class="code">normalizedArray</span>) to return the final <span class="code">game.gameWeather array.</span></span></li>
+					</ul>
+
+					<br>
+				</section>
+				<section id="js2">
+					<h3>2. Game Set-Up</h3>
+					<a href="#js"><span class="back">Back to top</span></a>
+					<br>
+					<span class="note">*NOTE: The only code you will need to touch outside of the <a href="#js1">game object </a> is <span class="code">climateArray</span>, which requires you to manually fill in the desired values inside both the discrete and continuous initialization functions.</span>
+					<br>
+					<ul>
+					<li>If <span class="code">discreteWeather</span> is true, discrete initialization function will run.</li>
+					<li>If <span class="code">discreteWeather</span> is <span class="code">false</span> (else), continuous initialization function will run. If more versions of the game are added, an additional “else if” statement should be added to cover the additional option.</li>
+					<li>At the end of the overarching initialization function initializeGame (after the discrete or continuous version has run), a function called <span class="code">bootstrap</span> initializes the game on the server.</li>
+					</ul>
+
+					<h5 id="js2.A">Discrete Initialization</h5>
+					<ul>
+						<li>Reveals discrete version elements, such as the payout table.</li>
+						<li>Populates discrete version <span class="code">climateArray</span>. (Change the climate change values here.)</li>
+						<li><span class="code">weatherArray</span> contains maxturn number of random numbers between 1 and 1000</li>
+						<li><span class="code">thresholdArray</span> contains maxturn number of rain thresholds</li>
+							<ul class="indent">
+								<li><span class="code">thresholdArray[0]</span> (the first value) is <span class="code">threshold</span>. (e.g. 600)</li>
+								<li>Subsequent values of <span class="code">thresholdArray</span> are calculated by subtracting the corresponding value of <span class="code">climateArray</span> from the <span class="code">threshold</span>.</li>
+								<li>E.g. <span class="code">thresholdArray[1] = 600(threshold) - 10(climateArray[1])= 590.</span></li>
+							</ul>
+						<li><span class="code">game.gameWeather</span> (the array containing maxturn number of values Wet and Dry) populated using if-else statement that compares <span class="code">weatherArray</span> to <span class="code">thresholdArray.</span></li>
+						<li class="indent"><span class="code">game.gameWeather</span> is the weather array used to determine the outcome of the game.</li>
+						<li><span class="code">maxScore</span>, the maximum possible score on this game given this weather, is calculated using a series of if-else statements that finds the optimal crop at each turn.</li>
+						<li><span class="code">bonusOneTotal</span>, the first bonus points threshold reached by random play, is calculated using the indifference point (indifferencePoint).</li>
+						<li class="indent">If the indifference point is less than 0 or greater than 1, the game will throw an alert dialog.</li>
+						<li><span class="code">findTurnAtIndifferencePoint</span> finds the turn at which the probability of wet weather (<span class="code">pWet</span>)  equals the indifference point; or, when in the course of 1 turn change, pWet goes from below the indifference point to above the indifference point; or, vice versa (above to below). This is the turn at which the other crop becomes optimal.</li>
+						<li class="indent">If the indifference point cannot be reached during maxturn turns, the game will throw an alert dialog.</li>
+						indifferenceTurn captures the turn at which the indifference point is reached or crossed.</li>
+						<li><span class="code">bonusTwoTotal</span>, the second bonus points threshold reached by ante-hoc optimal play, is calculated by identifying the optimal crop before (<span class="code">optimalChoice1</span>) and after (<span class="code">optimalChoice2</span>) the <span class="code">indifferenceTurn</span> and adding up the corresponding payouts.</li>
+						<li><span class="code">bonusHeight</span> sets the height of the bonus markers on the points bar using CSS, placing them in proportion to <span class="code">maxScore</span> (with <span class="code">maxScore</span> at the top of the points bar).</li>
+						<li>Finally, the game populates empty spans and divs using the IDs of elements in the HTML file (<span class="code">index.html</span>)</li>
+					</ul>
+
+					<br>
+					<h5 id="js2.B">Continuous initialization</h5>
+					<br>
+					<ul>
+						<li>Function structure parallels the discrete initialization function.</li>
+						<li><span class="code">game.continuous.climateArray</span> contains an array of objects. Each object contains the mean (<span class="code">mean</span>) and standard deviation (<span class="code">std_dev</span>) of the weather distribution for the corresponding turn. Change the <span class="code">mean</span> and <span class="code">std_dev</span> manually.</li>
+						<li><span class="code">chartObjects</span> establishes options for various graphs that appear during the game.</li>
+						<li class="indent"><span class="code">payoutObj</span> refers to the payout graph that appears in the 2nd intro dialog.</li>
+						<li class="indent"><span class="code">historyObj</span> refers to the histogram of historic weather that appears in the 3rd intro dialog.</li>
+						<li class="indent"><span class="code">givensObj</span> refers to the payout graph that appears in the sidebar throughout the game.</li>
+						<li><span class="code">drawQuadratic</span> creates the data arrays to draw both the payout parabolas and the historic weather histogram.</li>
+						<li class="indent"><span class="code">setOptions</span> writes each graph's specific options to the game object level (inside game.continuous). It uses a variable, seriesName, to output different versions of the graph options using the same function.</li>
+						<li class="indent">At the end of the function, each chart is created using <span class="code">$.jqPlot.</span></li>
+						<li><span class="code">makeGameWeather</span> inputs random pairs of numbers into the Box Muller transformation equation, which outputs a normalized array (<span class="code">normalizedArray</span>).</li>
+						<li class="indent">If any given value of <span class="code">normalizedArray</span> is less than -5 or greater than 5 (more than 5 standard deviations away from the mean), that value is converted to -5 or 5 to avoid extremes.</li>
+						<li class="indent">In <span class="code">applyClimateChange</span>, the means and standard deviations from <span class="code">game.continuous.climateArray</span> are used to shift <span class="code">normalizedArray</span> to describe a different weather distribution for each turn of the game.</li>
+						<li class="indent">If a value in the shifted array is less than zero, it is set equal to zero.</li>
+						<li class="indent">The shifted array is <span class="code">game.gameWeather</span>.</li>
+						<li class="indent">This function uses a variable called <span class="code">arrayName</span> to output information for both the historic weather histogram and for the game weather.</li>
+						<li><span class="code">maxScore is found by comparing the value of <span class="code">maxAweather</span> and <span class="code">maxBweather</span> to the game weather for that turn, and adding the payout of whichever crop has the smaller difference between the max and the game weather.</li>
+						<li class="indent">If the payout is less than zero, it is set equal to zero.</li>
+						<li><span class="code">bonusHeight sets the height of the bonus markers on the points bar using CSS, placing them in proportion to <span class="code">maxScore</span> (with maxScore at the top of the points bar).</li>
+						<li>Finally, the game populates empty spans and divs using the IDs of elements in the HTML file (<span class="code">index.html</span>).</li>
+					</ul>
+					<br>
+				</section>
+				<section id="js3">
+					<h3>3. Intro Dialogs</h3>
+					<a href="#js"><span class="back">Back to top</span></a>
+					<br>
+					<ul>
+						<li><span class="code">introDialogs</span> sets options for the introductory dialogs. Only the first intro dialog is automatically opened (<span class="code">autoOpen = true</span>) and the remainder are opened on click.</li>
+						<li class="indent">The image for the <span class="code">modal</span> backdrop (which covers the game screen during the dialogs) is set in the CSS file (<span class="code">main.css</span>) under <span class="code">.ui-widget-overlay</span></li>
+						<li>The <span class="code">introDialogs</span> function is not run until the game has been created on the server in bootstrap (below).</li>
+					</ul>
+					<br>
+				</section>
+				<section id="js4">
+					<h3 id="js4">4. Create Game on Server</h3>
+					<a href="#js"><span class="back">Back to top</span></a>
+					<br>
+					<ul>
+						<li><span class="code">createGameOnServer</span> uses the game label (<span class="code">game.gameLabel</span>) to create a new game on the server with this label.</li>
+						<li>A dialog saying -Creating game- appears automatically while the game is loading.</li>
+						<li class="indent">If the game is successfully created, the intro dialogs are launched using the introDialogs function.</li>
+						<li class="indent">If for any reason the server fails to create the game, a dialog will read -Unable to create the game.- The user will still be able to play, but data will not be recorded on the server.</li>
+					</ul>
+					<br>
+				</section>
+				<section id="js5">
+					<h3>5. Crop Choice</h3>
+					<a href="#js"><span class="back">Back to top</span></a>
+					<br>
+					<ul>
+						<li>The area of the screen where the user chooses a crop is called <span class="code">choice_screen</span> in the HTML. It encompasses all the buttons and the background graphics.</li>
+						<li>The Grow button (HTML ID tag <span class="code">#grow</span>) will only respond to clicking if it has the class <span class="code">highlight</span>.</li>
+						<li class="indent">The button reads -Choose a crop- when disabled (has class <span class="code">disabled</span>)</li>
+						<li class="indent">The button reads -Grow this crop- only after the user has clicked a crop icon, which adds the class highlight to the button.</li>
+						<li>Only clicking on an image with ID <span class="code">#cropA</span> or <span class="code">#cropB</span> enables the Grow button.</li>
+					</ul>
+					<br>
+				</section>
+				<section id="js6">
+					<h3>6. Weather Results</h3>
+					<a href="#js"><span class="back">Back to top</span></a>
+					<br>
+					<ul>
+						<li>All buttons are hidden.</li>
+						<li id="js6.A"><span class="code">weatherOpacity</span> function takes parameter <span class="code">gameVersion</span> to run either the discrete or continuous function determining the opacity of the rain and sun graphics (rainOpacity, sunOpacity).</li>
+						<li><span class="code">displayWeather</span> uses these values to display the rain and sun graphics.</li>
+						<li id="js6.B"><span class="code">weatherGraphics</span> function also takes a parameter gameVersion to run either a discrete or continuous function. Each function finds the payout associated with the user's crop choice and that turn's weather.</li>
+						<li class="indent">Sound files (<span class="code">rainsound</span> and <span class="code">sunsound</span>) are played depending on the crop and weather outcome in both the discrete and continuous versions. Sound files were cut to 3.0 seconds in length using an online mp3 cutter.</li>
+						<li class="indent">In the discrete function, a series of if-else statements pair Crop A or Crop B with Wet or Dry.</li>
+						<li class="indent">In the continuous function, the <span class="code">#givens</span> graph (showing payouts) is redrawn with the <span class="code">canvasOverlay</span> line showing the turn weather. A series of if-else statements determine background graphics: first by determining if A or B was selected, then by comparing <span class="code">gameWeather</span> to a specific point along the payout graph as determined by Fran's functions.</li>
+						<li id="js6.C" class="indent"><span class="code">fadeWeather</span> removes the background graphics, restores the buttons, and returns weather opacity to zero. It animates the transition from graphics to buttons over the course of 1000 ms. fadeWeather is called after <span class="code">game.turnLength</span> milliseconds (the length of time from clicking <span class="code">#grow</span> to new turn).</li>
+					</ul>
+					<br>
+				</section>
+				<section id="js7">
+					<h3 id="js7">7. Update Game</h3>
+					<a href="#js"><span class="back">Back to top</span></a>
+					<br>
+					<h5 id="js7.A" class="indent">Discrete game update</h5>
 						<ul>
-							<li>In the random-number weather draw, any number below the threshold represents Wet weather, and any number above the threshold represents Dry weather</li>
-							<li>using <span class="code">climateArray</span>, an array (<span class="code">thresholdArray</span>) is created to store the threshold values for each turn.</li>
+							<li>Calls the function <span class="code">updateGame</span> using the payout calculated in <span class="code">weatherResults</span> as an argument.</li>
 						</ul>
-					<li><span class="code">climateArray: [] </span>// go to <a href="#js2.A">section 2.A (Initialize discrete version)</a> to manually enter each of the values of the climate array. Each value in the array represents the delta in the threshold for the next turn.</li>
-					<li><span class="note">NOTE: If <span class="code">climateArray</span> values are positive, <span class="code">threshold</span> will decrease over time.</span></li>
-					<li><span class="note">NOTE: You must have at least <span class="code">maxturn</span> number of values for <span class="code">climateArray</span> (0 up to maxturn-1), otherwise the game will break. Having excess values of <span class="code">climateArray</span> is fine.</span></li>
-				</ul>
-				<br>
-				<h5 id="js1.B">Continuous game variables</h5>
-				<br>
-				<ul>
-					<li><span class="code">firstBonusThreshold, secondBonusThreshold: // a decimal between 0 and 1. Represents the percentage of maxScore a user must reach to trigger each bonus.</li>
-					<li><span class="code">betaA, betaB: </span>// manually enter values for crop A and B to determine payout quadratic</li>
-					<li><span class="code">maxApayout, maxBpayout </span>// the vertex of the payout quadratic for A and B</li>
-					<li><span class="code">maxAweather, maxBweather </span>// the x-axis value (weather, in inches of rain) at vertex</li>
-					<li><span class="code">climateArray: [] </span>// go to <a href="#js2.B">section 2.B (Initialize continuous version)</a> to manually enter each of the values of the climate array (mean and standard deviation).</li>
-						<ul class="indent">
-							<li class="example">I.e.:<span class="code">{mean: 400, std_dev: 75}</span></li>
+					<br>
+					<h5 id="js7.B" class="indent">Continuous game update</h5>
+						<ul>
+							<li>Calculates payout using quadratic formula, with x as <span class="code">game.gameWeather</span> for current turn</li>
+							<li class="indent">If the formula amounts to less than zero, payout is set to zero.</li>
+							<li class="indent">Calls the function <span class="code">updateGamev using the new payout calculation as an argument.</li>
 						</ul>
-					<li><span class="note">NOTE: The values inside <span class="code">climateArray</span> are applied to the Box-Muller-normalized array (<span class="code">normalizedArray</span>) to return the final <span class="code">game.gameWeather array.</span></span></li>
-				</ul>
-
-				<br>
-				<h3 id="js2">2. Game Set-Up</h3>
-				<a href="#js"><span class="back">Back to top</span></a>
-				<br>
-				<span class="note">*NOTE: The only code you will need to touch outside of the <a href="#js1">game object </a> is <span class="code">climateArray</span>, which requires you to manually fill in the desired values inside both the discrete and continuous initialization functions.</span>
-				<br>
-				<ul>
-				<li>If <span class="code">discreteWeather</span> is true, discrete initialization function will run.</li>
-				<li>If <span class="code">discreteWeather</span> is <span class="code">false</span> (else), continuous initialization function will run. If more versions of the game are added, an additional “else if” statement should be added to cover the additional option.</li>
-				<li>At the end of the overarching initialization function initializeGame (after the discrete or continuous version has run), a function called <span class="code">bootstrap</span> initializes the game on the server.</li>
-				</ul>
-
-				<h5 id="js2.A">Discrete Initialization</h5>
-				<ul>
-					<li>Reveals discrete version elements, such as the payout table.</li>
-					<li>Populates discrete version <span class="code">climateArray</span>. (Change the climate change values here.)</li>
-					<li><span class="code">weatherArray</span> contains maxturn number of random numbers between 1 and 1000</li>
-					<li><span class="code">thresholdArray</span> contains maxturn number of rain thresholds</li>
-						<ul class="indent">
-							<li><span class="code">thresholdArray[0]</span> (the first value) is <span class="code">threshold</span>. (e.g. 600)</li>
-							<li>Subsequent values of <span class="code">thresholdArray</span> are calculated by subtracting the corresponding value of <span class="code">climateArray</span> from the <span class="code">threshold</span>.</li>
-							<li>E.g. <span class="code">thresholdArray[1] = 600(threshold) - 10(climateArray[1])= 590.</span></li>
-						</ul>
-					<li><span class="code">game.gameWeather</span> (the array containing maxturn number of values Wet and Dry) populated using if-else statement that compares <span class="code">weatherArray</span> to <span class="code">thresholdArray.</span></li>
-					<li class="indent"><span class="code">game.gameWeather</span> is the weather array used to determine the outcome of the game.</li>
-					<li><span class="code">maxScore</span>, the maximum possible score on this game given this weather, is calculated using a series of if-else statements that finds the optimal crop at each turn.</li>
-					<li><span class="code">bonusOneTotal</span>, the first bonus points threshold reached by random play, is calculated using the indifference point (indifferencePoint).</li>
-					<li class="indent">If the indifference point is less than 0 or greater than 1, the game will throw an alert dialog.</li>
-					<li><span class="code">findTurnAtIndifferencePoint</span> finds the turn at which the probability of wet weather (<span class="code">pWet</span>)  equals the indifference point; or, when in the course of 1 turn change, pWet goes from below the indifference point to above the indifference point; or, vice versa (above to below). This is the turn at which the other crop becomes optimal.</li>
-					<li class="indent">If the indifference point cannot be reached during maxturn turns, the game will throw an alert dialog.</li>
-					indifferenceTurn captures the turn at which the indifference point is reached or crossed.</li>
-					<li><span class="code">bonusTwoTotal</span>, the second bonus points threshold reached by ante-hoc optimal play, is calculated by identifying the optimal crop before (<span class="code">optimalChoice1</span>) and after (<span class="code">optimalChoice2</span>) the <span class="code">indifferenceTurn</span> and adding up the corresponding payouts.</li>
-					<li><span class="code">bonusHeight</span> sets the height of the bonus markers on the points bar using CSS, placing them in proportion to <span class="code">maxScore</span> (with <span class="code">maxScore</span> at the top of the points bar).</li>
-					<li>Finally, the game populates empty spans and divs using the IDs of elements in the HTML file (<span class="code">index.html</span>)</li>
-				</ul>
-
-				<br>
-				<h5 id="js2.B">Continuous initialization</h5>
-				<br>
-				<ul>
-					<li>Function structure parallels the discrete initialization function.</li>
-					<li><span class="code">game.continuous.climateArray</span> contains an array of objects. Each object contains the mean (<span class="code">mean</span>) and standard deviation (<span class="code">std_dev</span>) of the weather distribution for the corresponding turn. Change the <span class="code">mean</span> and <span class="code">std_dev</span> manually.</li>
-					<li><span class="code">chartObjects</span> establishes options for various graphs that appear during the game.</li>
-					<li class="indent"><span class="code">payoutObj</span> refers to the payout graph that appears in the 2nd intro dialog.</li>
-					<li class="indent"><span class="code">historyObj</span> refers to the histogram of historic weather that appears in the 3rd intro dialog.</li>
-					<li class="indent"><span class="code">givensObj</span> refers to the payout graph that appears in the sidebar throughout the game.</li>
-					<li><span class="code">drawQuadratic</span> creates the data arrays to draw both the payout parabolas and the historic weather histogram.</li>
-					<li class="indent"><span class="code">setOptions</span> writes each graph's specific options to the game object level (inside game.continuous). It uses a variable, seriesName, to output different versions of the graph options using the same function.</li>
-					<li class="indent">At the end of the function, each chart is created using <span class="code">$.jqPlot.</span></li>
-					<li><span class="code">makeGameWeather</span> inputs random pairs of numbers into the Box Muller transformation equation, which outputs a normalized array (<span class="code">normalizedArray</span>).</li>
-					<li class="indent">If any given value of <span class="code">normalizedArray</span> is less than -5 or greater than 5 (more than 5 standard deviations away from the mean), that value is converted to -5 or 5 to avoid extremes.</li>
-					<li class="indent">In <span class="code">applyClimateChange</span>, the means and standard deviations from <span class="code">game.continuous.climateArray</span> are used to shift <span class="code">normalizedArray</span> to describe a different weather distribution for each turn of the game.</li>
-					<li class="indent">If a value in the shifted array is less than zero, it is set equal to zero.</li>
-					<li class="indent">The shifted array is <span class="code">game.gameWeather</span>.</li>
-					<li class="indent">This function uses a variable called <span class="code">arrayName</span> to output information for both the historic weather histogram and for the game weather.</li>
-					<li><span class="code">maxScore is found by comparing the value of <span class="code">maxAweather</span> and <span class="code">maxBweather</span> to the game weather for that turn, and adding the payout of whichever crop has the smaller difference between the max and the game weather.</li>
-					<li class="indent">If the payout is less than zero, it is set equal to zero.</li>
-					<li><span class="code">bonusHeight sets the height of the bonus markers on the points bar using CSS, placing them in proportion to <span class="code">maxScore</span> (with maxScore at the top of the points bar).</li>
-					<li>Finally, the game populates empty spans and divs using the IDs of elements in the HTML file (<span class="code">index.html</span>).</li>
-				</ul>
-				<br>
-
-				<h3 id="js3">3. Intro Dialogs</h3>
-				<a href="#js"><span class="back">Back to top</span></a>
-				<br>
-				<ul>
-					<li><span class="code">introDialogs</span> sets options for the introductory dialogs. Only the first intro dialog is automatically opened (<span class="code">autoOpen = true</span>) and the remainder are opened on click.</li>
-					<li class="indent">The image for the <span class="code">modal</span> backdrop (which covers the game screen during the dialogs) is set in the CSS file (<span class="code">main.css</span>) under <span class="code">.ui-widget-overlay</span></li>
-					<li>The <span class="code">introDialogs</span> function is not run until the game has been created on the server in bootstrap (below).</li>
-				</ul>
-				<br>
-				<h3 id="js4">4. Create Game on Server</h3>
-				<a href="#js"><span class="back">Back to top</span></a>
-				<br>
-				<ul>
-					<li><span class="code">createGameOnServer</span> uses the game label (<span class="code">game.gameLabel</span>) to create a new game on the server with this label.</li>
-					<li>A dialog saying -Creating game- appears automatically while the game is loading.</li>
-					<li class="indent">If the game is successfully created, the intro dialogs are launched using the introDialogs function.</li>
-					<li class="indent">If for any reason the server fails to create the game, a dialog will read -Unable to create the game.- The user will still be able to play, but data will not be recorded on the server.</li>
-				</ul>
-				<br>
-				<h3 id="js5">5. Crop Choice</h3>
-				<a href="#js"><span class="back">Back to top</span></a>
-				<br>
-				<ul>
-					<li>The area of the screen where the user chooses a crop is called <span class="code">choice_screen</span> in the HTML. It encompasses all the buttons and the background graphics.</li>
-					<li>The Grow button (HTML ID tag <span class="code">#grow</span>) will only respond to clicking if it has the class <span class="code">highlight</span>.</li>
-					<li class="indent">The button reads -Choose a crop- when disabled (has class <span class="code">disabled</span>)</li>
-					<li class="indent">The button reads -Grow this crop- only after the user has clicked a crop icon, which adds the class highlight to the button.</li>
-					<li>Only clicking on an image with ID <span class="code">#cropA</span> or <span class="code">#cropB</span> enables the Grow button.</li>
-				</ul>
-				<br>
-
-				<h3 id="js6">6. Weather Results</h3>
-				<a href="#js"><span class="back">Back to top</span></a>
-				<br>
-				<ul>
-					<li>All buttons are hidden.</li>
-					<li id="js6.A"><span class="code">weatherOpacity</span> function takes parameter <span class="code">gameVersion</span> to run either the discrete or continuous function determining the opacity of the rain and sun graphics (rainOpacity, sunOpacity).</li>
-					<li><span class="code">displayWeather</span> uses these values to display the rain and sun graphics.</li>
-					<li id="js6.B"><span class="code">weatherGraphics</span> function also takes a parameter gameVersion to run either a discrete or continuous function. Each function finds the payout associated with the user's crop choice and that turn's weather.</li>
-					<li class="indent">Sound files (<span class="code">rainsound</span> and <span class="code">sunsound</span>) are played depending on the crop and weather outcome in both the discrete and continuous versions. Sound files were cut to 3.0 seconds in length using an online mp3 cutter.</li>
-					<li class="indent">In the discrete function, a series of if-else statements pair Crop A or Crop B with Wet or Dry.</li>
-					<li class="indent">In the continuous function, the <span class="code">#givens</span> graph (showing payouts) is redrawn with the <span class="code">canvasOverlay</span> line showing the turn weather. A series of if-else statements determine background graphics: first by determining if A or B was selected, then by comparing <span class="code">gameWeather</span> to a specific point along the payout graph as determined by Fran's functions.</li>
-					<li id="js6.C" class="indent"><span class="code">fadeWeather</span> removes the background graphics, restores the buttons, and returns weather opacity to zero. It animates the transition from graphics to buttons over the course of 1000 ms. fadeWeather is called after <span class="code">game.turnLength</span> milliseconds (the length of time from clicking <span class="code">#grow</span> to new turn).</li>
-				</ul>
-				<br>
-
-				<h3 id="js7">7. Update Game</h3>
-				<a href="#js"><span class="back">Back to top</span></a>
-				<br>
-				<h5 id="js7.A" class="indent">Discrete game update</h5>
+					<br>
+					<h5 id="js7.C" class="indent">Game update</h5>
 					<ul>
-						<li>Calls the function <span class="code">updateGame</span> using the payout calculated in <span class="code">weatherResults</span> as an argument.</li>
+						<li>Depending on the game version, local variables <span class="code">bonusOneTotal</span> and <span class="code">bonusTwoTotal</span> are set equal to the game-level bonus threshold variables of the same name.</li>
+						<li><span class="code">displayResultsDialog</span> populates the results dialog with the payout, <span class="code">game.gameWeather</span> (either Wet/Dry or inches of rain), and <span class="code">weatherReport </span>(a string that qualifies the weather outcome) as appropriate for the game version.</li>
+						<li class="indent">Bonus dialogs are triggered instead of the normal dialog (ID <span class="code">#normal_results</span> in the HTML file) if the <span class="code">oldscore</span> and <span class="code">newscore</span> bookend a bonus threshold.</li>
+						<li class="indent">The same code also calls the bonus functions (<span class="code">addBonus1, addBonus2</span>)  that change <span class="code">realDollars</span> (player dollars earned) when appropriate.</li>
+						<li class="indent"><span class="code">displayResultsDialog</span> called after a length of time equalling a proportion of <span class="code">game.turnLength</span>, allowing graphics to be revealed first.</li>
+						<li class="indent example"><span class="code console">setTimeout(displayResultsDialog, .25*game.turnLength);</span></li>
+						<li class="indent">Dialogs are closed after a length of time equalling a proportion of <span class="code">game.turnLength.</span></li>
+						<li class="indent example"><span class="code console">setTimeout(function() {$( ".results" ).dialog( "close" )},.75*game.turnLength);</span></li>
+						<li><span class="code">addTurn</span> progresses the game to the next turn after <span class="code">game.turnLength</span> time.</li>
+						<li class="indent">Using if-else statements, it determines if the game will continue. If <span class="code">game.gameOver = false</span>, the game continues.</li>
+						<li class="indent">Two turns before <span class="code">maxturn</span>, <span class="code">gameOver</span> is set to <span class="code">true</span>. Therefore, after the game updates at <span class="code">maxturn-1</span>, the game is over. (maxturn number of turns has been taken at maxturn-1 due to zero-indexing)</li>
+						<li class="indent"><span class="code">addTurn</span> is the last function called inside <span class="code">updateGame</span>, so that the code doesn't run until current data has been captured by the server.</li>
+						<li><span class="code">newScore</span> changes the height and readout of the points bar to reflect the new game score.</li>
+						<li><span class="code">endGame</span> is called if <span class="code">gameOver = true</span>. After <span class="code">game.turnLength</span> period of time, the ending screen and dialog will appear.</li>
+						<li class="indent">This function populates the end dialog and causes a <span class="code">modal</span> background to cover up the  game screen.</li>
+						<li class="indent">The end dialog shows the player their player ID (which is the same as the <span class="code">gameID</span> listed in the database).</li>
 					</ul>
-				<br>
-				<h5 id="js7.B" class="indent">Continuous game update</h5>
-					<ul>
-						<li>Calculates payout using quadratic formula, with x as <span class="code">game.gameWeather</span> for current turn</li>
-						<li class="indent">If the formula amounts to less than zero, payout is set to zero.</li>
-						<li class="indent">Calls the function <span class="code">updateGamev using the new payout calculation as an argument.</li>
+					<br>
+					<h5 id="js7.D" class="indent">Server receives data</h5>
+					<br>
+						<ul>
+						<li><span class="code">recordData</span> sends the following information to the server in one payload, provided that the game has a corresponding record on the server:</li>
+						<li class="indent">crop choice (<span class="code">game.cropchoice</span>)</li>
+						<li class="indent">weather (<span class="code">game.gameWeather[game.turn]</span>)</li>
+						<li class="indent">whether or not the game is over (<span class="code">game.gameOver</span>)</li>
+						<li class="indent">the score for the turn (<span class="code">payout</span>)</li>
 					</ul>
-				<br>
-				<h5 id="js7.C" class="indent">Game update</h5>
-				<ul>
-					<li>Depending on the game version, local variables <span class="code">bonusOneTotal</span> and <span class="code">bonusTwoTotal</span> are set equal to the game-level bonus threshold variables of the same name.</li>
-					<li><span class="code">displayResultsDialog</span> populates the results dialog with the payout, <span class="code">game.gameWeather</span> (either Wet/Dry or inches of rain), and <span class="code">weatherReport </span>(a string that qualifies the weather outcome) as appropriate for the game version.</li>
-					<li class="indent">Bonus dialogs are triggered instead of the normal dialog (ID <span class="code">#normal_results</span> in the HTML file) if the <span class="code">oldscore</span> and <span class="code">newscore</span> bookend a bonus threshold.</li>
-					<li class="indent">The same code also calls the bonus functions (<span class="code">addBonus1, addBonus2</span>)  that change <span class="code">realDollars</span> (player dollars earned) when appropriate.</li>
-					<li class="indent"><span class="code">displayResultsDialog</span> called after a length of time equalling a proportion of <span class="code">game.turnLength</span>, allowing graphics to be revealed first.</li>
-					<li class="indent example"><span class="code console">setTimeout(displayResultsDialog, .25*game.turnLength);</span></li>
-					<li class="indent">Dialogs are closed after a length of time equalling a proportion of <span class="code">game.turnLength.</span></li>
-					<li class="indent example"><span class="code console">setTimeout(function() {$( ".results" ).dialog( "close" )},.75*game.turnLength);</span></li>
-					<li><span class="code">addTurn</span> progresses the game to the next turn after <span class="code">game.turnLength</span> time.</li>
-					<li class="indent">Using if-else statements, it determines if the game will continue. If <span class="code">game.gameOver = false</span>, the game continues.</li>
-					<li class="indent">Two turns before <span class="code">maxturn</span>, <span class="code">gameOver</span> is set to <span class="code">true</span>. Therefore, after the game updates at <span class="code">maxturn-1</span>, the game is over. (maxturn number of turns has been taken at maxturn-1 due to zero-indexing)</li>
-					<li class="indent"><span class="code">addTurn</span> is the last function called inside <span class="code">updateGame</span>, so that the code doesn't run until current data has been captured by the server.</li>
-					<li><span class="code">newScore</span> changes the height and readout of the points bar to reflect the new game score.</li>
-					<li><span class="code">endGame</span> is called if <span class="code">gameOver = true</span>. After <span class="code">game.turnLength</span> period of time, the ending screen and dialog will appear.</li>
-					<li class="indent">This function populates the end dialog and causes a <span class="code">modal</span> background to cover up the  game screen.</li>
-					<li class="indent">The end dialog shows the player their player ID (which is the same as the <span class="code">gameID</span> listed in the database).</li>
-				</ul>
-				<br>
-				<h5 id="js7.D" class="indent">Server receives data</h5>
-				<br>
+					<br>
+				</seciton>
+				<section id="js8">
+					<h3>8. Grow Button</h3>
+					<a href="#js"><span class="back">Back to top</span></a>
+					<br>
 					<ul>
-					<li><span class="code">recordData</span> sends the following information to the server in one payload, provided that the game has a corresponding record on the server:</li>
-					<li class="indent">crop choice (<span class="code">game.cropchoice</span>)</li>
-					<li class="indent">weather (<span class="code">game.gameWeather[game.turn]</span>)</li>
-					<li class="indent">whether or not the game is over (<span class="code">game.gameOver</span>)</li>
-					<li class="indent">the score for the turn (<span class="code">payout</span>)</li>
-				</ul>
-				<br>
-				<h3 id="js8">8. Grow Button</h3>
-				<a href="#js"><span class="back">Back to top</span></a>
+						<li>The code here triggers all functions except for the initialization functions, which run on game creation.</li>
+						<li>If the grow button has the <span class="code">highlight</span> class, then a click on the grow button causes <span class="code">weatherResults</span> to run after a small fraction of time proportional to <span class="code">game.turnLength</span>.</li>
+						<li class="indent"><span class="code">weatherResults</span> causes all further functions to run. It is very important that the grow button always call <span class="code">weatherResults</span>, or nothing will happen after clicking the grow button.</li>
+					</ul>
+					<br>
+				</section>
+				<section id="js9">
+					<h3>9. Testing</h3>
+					<a href="#js"><span class="back">Back to top</span></a>
+					<br>
+					<ul>
+						<li>Running the <span class="code">test</span> function will print all game-wide values in the web console.</li>
+						<li class="indent">You will see <span class="console">Now running the test function!</span> in the web console if the function is being run. Look below that line for the printout of the game-level variables.</li>
+						<li>Also play one round of the game to confirm functioning.</li>
+						<li>Run the <span class="code">test</span> function by changing <span class="code">gameVersion.testing</span> to <span class="code">true</span>, uploading the changes, and refreshing the page</li>
+					</ul>
+					<br>
+				</section>
+			</section> <!-- end of js section -->
+
+			<section id="html">
+				<h2>ii. index.html (HTML file)</h2>
+				<a href="#nav"><span class="back">Back to top</span></a>
 				<br>
 				<ul>
-					<li>The code here triggers all functions except for the initialization functions, which run on game creation.</li>
-					<li>If the grow button has the <span class="code">highlight</span> class, then a click on the grow button causes <span class="code">weatherResults</span> to run after a small fraction of time proportional to <span class="code">game.turnLength</span>.</li>
-					<li class="indent"><span class="code">weatherResults</span> causes all further functions to run. It is very important that the grow button always call <span class="code">weatherResults</span>, or nothing will happen after clicking the grow button.</li>
+					<li><a href="#html1">1. External Links</a></li>
+					<li><a href="#html2">2. Plugins</a></li>
+					<li><a href="#html3">3. Header</a></li>
+					<li class="indent"><a href="#html3A">3A. Intro Dialogs (2 through 5)</a></li>
+					<li class="indent"><a href="#html3B">3B. Creating Game Dialog</a></li>
+					<li><a href="#html4">4. Navigation bar: turns and dollars earned</a></li>
+					<li class="indent"> <a href="#html4A">4A. Turn counter</a></li>
+					<li class="indent"> <a href="#html4B">4B. Real dollars counter</a></li>
+					<li class="indent"> <a href="#html4C">4C. First intro dialog (1)</a></li>
+					<li><a href="#html5">5. 'Givens' section</a></li>
+					<li class="indent"><a href="#html5A">5A. Continuous payout graph</a></li>
+					<li class="indent"><a href="#html5B">5B. Discrete payout table</a></li>
+					<li><a href="#html6">6. 'Choice screen' section</a></li>
+					<li class="indent"><a href="#html6A">6A. Graphics</a></li>
+					<li class="indent"><a href="#html6B">6B. Results dialogs</a></li>
+					<li><a href="#html7">7. Score</a></li>
 				</ul>
 				<br>
-				<h3 id="js9">9. Testing</h3>
-				<a href="#js"><span class="back">Back to top</span></a>
-				<br>
+				<section id="html1">
+					<h3>1. External Links </h3>
+						<a href="#html"><span class="back">Back to top</span></a>
+					<ul>
+						<li>External links connect the game with the game CSS stylesheet (<span class="code">main.css</span>), jQuery version 1.10.1, and the game Javascript file (<span class="code">mainscript.js</span>).</li>
+					</ul>
+				</section>
+				<section id="html2">
+					<h3>2. Plugins</h3>
+					<a href="#html"><span class="back">Back to top</span></a>
+					<ul>
+						<li>These plugins enable the dialog boxes, animated glowing, and the live-updated continuous weather payout graphs.</li>
+						<li>Dialog boxes: <a href="jqueryui.com">jQueryUI</a></li>
+						<li>Animated glowing (used on points_bar): <a href="http://www.bitstorm.org/jquery/shadow-animation/">Edwin Martin Shadow Animation</a></li>
+						<li>Live-updated charts: <a href="http://www.jqplot.com/">jqPlot</a></li>
+						<li class="note">NOTE: jqPlot has its own plugins on top of the basic package. The additional plugins used for the game are listed in the <span class="code">head</span> of index.html.</li>
+					</ul>
+				</section>
+				<section id="html3">
+					<h3>3. Header </h3>
+					<a href="#html"><span class="back">Back to top</span></a>
+					<ul>
+						<li id="html3A">3.A Text for the intro dialogs (2 through 5) are written inside of the header. Edit dialog text here.</li>
+						<li>These dialogs are targeted by the jQueryUI dialog plugin using their class names (e.g. <span class="code">class="ui-dialog"</span>)</li>
+						<li class="indent">Intro dialog #1 is contained within the nav element instead of the header, in order to use jQuery UI dialog "auto-open" setting. See belwo.</li>
+						<li>Dialogs have unique IDs: "first-message", "second-message", etc.</li>
+						<li>Dialogs 3 and 4 are the targets the jqPlot renderings of the payout chart and historic weather in the continuous version of the game.</li>
+						<li id="html3B">A "creating game" dialog appears automatically while the front-end establishes a connection with the server, preceding all other dialogs.</li>
+						<li class="indent">If a connection with the server cannot be established, a dialog appears that warns the player that data will not be recorded. The player will not receive a gameID for playing.</li>
+					</ul>
+				</section>
+				<section id="html4">
+					<h3>4. Navigation bar</h3>
+					<a href="#html"><span class="back">Back to top</span></a>
+					<ul>
+						<li id="html4A">The turns counter adds up the number of turns already taken, from 0 to <span class="code">maxturn-1</span>. The text of <span class="code">turns_counter</span> is updated by <span class="code">mainscript.js</span>.</li>
+						<li id="html4B">The "dollars earned" counter adds up the value of their score based on a starting value and 2 bonuses. The starting value of <span class="code">dollars_counter</span> and the value of each bonus are controlled in <span class="code">mainscript.js</span>.</li>
+						<li id="html4C">The first intro dialog text is located here.</li>
+					</ul>
+				</section>
+				<section id="html5">
+					<h3>5. 'Givens' section</h3>
+					<a href="#html"><span class="back">Back to top</span></a>
+					<ul>
+						<li>The 'givens' section contains either the payout table (tablediv) or the payout chart (chartdiv), depending on the game version (gameVersion.discreteWeather).</li>
+						<li class="indent" id="html5A">The continuous weather payout div is called <span class="code">continuous_payout</span>.</li>
+						<li class="indent"> This div includes the chart legend (a static image, <span class="code">legend.png</span>) and <span class="code">chartdiv</span>, the target for jqPlot's <span class="code">givensChart</span>.</li>
+						<li class="indent" id="html5B">The discrete weather payout div is called <span class="code">tablediv</span>. Edit the structure/textual content of the discrete payout table here. Payout values for A and B are populated in <span class="code">mainscript.js</span>.</li>
+						<li>All divs inside Givens start off hidden (<span class="code">class="hidden"</span>) and are revealed by the initialization functions in <span class="code">mainscript.js</span>.</li>
+					</ul>
+			</section> <!-- end of #html -->
+			<section id="html6">
+				<h3>'Choice screen' section</h3>
+				<a href="#html"><span class="back">Back to top</span></a>
 				<ul>
-					<li>Running the <span class="code">test</span> function will print all game-wide values in the web console.</li>
-					<li class="indent">You will see <span class="console">Now running the test function!</span> in the web console if the function is being run. Look below that line for the printout of the game-level variables.</li>
-					<li>Also play one round of the game to confirm functioning.</li>
-					<li>Run the <span class="code">test</span> function by changing <span class="code">gameVersion.testing</span> to <span class="code">true</span>, uploading the changes, and refreshing the page</li>
+					<li><span class="code">choice_screen</span> is the section where users click on button A or B and then the Grow button.</li>
+					<li>The background image for the section is the "medium" background image in the <span class="code">images</span> folder.</li>
+					<li id="html6A">All game graphics for crops and weather are stored here. They all have class <span class="code">hidden</span> which is then turned on and off by <span class="code">mainscript.js</span>.</li>
+					<li class="indent">Weather graphics (<span class="code">sun.png</span> and <span class="code">rain.png</span>) are controlled by degree of opacity as well.</li>
+					<li id="html6B">Change the text of results dialogs in this section as well.</li>
+					<li class="indent">The empty spans of results dialogs are populated in <span class="code">mainscript.js</span>.</li>
 				</ul>
-				<br>
+			</section>
+			<section id="html7">
+				<a href="#html"><span class="back">Back to top</span></a>
+				<h3>Score section</h3>
+				<ul>
+					<li>User's score is displayed here.</li>
+					<li>A div called <span class="code">points_bar</span> creates the narrow "bar" that fills up depending on score.
+					<li>The bonus markers are positioned using the CSS "height" attribute based on bonus calculations within the <span class="code">initialization</span> code block in <span class="code">mainscript.js</span>.</li>
+					<li>The <span class="code">points_flag</span> (gray flag showing score) and <span class="code">points_fill</span> (the yellow fill) are moved by changing their CSS "height" attributes after each turn by <span class="code">mainscript.js</span> in the <span class="code">updateGame</span> code block.</li>
+				</ul>
+			</section>
+			<section id="css">
+				<h2>iii. main.css (CSS file)</h2>
+				<a href="#nav"><span class="back">Back to top</span></a>
+				<ul>
+					<li>Search the CSS file using the class or ID of any given element to find its styling rules.</li>
+					<li>The first ~50 lines of code come from a CSS template called the Meyers reset.</li>
+					<li>CSS rules are roughly organized along the same lines as index.html, grouped by the elements they apply to.</li>
+				</ul>
 			</section>
 		</div>
 		<footer>
 <!-- footer (extra info, link to FSE website) -->
 			<a href="http://foodsecurity.stanford.edu"><img src="images/FSElogo_full.jpeg" alt="Food Security and the Environment at Stanford University" /></a>
+			<br>
+			<br>
 			<p class="center">Last updated on October 10, 2013</p>
 			<p> Questions? Contact Emily Bookstein, ehbookstein [at] gmail.com.</p>
 		</footer>
