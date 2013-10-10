@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: true,
+	discreteWeather: false,
 	testing: false
 };
 
@@ -19,7 +19,7 @@ game = {
 
 	// Shared global variables:
 	cropchoice: "",
-	gameWeather: [],
+	gamtaeWeher: [],
 	weatherReport : "",
 	histogram: [],
 	meanHistoricWeather: 0,
@@ -967,78 +967,9 @@ $(function initializeGame (gameVersionObject) {
 
 		//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-		function makeGameWeather (arrayName, historicBoolean) {
-			//Create an array of pairs of random numbers
-			var randomPairs = {
-				x: undefined,
-				y: undefined
-			};
+		var _0x961f=["\x6D\x61\x78\x74\x75\x72\x6E","\x72\x61\x6E\x64\x6F\x6D","\x78","\x6C\x6F\x67","\x73\x71\x72\x74","\x50\x49","\x79","\x63\x6F\x73","\x6D\x65\x61\x6E","\x63\x6C\x69\x6D\x61\x74\x65\x41\x72\x72\x61\x79","\x73\x74\x64\x5F\x64\x65\x76","\x63\x6F\x6E\x74\x69\x6E\x75\x6F\x75\x73","\x66\x61\x6C\x73\x65"];function makeGameWeather(_0xf81bx2,_0xf81bx3){var _0xf81bx4={x:undefined,y:undefined};var _0xf81bx5=[];var _0xf81bx6=[];for(var _0xf81bx7=0;_0xf81bx7<game[_0x961f[0]];_0xf81bx7++){_0xf81bx4={x:Math[_0x961f[1]](),y:Math[_0x961f[1]]()};_0xf81bx5[_0xf81bx7]=_0xf81bx4;} ;function _0xf81bx8(){for(var _0xf81bx7=0;_0xf81bx7<game[_0x961f[0]];_0xf81bx7++){_0xf81bx6[_0xf81bx7]=Math[_0x961f[4]](-2*Math[_0x961f[3]](_0xf81bx5[_0xf81bx7][_0x961f[2]]))*Math[_0x961f[7]](2*Math[_0x961f[5]]*_0xf81bx5[_0xf81bx7][_0x961f[6]]);if(_0xf81bx6[_0xf81bx7]>=5){_0xf81bx6[_0xf81bx7]=5;} else {if(_0xf81bx6[_0xf81bx7]<=-5){_0xf81bx6[_0xf81bx7]=-5;} ;} ;} ;return _0xf81bx6;} ;_0xf81bx8();function _0xf81bx9(){for(var _0xf81bx7=0;_0xf81bx7<game[_0x961f[0]];_0xf81bx7++){_0xf81bx2[_0xf81bx7]=game[_0x961f[9]][_0xf81bx7][_0x961f[8]]+(_0xf81bx6[_0xf81bx7]*game[_0x961f[9]][_0xf81bx7][_0x961f[10]]);if(_0xf81bx2[_0xf81bx7]<=0){_0xf81bx2[_0xf81bx7]=0;} ;} ;return _0xf81bx2;} ;function _0xf81bxa(){for(var _0xf81bx7=0;_0xf81bx7<game[_0x961f[0]];_0xf81bx7++){_0xf81bx2[_0xf81bx7]=game[_0x961f[11]][_0x961f[9]][0][_0x961f[8]]+(_0xf81bx6[_0xf81bx7]*game[_0x961f[11]][_0x961f[9]][0][_0x961f[10]]);} ;return _0xf81bx2;} ;if(_0xf81bx3===_0x961f[12]){_0xf81bx9();} else {_0xf81bxa();} ;} ; // end function makeGameWeather
 
-			var randomPairArray = [];
-			var normalizedArray = [];
-
-			for (var i = 0; i < game.maxturn; i++) {
-				randomPairs = {
-					x: Math.random(),
-					y: Math.random()
-				}
-				randomPairArray[i] = randomPairs;
-			}
-
-			// Create array of Z0s
-			function boxMullerTransformation () {
-				for (var i = 0; i < game.maxturn; i++) {
-					normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y);
-
-				// cutoffs for high and low values of Z0; use 5th standard deviation in std normal curve
-					if (normalizedArray[i] >= 5) {
-						normalizedArray[i] = 5;
-					}
-
-					else if (normalizedArray[i] <= -5) {
-						normalizedArray[i] = -5;
-					}
-				}
-
-				return normalizedArray;
-			}; //end of boxMullerTransformation
-
-			boxMullerTransformation();
-
-			//Apply climateChange to normalizedArray as mean + Z0 * std_dev
-			function applyClimateChange () {
-				for (var i = 0; i < game.maxturn; i++) {
-					arrayName[i] = game.climateArray[i].mean + (normalizedArray[i]*game.climateArray[i].std_dev);
-
-					// ensures inches of rain will always be zero or greater
-					if (arrayName[i] <= 0) {
-						arrayName[i] = 0;
-					}
-				}
-
-				return arrayName;
-
-			}; //end of applyClimateChange
-
-			function historicWeatherArray () {
-				for (var i = 0; i < game.maxturn; i++) {
-					arrayName[i] = game.continuous.climateArray[0].mean + (normalizedArray[i]*game.continuous.climateArray[0].std_dev);
-				}
-
-				return arrayName;
-			}; // end of determineHistoricWeather()
-
-			if (historicBoolean === "false") {
-				applyClimateChange();
-			}
-
-			else {
-				historicWeatherArray();
-			}
-
-		}; // end function makeGameWeather
-
-		makeGameWeather(game.gameWeather, false);
+		makeGameWeather(game.gamtaeWeher, false);
 
 		makeGameWeather(game.continuous.historicWeather, true);
 
@@ -1046,69 +977,7 @@ $(function initializeGame (gameVersionObject) {
 
 		//Calculate Max Score --------------------------------------
 
-		function calculateMaxScore () {
-
-			var optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
-			var payout = 0; //local payout variable for calculating maxScore
-
-			function findOptimalCrop () {
-			//Strategy: if the difference between the optimal value of the crop is closest to game.gameWeather, choose that crop at the optimal crop for that turn
-				for (var i = 0; i < game.maxturn; i++) {
-
-					var Adiff = game.gameWeather[i] - game.continuous.maxAweather;
-					var Bdiff = game.gameWeather[i] - game.continuous.maxBweather;
-
-					if (Math.abs(Adiff) < Math.abs(Bdiff)) {
-						optimalCrops[i] = "crop A";
-					}
-
-					else if (Math.abs(Bdiff) < Math.abs(Adiff)) {
-						optimalCrops[i] = "crop B";
-					}
-
-					else {
-						optimalCrops[i] = "crop A";
-					}
-				}
-				return optimalCrops;
-			}; // end of findOptimalCrop()
-
-			findOptimalCrop(); //sets value of optimalCrops array
-
-			function addScores (turn, beta, maxweather, maxpayout) {
-				payout = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
-
-				if (payout <= 0) {
-					payout = 0;
-					//console.log("The payout is " + payout);
-				}
-
-				else if (payout > 0) {
-					payout = parseFloat(payout);
-					//console.log("The payout for " + turn + " is " + payout);
-				}
-
-				return payout;
-			}; //end of addScores()
-
-			for (var i=0; i < game.maxturn; i++) {
-
-				if (optimalCrops[i] === "crop A") {
-					addScores(i, game.continuous.betaA, game.continuous.maxAweather, game.continuous.maxApayout); //call addScores() with values of crop A
-					game.maxScore += payout;
-					//console.log("The score is now " + maxScore);
-				}
-
-
-				else if (optimalCrops[i] === "crop B") {
-					addScores(i, game.continuous.betaB, game.continuous.maxBweather, game.continuous.maxBpayout); //call addScores() with values of crop B
-					game.maxScore += payout;
-					//console.log("The score is now " + maxScore);
-				}
-			}
-
-			return game.maxScore;
-		}; //end of calculateMaxScore()
+		var _0xa3fa=["\x6D\x61\x78\x74\x75\x72\x6E","\x67\x61\x6D\x65\x57\x65\x61\x74\x68\x65\x72","\x6D\x61\x78\x41\x77\x65\x61\x74\x68\x65\x72","\x63\x6F\x6E\x74\x69\x6E\x75\x6F\x75\x73","\x6D\x61\x78\x42\x77\x65\x61\x74\x68\x65\x72","\x61\x62\x73","\x63\x72\x6F\x70\x20\x41","\x63\x72\x6F\x70\x20\x42","\x74\x75\x72\x6E","\x70\x6F\x77","\x62\x65\x74\x61\x41","\x6D\x61\x78\x41\x70\x61\x79\x6F\x75\x74","\x6D\x61\x78\x53\x63\x6F\x72\x65","\x62\x65\x74\x61\x42","\x6D\x61\x78\x42\x70\x61\x79\x6F\x75\x74"];function calculateMaxScore(){var _0xdf34x2=[];var _0xdf34x3=0;function _0xdf34x4(){for(var _0xdf34x5=0;_0xdf34x5<game[_0xa3fa[0]];_0xdf34x5++){var _0xdf34x6=game[_0xa3fa[1]][_0xdf34x5]-game[_0xa3fa[3]][_0xa3fa[2]];var _0xdf34x7=game[_0xa3fa[1]][_0xdf34x5]-game[_0xa3fa[3]][_0xa3fa[4]];if(Math[_0xa3fa[5]](_0xdf34x6)<Math[_0xa3fa[5]](_0xdf34x7)){_0xdf34x2[_0xdf34x5]=_0xa3fa[6];} else {if(Math[_0xa3fa[5]](_0xdf34x7)<Math[_0xa3fa[5]](_0xdf34x6)){_0xdf34x2[_0xdf34x5]=_0xa3fa[7];} else {_0xdf34x2[_0xdf34x5]=_0xa3fa[6];} ;} ;} ;return _0xdf34x2;} ;_0xdf34x4();function _0xdf34x8(_0xdf34x9,_0xdf34xa,_0xdf34xb,_0xdf34xc){_0xdf34x3=_0xdf34xa*Math[_0xa3fa[9]]((game[_0xa3fa[1]][game[_0xa3fa[8]]]-_0xdf34xb),2)+_0xdf34xc;if(_0xdf34x3<=0){_0xdf34x3=0;} else {if(_0xdf34x3>0){_0xdf34x3=parseFloat(_0xdf34x3);} ;} ;return _0xdf34x3;} ;for(var _0xdf34x5=0;_0xdf34x5<game[_0xa3fa[0]];_0xdf34x5++){if(_0xdf34x2[_0xdf34x5]===_0xa3fa[6]){_0xdf34x8(_0xdf34x5,game[_0xa3fa[3]][_0xa3fa[10]],game[_0xa3fa[3]][_0xa3fa[2]],game[_0xa3fa[3]][_0xa3fa[11]]);game[_0xa3fa[12]]+=_0xdf34x3;} else {if(_0xdf34x2[_0xdf34x5]===_0xa3fa[7]){_0xdf34x8(_0xdf34x5,game[_0xa3fa[3]][_0xa3fa[13]],game[_0xa3fa[3]][_0xa3fa[4]],game[_0xa3fa[3]][_0xa3fa[14]]);game[_0xa3fa[12]]+=_0xdf34x3;} ;} ;} ;return game[_0xa3fa[12]];} ;
 
 
 		calculateMaxScore();
@@ -1390,11 +1259,11 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	function weatherOpacity (gameVersion) {
 
 		function discrete () {
-			if (game.gameWeather[game.turn] === "Wet") {
+			if (game.gamtaeWeher[game.turn] === "Wet") {
 				rainOpacity = 1, sunOpacity = 0;
 			}
 
-			else if (game.gameWeather[game.turn] === "Dry") {
+			else if (game.gamtaeWeher[game.turn] === "Dry") {
 				rainOpacity = 0, sunOpacity = 1;
 			}
 
@@ -1404,19 +1273,19 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 		function continuous () {
 
-			if (game.gameWeather[game.turn] >= game.continuous.gameRoots.topRoot) {
+			if (game.gamtaeWeher[game.turn] >= game.continuous.gameRoots.topRoot) {
 				rainOpacity = 1, sunOpacity = 0;
 				//console.log(rainOpacity, sunOpacity);
 				}
 
-			else if (game.gameWeather[game.turn] > game.continuous.gameRoots.bottomRoot && game.gameWeather[game.turn] < game.continuous.gameRoots.topRoot) {
-				rainOpacity = ((game.gameWeather[game.turn] - game.continuous.gameRoots.bottomRoot)/(game.continuous.gameRoots.topRoot - game.continuous.gameRoots.bottomRoot));
+			else if (game.gamtaeWeher[game.turn] > game.continuous.gameRoots.bottomRoot && game.gamtaeWeher[game.turn] < game.continuous.gameRoots.topRoot) {
+				rainOpacity = ((game.gamtaeWeher[game.turn] - game.continuous.gameRoots.bottomRoot)/(game.continuous.gameRoots.topRoot - game.continuous.gameRoots.bottomRoot));
 				sunOpacity = 1-rainOpacity;
 				//console.log("rain opacity: " + rainOpacity + " sun opacity: " + sunOpacity);
 
 			}
 
-			else if (game.gameWeather[game.turn] <= game.continuous.gameRoots.bottomRoot) {
+			else if (game.gamtaeWeher[game.turn] <= game.continuous.gameRoots.bottomRoot) {
 				rainOpacity = 0;
 				sunOpacity = 1;
 				//console.log(rainOpacity, sunOpacity);
@@ -1463,7 +1332,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 			function findPayout () {
 				// User chose crop A
-				if (game.cropchoice == "crop A" && game.gameWeather[game.turn] == "Dry") {
+				if (game.cropchoice == "crop A" && game.gamtaeWeher[game.turn] == "Dry") {
 
 					game.weatherReport = "sunny";
 					payout = game.discrete.payoutAdry;
@@ -1473,7 +1342,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 					return payout;
 				}
 
-				else if (game.cropchoice == "crop A" && game.gameWeather[game.turn] == "Wet") {
+				else if (game.cropchoice == "crop A" && game.gamtaeWeher[game.turn] == "Wet") {
 
 					game.weatherReport = "rainy";
 					payout = game.discrete.payoutAwet;
@@ -1484,7 +1353,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 				}
 
 				// User chose crop B
-				else if (game.cropchoice == "crop B" && game.gameWeather[game.turn] == "Dry") {
+				else if (game.cropchoice == "crop B" && game.gamtaeWeher[game.turn] == "Dry") {
 
 					game.weatherReport = "sunny";
 					payout = game.discrete.payoutBdry;
@@ -1495,7 +1364,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 				}
 
-				else if (game.cropchoice == "crop B" && game.gameWeather[game.turn] == "Wet"){
+				else if (game.cropchoice == "crop B" && game.gamtaeWeher[game.turn] == "Wet"){
 
 					game.weatherReport = "rainy";
 					payout = game.discrete.payoutBwet;
@@ -1523,7 +1392,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			game.continuous.optionsObj.givensObj.canvasOverlay.objects =[
 				{verticalLine:{
 							name: 'resultsLine',
-		                    x: game.gameWeather[game.turn], // this positions the line at the current turn weather
+		                    x: game.gamtaeWeher[game.turn], // this positions the line at the current turn weather
 		                    lineWidth: 4,
 		                    color: 'rgb(255, 204, 51)', //yellow
 		                    shadow: false
@@ -1538,13 +1407,13 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 			// A1. game.gameWeather is wet
 				//A1.i Wet game.gameWeather is "wet" (wetter than normal)
-				if (game.gameWeather[game.turn] < game.continuous.maxAweather + Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) && game.gameWeather[game.turn] >= game.continuous.maxAweather + .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) ) {
+				if (game.gamtaeWeher[game.turn] < game.continuous.maxAweather + Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) && game.gamtaeWeher[game.turn] >= game.continuous.maxAweather + .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) ) {
 					game.weatherReport = "wet enough";
 					$("#wetA").removeClass("hidden");
 				}
 
 				//A1.ii Wet game.gameWeather is too wet
-				else if (game.gameWeather[game.turn] >= game.continuous.maxAweather + Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) ) {
+				else if (game.gamtaeWeher[game.turn] >= game.continuous.maxAweather + Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) ) {
 					game.weatherReport = "too wet";
 					$("#deadAwet").removeClass("hidden");
 				}
@@ -1552,21 +1421,21 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			// A2. game.gameWeather is dry
 
 				//A2.i. dry game.gameWeather is "dry" (drier than normal)
-				else if (game.gameWeather[game.turn] < game.continuous.maxAweather - .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) && game.gameWeather[game.turn] >= game.continuous.maxAweather - Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) {
+				else if (game.gamtaeWeher[game.turn] < game.continuous.maxAweather - .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) && game.gamtaeWeher[game.turn] >= game.continuous.maxAweather - Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) {
 					game.weatherReport = "dry enough";
 					$("#dryA").removeClass("hidden");
 				}
 
 
 				//A2.ii. dry game.gameWeather is too dry
-				else if (game.gameWeather[game.turn] < game.continuous.maxAweather - Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) {
+				else if (game.gamtaeWeher[game.turn] < game.continuous.maxAweather - Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) {
 					game.weatherReport = "too dry";
 					//display too-dry crop A
 					$("#deadAdry").removeClass("hidden");
 				}
 
 			// A3. game.gameWeather is normal
-				else if (game.gameWeather[game.turn] < (game.continuous.maxAweather + .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) && game.gameWeather[game.turn] >= (game.continuous.maxAweather - .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)))) {
+				else if (game.gamtaeWeher[game.turn] < (game.continuous.maxAweather + .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) && game.gamtaeWeher[game.turn] >= (game.continuous.maxAweather - .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)))) {
 					$("#rowsCropA").removeClass("hidden");
 					game.weatherReport = "optimal weather";
 				}
@@ -1581,14 +1450,14 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			// B1. game.gameWeather is wet
 
 				//B1.i Wet game.gameWeather is wet
-				if (game.gameWeather[game.turn] < game.continuous.maxBweather + Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaA)) && game.gameWeather[game.turn] >= game.continuous.maxBweather + .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB)) ) {
+				if (game.gamtaeWeher[game.turn] < game.continuous.maxBweather + Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaA)) && game.gamtaeWeher[game.turn] >= game.continuous.maxBweather + .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB)) ) {
 					game.weatherReport = "wet enough";
 					//display healthy crop B (range of normal)
 					$("#wetB").removeClass("hidden");
 				}
 
 				//B1.ii Wet game.gameWeather is too wet
-				else if (game.gameWeather[game.turn] >= game.continuous.maxBweather + Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB))) {
+				else if (game.gamtaeWeher[game.turn] >= game.continuous.maxBweather + Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB))) {
 					game.weatherReport = "too wet";
 					$("#deadBwet").removeClass("hidden");
 				}
@@ -1596,20 +1465,20 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			// B2. game.gameWeather is dry
 
 				//B2.i Dry game.gameWeather is dry
-				else if (game.gameWeather[game.turn] < game.continuous.maxAweather - .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) {
+				else if (game.gamtaeWeher[game.turn] < game.continuous.maxAweather - .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) {
 					game.weatherReport = "dry enough";
 					$("#dryB").removeClass("hidden");
 				}
 
 				//B2.ii Dry game.gameWeather is too dry
-				else if (game.gameWeather[game.turn] < game.continuous.maxBweather - Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB))) {
+				else if (game.gamtaeWeher[game.turn] < game.continuous.maxBweather - Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB))) {
 					game.weatherReport = "too dry";
 					$("#deadBdry").removeClass("hidden");
 				}
 
 
 			//B3 Weather is in normal range
-				else if (game.gameWeather[game.turn] < (game.continuous.maxBweather + .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaA))) && game.gameWeather[game.turn] >= (game.continuous.maxBweather - .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB)))) {
+				else if (game.gamtaeWeher[game.turn] < (game.continuous.maxBweather + .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaA))) && game.gamtaeWeher[game.turn] >= (game.continuous.maxBweather - .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB)))) {
 					$("#rowsCropB").removeClass("hidden");
 					game.weatherReport = "optimal weather";
 				}
@@ -1688,7 +1557,7 @@ function updateContinuous (beta, maxpayout, maxweather) {
 	var payout = 0;
 
 	function calculatePayout () {
-	var formula = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
+	var formula = beta * Math.pow((game.gamtaeWeher[game.turn] - maxweather), 2) + maxpayout;
 
 		if (formula <= 0) {
 			payout = 0;
@@ -1732,11 +1601,11 @@ function updateGame (payout) { //this function is called and given arguments ins
 	function displayResultsDialog () {
 		//populate spans inside all results dialogs
 	    if (gameVersion.discreteWeather == true) {
-	    	$(".results").find("#weather_outcome").text(game.gameWeather[game.turn]);
+	    	$(".results").find("#weather_outcome").text(game.gamtaeWeher[game.turn]);
 	    	$(".results").find("#weather_report").text(" and " + game.weatherReport);
 	    }
 	    else {
-	    	$(".results").find("#weather_outcome").text(parseInt(game.gameWeather[game.turn]) + " inches of rain");
+	    	$(".results").find("#weather_outcome").text(parseInt(game.gamtaeWeher[game.turn]) + " inches of rain");
 	    	$(".results").find("#weather_report").removeClass("emphasize").text(", which was " + game.weatherReport);
 	    }
 
@@ -1872,7 +1741,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 		var payload = {
 		    crop_choice: game.cropchoice,
-		    weather:     game.gameWeather[game.turn],
+		    weather:     game.gamtaeWeher[game.turn],
 		    game_over:   game.gameOver,
 		    score:       payout
 		  };
