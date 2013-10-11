@@ -140,7 +140,7 @@ $(function initializeGame (gameVersionObject) {
 	$("#dollars_counter").text("$"+game.realDollars+"0");
 
 	// Populate spans in opening and ending dialogs
-	$(".turncount_instructions").text(game.maxturn + " turns");
+	$(".turncount_instructions").text(game.maxturn);
 
 // >>>>>>>>>>>>>>>>>> 2.A Initialize discrete version <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
