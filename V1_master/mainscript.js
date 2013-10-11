@@ -8,7 +8,7 @@ $(document).ready(function(){
 // Switches game between discrete and continuous versions
 gameVersion = {
 	discreteWeather: false, //INPUT
-	testing: false //INPUT
+	testing: true //INPUT
 };
 
 // Game-wide variables
@@ -1818,11 +1818,11 @@ function test () {
 		console.log(game.discrete);
 
 		if (game.discrete.indifferencePoint >=1 || game.discrete.indifferencePoint <=0) {
-			alert("WARNING: the indifference point between A and B is: " + game.discrete.indifferencePoint + "!");
+			console.log("WARNING: the indifference point between A and B is: " + game.discrete.indifferencePoint + "!");
 		}
 
 		if (game.discrete.indifferentTurn == 0 || game.discrete.indifferentTurn >= game.maxturn) {
-			alert("There is no turn during the game at which the probability of dry weather equals the indifference point!");
+			console.log("There is no turn during the game at which the probability of dry weather equals the indifference point!");
 		}
 
 	}

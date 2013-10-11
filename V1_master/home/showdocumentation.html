@@ -153,6 +153,9 @@
 						<p>
 							<span class="code console">[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 10, 10, 10, 10, 10, 10, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]</span>
 						</p>
+						<p>Any of the variables listed below -- and any variable inside the <span class="code">game</span> object -- can be accessed in your web console by typing the name of the variable.</p>
+						<p>E.g.<span class="code">game.discrete.indifferencePoint</span></p>
+						<p>Returns <span class="console">0.5</span></p>
 					</div>
 
 					<br>
@@ -230,11 +233,11 @@
 						<li class="indent"><span class="code">game.gameWeather</span> is the weather array used to determine the outcome of the game.</li>
 						<li><span class="code">maxScore</span>, the maximum possible score on this game given this weather, is calculated using a series of if-else statements that finds the optimal crop at each turn.</li>
 						<li><span class="code">bonusOneTotal</span>, the first bonus points threshold reached by random play, is calculated using the indifference point (indifferencePoint).</li>
-						<li class="indent">If the indifference point is less than 0 or greater than 1, the game will throw an alert dialog.</li>
+						<li class="indent">If the indifference point is less than 0 or greater than 1, the game will write an alert in the console.</li>
 						<li><span class="code">findTurnAtIndifferencePoint</span> finds the turn at which the probability of wet weather (<span class="code">pWet</span>)  equals the indifference point; or, when in the course of 1 turn change, pWet goes from below the indifference point to above the indifference point; or, vice versa (above to below). This is the turn at which the other crop becomes optimal.</li>
-						<li class="indent">If the indifference point cannot be reached during maxturn turns, the game will throw an alert dialog.</li>
-						indifferenceTurn captures the turn at which the indifference point is reached or crossed.</li>
-						<li><span class="code">bonusTwoTotal</span>, the second bonus points threshold reached by ante-hoc optimal play, is calculated by identifying the optimal crop before (<span class="code">optimalChoice1</span>) and after (<span class="code">optimalChoice2</span>) the <span class="code">indifferenceTurn</span> and adding up the corresponding payouts.</li>
+						<li class="indent">If the indifference point cannot be reached during maxturn turns, the game will write an alert in the console.</li>
+						indifferentTurn captures the turn at which the indifference point is reached or crossed.</li>
+						<li><span class="code">bonusTwoTotal</span>, the second bonus points threshold reached by ante-hoc optimal play, is calculated by identifying the optimal crop before (<span class="code">optimalChoice1</span>) and after (<span class="code">optimalChoice2</span>) the <span class="code">indifferentTurn</span> and adding up the corresponding payouts.</li>
 						<li><span class="code">bonusHeight</span> sets the height of the bonus markers on the points bar using CSS, placing them in proportion to <span class="code">maxScore</span> (with <span class="code">maxScore</span> at the top of the points bar).</li>
 						<li>Finally, the game populates empty spans and divs using the IDs of elements in the HTML file (<span class="code">index.html</span>)</li>
 					</ul>
@@ -245,6 +248,7 @@
 					<ul>
 						<li>Function structure parallels the discrete initialization function.</li>
 						<li><span class="code">game.continuous.climateArray</span> contains an array of objects. Each object contains the mean (<span class="code">mean</span>) and standard deviation (<span class="code">std_dev</span>) of the weather distribution for the corresponding turn. Change the <span class="code">mean</span> and <span class="code">std_dev</span> manually.</li>
+						<li class="indent note">NOTE: When you add rows to climateArray by copying and pasting previous rows, remember to insert a comma between all objects EXCEPT the last one.</li>
 						<li><span class="code">chartObjects</span> establishes options for various graphs that appear during the game.</li>
 						<li class="indent"><span class="code">payoutObj</span> refers to the payout graph that appears in the 2nd intro dialog.</li>
 						<li class="indent"><span class="code">historyObj</span> refers to the histogram of historic weather that appears in the 3rd intro dialog.</li>
