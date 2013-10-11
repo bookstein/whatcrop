@@ -406,6 +406,7 @@ td {
 
 .jqplot-xaxis {
 	background-image: linear-gradient(left 0, #F2C900 15%, #eae9e6 50%, #99CCFF 85%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F2C900', endColorstr='#99CCFF'); /* for IE */
 	background-image: -o-linear-gradient(left 0, #F2C900 15%, #eae9e6 50%, #99CCFF 85%);
 	background-image: -moz-linear-gradient(left 0, #F2C900 15%, #eae9e6 50%, #99CCFF 85%);
 	background-image: -ms-linear-gradient(left 0, #F2C900 15%, #eae9e6 50%, #99CCFF 85%);
@@ -508,7 +509,8 @@ td {
 }
 
 #farm { /*using default_background_medium.png. formerly background image within choice_screen*/
-	width: 100%;
+	max-width: 100%;
+	width: 600px;
 	position: relative;
 	z-index: 1;
 	margin: 0 auto;
@@ -880,11 +882,17 @@ button.plant {
 height: 200px;
 width: 400px;
 padding: 20px;
-background-color: white;
+background-color: #ffffff;
+
+/*For IE */
+filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=false,ShadowOpacity=0.30);
+-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
+zoom: 1;
 
 /* outer shadows  (note the rgba is red, green, blue, alpha) */
 -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
 -moz-box-shadow: 0px 1px 6px rgba(23, 69, 88, .5);
+box-shadow: 0px 1px 6px rgba(23, 69, 88, .5);
 
 /* rounded corners */
 -webkit-border-radius: 12px;
