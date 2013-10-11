@@ -1447,7 +1447,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			// B1. game.gameWeather is wet
 
 				//B1.i Wet game.gameWeather is wet
-				if (game.gamtaeWeher[game.turn] < game.continuous.maxBweather + Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaA)) && game.gamtaeWeher[game.turn] >= game.continuous.maxBweather + .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB)) ) {
+				if (game.gamtaeWeher[game.turn] < game.continuous.maxBweather + Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB)) && game.gamtaeWeher[game.turn] >= game.continuous.maxBweather + .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB)) ) {
 					game.weatherReport = "wet enough";
 					//display healthy crop B (range of normal)
 					$("#wetB").removeClass("hidden");
@@ -1462,7 +1462,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			// B2. game.gameWeather is dry
 
 				//B2.i Dry game.gameWeather is dry
-				else if (game.gamtaeWeher[game.turn] < game.continuous.maxAweather - .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) {
+				else if (game.gamtaeWeher[game.turn] < game.continuous.maxBweather - .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB))) {
 					game.weatherReport = "dry enough";
 					$("#dryB").removeClass("hidden");
 				}
@@ -1475,7 +1475,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 
 			//B3 Weather is in normal range
-				else if (game.gamtaeWeher[game.turn] < (game.continuous.maxBweather + .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaA))) && game.gamtaeWeher[game.turn] >= (game.continuous.maxBweather - .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB)))) {
+				else if (game.gamtaeWeher[game.turn] < (game.continuous.maxBweather + .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB))) && game.gamtaeWeher[game.turn] >= (game.continuous.maxBweather - .33*Math.sqrt(game.continuous.maxBpayout/(-game.continuous.betaB)))) {
 					$("#rowsCropB").removeClass("hidden");
 					game.weatherReport = "optimal weather";
 				}
