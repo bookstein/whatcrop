@@ -51,7 +51,11 @@
 				<br>
 				<h3>Changing Game Parameters</h3>
 				<ul>
-					<li>Open the mainscript.js file on your computer.</li>
+					<li>Make sure you download ALL related game files onto your computer, and don't change the position within the folders.</li>
+						<li class="indent">index.html, mainscript.js, main.css</li>
+						<li class="indent">Also folders: images, jqPlot, sound, jQueryUI.</li>
+						<li class="indent">Don't forget jquery1.10.1.js and jquery_animate_shadow.js files!</li>
+					<li>Open mainscript.js file on your computer. Mainscript.js currently lives under v2.whatcrop.org > shared > js.game > V1_master.</li>
 					<li>Change the value of any variable with the comment <span class="comment">// INPUT</span> next to it, or consult the outline of <span class="code">mainscript.js</span> to see which variables you should change.</li>
 					<li>Save your changes but do not change the name of the file (mainscript.js) unless you are prepared to change the name in the <span class="code">head</span> of <span class="code">index.html</span>. As long as each copy of mainscript.js is stored in a separate folder with a separate copy of index.html and main.css, you will be able to maintain different copies of files with the same name.</li>
 					<li class="note">VERY IMPORTANT: Write down the name of the <span class="code">label</span> (e.g. <span class="code">"D-control1"</span>) you give this game version, as this string is the key to tracking your data in the database. In the same place, record the parameters you used for this game.</li>
@@ -60,8 +64,8 @@
 				<h3>To test your new parameters:</h3>
 				<ul>
 					<li>At the top of mainscript.js, change <span class="code">testing</span> to <span class="code">true</span>.</li>
-					<li>Open the file in your web brower by clicking File > Open File.</li>
-					<li>Open the web console to see the results of the <span class="code">test</span> function.</li>
+					<li>To view your game with the new parameters, open <span class="code">index.html</span> in your web brower by clicking File > Open File.</li>
+					<li>Open the web console (View > Developer > Console) to see the results of the <span class="code">test</span> function.</li>
 					<li class="note">Note that you can copy and paste the results of the test (which logs the game object, containing all your parameters) into the file where you track labels.</li>
 				</ul>
 				<br>
@@ -175,8 +179,9 @@
 								<li>In the random-number weather draw, any number below the threshold represents Wet weather, and any number above the threshold represents Dry weather</li>
 								<li>using <span class="code">climateArray</span>, an array (<span class="code">thresholdArray</span>) is created to store the threshold values for each turn.</li>
 							</ul>
-						<li><span class="code">climateArray: [] </span>// go to <a href="#js2.A">section 2.A (Initialize discrete version)</a> to manually enter each of the values of the climate array. Each value in the array represents the delta in the threshold for the next turn.</li>
+						<li><span class="code">climateArray: [] </span>// go to <a href="#js2.A">section 2.A (Initialize discrete version)</a> to manually enter each of the values of the climate array. Each value in the array represents the <span class="note">NEGATIVE delta</span> in the threshold for the next turn.</li>
 						<li><span class="note">NOTE: If <span class="code">climateArray</span> values are positive, <span class="code">threshold</span> will decrease over time.</span></li>
+						<li class="indent example"> If <span class="code">game.discrete.climateArray = 5</span>, the <span class="code">threshold</span> will DECREASE by 5, and probability of dry weather INCREASES.</li>
 						<li><span class="note">NOTE: You must have at least <span class="code">maxturn</span> number of values for <span class="code">climateArray</span> (0 up to maxturn-1), otherwise the game will break. Having excess values of <span class="code">climateArray</span> is fine.</span></li>
 					</ul>
 					<br>
