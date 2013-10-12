@@ -25,7 +25,7 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 15, //INPUT
+    maxturn : 10, //INPUT
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
@@ -43,6 +43,13 @@ game = {
 	// Data will be sent to this server address
 	serverAddress: 'http://v2.whatcrop.org',
 
+	//Bonus point thresholds
+		//in discrete version, determined by points expected through randomy play and optimal strategy play (calculated in initializeDiscrete)
+		//in continuous version, determined by fraction of maxScore (user input)
+
+	bonusOneTotal: 0,
+	bonusTwoTotal: 0,
+
 	// Bonus payments, in dollars
 	bonusOneDollars: 1.25, //INPUT
 	bonusTwoDollars: 0.75, //INPUT
@@ -59,8 +66,8 @@ game = {
 		threshold: 750, //INPUT
 		// maxScore and bonus thresholds, determined by code below
 		maxScore : 0,
-		bonusOneTotal : 0, // points expected by random play
-		bonusTwoTotal : 0, // points expected using optimal strategy
+		//bonusOneTotal : 0, // points expected by random play
+		//bonusTwoTotal : 0, // points expected using optimal strategy
 		optimalChoice1: [], // arrays used to calculate bonusTwoTotal
 		optimalChoice2: [],
 		// Indifference point (at which crops A and B are equally good choices)
@@ -79,9 +86,6 @@ game = {
 		maxScore: 5000, //INPUT
 		firstBonusThreshold: .75, //INPUT
 		secondBonusThreshold: .90, //INPUT
-		// actual bonus points -- bonusOneTotal, bonusTwoTotal -- are calculated below using the percentages above
-		bonusOneTotal: 0,
-		bonusTwoTotal: 0,
 		// Continuous weather crop payouts -- enter here
 		betaA : -.004, //INPUT
 		betaB : -.001, //INPUT
@@ -131,20 +135,6 @@ $(function initializeGame (gameVersionObject) {
 		gameVersionObject = game.continuous;
 		initializeContinuous();
 	}
-
-//Shared Elements (Both Games)
-
-	//Turn Counter
-	$("#turns_counter").text(game.turn + "/" + game.maxturn);
-
-	//Points Counter - writes initial score to points counter
-	$("#point_count").html("<h5>"+game.score+"</h5>");
-
-	// Real Dollars Earned - writes initial realDollars to dollars counter
-	$("#dollars_counter").text("$"+game.realDollars+"0");
-
-	// Populate spans in opening and ending dialogs
-	$(".turncount_instructions").text(game.maxturn);
 
 // >>>>>>>>>>>>>>>>>> 2.A Initialize discrete version <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -354,7 +344,7 @@ $(function initializeGame (gameVersionObject) {
 			return game.discrete.indifferencePoint;
 		};
 
-				// B. on which turn does the probability of dry weather = indifference point?
+				// B. on which turn does the probability of wet weather = indifference point?
 
 		function findTurnAtIndifferencePoint () { //calculates the turn at which the probability of wet weather equals the indiff point
 
@@ -403,19 +393,15 @@ $(function initializeGame (gameVersionObject) {
 			}
 
 			for (var i = 0; i < game.maxturn; i++) {
-				game.discrete.bonusOneTotal += parseFloat(randomPoints[i]);
+				game.bonusOneTotal += parseFloat(randomPoints[i]);
 			}
 
-			return game.discrete.bonusOneTotal;
+			return game.bonusOneTotal;
 		};
 
 		calculateRandomPlayPoints();
 
 		// Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
-
-
-		//optimalChoice1 = [];
-		//optimalChoice2 = [];
 
 		// bonusTwoTotal is the number of points expected with optimal play
 
@@ -483,27 +469,14 @@ $(function initializeGame (gameVersionObject) {
 			var total2 = sumtotal2();
 
 			//bonusTwoTotal is the sum of total optimal choice 1 + total optimal choice 2
-			game.discrete.bonusTwoTotal = parseFloat(total1 + total2);
+			game.bonusTwoTotal = parseFloat(total1 + total2);
 			//alert("total optimal points: " + bonusTwoTotal);
 
-			return game.discrete.bonusTwoTotal;
+			return game.bonusTwoTotal;
 		};
 
 		calculateOptimalPlayPoints();
 
-		// Set height of bonus markers
-		function bonusHeight (bonus1, bonus2) {
-
-			var pixelHeight = parseFloat($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
-			var pointsPerPixelRatio = game.discrete.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
-
-			$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
-			$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
-			$("#bonus1value").text(parseInt(game.discrete.bonusOneTotal));
-			$("#bonus2value").text(parseInt(game.discrete.bonusTwoTotal));
-		};
-
-		bonusHeight(game.discrete.bonusOneTotal, game.discrete.bonusTwoTotal);
 
 	// Populate discrete opening dialogs
 
@@ -525,8 +498,8 @@ $(function initializeGame (gameVersionObject) {
 		$("#sun_probability").css("height", dryPercent);
 		$("#rain_probability").css("height", wetPercent);
 		//fills in bonus information
-		$("#bonus_one_instructions").text(parseInt(game.discrete.bonusOneTotal));
-		$("#bonus_two_instructions").text(parseInt(game.discrete.bonusTwoTotal));
+		$("#bonus_one_instructions").text(parseInt(game.bonusOneTotal));
+		$("#bonus_two_instructions").text(parseInt(game.bonusTwoTotal));
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -1143,39 +1116,72 @@ $(function initializeGame (gameVersionObject) {
 
 		drawQuadratic();
 
-		//Calculate Bonuses --------------------------------------
+	// Populate continuous opening dialogs
+		//fills in bonus information
+		$("#bonus_one_instructions").text(parseInt(game.bonusOneTotal));
+		$("#bonus_two_instructions").text(parseInt(game.bonusTwoTotal));
+		//fills in historic weather info
+		$("#weather_type").text(" mean yearly rainfall ");
+		$("#mean_rainfall").text(parseInt(game.meanHistoricWeather) + " inches of rain");
+	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-		// Calculate bonus points and fill in bonus-marker values
-		function bonusHeight (threshold1, threshold2, bonus1, bonus2) {
+	//Shared Initialization (Both Games)
 
-			var pixelHeight = parseFloat($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
-			var pointsPerPixelRatio = game.continuous.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
+	//Turn Counter
+	$("#turns_counter").text(game.turn + "/" + game.maxturn);
+
+	//Points Counter - writes initial score to points counter
+	$("#point_count").html("<h5>"+game.score+"</h5>");
+
+	// Real Dollars Earned - writes initial realDollars to dollars counter
+	$("#dollars_counter").text("$"+game.realDollars+"0");
+
+	// Populate spans in opening and ending dialogs
+	$(".turncount_instructions").text(game.maxturn);
+
+	// Set height of bonus markers
+	function bonusHeight (bonus1, bonus2) {
+
+		var pixelHeight = parseFloat($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
+
+		// If playing the discrete version
+		if (gameVersion.discreteWeather) {
+
+			var pointsPerPixelRatio = game.discrete.maxScore/pixelHeight; //this ratio applies to points_bar up until bonus 2
+
+			//If the indifference point is not reached during the game, show only bonus 1
+			if (game.discrete.indifferentTurn <=0 || game.discrete.indifferentTurn >= game.maxturn-1) {
+				$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
+				$("bonus2marker, #bonusLabel2").addClass("hidden");
+			}
+
+			else {
+				console.log("Assigning bonuses as normal");
+			}
+
+		}
+
+
+		else if (!gameVersion.discreteWeather) {
+
+			var pointsPerPixelRatio = game.continuous.maxScore/pixelHeight; //this ratio applies to points_bar up until bonus 2
 
 			// Total bonuses are equal to a percentage of maxScore, determined manually in game object
-			bonus1 = parseFloat(threshold1*game.continuous.maxScore);
-			bonus2 = parseFloat(threshold2*game.continuous.maxScore);
-			game.continuous.bonusOneTotal = bonus1;
-			game.continuous.bonusTwoTotal = bonus2;
+			bonus1 = parseFloat(game.continuous.firstBonusThreshold*game.continuous.maxScore);
+			bonus2 = parseFloat(game.continuous.secondBonusThreshold*game.continuous.maxScore);
+			game.bonusOneTotal = bonus1;
+			game.bonusTwoTotal = bonus2;
+		}
 
 			$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 			$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
 			$("#bonus1value").text(parseInt(bonus1));
 			$("#bonus2value").text(parseInt(bonus2));
 
-			return game.continuous.bonusOneTotal, game.continuous.bonusTwoTotal;
-		};
+			return game.bonusOneTotal, game.bonusTwoTotal;
+	};
 
-		// run bonusHeight using first and second bonus thresholds as input
-		bonusHeight(game.continuous.firstBonusThreshold, game.continuous.secondBonusThreshold);
-
-	// Populate continuous opening dialogs
-		//fills in bonus information
-		$("#bonus_one_instructions").text(parseInt(game.continuous.bonusOneTotal));
-		$("#bonus_two_instructions").text(parseInt(game.continuous.bonusTwoTotal));
-		//fills in historic weather info
-		$("#weather_type").text(" mean yearly rainfall ");
-		$("#mean_rainfall").text(parseInt(game.meanHistoricWeather) + " inches of rain");
-	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	bonusHeight(game.bonusOneTotal, game.bonusTwoTotal);
 
 	// If gameVersion.testing = true, the test function at the bottom of the code will run after initialization is complete
 	if (gameVersion.testing) {
@@ -1746,15 +1752,8 @@ function updateGame (payout) { //this function is called and given arguments ins
 	var bonusOneTotal;
 	var bonusTwoTotal;
 
-	if (gameVersion.discreteWeather === true) {
-		bonusOneTotal = game.discrete.bonusOneTotal;
-		bonusTwoTotal = game.discrete.bonusTwoTotal;
-	}
-
-	else {
-		bonusOneTotal = game.continuous.bonusOneTotal;
-		bonusTwoTotal = game.continuous.bonusTwoTotal;
-	}
+	bonusOneTotal = game.bonusOneTotal;
+	bonusTwoTotal = game.bonusTwoTotal;
 
 	// Functions shared by both versions
 
@@ -1861,7 +1860,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 				//Points_counter moves upward this number of pixels per turn, depending on the turn payout
 				var perTurnHeight = payout/pointsPerPixelRatio;
 
-				if (game.score > game.discrete.bonusTwoTotal && game.score > game.continuous.bonusTwoTotal) {
+				if (game.score > game.bonusTwoTotal) {
 					var remainingHeight = pixelHeight - fillHeight;
 					var remainingPixelsPerTurn = remainingHeight/(game.maxturn-game.turn);
 
