@@ -232,13 +232,106 @@ $(function initializeGame (gameVersionObject) {
 
 
 		// Create list of random numbers that will become weather-------
-		var _0x6bfe=["\x6D\x61\x78\x74\x75\x72\x6E","\x72\x61\x6E\x64\x6F\x6D","\x78","\x6C\x6F\x67","\x73\x71\x72\x74","\x50\x49","\x79","\x63\x6F\x73","\x6D\x65\x61\x6E","\x63\x6C\x69\x6D\x61\x74\x65\x41\x72\x72\x61\x79","\x63\x6F\x6E\x74\x69\x6E\x75\x6F\x75\x73","\x73\x74\x64\x5F\x64\x65\x76"];function makeGameWeather(_0x893fx2,_0x893fx3){var _0x893fx4={x:undefined,y:undefined};var _0x893fx5=[];var _0x893fx6=[];for(var _0x893fx7=0;_0x893fx7<game[_0x6bfe[0]];_0x893fx7++){_0x893fx4={x:Math[_0x6bfe[1]](),y:Math[_0x6bfe[1]]()};_0x893fx5[_0x893fx7]=_0x893fx4;} ;function _0x893fx8(){for(var _0x893fx7=0;_0x893fx7<game[_0x6bfe[0]];_0x893fx7++){_0x893fx6[_0x893fx7]=Math[_0x6bfe[4]](-2*Math[_0x6bfe[3]](_0x893fx5[_0x893fx7][_0x6bfe[2]]))*Math[_0x6bfe[7]](2*Math[_0x6bfe[5]]*_0x893fx5[_0x893fx7][_0x6bfe[6]]);if(_0x893fx6[_0x893fx7]>=5){_0x893fx6[_0x893fx7]=5;} else {if(_0x893fx6[_0x893fx7]<=-5){_0x893fx6[_0x893fx7]=-5;} ;} ;} ;return _0x893fx6;} ;_0x893fx8();function _0x893fx9(){for(var _0x893fx7=0;_0x893fx7<game[_0x6bfe[0]];_0x893fx7++){_0x893fx2[_0x893fx7]=game[_0x6bfe[10]][_0x6bfe[9]][_0x893fx7][_0x6bfe[8]]+(_0x893fx6[_0x893fx7]*game[_0x6bfe[10]][_0x6bfe[9]][_0x893fx7][_0x6bfe[11]]);if(_0x893fx2[_0x893fx7]<=0){_0x893fx2[_0x893fx7]=0;} ;} ;return _0x893fx2;} ;function _0x893fxa(){for(var _0x893fx7=0;_0x893fx7<game[_0x6bfe[0]];_0x893fx7++){_0x893fx2[_0x893fx7]=game[_0x6bfe[10]][_0x6bfe[9]][0][_0x6bfe[8]]+(_0x893fx6[_0x893fx7]*game[_0x6bfe[10]][_0x6bfe[9]][0][_0x6bfe[11]]);} ;return _0x893fx2;} ;if(_0x893fx3===false){_0x893fx9();} else {_0x893fxa();} ;} ;
+
+		weatherArray = [];
+
+		function makeWeatherArray() {
+			for (var i = 0; i < game.maxturn; i++) {
+				var weather = Math.floor((Math.random()*1000)+1);
+				weatherArray[i] = weather;
+			}
+
+			return weatherArray;
+		};
+
+		makeWeatherArray(); //sets weatherArray to new value
+
+		// Set rain thresholds as modified by climate change over course of game -------
+
+
+		thresholdArray = [];
+
+
+		function makeThresholdArray () {
+
+			thresholdArray[0] = game.discrete.threshold; //sets first value equal to threshold
+
+			for (var i = 1; i < game.maxturn; i++) {
+				thresholdArray[i] = thresholdArray[i-1] - (game.discrete.climateArray[i]);
+			}
+
+			return thresholdArray;
+		};
+
+		makeThresholdArray(); //sets thresholdArray to new value based on climate change
+
+		// Set game weather -------
+
+		function makeGameWeather() { //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
+
+		for (var i = 0; i < game.maxturn; i++) {
+			if (weatherArray[i] <= thresholdArray[i])
+				{
+					var perTurnWeather = "Wet";
+					game.gameWeather[i] = perTurnWeather;
+				}
+
+			else if (weatherArray[i] > thresholdArray[i])
+				{
+					var perTurnWeather = "Dry";
+					game.gameWeather[i] = perTurnWeather;
+				}
+
+				} //end of for loop
+
+			return game.gameWeather;
+		};
 
 		makeGameWeather(); //sets value of gameWeather (array containing weather for length of game)
 
 		//Calculate Max Score --------------------------------------
 
-		var _0x7d16=["\x6D\x61\x78\x74\x75\x72\x6E","\x67\x61\x6D\x74\x61\x65\x57\x65\x68\x65\x72","\x57\x65\x74","\x70\x61\x79\x6F\x75\x74\x41\x77\x65\x74","\x64\x69\x73\x63\x72\x65\x74\x65","\x70\x61\x79\x6F\x75\x74\x42\x77\x65\x74","\x44\x72\x79","\x70\x61\x79\x6F\x75\x74\x41\x64\x72\x79","\x70\x61\x79\x6F\x75\x74\x42\x64\x72\x79","\x6D\x61\x78\x53\x63\x6F\x72\x65"];optimalCrops=[];function calculateOptimalCrop(){for(var _0xd001x2=0;_0xd001x2<game[_0x7d16[0]];_0xd001x2++){if(game[_0x7d16[1]][_0xd001x2]===_0x7d16[2]&&game[_0x7d16[4]][_0x7d16[3]]>game[_0x7d16[4]][_0x7d16[5]]){optimalCrops[_0xd001x2]=game[_0x7d16[4]][_0x7d16[3]];} else {if(game[_0x7d16[1]][_0xd001x2]===_0x7d16[6]&&game[_0x7d16[4]][_0x7d16[7]]>game[_0x7d16[4]][_0x7d16[8]]){optimalCrops[_0xd001x2]=game[_0x7d16[4]][_0x7d16[7]];} else {if(game[_0x7d16[1]][_0xd001x2]===_0x7d16[2]&&game[_0x7d16[4]][_0x7d16[5]]>game[_0x7d16[4]][_0x7d16[3]]){optimalCrops[_0xd001x2]=game[_0x7d16[4]][_0x7d16[5]];} else {if(game[_0x7d16[1]][_0xd001x2]===_0x7d16[6]&&game[_0x7d16[4]][_0x7d16[8]]>game[_0x7d16[4]][_0x7d16[7]]){optimalCrops[_0xd001x2]=game[_0x7d16[4]][_0x7d16[8]];} ;} ;} ;} ;} ;return optimalCrops;} ;calculateOptimalCrop();function calculateMaxScore(){for(var _0xd001x2=0;_0xd001x2<game[_0x7d16[0]];_0xd001x2++){game[_0x7d16[9]]+=optimalCrops[_0xd001x2];} ;return game[_0x7d16[9]];} ;
+
+		optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
+
+		function calculateOptimalCrop () {
+
+			for (var i = 0; i < game.maxturn; i++) {
+
+
+				if (game.gameWeather[i] === "Wet" && game.discrete.payoutAwet > game.discrete.payoutBwet)
+				{
+					optimalCrops[i] = game.discrete.payoutAwet;
+				}
+				else if (game.gameWeather[i] === "Dry" && game.discrete.payoutAdry > game.discrete.payoutBdry)
+				{
+					optimalCrops[i] = game.discrete.payoutAdry;
+				}
+				else if (game.gameWeather[i] === "Wet" && game.discrete.payoutBwet > game.discrete.payoutAwet)
+				{
+					optimalCrops[i] = game.discrete.payoutBwet;
+				}
+				else if (game.gameWeather[i] === "Dry" && game.discrete.payoutBdry > game.discrete.payoutAdry)
+				{
+					optimalCrops[i] = game.discrete.payoutBdry;
+				}
+			} //end of for loop
+
+			return optimalCrops;
+		};
+
+		calculateOptimalCrop(); //sets value of optimalCrops array
+
+
+
+		function calculateMaxScore () {
+				for (var i=0; i < game.maxturn; i++)
+
+				{
+				game.maxScore += optimalCrops[i]
+				}
+			return game.maxScore;
+		};
 
 		calculateMaxScore();
 
@@ -969,13 +1062,149 @@ $(function initializeGame (gameVersionObject) {
 
 		//>>>>>>>>> 1. Game generates game weather >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-		var _0x4d81=["\x6D\x61\x78\x74\x75\x72\x6E","\x72\x61\x6E\x64\x6F\x6D","\x78","\x6C\x6F\x67","\x73\x71\x72\x74","\x50\x49","\x79","\x63\x6F\x73","\x6D\x65\x61\x6E","\x63\x6C\x69\x6D\x61\x74\x65\x41\x72\x72\x61\x79","\x63\x6F\x6E\x74\x69\x6E\x75\x6F\x75\x73","\x73\x74\x64\x5F\x64\x65\x76","\x67\x61\x6D\x74\x61\x65\x57\x65\x68\x65\x72","\x68\x69\x73\x74\x6F\x72\x69\x63\x57\x65\x61\x74\x68\x65\x72"];function makeGameWeather(_0x832ex2,_0x832ex3){var _0x832ex4={x:undefined,y:undefined};var _0x832ex5=[];var _0x832ex6=[];for(var _0x832ex7=0;_0x832ex7<game[_0x4d81[0]];_0x832ex7++){_0x832ex4={x:Math[_0x4d81[1]](),y:Math[_0x4d81[1]]()};_0x832ex5[_0x832ex7]=_0x832ex4;} ;function _0x832ex8(){for(var _0x832ex7=0;_0x832ex7<game[_0x4d81[0]];_0x832ex7++){_0x832ex6[_0x832ex7]=Math[_0x4d81[4]](-2*Math[_0x4d81[3]](_0x832ex5[_0x832ex7][_0x4d81[2]]))*Math[_0x4d81[7]](2*Math[_0x4d81[5]]*_0x832ex5[_0x832ex7][_0x4d81[6]]);if(_0x832ex6[_0x832ex7]>=5){_0x832ex6[_0x832ex7]=5;} else {if(_0x832ex6[_0x832ex7]<=-5){_0x832ex6[_0x832ex7]=-5;} ;} ;} ;return _0x832ex6;} ;_0x832ex8();function _0x832ex9(){for(var _0x832ex7=0;_0x832ex7<game[_0x4d81[0]];_0x832ex7++){_0x832ex2[_0x832ex7]=game[_0x4d81[10]][_0x4d81[9]][_0x832ex7][_0x4d81[8]]+(_0x832ex6[_0x832ex7]*game[_0x4d81[10]][_0x4d81[9]][_0x832ex7][_0x4d81[11]]);if(_0x832ex2[_0x832ex7]<=0){_0x832ex2[_0x832ex7]=0;} ;} ;return _0x832ex2;} ;function _0x832exa(){for(var _0x832ex7=0;_0x832ex7<game[_0x4d81[0]];_0x832ex7++){_0x832ex2[_0x832ex7]=game[_0x4d81[10]][_0x4d81[9]][0][_0x4d81[8]]+(_0x832ex6[_0x832ex7]*game[_0x4d81[10]][_0x4d81[9]][0][_0x4d81[11]]);} ;return _0x832ex2;} ;if(_0x832ex3===false){_0x832ex9();} else {_0x832exa();} ;} ;makeGameWeather(game[_0x4d81[12]],false);makeGameWeather(game[_0x4d81[10]][_0x4d81[13]],true);
+	function makeGameWeather (arrayName, historicBoolean) {
+			//Create an array of pairs of random numbers
+			var randomPairs = {
+				x: undefined,
+				y: undefined
+			};
+
+			var randomPairArray = [];
+			var normalizedArray = [];
+
+			for (var i = 0; i < game.maxturn; i++) {
+				randomPairs = {
+					x: Math.random(),
+					y: Math.random()
+				}
+				randomPairArray[i] = randomPairs;
+			}
+
+			// Create array of Z0s
+			function boxMullerTransformation () {
+				for (var i = 0; i < game.maxturn; i++) {
+					normalizedArray[i] = Math.sqrt(-2 * Math.log(randomPairArray[i].x))*Math.cos(2*Math.PI*randomPairArray[i].y);
+
+				// cutoffs for high and low values of Z0; use 5th standard deviation in std normal curve
+					if (normalizedArray[i] >= 5) {
+						normalizedArray[i] = 5;
+					}
+
+					else if (normalizedArray[i] <= -5) {
+						normalizedArray[i] = -5;
+					}
+				}
+
+				return normalizedArray;
+			}; //end of boxMullerTransformation
+
+			boxMullerTransformation();
+
+			//Apply climateChange to normalizedArray as mean + Z0 * std_dev
+			function applyClimateChange () {
+				for (var i = 0; i < game.maxturn; i++) {
+					arrayName[i] = game.climateArray[i].mean + (normalizedArray[i]*game.climateArray[i].std_dev);
+
+					// ensures inches of rain will always be zero or greater
+					if (arrayName[i] <= 0) {
+						arrayName[i] = 0;
+					}
+				}
+
+				return arrayName;
+
+			}; //end of applyClimateChange
+
+			function historicWeatherArray () {
+				for (var i = 0; i < game.maxturn; i++) {
+					arrayName[i] = game.continuous.climateArray[0].mean + (normalizedArray[i]*game.continuous.climateArray[0].std_dev);
+				}
+
+				return arrayName;
+			}; // end of determineHistoricWeather()
+
+			if (historicBoolean === "false") {
+				applyClimateChange();
+			}
+
+			else {
+				historicWeatherArray();
+			}
+
+		}; // end function makeGameWeather
+
+		makeGameWeather(game.gameWeather, false);
+
+		makeGameWeather(game.continuous.historicWeather, true);
 
 		drawQuadratic();
 
 		//Calculate Max Score --------------------------------------
 
-		var _0x615c=["\x6D\x61\x78\x74\x75\x72\x6E","\x67\x61\x6D\x74\x61\x65\x57\x65\x68\x65\x72","\x6D\x61\x78\x41\x77\x65\x61\x74\x68\x65\x72","\x63\x6F\x6E\x74\x69\x6E\x75\x6F\x75\x73","\x6D\x61\x78\x42\x77\x65\x61\x74\x68\x65\x72","\x61\x62\x73","\x63\x72\x6F\x70\x20\x41","\x63\x72\x6F\x70\x20\x42","\x74\x75\x72\x6E","\x70\x6F\x77","\x62\x65\x74\x61\x41","\x6D\x61\x78\x41\x70\x61\x79\x6F\x75\x74","\x6D\x61\x78\x53\x63\x6F\x72\x65","\x62\x65\x74\x61\x42","\x6D\x61\x78\x42\x70\x61\x79\x6F\x75\x74"];function calculateMaxScore(){var _0x8a85x2=[];var _0x8a85x3=0;function _0x8a85x4(){for(var _0x8a85x5=0;_0x8a85x5<game[_0x615c[0]];_0x8a85x5++){var _0x8a85x6=game[_0x615c[1]][_0x8a85x5]-game[_0x615c[3]][_0x615c[2]];var _0x8a85x7=game[_0x615c[1]][_0x8a85x5]-game[_0x615c[3]][_0x615c[4]];if(Math[_0x615c[5]](_0x8a85x6)<Math[_0x615c[5]](_0x8a85x7)){_0x8a85x2[_0x8a85x5]=_0x615c[6];} else {if(Math[_0x615c[5]](_0x8a85x7)<Math[_0x615c[5]](_0x8a85x6)){_0x8a85x2[_0x8a85x5]=_0x615c[7];} else {_0x8a85x2[_0x8a85x5]=_0x615c[6];} ;} ;} ;return _0x8a85x2;} ;_0x8a85x4();function _0x8a85x8(_0x8a85x9,_0x8a85xa,_0x8a85xb,_0x8a85xc){_0x8a85x3=_0x8a85xa*Math[_0x615c[9]]((game[_0x615c[1]][game[_0x615c[8]]]-_0x8a85xb),2)+_0x8a85xc;if(_0x8a85x3<=0){_0x8a85x3=0;} else {if(_0x8a85x3>0){_0x8a85x3=parseFloat(_0x8a85x3);} ;} ;return _0x8a85x3;} ;for(var _0x8a85x5=0;_0x8a85x5<game[_0x615c[0]];_0x8a85x5++){if(_0x8a85x2[_0x8a85x5]===_0x615c[6]){_0x8a85x8(_0x8a85x5,game[_0x615c[3]][_0x615c[10]],game[_0x615c[3]][_0x615c[2]],game[_0x615c[3]][_0x615c[11]]);game[_0x615c[12]]+=_0x8a85x3;} else {if(_0x8a85x2[_0x8a85x5]===_0x615c[7]){_0x8a85x8(_0x8a85x5,game[_0x615c[3]][_0x615c[13]],game[_0x615c[3]][_0x615c[4]],game[_0x615c[3]][_0x615c[14]]);game[_0x615c[12]]+=_0x8a85x3;} ;} ;} ;return game[_0x615c[12]];} ;
+		function calculateMaxScore () {
+
+			var optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
+			var payout = 0; //local payout variable for calculating maxScore
+
+			function findOptimalCrop () {
+			//Strategy: if the difference between the optimal value of the crop is closest to game.gameWeather, choose that crop at the optimal crop for that turn
+				for (var i = 0; i < game.maxturn; i++) {
+
+					var Adiff = game.gameWeather[i] - game.continuous.maxAweather;
+					var Bdiff = game.gameWeather[i] - game.continuous.maxBweather;
+
+					if (Math.abs(Adiff) < Math.abs(Bdiff)) {
+						optimalCrops[i] = "crop A";
+					}
+
+					else if (Math.abs(Bdiff) < Math.abs(Adiff)) {
+						optimalCrops[i] = "crop B";
+					}
+
+					else {
+						optimalCrops[i] = "crop A";
+					}
+				}
+				return optimalCrops;
+			}; // end of findOptimalCrop()
+
+			findOptimalCrop(); //sets value of optimalCrops array
+
+			function addScores (turn, beta, maxweather, maxpayout) {
+				payout = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
+
+				if (payout <= 0) {
+					payout = 0;
+					//console.log("The payout is " + payout);
+				}
+
+				else if (payout > 0) {
+					payout = parseFloat(payout);
+					//console.log("The payout for " + turn + " is " + payout);
+				}
+
+				return payout;
+			}; //end of addScores()
+
+			for (var i=0; i < game.maxturn; i++) {
+
+				if (optimalCrops[i] === "crop A") {
+					addScores(i, game.continuous.betaA, game.continuous.maxAweather, game.continuous.maxApayout); //call addScores() with values of crop A
+					game.maxScore += payout;
+					//console.log("The score is now " + maxScore);
+				}
+
+
+				else if (optimalCrops[i] === "crop B") {
+					addScores(i, game.continuous.betaB, game.continuous.maxBweather, game.continuous.maxBpayout); //call addScores() with values of crop B
+					game.maxScore += payout;
+					//console.log("The score is now " + maxScore);
+				}
+			}
+
+			return game.maxScore;
+
+		}; //end of calculateMaxScore()
 
 		calculateMaxScore();
 
