@@ -19,7 +19,7 @@ game = {
 
 	// Shared global variables:
 	cropchoice: "",
-	gamtaeWeher: [],
+	gamtaeWeher: [], // name intentionally scrambled
 	weatherReport : "",
 	histogram: [],
 	meanHistoricWeather: 0,
@@ -32,7 +32,6 @@ game = {
 	turnLength: 4000, //INPUT
 
 	//Points Counter
-	maxScore : 0,
 	score : 0, //starting score is 0
 
 	// Real Dollars Earned
@@ -50,6 +49,7 @@ game = {
 
 // Discrete game version
 	discrete: {
+
 		// Discrete weather crop payouts
 	    payoutAwet: 55, //INPUT
 		payoutAdry: 30, //INPUT
@@ -57,9 +57,10 @@ game = {
 		payoutBdry: 10, //INPUT
 		// Set rain threshold
 		threshold: 750, //INPUT
-		// Bonus thresholds, determined by code below
-		bonusOneTotal : 0, //formerly totalRandomPoints
-		bonusTwoTotal : 0, //formerly totalOptimalPoints
+		// maxScore and bonus thresholds, determined by code below
+		maxScore : 0,
+		bonusOneTotal : 0, // points expected by random play
+		bonusTwoTotal : 0, // points expected using optimal strategy
 		// Indifference point (at which crops A and B are equally good choices)
 		// and indifferentTurn (turn at which indiff point is reached)
 		// Values calculated below
@@ -73,6 +74,7 @@ game = {
 	continuous: {
 		// Bonuses are manually determined as a percentage of maxScore
 		// Change the percentage of maxScore using firstBonusThreshold and secondBonusThreshold
+		maxScore: 5000, //INPUT
 		firstBonusThreshold: .75, //INPUT
 		secondBonusThreshold: .90, //INPUT
 		// actual bonus points -- bonusOneTotal, bonusTwoTotal -- are calculated below using the percentages above
@@ -328,9 +330,9 @@ $(function initializeGame (gameVersionObject) {
 				for (var i=0; i < game.maxturn; i++)
 
 				{
-				game.maxScore += optimalCrops[i]
+				game.discrete.maxScore += optimalCrops[i]
 				}
-			return game.maxScore;
+			return game.discrete.maxScore;
 		};
 
 		calculateMaxScore();
@@ -491,7 +493,7 @@ $(function initializeGame (gameVersionObject) {
 		function bonusHeight (bonus1, bonus2) {
 
 			var pixelHeight = parseFloat($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
-			var pointsPerPixelRatio = game.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
+			var pointsPerPixelRatio = game.discrete.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
 
 			$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 			$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
@@ -1139,84 +1141,17 @@ $(function initializeGame (gameVersionObject) {
 
 		drawQuadratic();
 
-		//Calculate Max Score --------------------------------------
-
-		function calculateMaxScore () {
-
-			var optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
-			var payout = 0; //local payout variable for calculating maxScore
-
-			function findOptimalCrop () {
-			//Strategy: if the difference between the optimal value of the crop is closest to game.gameWeather, choose that crop at the optimal crop for that turn
-				for (var i = 0; i < game.maxturn; i++) {
-
-					var Adiff = game.gamtaeWeher[i] - game.continuous.maxAweather;
-					var Bdiff = game.gamtaeWeher[i] - game.continuous.maxBweather;
-
-					if (Math.abs(Adiff) < Math.abs(Bdiff)) {
-						optimalCrops[i] = "crop A";
-					}
-
-					else if (Math.abs(Bdiff) < Math.abs(Adiff)) {
-						optimalCrops[i] = "crop B";
-					}
-
-					else {
-						optimalCrops[i] = "crop A";
-					}
-				}
-				return optimalCrops;
-			}; // end of findOptimalCrop()
-
-			findOptimalCrop(); //sets value of optimalCrops array
-
-			function addScores (turn, beta, maxweather, maxpayout) {
-				payout = beta * Math.pow((game.gamtaeWeher[game.turn] - maxweather), 2) + maxpayout;
-
-				if (payout <= 0) {
-					payout = 0;
-					//console.log("The payout is " + payout);
-				}
-
-				else if (payout > 0) {
-					payout = parseFloat(payout);
-					//console.log("The payout for " + turn + " is " + payout);
-				}
-
-				return payout;
-			}; //end of addScores()
-
-			for (var i=0; i < game.maxturn; i++) {
-
-				if (optimalCrops[i] === "crop A") {
-					addScores(i, game.continuous.betaA, game.continuous.maxAweather, game.continuous.maxApayout); //call addScores() with values of crop A
-					game.maxScore += payout;
-					//console.log("The score is now " + maxScore);
-				}
-
-
-				else if (optimalCrops[i] === "crop B") {
-					addScores(i, game.continuous.betaB, game.continuous.maxBweather, game.continuous.maxBpayout); //call addScores() with values of crop B
-					game.maxScore += payout;
-					//console.log("The score is now " + maxScore);
-				}
-			}
-
-			return game.maxScore;
-
-		}; //end of calculateMaxScore()
-
-		calculateMaxScore();
+		//Calculate Bonuses --------------------------------------
 
 		// Calculate bonus points and fill in bonus-marker values
 		function bonusHeight (threshold1, threshold2, bonus1, bonus2) {
 
 			var pixelHeight = parseFloat($("#points_bar").css("height")); //gets CSS height of points bar, in pixels
-			var pointsPerPixelRatio = game.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
+			var pointsPerPixelRatio = game.continuous.maxScore/pixelHeight; //this ratio applies to points bar up until bonus 2
 
 			// Total bonuses are equal to a percentage of maxScore, determined manually in game object
-			bonus1 = parseFloat(threshold1*game.maxScore);
-			bonus2 = parseFloat(threshold2*game.maxScore);
+			bonus1 = parseFloat(threshold1*game.continuous.maxScore);
+			bonus2 = parseFloat(threshold2*game.continuous.maxScore);
 			game.continuous.bonusOneTotal = bonus1;
 			game.continuous.bonusTwoTotal = bonus2;
 
@@ -1900,7 +1835,14 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 		};
 
-		function movePointsFlag () { //increase height of #points_flag using absolute positioning
+		function movePointsFlag (maxScore) { //increase height of #points_flag using absolute positioning
+				if (gameVersion.discreteWeather) {
+					maxScore = game.discrete.maxScore;
+				}
+
+				else {
+					maxScore = game.continuous.maxScore;
+				}
 
 				//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
 				var pixelHeight = parseFloat($("#points_bar").css("height"));
@@ -1912,7 +1854,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 				var fillHeight = parseFloat($("#points_fill").css("height"));
 
 				//Ratio of points per pixel
-				var pointsPerPixelRatio = game.maxScore/pixelHeight; //use game.maxScore for now
+				var pointsPerPixelRatio = maxScore/pixelHeight;
 
 				//Points_counter moves upward this number of pixels per turn, depending on the turn payout
 				var perTurnHeight = payout/pointsPerPixelRatio;
