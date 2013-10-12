@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: true, //INPUT
+	discreteWeather: false, //INPUT
 	testing: true //INPUT
 };
 
@@ -83,7 +83,7 @@ game = {
 	continuous: {
 		// Bonuses are manually determined as a percentage of maxScore
 		// Change the percentage of maxScore using firstBonusThreshold and secondBonusThreshold
-		maxScore: 5000, //INPUT
+		maxScore: 1000, //INPUT
 		firstBonusThreshold: .75, //INPUT
 		secondBonusThreshold: .90, //INPUT
 		// Continuous weather crop payouts -- enter here
@@ -478,7 +478,7 @@ $(function initializeGame (gameVersionObject) {
 		calculateOptimalPlayPoints();
 
 
-	// Populate discrete opening dialogs
+	// Populate empty spans with discrete-specific data
 
 		function writeCropPayout (payoutAwet, payoutAdry, payoutBwet, payoutBdry) {
 			$("table").find("td#payoutAwet").text(payoutAwet );
@@ -488,7 +488,7 @@ $(function initializeGame (gameVersionObject) {
 		};
 		writeCropPayout (game.discrete.payoutAwet, game.discrete.payoutAdry, game.discrete.payoutBwet, game.discrete.payoutBdry);
 
-		//fills in data for bar graph
+		//Populates opening dialogs
 		$("#weather_type").text(" weather ");
 		$("#weather_modifier").text(" rainy");
 		var dryPercent = ((1000-game.discrete.threshold)/1000)*100;
@@ -497,9 +497,6 @@ $(function initializeGame (gameVersionObject) {
 		$(".wet_percent").text(wetPercent + "%");
 		$("#sun_probability").css("height", dryPercent);
 		$("#rain_probability").css("height", wetPercent);
-		//fills in bonus information
-		$("#bonus_one_instructions").text(parseInt(game.bonusOneTotal));
-		$("#bonus_two_instructions").text(parseInt(game.bonusTwoTotal));
 
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>> end of initializeDiscrete function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -1116,8 +1113,7 @@ $(function initializeGame (gameVersionObject) {
 
 		drawQuadratic();
 
-	// Populate continuous opening dialogs
-		//fills in historic weather info
+	// Populate opening dialogs with continuous-specific data
 		$("#weather_type").text(" mean yearly rainfall ");
 		$("#mean_rainfall").text(parseInt(game.meanHistoricWeather) + " inches of rain");
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1167,16 +1163,16 @@ $(function initializeGame (gameVersionObject) {
 		$("#bonus1value").text(parseInt(bonus1));
 		$("#bonus2value").text(parseInt(bonus2));
 
-		// Fill in bonus information in opening dialog
+		// Populate bonus information spans in opening dialogs
 		$("#bonus_one_instructions").text(parseInt(game.bonusOneTotal));
-		$("#bonus_two_instructions").text(parseInt(" and " + game.bonusTwoTotal));
+		$("#bonus_two_instructions").text(" and " + parseInt(game.bonusTwoTotal));
 
 		return game.bonusOneTotal, game.bonusTwoTotal;
 	};
 
 	bonusHeight(game.bonusOneTotal, game.bonusTwoTotal);
 
-	//Populate spans in opening dialogs
+	//Populate shared spans in opening dialogs
 
 	//Turn Counter
 	$("#turns_counter").text(game.turn + "/" + game.maxturn);
@@ -1868,6 +1864,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 				//Points_counter moves upward this number of pixels per turn, depending on the turn payout
 				var perTurnHeight = payout/pointsPerPixelRatio;
 
+				// If player has already reached bonus 2
 				if (game.score > game.bonusTwoTotal) {
 					var remainingHeight = pixelHeight - fillHeight;
 					var remainingPixelsPerTurn = remainingHeight/(game.maxturn-game.turn);
