@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: false, //INPUT
+	discreteWeather: true, //INPUT
 	testing: true //INPUT
 };
 
@@ -1097,7 +1097,7 @@ $(function initializeGame (gameVersionObject) {
 				return arrayName;
 			}; // end of determineHistoricWeather()
 
-			if (historicBoolean === "false") {
+			if (historicBoolean === false) {
 				applyClimateChange();
 			}
 
@@ -1144,7 +1144,6 @@ $(function initializeGame (gameVersionObject) {
 			}
 
 		}
-
 
 		else if (!gameVersion.discreteWeather) {
 
@@ -1841,53 +1840,57 @@ function updateGame (payout) { //this function is called and given arguments ins
 		};
 
 		function movePointsFlag (maxScore) { //increase height of #points_flag using absolute positioning
-				if (gameVersion.discreteWeather) {
-					maxScore = game.discrete.maxScore;
+			var indifferentTurn = game.discrete.indifferentTurn;
+
+			if (gameVersion.discreteWeather && indifferentTurn <= game.maxturn-1 && indifferentTurn > 0) {
+				maxScore = game.discrete.maxScore;
+			}
+
+			else if (gameVersion.discreteWeather && (indifferentTurn > game.maxturn-1 || indifferentTurn <= 0)) {
+				maxScore = game.bonusOneTotal;
+			}
+
+			else if (!gameVersion.discreteWeather) {
+				maxScore = game.bonusTwoTotal;
+			}
+
+			//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
+			var pixelHeight = parseFloat($("#points_bar").css("height"));
+
+			//Current CSS position for #points_flag "bottom" as an integer
+			var flagHeight = parseFloat($("#points_flag").css("bottom"));
+
+			//Current CSS height of #points_fill with "height" as an integer
+			var fillHeight = parseFloat($("#points_fill").css("height"));
+
+			//Ratio of points per pixel
+			var pointsPerPixelRatio = maxScore/pixelHeight;
+
+			//Points_counter moves upward this number of pixels per turn, depending on the turn payout
+			var perTurnHeight = payout/pointsPerPixelRatio;
+
+			// If player has already reached bonus 2
+			if (game.score > game.bonusTwoTotal) {
+				var remainingPixelsPerTurn;
+
+				if (oldscore < game.bonusTwoTotal && newscore >= game.bonusTwoTotal) {
+					var remainingHeight = pixelHeight - fillHeight;
+					remainingPixelsPerTurn = remainingHeight/((game.maxturn-game.turn)+0.5);
 				}
 
-				else {
-					maxScore = game.bonusTwoTotal;
-				}
+				flagHeight+=remainingPixelsPerTurn;
+				fillHeight = flagHeight+20;
+			}
 
-				//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
-				var pixelHeight = parseFloat($("#points_bar").css("height"));
+			else {
+				// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
+				flagHeight+=perTurnHeight;
+				fillHeight = flagHeight + 20;
+			}
 
-				//Current CSS position for #points_flag "bottom" as an integer
-				var flagHeight = parseFloat($("#points_flag").css("bottom"));
-
-				//Current CSS height of #points_fill with "height" as an integer
-				var fillHeight = parseFloat($("#points_fill").css("height"));
-
-				//Ratio of points per pixel
-				var pointsPerPixelRatio = maxScore/pixelHeight;
-
-				//Points_counter moves upward this number of pixels per turn, depending on the turn payout
-				var perTurnHeight = payout/pointsPerPixelRatio;
-
-				// If player has already reached bonus 2
-				if (game.score > game.bonusTwoTotal) {
-					var remainingHeight;
-					var remainingPixelsPerTurn;
-
-					if (oldscore < game.bonusTwoTotal && newscore >= game.bonusTwoTotal) {
-						remainingHeight = pixelHeight - fillHeight;
-						remainingPixelsPerTurn = remainingHeight/(game.maxturn-game.turn);
-						return remainingHeight, remainingPixelsPerTurn;
-					}
-
-					flagHeight+=remainingPixelsPerTurn;
-					fillHeight = flagHeight+20;
-				}
-
-				else {
-					// Add perTurnHeight pixels to increase height of #points_flag and #points_fill
-					flagHeight+=perTurnHeight;
-					fillHeight = flagHeight + 20;
-
-					// Set new heights in CSS style rules for #points_flag and #points_fill
-					$("#points_flag").css("bottom", flagHeight);
-					$("#points_fill").css("height", fillHeight);
-				}
+			// Set new heights in CSS style rules for #points_flag and #points_fill
+			$("#points_flag").css("bottom", flagHeight);
+			$("#points_fill").css("height", fillHeight);
 
 		};
 
