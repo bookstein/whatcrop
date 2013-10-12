@@ -25,7 +25,7 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 10, //INPUT
+    maxturn : 15, //INPUT
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
@@ -1846,7 +1846,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 				}
 
 				else {
-					maxScore = game.continuous.maxScore;
+					maxScore = game.bonusTwoTotal;
 				}
 
 				//Height of #points_bar as an integer, as defined by its CSS rule (in pixels)
@@ -1866,8 +1866,14 @@ function updateGame (payout) { //this function is called and given arguments ins
 
 				// If player has already reached bonus 2
 				if (game.score > game.bonusTwoTotal) {
-					var remainingHeight = pixelHeight - fillHeight;
-					var remainingPixelsPerTurn = remainingHeight/(game.maxturn-game.turn);
+					var remainingHeight;
+					var remainingPixelsPerTurn;
+
+					if (oldscore < game.bonusTwoTotal && newscore >= game.bonusTwoTotal) {
+						remainingHeight = pixelHeight - fillHeight;
+						remainingPixelsPerTurn = remainingHeight/(game.maxturn-game.turn);
+						return remainingHeight, remainingPixelsPerTurn;
+					}
 
 					flagHeight+=remainingPixelsPerTurn;
 					fillHeight = flagHeight+20;
