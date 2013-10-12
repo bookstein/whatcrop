@@ -350,7 +350,7 @@
 						<li><span class="code">addTurn</span> progresses the game to the next turn after <span class="code">game.turnLength</span> time.</li>
 						<li class="indent">Using if-else statements, it determines if the game will continue. If <span class="code">game.gameOver = false</span>, the game continues.</li>
 						<li class="indent">Two turns before <span class="code">maxturn</span>, <span class="code">gameOver</span> is set to <span class="code">true</span>. Therefore, after the game updates at <span class="code">maxturn-1</span>, the game is over. (maxturn number of turns has been taken at maxturn-1 due to zero-indexing)</li>
-						<li class="indent"><span class="code">addTurn</span> is the last function called inside <span class="code">updateGame</span>, so that the code doesn't run until current data has been captured by the server.</li>
+						<li class="indent"><span class="code">addTurn</span> is the last function called inside <span class="code">updateGame</span>, so that the turn doesn't change until data for the current turn has been captured by the server.</li>
 						<li><span class="code">newScore</span> changes the height and readout of the points bar to reflect the new game score.</li>
 						<li><span class="code">endGame</span> is called if <span class="code">gameOver = true</span>. After <span class="code">game.turnLength</span> period of time, the ending screen and dialog will appear.</li>
 						<li class="indent">This function populates the end dialog and causes a <span class="code">modal</span> background to cover up the  game screen.</li>
@@ -367,7 +367,7 @@
 						<li class="indent">the score for the turn (<span class="code">payout</span>)</li>
 					</ul>
 					<br>
-				</seciton>
+				</section>
 				<section id="js8">
 					<h3>8. Grow Button</h3>
 					<a href="#js"><span class="back">Back to top</span></a>
@@ -494,7 +494,7 @@
 				<a href="#nav"><span class="back">Back to top</span></a>
 				<ul>
 					<li>Search the CSS file using the class or ID of any given element to find its styling rules.</li>
-					<li>The first ~50 lines of code come from a CSS template called the Meyers reset.</li>
+					<li>The first 50 lines of code come from a CSS template called the Meyers reset.</li>
 					<li>CSS rules are roughly organized along the same lines as index.html, grouped by the elements they apply to.</li>
 				</ul>
 			</section>
