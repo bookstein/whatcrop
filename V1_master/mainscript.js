@@ -1117,27 +1117,12 @@ $(function initializeGame (gameVersionObject) {
 		drawQuadratic();
 
 	// Populate continuous opening dialogs
-		//fills in bonus information
-		$("#bonus_one_instructions").text(parseInt(game.bonusOneTotal));
-		$("#bonus_two_instructions").text(parseInt(game.bonusTwoTotal));
 		//fills in historic weather info
 		$("#weather_type").text(" mean yearly rainfall ");
 		$("#mean_rainfall").text(parseInt(game.meanHistoricWeather) + " inches of rain");
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-	//Shared Initialization (Both Games)
-
-	//Turn Counter
-	$("#turns_counter").text(game.turn + "/" + game.maxturn);
-
-	//Points Counter - writes initial score to points counter
-	$("#point_count").html("<h5>"+game.score+"</h5>");
-
-	// Real Dollars Earned - writes initial realDollars to dollars counter
-	$("#dollars_counter").text("$"+game.realDollars+"0");
-
-	// Populate spans in opening and ending dialogs
-	$(".turncount_instructions").text(game.maxturn);
+//Shared Initialization (Both Games)
 
 	// Set height of bonus markers
 	function bonusHeight (bonus1, bonus2) {
@@ -1152,7 +1137,10 @@ $(function initializeGame (gameVersionObject) {
 			//If the indifference point is not reached during the game, show only bonus 1
 			if (game.discrete.indifferentTurn <=0 || game.discrete.indifferentTurn >= game.maxturn-1) {
 				$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
-				$("bonus2marker, #bonusLabel2").addClass("hidden");
+				$("#bonus2marker, #bonusLabel2, #bonus_two_instructions").addClass("hidden");
+
+				// Fill in bonus information in opening dialog
+				$("#bonus_one_instructions").text(parseInt(game.bonusOneTotal));
 			}
 
 			else {
@@ -1173,15 +1161,35 @@ $(function initializeGame (gameVersionObject) {
 			game.bonusTwoTotal = bonus2;
 		}
 
-			$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
-			$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
-			$("#bonus1value").text(parseInt(bonus1));
-			$("#bonus2value").text(parseInt(bonus2));
+		// Position bonus markers and labels on points_bar
+		$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
+		$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
+		$("#bonus1value").text(parseInt(bonus1));
+		$("#bonus2value").text(parseInt(bonus2));
 
-			return game.bonusOneTotal, game.bonusTwoTotal;
+		// Fill in bonus information in opening dialog
+		$("#bonus_one_instructions").text(parseInt(game.bonusOneTotal));
+		$("#bonus_two_instructions").text(parseInt(" and " + game.bonusTwoTotal));
+
+		return game.bonusOneTotal, game.bonusTwoTotal;
 	};
 
 	bonusHeight(game.bonusOneTotal, game.bonusTwoTotal);
+
+	//Populate spans in opening dialogs
+
+	//Turn Counter
+	$("#turns_counter").text(game.turn + "/" + game.maxturn);
+
+	//Points Counter - writes initial score to points counter
+	$("#point_count").html("<h5>"+game.score+"</h5>");
+
+	// Real Dollars Earned - writes initial realDollars to dollars counter
+	$("#dollars_counter").text("$"+game.realDollars+"0");
+
+	// Populate # of turns to play in opening and ending dialogs
+	$(".turncount_instructions").text(game.maxturn);
+
 
 	// If gameVersion.testing = true, the test function at the bottom of the code will run after initialization is complete
 	if (gameVersion.testing) {
