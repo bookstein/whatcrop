@@ -1419,7 +1419,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 				//A2.i. dry game.gameWeather is "dry" (drier than normal)
 				else if (game.gamtaeWeher[game.turn] < game.continuous.maxAweather - .33*Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA)) && game.gamtaeWeher[game.turn] >= game.continuous.maxAweather - Math.sqrt(game.continuous.maxApayout/(-game.continuous.betaA))) {
-					game.weatherReport = "dry enough";
+					game.weatherReport = "a little too dry";
 					$("#dryA").removeClass("hidden");
 				}
 
@@ -1484,7 +1484,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 			} // end of B
 
-			if (game.weatherReport === "optimal weather" || game.weatherReport === "wet enough" || game.weatherReport === "too wet") {
+			if (game.weatherReport === "optimal weather" || game.weatherReport === "a little too wet" || game.weatherReport === "too wet") {
 				rainsound.currenttime=0;
 				rainsound.play();
 			}
