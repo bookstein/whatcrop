@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: false, //INPUT
+	discreteWeather: true, //INPUT
 	testing: true //INPUT
 };
 
@@ -25,7 +25,7 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 50, //INPUT
+    maxturn : 15, //INPUT
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
@@ -61,6 +61,8 @@ game = {
 		maxScore : 0,
 		bonusOneTotal : 0, // points expected by random play
 		bonusTwoTotal : 0, // points expected using optimal strategy
+		optimalChoice1: [], // arrays used to calculate bonusTwoTotal
+		optimalChoice2: [],
 		// Indifference point (at which crops A and B are equally good choices)
 		// and indifferentTurn (turn at which indiff point is reached)
 		// Values calculated below
@@ -295,6 +297,7 @@ $(function initializeGame (gameVersionObject) {
 
 
 		optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
+		//calculates total maximum possible score (game.discrete.maxScore)
 
 		function calculateOptimalCrop () {
 
@@ -323,7 +326,6 @@ $(function initializeGame (gameVersionObject) {
 		};
 
 		calculateOptimalCrop(); //sets value of optimalCrops array
-
 
 
 		function calculateMaxScore () {
@@ -412,14 +414,14 @@ $(function initializeGame (gameVersionObject) {
 		// Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
 
 
-		optimalChoice1 = [];
-		optimalChoice2 = [];
+		//optimalChoice1 = [];
+		//optimalChoice2 = [];
 
 		// bonusTwoTotal is the number of points expected with optimal play
 
 		for (var i = 0; i <= game.maxturn; ++i) {
-			optimalChoice1[i] = 0;
-			optimalChoice2[i] = 0;
+			game.discrete.optimalChoice1[i] = 0;
+			game.discrete.optimalChoice2[i] = 0;
 		};
 
 		function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
@@ -433,7 +435,7 @@ $(function initializeGame (gameVersionObject) {
 						result[i] = probDry[i] * payoutDry + probWet[i] * payoutWet;
 					};
 
-					return result; //exit point
+					return result;
 		};
 
 
@@ -441,14 +443,14 @@ $(function initializeGame (gameVersionObject) {
 
 			// If A is the first optimal choice (regardless of starting pWet and pDry)
 			if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) > (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
-				optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
-				optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
+				game.discrete.optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
+				game.discrete.optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn-1, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
 			}
 
 			// If B is first optimal choice (regardless of starting pWet and pDry)
 			else if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) <= (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
-				optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
-				optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
+				game.discrete.optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
+				game.discrete.optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn-1, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
 			}
 
 		};
@@ -463,7 +465,7 @@ $(function initializeGame (gameVersionObject) {
 
 			function sumtotal1 () {
 				for (var i = 0; i <= game.discrete.indifferentTurn; i++) {
-					totalOptimalChoice1 += optimalChoice1[i];
+					totalOptimalChoice1 += game.discrete.optimalChoice1[i];
 				}
 				return totalOptimalChoice1;
 			};
@@ -472,7 +474,7 @@ $(function initializeGame (gameVersionObject) {
 
 			function sumtotal2 () {
 				for (var i = 0; i > game.discrete.indifferentTurn, i < game.maxturn; i++) {
-					totalOptimalChoice2 += optimalChoice2[i];
+					totalOptimalChoice2 += game.discrete.optimalChoice2[i];
 				}
 
 				return totalOptimalChoice2;
