@@ -273,18 +273,18 @@ $(function initializeGame (gameVersionObject) {
 			if (weatherArray[i] <= thresholdArray[i])
 				{
 					var perTurnWeather = "Wet";
-					game.gameWeather[i] = perTurnWeather;
+					game.gamtaeWeher[i] = perTurnWeather;
 				}
 
 			else if (weatherArray[i] > thresholdArray[i])
 				{
 					var perTurnWeather = "Dry";
-					game.gameWeather[i] = perTurnWeather;
+					game.gamtaeWeher[i] = perTurnWeather;
 				}
 
 				} //end of for loop
 
-			return game.gameWeather;
+			return game.gamtaeWeher;
 		};
 
 		makeGameWeather(); //sets value of gameWeather (array containing weather for length of game)
@@ -299,19 +299,19 @@ $(function initializeGame (gameVersionObject) {
 			for (var i = 0; i < game.maxturn; i++) {
 
 
-				if (game.gameWeather[i] === "Wet" && game.discrete.payoutAwet > game.discrete.payoutBwet)
+				if (game.gamtaeWeher[i] === "Wet" && game.discrete.payoutAwet > game.discrete.payoutBwet)
 				{
 					optimalCrops[i] = game.discrete.payoutAwet;
 				}
-				else if (game.gameWeather[i] === "Dry" && game.discrete.payoutAdry > game.discrete.payoutBdry)
+				else if (game.gamtaeWeher[i] === "Dry" && game.discrete.payoutAdry > game.discrete.payoutBdry)
 				{
 					optimalCrops[i] = game.discrete.payoutAdry;
 				}
-				else if (game.gameWeather[i] === "Wet" && game.discrete.payoutBwet > game.discrete.payoutAwet)
+				else if (game.gamtaeWeher[i] === "Wet" && game.discrete.payoutBwet > game.discrete.payoutAwet)
 				{
 					optimalCrops[i] = game.discrete.payoutBwet;
 				}
-				else if (game.gameWeather[i] === "Dry" && game.discrete.payoutBdry > game.discrete.payoutAdry)
+				else if (game.gamtaeWeher[i] === "Dry" && game.discrete.payoutBdry > game.discrete.payoutAdry)
 				{
 					optimalCrops[i] = game.discrete.payoutBdry;
 				}
@@ -1133,7 +1133,7 @@ $(function initializeGame (gameVersionObject) {
 
 		}; // end function makeGameWeather
 
-		makeGameWeather(game.gameWeather, false);
+		makeGameWeather(game.gamtaeWeher, false);
 
 		makeGameWeather(game.continuous.historicWeather, true);
 
@@ -1150,8 +1150,8 @@ $(function initializeGame (gameVersionObject) {
 			//Strategy: if the difference between the optimal value of the crop is closest to game.gameWeather, choose that crop at the optimal crop for that turn
 				for (var i = 0; i < game.maxturn; i++) {
 
-					var Adiff = game.gameWeather[i] - game.continuous.maxAweather;
-					var Bdiff = game.gameWeather[i] - game.continuous.maxBweather;
+					var Adiff = game.gamtaeWeher[i] - game.continuous.maxAweather;
+					var Bdiff = game.gamtaeWeher[i] - game.continuous.maxBweather;
 
 					if (Math.abs(Adiff) < Math.abs(Bdiff)) {
 						optimalCrops[i] = "crop A";
@@ -1171,7 +1171,7 @@ $(function initializeGame (gameVersionObject) {
 			findOptimalCrop(); //sets value of optimalCrops array
 
 			function addScores (turn, beta, maxweather, maxpayout) {
-				payout = beta * Math.pow((game.gameWeather[game.turn] - maxweather), 2) + maxpayout;
+				payout = beta * Math.pow((game.gamtaeWeher[game.turn] - maxweather), 2) + maxpayout;
 
 				if (payout <= 0) {
 					payout = 0;
