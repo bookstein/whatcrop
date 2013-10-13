@@ -25,7 +25,7 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 35, //INPUT
+    maxturn : 15, //INPUT
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
@@ -397,9 +397,9 @@ $(function initializeGame (gameVersionObject) {
 		calculateRandomPlayPoints();
 
 		// Calculate Ante-Hoc Optimal Play bonus threshold ---------------------------------
-
 		// bonusTwoTotal is the number of points expected with optimal play
 
+		// Fill arrays optimalChoice1/2 with zeroes
 		for (var i = 0; i <= game.maxturn-1; i++) {
 			game.discrete.optimalChoice1[i] = 0;
 			game.discrete.optimalChoice2[i] = 0;
@@ -420,7 +420,6 @@ $(function initializeGame (gameVersionObject) {
 
 		};
 
-
 		function optimalScenario () {
 
 		// if indifferentTurn has a value between 0 (not inclusive) and maxturn (inclusive)
@@ -436,13 +435,13 @@ $(function initializeGame (gameVersionObject) {
 					game.discrete.optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, game.discrete.payoutBdry, game.discrete.payoutBwet);
 					game.discrete.optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn-1, game.discrete.payoutAdry, game.discrete.payoutAwet);
 				}
+
+				calculateOptimalPlayPoints(game.discrete.indifferentTurn, game.maxturn-1);
 			}
 
 		// if indifferentTurn has a value equal to or less than 0, or is greater than or equal to maxturn
 
 			else if (game.discrete.indifferentTurn <=0 || game.discrete.indifferentTurn >= game.maxturn) {
-
-				//game.discrete.indifferentTurn = game.maxturn;
 
 				if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) > (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
 					game.discrete.optimalChoice1 = optimalChoice(0, game.maxturn-1, game.discrete.payoutAdry, game.discrete.payoutAwet);
@@ -451,19 +450,19 @@ $(function initializeGame (gameVersionObject) {
 				else if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) <= (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
 					game.discrete.optimalChoice1 = optimalChoice(0, game.maxturn-1, game.discrete.payoutBdry, game.discrete.payoutBwet);
 				}
+
+				calculateOptimalPlayPoints(game.maxturn-1, game.maxturn-1);
 			}
-		};
+		}; // end of optimalScenario()
 
-		function calculateOptimalPlayPoints () {
-
-			optimalScenario();
+		function calculateOptimalPlayPoints (turn, max) {
 
 			var totalOptimalChoice1 = 0;
 			var totalOptimalChoice2 = 0;
 
 
 			function sumtotal1 () {
-				for (var i = 0; i <= game.discrete.indifferentTurn; i++) {
+				for (var i = 0; i <= turn; i++) {
 					totalOptimalChoice1 += game.discrete.optimalChoice1[i];
 				}
 				return totalOptimalChoice1;
@@ -471,26 +470,23 @@ $(function initializeGame (gameVersionObject) {
 
 			var total1 = sumtotal1();
 
-			if (game.discrete.indifferentTurn < game.maxturn) {
+			function sumtotal2 () {
+				for (var i = turn; i <= max; i++) {
+					totalOptimalChoice2 += game.discrete.optimalChoice2[i];
+				}
 
-				function sumtotal2 () {
-					for (var i = 0; i > game.discrete.indifferentTurn, i <= game.maxturn-1; i++) {
-						totalOptimalChoice2 += game.discrete.optimalChoice2[i];
-					}
+				return totalOptimalChoice2;
+			};
 
-					return totalOptimalChoice2;
-				};
-
-				var total2 = sumtotal2();
-			}
+			var total2 = sumtotal2();
 
 			//bonusTwoTotal is the sum of total optimal choice 1 + total optimal choice 2
 			game.bonusTwoTotal = parseFloat(totalOptimalChoice1 + totalOptimalChoice2);
 
 			return game.bonusTwoTotal;
-		};
+		}; // end of calculateOptimalPlayPoints();
 
-		calculateOptimalPlayPoints();
+		optimalScenario();
 
 			/*optimalScenario();
 
