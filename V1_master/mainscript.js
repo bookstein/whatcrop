@@ -25,7 +25,7 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 15, //INPUT
+    maxturn : 35, //INPUT
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
@@ -66,6 +66,8 @@ game = {
 		threshold: 750, //INPUT
 		// maxScore and bonus thresholds, determined by code below
 		maxScore : 0,
+		//array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
+		optimalCrops: [],
 		//bonusOneTotal : 0, // points expected by random play
 		//bonusTwoTotal : 0, // points expected using optimal strategy
 		optimalChoice1: [], // arrays used to calculate bonusTwoTotal
@@ -164,7 +166,7 @@ $(function initializeGame (gameVersionObject) {
 		game.discrete.climateArray[13] = 0;
 		game.discrete.climateArray[14] = 0;
 		game.discrete.climateArray[15] = 0;
-		/*game.discrete.climateArray[16] = 25;
+		game.discrete.climateArray[16] = 25;
 		game.discrete.climateArray[17] = 25;
 		game.discrete.climateArray[18] = 25;
 		game.discrete.climateArray[19] = 25;
@@ -185,7 +187,7 @@ $(function initializeGame (gameVersionObject) {
 		game.discrete.climateArray[34] = 25;
 		game.discrete.climateArray[35] = 25;
 		game.discrete.climateArray[36] = 0;
-		game.discrete.climateArray[37] = 0;
+		/*game.discrete.climateArray[37] = 0;
 		game.discrete.climateArray[38] = 0;
 		game.discrete.climateArray[39] = 0;
 		game.discrete.climateArray[40] = 0;
@@ -286,9 +288,6 @@ $(function initializeGame (gameVersionObject) {
 		//Calculate Max Score --------------------------------------
 
 
-		optimalCrops = []; //array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
-		//calculates total maximum possible score (game.discrete.maxScore)
-
 		function calculateOptimalCrop () {
 
 			for (var i = 0; i < game.maxturn; i++) {
@@ -296,34 +295,32 @@ $(function initializeGame (gameVersionObject) {
 
 				if (game.gamtaeWeher[i] === "Wet" && game.discrete.payoutAwet > game.discrete.payoutBwet)
 				{
-					optimalCrops[i] = game.discrete.payoutAwet;
+					game.discrete.optimalCrops[i] = game.discrete.payoutAwet;
 				}
 				else if (game.gamtaeWeher[i] === "Dry" && game.discrete.payoutAdry > game.discrete.payoutBdry)
 				{
-					optimalCrops[i] = game.discrete.payoutAdry;
+					game.discrete.optimalCrops[i] = game.discrete.payoutAdry;
 				}
 				else if (game.gamtaeWeher[i] === "Wet" && game.discrete.payoutBwet > game.discrete.payoutAwet)
 				{
-					optimalCrops[i] = game.discrete.payoutBwet;
+					game.discrete.optimalCrops[i] = game.discrete.payoutBwet;
 				}
 				else if (game.gamtaeWeher[i] === "Dry" && game.discrete.payoutBdry > game.discrete.payoutAdry)
 				{
-					optimalCrops[i] = game.discrete.payoutBdry;
+					game.discrete.optimalCrops[i] = game.discrete.payoutBdry;
 				}
 			} //end of for loop
 
-			return optimalCrops;
+			return game.discrete.optimalCrops;
 		};
 
 		calculateOptimalCrop(); //sets value of optimalCrops array
 
 
 		function calculateMaxScore () {
-				for (var i=0; i < game.maxturn; i++)
-
-				{
-				game.discrete.maxScore += optimalCrops[i]
-				}
+			for (var i=0; i < game.maxturn; i++) {
+				game.discrete.maxScore += game.discrete.optimalCrops[i]
+			}
 			return game.discrete.maxScore;
 		};
 
@@ -2141,6 +2138,11 @@ function test () {
 
 		console.log(game.discrete);
 
+		if (game.discrete.climateArray.length < game.maxturn-1) {
+			alert("WARNING: You need to add data in the discrete game's climateArray. You don't have " + game.maxturn + " (maxturn) number of rows!");
+			console.log("WARNING: You need to more data in the discrete game's climateArray. You don't have maxturn number of rows!");
+		}
+
 		if (game.discrete.indifferencePoint >=1 || game.discrete.indifferencePoint <=0) {
 			alert("WARNING: the indifference point between A and B is: " + game.discrete.indifferencePoint + "!");
 			console.log("WARNING: the indifference point between A and B is: " + game.discrete.indifferencePoint + "!");
@@ -2161,7 +2163,11 @@ function test () {
 	else if (!gameVersion.discreteWeather) {
 
 		console.log(game.continuous);
-	}
+
+		if (game.continuous.climateArray.length < game.maxturn-1) {
+			alert("WARNING: You need to add data in the continuous game's climateArray. You don't have " + game.maxturn + " (maxturn) number of rows!");
+			console.log("WARNING: You need to more data in the continuous game's climateArray. You don't have maxturn number of rows!");
+		}
 
 };
 
