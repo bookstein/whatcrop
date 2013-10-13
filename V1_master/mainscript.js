@@ -164,7 +164,7 @@ $(function initializeGame (gameVersionObject) {
 		game.discrete.climateArray[13] = 0;
 		game.discrete.climateArray[14] = 0;
 		game.discrete.climateArray[15] = 0;
-		game.discrete.climateArray[16] = 25;
+		/*game.discrete.climateArray[16] = 25;
 		game.discrete.climateArray[17] = 25;
 		game.discrete.climateArray[18] = 25;
 		game.discrete.climateArray[19] = 25;
@@ -222,7 +222,7 @@ $(function initializeGame (gameVersionObject) {
 		game.discrete.climateArray[71] = 0;
 		game.discrete.climateArray[72] = 0;
 		game.discrete.climateArray[73] = 0;
-		game.discrete.climateArray[74] = 0;
+		game.discrete.climateArray[74] = 0;*/
 
 
 		// Create list of random numbers that will become weather-------
@@ -2135,18 +2135,25 @@ $("#grow").on("click", function () {
 
 function test () {
 
-	console.log("Now running test function! See below for output");
+	console.log("Now running test function! See console for output");
 
 	if (gameVersion.discreteWeather) {
 
 		console.log(game.discrete);
 
 		if (game.discrete.indifferencePoint >=1 || game.discrete.indifferencePoint <=0) {
+			alert("WARNING: the indifference point between A and B is: " + game.discrete.indifferencePoint + "!");
 			console.log("WARNING: the indifference point between A and B is: " + game.discrete.indifferencePoint + "!");
 		}
 
 		if (game.discrete.indifferentTurn == 0 || game.discrete.indifferentTurn >= game.maxturn) {
+			alert("There is no turn during the game at which the probability of dry weather equals the indifference point!");
 			console.log("There is no turn during the game at which the probability of dry weather equals the indifference point!");
+		}
+
+		if (game.bonusTwoTotal < game.bonusOneTotal) {
+			alert("Bonus 2 is less than bonus 1!  " + game.bonusTwoTotal + "<" + game.bonusOneTotal);
+			console.log("Bonus 2 is less than bonus 1!  " + game.bonusTwoTotal + "<" + game.bonusOneTotal);
 		}
 
 	}
