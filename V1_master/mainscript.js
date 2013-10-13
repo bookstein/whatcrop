@@ -25,7 +25,7 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 35, //INPUT
+    maxturn : 10, //INPUT
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
@@ -351,7 +351,6 @@ $(function initializeGame (gameVersionObject) {
 
 				if ((pWet[i] === game.discrete.indifferencePoint) || (pWet[i] > game.discrete.indifferencePoint && pWet[i+1] < game.discrete.indifferencePoint)
 						|| (pWet[i] < game.discrete.indifferencePoint && pWet[i+1] > game.discrete.indifferencePoint)) {
-					console.log("at this i, crossed indiff point " + i);
 					game.discrete.indifferentTurn = i; // indifferentTurn is the turn at which the indifferencePoint has already been crossed; hence, i+1
 				}
 			}
@@ -1160,19 +1159,6 @@ $(function initializeGame (gameVersionObject) {
 		if (gameVersion.discreteWeather) {
 
 			var pointsPerPixelRatio = game.discrete.maxScore/pixelHeight; //this ratio applies to points_bar up until bonus 2
-
-			//If the indifference point is not reached during the game, show only bonus 1
-			if (game.discrete.indifferentTurn <=0 || game.discrete.indifferentTurn >= game.maxturn-1) {
-				$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
-				$("#bonus2marker, #bonusLabel2, #bonus_two_instructions").addClass("hidden");
-
-				// Fill in bonus information in opening dialog
-				$("#bonus_one_instructions").text(parseInt(game.bonusOneTotal));
-			}
-
-			else {
-				console.log("Assigning bonuses as normal");
-			}
 
 		}
 
