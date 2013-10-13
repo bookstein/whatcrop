@@ -1956,7 +1956,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 	        draggable: false,
 	        position: {my: 'top', at: 'top+25%', of: '#farm'},
 	        stack: false,
-	        width: '30%'
+	        width: '375'
 	    });
 
 		// Bonus dialogs
