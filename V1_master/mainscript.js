@@ -351,8 +351,8 @@ $(function initializeGame (gameVersionObject) {
 
 				if ((pWet[i] === game.discrete.indifferencePoint) || (pWet[i] > game.discrete.indifferencePoint && pWet[i+1] < game.discrete.indifferencePoint)
 						|| (pWet[i] < game.discrete.indifferencePoint && pWet[i+1] > game.discrete.indifferencePoint)) {
-
-					game.discrete.indifferentTurn = i+1; // indifferentTurn is the turn at which the indifferencePoint has already been crossed; hence, i+1
+					console.log("at this i, crossed indiff point " + i);
+					game.discrete.indifferentTurn = i; // indifferentTurn is the turn at which the indifferencePoint has already been crossed; hence, i+1
 				}
 			}
 
@@ -417,19 +417,19 @@ $(function initializeGame (gameVersionObject) {
 			};
 
 			return result;
+
 		};
 
 
 		function optimalScenario () {
 
 		// if indifferentTurn has a value between 0 (not inclusive) and maxturn (inclusive)
-			if (game.discrete.indifferentTurn > 0 && game.discrete.indifferentTurn <= game.maxturn) {
+			if (game.discrete.indifferentTurn > 0 && game.discrete.indifferentTurn < game.maxturn) {
 				// If A is the first optimal choice (regardless of starting pWet and pDry)
 				if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) > (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
 					game.discrete.optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, game.discrete.payoutAdry, game.discrete.payoutAwet);
 					game.discrete.optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn-1, game.discrete.payoutBdry, game.discrete.payoutBwet);
 				}
-
 
 				// If B is first optimal choice (regardless of starting pWet and pDry)
 				else if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) <= (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
@@ -438,11 +438,11 @@ $(function initializeGame (gameVersionObject) {
 				}
 			}
 
-		// if indifferentTurn has a value equal to or less than 0, or is greater than maxturn
+		// if indifferentTurn has a value equal to or less than 0, or is greater than or equal to maxturn
 
-			else if (game.discrete.indifferentTurn <=0 || game.discrete.indifferentTurn > game.maxturn) {
+			else if (game.discrete.indifferentTurn <=0 || game.discrete.indifferentTurn >= game.maxturn) {
 
-				game.discrete.indifferentTurn = game.maxturn+1;
+				//game.discrete.indifferentTurn = game.maxturn;
 
 				if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) > (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
 					game.discrete.optimalChoice1 = optimalChoice(0, game.maxturn-1, game.discrete.payoutAdry, game.discrete.payoutAwet);
@@ -461,6 +461,42 @@ $(function initializeGame (gameVersionObject) {
 			var totalOptimalChoice1 = 0;
 			var totalOptimalChoice2 = 0;
 
+
+			function sumtotal1 () {
+				for (var i = 0; i <= game.discrete.indifferentTurn; i++) {
+					totalOptimalChoice1 += game.discrete.optimalChoice1[i];
+				}
+				return totalOptimalChoice1;
+			};
+
+			var total1 = sumtotal1();
+
+			if (game.discrete.indifferentTurn < game.maxturn) {
+
+				function sumtotal2 () {
+					for (var i = 0; i > game.discrete.indifferentTurn, i <= game.maxturn-1; i++) {
+						totalOptimalChoice2 += game.discrete.optimalChoice2[i];
+					}
+
+					return totalOptimalChoice2;
+				};
+
+				var total2 = sumtotal2();
+			}
+
+			//bonusTwoTotal is the sum of total optimal choice 1 + total optimal choice 2
+			game.bonusTwoTotal = parseFloat(totalOptimalChoice1 + totalOptimalChoice2);
+
+			return game.bonusTwoTotal;
+		};
+
+		calculateOptimalPlayPoints();
+
+			/*optimalScenario();
+
+			var totalOptimalChoice1 = 0;
+			var totalOptimalChoice2 = 0;
+
 			for (var i = 0; i <= game.maxturn-1; i++) {
 				totalOptimalChoice1 += game.discrete.optimalChoice1[i];
 				totalOptimalChoice2 += game.discrete.optimalChoice2[i];
@@ -474,7 +510,7 @@ $(function initializeGame (gameVersionObject) {
 			return game.bonusTwoTotal;
 		};
 
-		calculateOptimalPlayPoints();
+		calculateOptimalPlayPoints();*/
 
 
 	// Populate empty spans with discrete-specific data
