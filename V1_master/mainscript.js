@@ -64,17 +64,14 @@ game = {
 		payoutBdry: 10, //INPUT
 		// Set rain threshold
 		threshold: 750, //INPUT
-		// maxScore and bonus thresholds, determined by code below
-		maxScore : 0,
-		//array of scores per turn if you knew the weather (post-hoc optimal) and chose the correct crop for each turn
+		//array of scores if you knew the weather (post-hoc optimal) and chose the correct crop for each turn; used to calculate maxScore
 		optimalCrops: [],
-		//bonusOneTotal : 0, // points expected by random play
-		//bonusTwoTotal : 0, // points expected using optimal strategy
+		// maximum possible score, determined by optimalCrops
+		maxScore : 0,
 		optimalChoice1: [], // arrays used to calculate bonusTwoTotal
 		optimalChoice2: [],
 		// Indifference point (at which crops A and B are equally good choices)
 		// and indifferentTurn (turn at which indiff point is reached)
-		// Values calculated below
 		indifferencePoint: 0,
 		indifferentTurn: 0,
 		// Climate change per turn
@@ -287,10 +284,9 @@ $(function initializeGame (gameVersionObject) {
 
 		//Calculate Max Score --------------------------------------
 
-
 		function calculateOptimalCrop () {
 
-			for (var i = 0; i < game.maxturn; i++) {
+			for (var i = 0; i <= game.maxturn-1; i++) {
 
 
 				if (game.gamtaeWeher[i] === "Wet" && game.discrete.payoutAwet > game.discrete.payoutBwet)
@@ -316,9 +312,9 @@ $(function initializeGame (gameVersionObject) {
 
 		calculateOptimalCrop(); //sets value of optimalCrops array
 
-
+		// Adds up values inside game.discrete.optimalCrops, which is equal to the maximum possible score
 		function calculateMaxScore () {
-			for (var i=0; i < game.maxturn; i++) {
+			for (var i=0; i <= game.maxturn-1; i++) {
 				game.discrete.maxScore += game.discrete.optimalCrops[i]
 			}
 			return game.discrete.maxScore;
@@ -345,20 +341,22 @@ $(function initializeGame (gameVersionObject) {
 
 		function findTurnAtIndifferencePoint () { //calculates the turn at which the probability of wet weather equals the indiff point
 
-			for (var i = 0; i < game.maxturn ; i++) {
-					pWet[i] = thresholdArray[i]/1000;
+			for (var i = 0; i <= game.maxturn-1; i++) {
+				pWet[i] = thresholdArray[i]/1000;
 			}
-
 
 			// if 1) the probablility of wet weather (pWet) equals the indifference point, or if 2) the probability crosses the indifference point from above or 3) below,
 				// the turn at which it equals/crosses the indifferencePoint is stored in variable indifferentTurn
-			for (var i = 0; i < game.maxturn; i++) {
-				if ((pWet[i] === game.discrete.indifferencePoint) || (pWet[i+1] > game.discrete.indifferencePoint && pWet[i-1] < game.discrete.indifferencePoint)
-						|| (pWet[i+1] < game.discrete.indifferencePoint && pWet[i-1] > game.discrete.indifferencePoint)) {
-					game.discrete.indifferentTurn = i;
-					return game.discrete.indifferentTurn;
+			for (var i = 0; i <= game.maxturn-1; i++) {
+
+				if ((pWet[i] === game.discrete.indifferencePoint) || (pWet[i] > game.discrete.indifferencePoint && pWet[i+1] < game.discrete.indifferencePoint)
+						|| (pWet[i] < game.discrete.indifferencePoint && pWet[i+1] > game.discrete.indifferencePoint)) {
+
+					game.discrete.indifferentTurn = i+1; // indifferentTurn is the turn at which the indifferencePoint has already been crossed; hence, i+1
 				}
 			}
+
+			return game.discrete.indifferentTurn;
 		};
 
 				// C. Calculate probability of dry weather for all turns.
@@ -367,7 +365,7 @@ $(function initializeGame (gameVersionObject) {
 		pDry=[];
 
 		function calculateProbabilityDry () { // Creates an array, pDry, that lists the probability of dry weather for all turns.
-			for (var i = 0; i < game.maxturn; i++) {
+			for (var i = 0; i <= game.maxturn-1; i++) {
 				pDry[i] = (1-pWet[i]);
 			}
 
@@ -384,12 +382,12 @@ $(function initializeGame (gameVersionObject) {
 		function calculateRandomPlayPoints () { //expected points earned by picking A or B randomly
 
 			randomPoints = [];
-			for (var i = 0; i < game.maxturn; i++) {
+			for (var i = 0; i <= game.maxturn-1; i++) {
 				randomPoints[i] = .5*pDry[i]*game.discrete.payoutAdry + .5*pWet[i]*game.discrete.payoutAwet +
 				 .5*pDry[i]*game.discrete.payoutBdry + .5*pWet[i]*game.discrete.payoutBwet;
 			}
 
-			for (var i = 0; i < game.maxturn; i++) {
+			for (var i = 0; i <= game.maxturn-1; i++) {
 				game.bonusOneTotal += parseFloat(randomPoints[i]);
 			}
 
@@ -402,40 +400,58 @@ $(function initializeGame (gameVersionObject) {
 
 		// bonusTwoTotal is the number of points expected with optimal play
 
-		for (var i = 0; i <= game.maxturn; ++i) {
+		for (var i = 0; i <= game.maxturn-1; i++) {
 			game.discrete.optimalChoice1[i] = 0;
 			game.discrete.optimalChoice2[i] = 0;
 		};
 
-		function optimalChoice (min, max, probDry, probWet, payoutDry, payoutWet) {
-					var result = [];
+		function optimalChoice (min, max, payoutDry, payoutWet) {
+			var result = [];
 
-					for (var i = 0; i < min; i++) {
-						result[i]=0;
-					};
+			for (var i = 0; i < min; i++) {
+				result[i]=0;
+			};
 
-					for (var i = min; i <= max; i++) {
-						result[i] = probDry[i] * payoutDry + probWet[i] * payoutWet;
-					};
+			for (var i = min; i <= max; i++) {
+				result[i] = pDry[i] * payoutDry + pWet[i] * payoutWet;
+			};
 
-					return result;
+			return result;
 		};
 
 
 		function optimalScenario () {
 
-			// If A is the first optimal choice (regardless of starting pWet and pDry)
-			if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) > (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
-				game.discrete.optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
-				game.discrete.optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn-1, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
+		// if indifferentTurn has a value between 0 (not inclusive) and maxturn (inclusive)
+			if (game.discrete.indifferentTurn > 0 && game.discrete.indifferentTurn <= game.maxturn) {
+				// If A is the first optimal choice (regardless of starting pWet and pDry)
+				if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) > (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
+					game.discrete.optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, game.discrete.payoutAdry, game.discrete.payoutAwet);
+					game.discrete.optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn-1, game.discrete.payoutBdry, game.discrete.payoutBwet);
+				}
+
+
+				// If B is first optimal choice (regardless of starting pWet and pDry)
+				else if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) <= (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
+					game.discrete.optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, game.discrete.payoutBdry, game.discrete.payoutBwet);
+					game.discrete.optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn-1, game.discrete.payoutAdry, game.discrete.payoutAwet);
+				}
 			}
 
-			// If B is first optimal choice (regardless of starting pWet and pDry)
-			else if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) <= (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
-				game.discrete.optimalChoice1 = optimalChoice(0, game.discrete.indifferentTurn, pDry, pWet, game.discrete.payoutBdry, game.discrete.payoutBwet);
-				game.discrete.optimalChoice2 = optimalChoice(game.discrete.indifferentTurn, game.maxturn-1, pDry, pWet, game.discrete.payoutAdry, game.discrete.payoutAwet);
-			}
+		// if indifferentTurn has a value equal to or less than 0, or is greater than maxturn
 
+			else if (game.discrete.indifferentTurn <=0 || game.discrete.indifferentTurn > game.maxturn) {
+
+				game.discrete.indifferentTurn = game.maxturn+1;
+
+				if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) > (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
+					game.discrete.optimalChoice1 = optimalChoice(0, game.maxturn-1, game.discrete.payoutAdry, game.discrete.payoutAwet);
+				}
+
+				else if ((game.discrete.payoutAwet*pWet[0]+game.discrete.payoutAdry*pDry[0]) <= (game.discrete.payoutBwet*pWet[0]+game.discrete.payoutBdry*pDry[0])) {
+					game.discrete.optimalChoice1 = optimalChoice(0, game.maxturn-1, game.discrete.payoutBdry, game.discrete.payoutBwet);
+				}
+			}
 		};
 
 		function calculateOptimalPlayPoints () {
@@ -445,29 +461,15 @@ $(function initializeGame (gameVersionObject) {
 			var totalOptimalChoice1 = 0;
 			var totalOptimalChoice2 = 0;
 
+			for (var i = 0; i <= game.maxturn-1; i++) {
+				totalOptimalChoice1 += game.discrete.optimalChoice1[i];
+				totalOptimalChoice2 += game.discrete.optimalChoice2[i];
+			}
 
-			function sumtotal1 () {
-				for (var i = 0; i <= game.discrete.indifferentTurn; i++) {
-					totalOptimalChoice1 += game.discrete.optimalChoice1[i];
-				}
-				return totalOptimalChoice1;
-			};
+			console.log("optimal choice 1 sum total = " + totalOptimalChoice1);
+			console.log("optimal choice 2 sum total = " + totalOptimalChoice2);
 
-			var total1 = sumtotal1();
-
-			function sumtotal2 () {
-				for (var i = 0; i > game.discrete.indifferentTurn, i < game.maxturn; i++) {
-					totalOptimalChoice2 += game.discrete.optimalChoice2[i];
-				}
-
-				return totalOptimalChoice2;
-			};
-
-			var total2 = sumtotal2();
-
-			//bonusTwoTotal is the sum of total optimal choice 1 + total optimal choice 2
-			game.bonusTwoTotal = parseFloat(total1 + total2);
-			//alert("total optimal points: " + bonusTwoTotal);
+			game.bonusTwoTotal = parseFloat(totalOptimalChoice1+totalOptimalChoice2);
 
 			return game.bonusTwoTotal;
 		};
@@ -2168,6 +2170,7 @@ function test () {
 			alert("WARNING: You need to add data in the continuous game's climateArray. You don't have " + game.maxturn + " (maxturn) number of rows!");
 			console.log("WARNING: You need to more data in the continuous game's climateArray. You don't have maxturn number of rows!");
 		}
+	}
 
 };
 
