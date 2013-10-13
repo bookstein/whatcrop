@@ -1312,12 +1312,12 @@ $(function initializeGame (gameVersionObject) {
 
 	BrowserDetect.init();
 
-	if (BrowserDetect.browser == "Chrome" || BrowserDetect.browser == "Firefox" || BrowserDetect.browser == "Safari") {
+	if (BrowserDetect.browser == "Chrome" || BrowserDetect.browser == "Firefox" || BrowserDetect.browser == "Safari" || BrowserDetect.browser == "Opera") {
 		bootstrap();
 	}
 
 	else {
-		alert("WARNING: Your browser might not be compatible with the game. Please use only Firefox, Chrome, or Safari to play.");
+		alert("WARNING: Your browser might not be compatible with the game. Please use only Firefox, Chrome, Safari, or Opera to play.");
 		var agree = prompt("Please type the letter 'Y' if you would like to proceed. Otherwise, your score will not be recorded.");
 
 		if (agree === "Y" || agree === "y") {
