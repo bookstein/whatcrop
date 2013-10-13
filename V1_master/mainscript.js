@@ -1181,7 +1181,7 @@ $(function initializeGame (gameVersionObject) {
 
 		// Populate bonus information spans in opening dialogs
 		$("#bonus_one_instructions").text(parseInt(game.bonusOneTotal));
-		$("#bonus_two_instructions").text(" and " + parseInt(game.bonusTwoTotal));
+		$("#bonus_two_instructions").text(parseInt(game.bonusTwoTotal));
 
 		return game.bonusOneTotal, game.bonusTwoTotal;
 	};
@@ -1201,7 +1201,6 @@ $(function initializeGame (gameVersionObject) {
 
 	// Populate # of turns to play in opening and ending dialogs
 	$(".turncount_instructions").text(game.maxturn);
-
 
 	// If gameVersion.testing = true, the test function at the bottom of the code will run after initialization is complete
 	if (gameVersion.testing) {

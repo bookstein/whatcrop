@@ -249,15 +249,10 @@ nav h5 {
 	height: 150px;
 }
 
-.glow {
-	/* outer shadows  (note the rgba is red, green, blue, alpha) */
-	-webkit-box-shadow: 0 0 15px 10px rgba(255, 204, 51, 1);
-	-moz-box-shadow: 0 0 15px 10px rgba(255, 204, 51, 1);
-	box-shadow: 0 0 15px 10px rgba(255, 204, 51, 1);
-	/* rounded corners */
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+.final_screenshot {
+	width: 150px;
+	padding: 5px;
+	border: 2px dotted #3f3c30;
 }
 
 
