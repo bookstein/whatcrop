@@ -265,13 +265,13 @@ $(function initializeGame (gameVersionObject) {
 		function makeGameWeather() { //makeGameWeather takes local empty variable "perTurnWeather" and gives it value depending on parameter x
 
 		for (var i = 0; i < game.maxturn; i++) {
-			if (weatherArray[i] >= thresholdArray[i])
+			if (weatherArray[i] > thresholdArray[i])
 				{
 					var perTurnWeather = "Wet";
 					game.gamtaeWeher[i] = perTurnWeather;
 				}
 
-			else if (weatherArray[i] < thresholdArray[i])
+			else if (weatherArray[i] <= thresholdArray[i])
 				{
 					var perTurnWeather = "Dry";
 					game.gamtaeWeher[i] = perTurnWeather;
