@@ -233,7 +233,7 @@ $(function initializeGame (gameVersionObject) {
 				var weather = Math.floor((Math.random()*1000)+1);
 				weatherArray[i] = weather;
 			}
-
+			console.log("Weather array " + weatherArray);
 			return weatherArray;
 		};
 
@@ -252,6 +252,8 @@ $(function initializeGame (gameVersionObject) {
 			for (var i = 1; i < game.maxturn; i++) {
 				thresholdArray[i] = thresholdArray[i-1] - (game.discrete.climateArray[i-1]);
 			}
+
+			console.log("Threshold array " + thresholdArray);
 
 			return thresholdArray;
 		};
@@ -327,6 +329,7 @@ $(function initializeGame (gameVersionObject) {
 				// A. Check indifference point and calculate turn at which indifference point occurs
 
 		pWet = [];
+		pDry = [];
 
 		function checkIndifferencePoint () {
 			var indifference = (game.discrete.payoutBwet - game.discrete.payoutAwet)/(game.discrete.payoutAdry - game.discrete.payoutAwet + game.discrete.payoutBwet - game.discrete.payoutBdry);
@@ -342,7 +345,7 @@ $(function initializeGame (gameVersionObject) {
 		function findTurnAtIndifferencePoint () { //calculates the turn at which the probability of wet weather equals the indiff point
 
 			for (var i = 0; i <= game.maxturn-1; i++) {
-				pWet[i] = thresholdArray[i]/1000;
+				pWet[i] = 1-(thresholdArray[i]/1000);
 			}
 
 			// if 1) the probablility of wet weather (pWet) equals the indifference point, or if 2) the probability crosses the indifference point from above or 3) below,
@@ -361,7 +364,6 @@ $(function initializeGame (gameVersionObject) {
 				// C. Calculate probability of dry weather for all turns.
 				//How many points would you make playing by random chance as of the indifferentTurn?
 
-		pDry=[];
 
 		function calculateProbabilityDry () { // Creates an array, pDry, that lists the probability of dry weather for all turns.
 			for (var i = 0; i <= game.maxturn-1; i++) {
