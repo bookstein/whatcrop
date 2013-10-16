@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: true, //INPUT
+	discreteWeather: false, //INPUT
 	testing: true //INPUT
 };
 
@@ -1107,7 +1107,7 @@ $(function initializeGame (gameVersionObject) {
 			//Apply climateChange to normalizedArray as mean + Z0 * std_dev
 			function applyClimateChange () {
 				for (var i = 0; i < game.maxturn; i++) {
-					arrayName[i] = game.climateArray[i].mean + (normalizedArray[i]*game.climateArray[i].std_dev);
+					arrayName[i] = game.continuous.climateArray[i].mean + (normalizedArray[i]*game.continuous.climateArray[i].std_dev);
 
 					// ensures inches of rain will always be zero or greater
 					if (arrayName[i] <= 0) {
