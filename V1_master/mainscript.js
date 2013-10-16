@@ -250,7 +250,7 @@ $(function initializeGame (gameVersionObject) {
 			thresholdArray[0] = game.discrete.threshold; //sets first value equal to threshold
 
 			for (var i = 1; i < game.maxturn; i++) {
-				thresholdArray[i] = thresholdArray[i-1] - (game.discrete.climateArray[i]);
+				thresholdArray[i] = thresholdArray[i-1] - (game.discrete.climateArray[i-1]);
 			}
 
 			return thresholdArray;
