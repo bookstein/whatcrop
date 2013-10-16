@@ -331,6 +331,20 @@ $(function initializeGame (gameVersionObject) {
 		pWet = [];
 		pDry = [];
 
+
+		function calculateProbability () { // Creates arrays pWet and pDry that list the probability of wet weather and dry weather for all turns.
+			for (var i = 0; i <= game.maxturn-1; i++) {
+				pDry[i] = (thresholdArray[i]/1000);
+			}
+
+			for (var i = 0; i <= game.maxturn-1; i++) {
+				pWet[i] = 1-(pDry);
+			}
+
+			return pDry, pWet;
+		};
+
+
 		function checkIndifferencePoint () {
 			var indifference = (game.discrete.payoutBwet - game.discrete.payoutAwet)/(game.discrete.payoutAdry - game.discrete.payoutAwet + game.discrete.payoutBwet - game.discrete.payoutBdry);
 
@@ -340,20 +354,16 @@ $(function initializeGame (gameVersionObject) {
 			return game.discrete.indifferencePoint;
 		};
 
-				// B. on which turn does the probability of wet weather = indifference point?
+				// B. On which turn does the probability of dry weather = indifference point?
 
 		function findTurnAtIndifferencePoint () { //calculates the turn at which the probability of wet weather equals the indiff point
 
-			for (var i = 0; i <= game.maxturn-1; i++) {
-				pWet[i] = 1-(thresholdArray[i]/1000);
-			}
-
-			// if 1) the probablility of wet weather (pWet) equals the indifference point, or if 2) the probability crosses the indifference point from above or 3) below,
+			// if 1) the probablility of dry weather (pDry) equals the indifference point, or if 2) the probability crosses the indifference point from above or 3) below,
 				// the turn at which it equals/crosses the indifferencePoint is stored in variable indifferentTurn
 			for (var i = 0; i <= game.maxturn-1; i++) {
 
-				if ((pWet[i] === game.discrete.indifferencePoint) || (pWet[i] > game.discrete.indifferencePoint && pWet[i+1] < game.discrete.indifferencePoint)
-						|| (pWet[i] < game.discrete.indifferencePoint && pWet[i+1] > game.discrete.indifferencePoint)) {
+				if ((pDry[i] === game.discrete.indifferencePoint) || (pDry[i] > game.discrete.indifferencePoint && pDry[i+1] < game.discrete.indifferencePoint)
+						|| (pDry[i] < game.discrete.indifferencePoint && pDry[i+1] > game.discrete.indifferencePoint)) {
 					game.discrete.indifferentTurn = i; // indifferentTurn is the turn at which the indifferencePoint has already been crossed; hence, i+1
 				}
 			}
@@ -361,22 +371,10 @@ $(function initializeGame (gameVersionObject) {
 			return game.discrete.indifferentTurn;
 		};
 
-				// C. Calculate probability of dry weather for all turns.
-				//How many points would you make playing by random chance as of the indifferentTurn?
-
-
-		function calculateProbabilityDry () { // Creates an array, pDry, that lists the probability of dry weather for all turns.
-			for (var i = 0; i <= game.maxturn-1; i++) {
-				pDry[i] = (1-pWet[i]);
-			}
-
-			return pDry;
-		};
-
 		//Run all previous functions
+		calculateProbability();
 		checkIndifferencePoint();
 		findTurnAtIndifferencePoint();
-		calculateProbabilityDry();
 
 		// BonusOneTotal is total number of points expected with random play
 
