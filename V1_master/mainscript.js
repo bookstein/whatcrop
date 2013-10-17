@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: true, //INPUT
+	discreteWeather: false, //INPUT
 	testing: true //INPUT
 };
 
@@ -940,26 +940,6 @@ $(function initializeGame (gameVersionObject) {
 	    				  },
 					      axes: {
 
-			      			/*y2axis:{
-			      				label: "Relative frequency",
-			     				labelOptions: {
-	            					show: false,
-	            					fontFamily: 'Georgia, serif',
-	            					fontSize: '11pt'
-	        					},
-			          			//renderer: $.jqplot.CategoryAxisRenderer,
-			          			rendererOptions:{
-			                    	tickRenderer:$.jqplot.CanvasAxisTickRenderer
-			                    },
-			                	tickOptions:{
-			                        mark: "inside",
-			                        showLabel: showLabel,
-			                        //formatString: "%#.0f",
-			                        showMark: false,
-			                        showGridline: false
-			                    }
-			      			},*/
-
 			        		xaxis:{
 			        			ticks: ticksWeatherX,
 			        			borderWidth: 1.5,
@@ -1147,9 +1127,9 @@ $(function initializeGame (gameVersionObject) {
 
 			var pointsPerPixelRatio = game.continuous.maxScore/pixelHeight; //this ratio applies to points_bar up until bonus 2
 
-			// Total bonuses are equal to a percentage of maxScore, determined manually in game object
-			bonus1 = parseFloat(game.continuous.firstBonusThreshold*game.continuous.maxScore);
-			bonus2 = parseFloat(game.continuous.secondBonusThreshold*game.continuous.maxScore);
+			// Total bonuses are equal to a percentage of maxScore, determined manually in game object, rounded up to next integer
+			bonus1 = Math.ceil(game.continuous.firstBonusThreshold*game.continuous.maxScore);
+			bonus2 = Math.ceil(game.continuous.secondBonusThreshold*game.continuous.maxScore);
 			game.bonusOneTotal = bonus1;
 			game.bonusTwoTotal = bonus2;
 		}
@@ -1871,7 +1851,7 @@ function updateContinuous (beta, maxpayout, maxweather) {
 		}
 
 		else if (formula > 0) {
-			payout = parseFloat(formula);
+			payout = Math.ceil(formula); // payout rounded up to next integer
 		}
 
 		return payout;
@@ -1909,7 +1889,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 	    	$(".results").find("#weather_report").removeClass("emphasize").text(", which was " + game.weatherReport);
 	    }
 
-    	$(".results").find("#new_score").text(parseInt(payout) + " points");
+    	$(".results").find("#new_score").text(payout + " points");
 
     	$(".results").find("#chosen_crop").text(" for " + game.cropchoice);
 
@@ -2029,7 +2009,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 		animatePoints();
 
 		game.score += payout;
-		$("#point_count").html("<h5>" + parseInt(game.score) + "</h5>");
+		$("#point_count").html("<h5>" + game.score + "</h5>");
 
 		return game.score; //this updates the value of game score
 
@@ -2080,7 +2060,7 @@ function updateGame (payout) { //this function is called and given arguments ins
 		$("#sproutA").addClass("hidden");
 		$("#sproutB").addClass("hidden");
 		$("#playerID").text(game.gameID);
-		$("#total_score").text(parseInt(game.score));
+		$("#total_score").text(game.score);
 		$("#total_dollars").text(game.realDollars);
 
  		$( "#end_results" ).dialog({
