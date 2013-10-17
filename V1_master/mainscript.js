@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: false, //INPUT
+	discreteWeather: true, //INPUT
 	testing: true //INPUT
 };
 
@@ -319,6 +319,7 @@ $(function initializeGame (gameVersionObject) {
 			for (var i=0; i <= game.maxturn-1; i++) {
 				game.discrete.maxScore += game.discrete.optimalCrops[i]
 			}
+
 			return game.discrete.maxScore;
 		};
 
@@ -390,6 +391,7 @@ $(function initializeGame (gameVersionObject) {
 				game.bonusOneTotal += parseFloat(randomPoints[i]);
 			}
 
+			game.bonusOneTotal = Math.ceil(game.bonusOneTotal);  //rounds up total to next integer
 			return game.bonusOneTotal;
 		};
 
@@ -479,34 +481,13 @@ $(function initializeGame (gameVersionObject) {
 
 			var total2 = sumtotal2();
 
-			//bonusTwoTotal is the sum of total optimal choice 1 + total optimal choice 2
-			game.bonusTwoTotal = parseFloat(totalOptimalChoice1 + totalOptimalChoice2);
+			//bonusTwoTotal is the sum of total optimal choice 1 + total optimal choice 2, rounded up to next integer
+			game.bonusTwoTotal = Math.ceil(totalOptimalChoice1 + totalOptimalChoice2);
 
 			return game.bonusTwoTotal;
 		}; // end of calculateOptimalPlayPoints();
 
-		optimalScenario();
-
-			/*optimalScenario();
-
-			var totalOptimalChoice1 = 0;
-			var totalOptimalChoice2 = 0;
-
-			for (var i = 0; i <= game.maxturn-1; i++) {
-				totalOptimalChoice1 += game.discrete.optimalChoice1[i];
-				totalOptimalChoice2 += game.discrete.optimalChoice2[i];
-			}
-
-			console.log("optimal choice 1 sum total = " + totalOptimalChoice1);
-			console.log("optimal choice 2 sum total = " + totalOptimalChoice2);
-
-			game.bonusTwoTotal = parseFloat(totalOptimalChoice1+totalOptimalChoice2);
-
-			return game.bonusTwoTotal;
-		};
-
-		calculateOptimalPlayPoints();*/
-
+		optimalScenario(); // also calls calculateOptimalPlayPoints();
 
 	// Populate empty spans with discrete-specific data
 
