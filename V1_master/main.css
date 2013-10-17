@@ -353,10 +353,14 @@ td {
 	width: 150px;
 }
 
-#crop_payouts_chart, #continuous_history {
+#crop_payouts_chart, #history_histogram {
 	border: 3px dotted #eae9e6;
 	padding-right: 3px;
 	padding-left: 3px;
+}
+
+#history_histogram {
+	height: 200px;
 }
 
 #continuous_payout, #chartdiv {
