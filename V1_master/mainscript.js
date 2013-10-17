@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: false, //INPUT
+	discreteWeather: true, //INPUT
 	testing: true //INPUT
 };
 
@@ -25,7 +25,7 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 10, //INPUT
+    maxturn : 35, //INPUT
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
@@ -338,7 +338,7 @@ $(function initializeGame (gameVersionObject) {
 			}
 
 			for (var i = 0; i <= game.maxturn-1; i++) {
-				pWet[i] = 1-(pDry);
+				pWet[i] = 1-(pDry[i]);
 			}
 
 			return pDry, pWet;
@@ -1996,12 +1996,8 @@ function updateGame (payout) { //this function is called and given arguments ins
 		function movePointsFlag (maxScore) { //increase height of #points_flag using absolute positioning
 			var indifferentTurn = game.discrete.indifferentTurn;
 
-			if (gameVersion.discreteWeather && indifferentTurn <= game.maxturn-1 && indifferentTurn > 0) {
+			if (gameVersion.discreteWeather) {
 				maxScore = game.discrete.maxScore;
-			}
-
-			else if (gameVersion.discreteWeather && (indifferentTurn > game.maxturn-1 || indifferentTurn <= 0)) {
-				maxScore = game.bonusOneTotal;
 			}
 
 			else if (!gameVersion.discreteWeather) {
