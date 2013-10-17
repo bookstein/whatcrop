@@ -947,9 +947,9 @@ $(function initializeGame (gameVersionObject) {
 					       //pointLabels uses the final value in parabolaArray[i] as its data
 					          pointLabels: {
 					          	show: showData,
-					          	location:'n',
-					          	ypadding:3,
-					          	xpadding:3,
+					          	location:'nw',
+					          	ypadding: 3,
+					          	xpadding: 3,
 					          	formatString: "%#.0f"
 					          }
 					      },

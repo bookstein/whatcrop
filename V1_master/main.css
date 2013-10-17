@@ -201,6 +201,10 @@ nav h5 {
 	text-align: left;
 }
 
+#mean_rainfall {
+	color: #3811c9 !important;
+}
+
 #weather_bar_graph {
 	background-position: center;
 	height: 150px;
