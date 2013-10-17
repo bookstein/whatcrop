@@ -1560,20 +1560,16 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 
 			if (game.gamtaeWeher[game.turn] >= game.continuous.gameRoots.topRoot) {
 				rainOpacity = 1, sunOpacity = 0;
-				//console.log(rainOpacity, sunOpacity);
-				}
-
-			else if (game.gamtaeWeher[game.turn] > game.continuous.gameRoots.bottomRoot && game.gamtaeWeher[game.turn] < game.continuous.gameRoots.topRoot) {
-				rainOpacity = ((game.gamtaeWeher[game.turn] - game.continuous.gameRoots.bottomRoot)/(game.continuous.gameRoots.topRoot - game.continuous.gameRoots.bottomRoot));
-				sunOpacity = 1-rainOpacity;
-				//console.log("rain opacity: " + rainOpacity + " sun opacity: " + sunOpacity);
-
 			}
 
 			else if (game.gamtaeWeher[game.turn] <= game.continuous.gameRoots.bottomRoot) {
 				rainOpacity = 0;
 				sunOpacity = 1;
-				//console.log(rainOpacity, sunOpacity);
+			}
+
+			else {
+				rainOpacity = ((game.gamtaeWeher[game.turn] - game.continuous.gameRoots.bottomRoot)/(game.continuous.gameRoots.topRoot - game.continuous.gameRoots.bottomRoot));
+				sunOpacity = 1-rainOpacity;
 			}
 
 		}; // end of continuous [weather opacity]
@@ -1600,6 +1596,10 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 			else {
 				$("#rain").addClass("displayWeather").removeClass("hidden").animate({opacity: displayRain});
 				$("#sun").addClass("displayWeather").removeClass("hidden").animate({opacity: displaySun});
+
+				if (displaySun > displayRain) {
+					$("#sun").css("z-index", "4");
+				}
 			}
 		};
 
@@ -1799,7 +1799,7 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	function fadeWeather () {
 		rainOpacity = 0;
 		sunOpacity = 0;
-	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden");
+	   	$("#sun, #rain").removeClass("displayWeather").addClass("hidden").css("z-index", "3");
 	   	$(".croprows").addClass("hidden");
 	   	$(".plant").removeClass("select");
 	   	$(".plant, .plant_img, #grow").removeClass("hidden").animate({opacity: 1}, 1000);
