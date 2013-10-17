@@ -726,8 +726,6 @@ $(function initializeGame (gameVersionObject) {
 
 					originalCount();
 
-					//console.log("[" + parseInt(intervalBottom) + ", " + count + "]");
-
 					function scaleToYaxis () {
 						// Takes the average of maxA and maxB payout, multiples count by a percentage of the average,
 						// to scale "count" up to the y-axis units of payout points.
@@ -1106,7 +1104,7 @@ $(function initializeGame (gameVersionObject) {
 
 	// Populate opening dialogs with continuous-specific data
 		$("#weather_type").text(" mean yearly rainfall ");
-		$("#mean_rainfall").text(parseInt(game.continuous.climateArray[0].mean) + " inches of rain");
+		$("#mean_rainfall").text(game.continuous.climateArray[0].mean + " inches of rain");
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 //Shared Initialization (Both Games)
@@ -1137,12 +1135,12 @@ $(function initializeGame (gameVersionObject) {
 		// Position bonus markers and labels on points_bar
 		$("#bonus1marker, #bonusLabel1").css("bottom", (bonus1/pointsPerPixelRatio));
 		$("#bonus2marker, #bonusLabel2").css("bottom", (bonus2/pointsPerPixelRatio));
-		$("#bonus1value").text(parseInt(bonus1));
-		$("#bonus2value").text(parseInt(bonus2));
+		$("#bonus1value").text(bonus1);
+		$("#bonus2value").text(bonus2);
 
 		// Populate bonus information spans in opening dialogs
-		$("#bonus_one_instructions").text(parseInt(game.bonusOneTotal));
-		$("#bonus_two_instructions").text(parseInt(game.bonusTwoTotal));
+		$("#bonus_one_instructions").text(game.bonusOneTotal);
+		$("#bonus_two_instructions").text(game.bonusTwoTotal);
 
 		return game.bonusOneTotal, game.bonusTwoTotal;
 	};
