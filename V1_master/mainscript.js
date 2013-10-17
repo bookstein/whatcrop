@@ -1045,10 +1045,10 @@ $(function initializeGame (gameVersionObject) {
 			setOptions("payoutObj", true, true);
 			var payoutChart = $.jqplot("crop_payouts_chart", game.continuous.payoutData, game.continuous.optionsObj.payoutObj);
 
-	// CHART 2: draw graph in #continuous_history (for intro dialog) using optionsObj above
+	// CHART 2: draw graph in #history_histogram (for intro dialog) using optionsObj above
 
 			setOptions("historyObj", false, false);
-			var historyChart = $.jqplot("continuous_history", [game.histogram, [null], [null]], game.continuous.optionsObj.historyObj);
+			var historyChart = $.jqplot("history_histogram", [game.histogram, [null], [null]], game.continuous.optionsObj.historyObj);
 
 
 	//CHART 3: draw graph in sidebar #chartdiv using optionsObj above
