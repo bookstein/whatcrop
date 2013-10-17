@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: true, //INPUT
+	discreteWeather: false, //INPUT
 	testing: true //INPUT
 };
 
@@ -841,7 +841,7 @@ $(function initializeGame (gameVersionObject) {
 				seriesArray: [],
 				canvasOverlayLine: {verticalLine:{
 						name: 'avgHistoricWeather',
-			        	x: game.meanHistoricWeather,
+			        	x: game.continuous.climateArray[0].mean,
 			        	lineWidth: 4,
 			        	color: '#3811c9', //blue
 			        	shadow: false
@@ -1145,7 +1145,7 @@ $(function initializeGame (gameVersionObject) {
 
 	// Populate opening dialogs with continuous-specific data
 		$("#weather_type").text(" mean yearly rainfall ");
-		$("#mean_rainfall").text(parseInt(game.meanHistoricWeather) + " inches of rain");
+		$("#mean_rainfall").text(parseInt(game.continuous.climateArray[0].mean) + " inches of rain");
 	}; // >>>>>>>>>>>>>>>>>>>>>>>>>> end of initializeContinuous function <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 //Shared Initialization (Both Games)
