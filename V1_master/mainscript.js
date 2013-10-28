@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: false, //INPUT
+	discreteWeather: true, //INPUT
 	testing: true //INPUT
 };
 
@@ -63,7 +63,7 @@ game = {
 		payoutBwet: 80, //INPUT
 		payoutBdry: 10, //INPUT
 		// Set rain threshold
-		threshold: 750, //INPUT
+		threshold: 250, //INPUT
 		//array of scores if you knew the weather (post-hoc optimal) and chose the correct crop for each turn; used to calculate maxScore
 		optimalCrops: [],
 		// maximum possible score, determined by optimalCrops
@@ -502,8 +502,8 @@ $(function initializeGame (gameVersionObject) {
 		//Populates opening dialogs
 		$("#weather_type").text(" weather ");
 		$("#weather_modifier").text(" rainy");
-		var dryPercent = ((1000-game.discrete.threshold)/1000)*100;
-		var wetPercent = 100 - ((1000-game.discrete.threshold)/1000)*100;
+		var wetPercent = ((1000-game.discrete.threshold)/1000)*100;
+		var dryPercent = 100 - ((1000-game.discrete.threshold)/1000)*100;
 		$(".dry_percent").text(dryPercent + "%");
 		$(".wet_percent").text(wetPercent + "%");
 		$("#sun_probability").css("height", dryPercent);
