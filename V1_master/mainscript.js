@@ -7,15 +7,15 @@ $(document).ready(function(){
 
 // Switches game between discrete and continuous versions
 gameVersion = {
-	discreteWeather: true, //INPUT
-	testing: true //INPUT
+	discreteWeather: gameParameters.discreteWeather,
+	testing: gameParameters.testing
 };
 
 // Game-wide variables
 game = {
 
 	// Title of game
-	gameLabel: 'c1', //INPUT
+	gameLabel: gameParameters.gameLabel,
 
 	// Shared global variables:
 	cropchoice: "",
@@ -25,17 +25,17 @@ game = {
 	meanHistoricWeather: 0,
 
 	// Set number of turns per game
-    maxturn : 35, //INPUT
+    maxturn : gameParameters.maxturn,
 	//Turn Counter
 	turn : 0,
 	// Total length of each turn (in milliseconds) from clicking #grow button to new turn
-	turnLength: 4000, //INPUT
+	turnLength: gameParameters.turnLength,
 
 	//Points Counter
 	score : 0, //starting score is 0
 
 	// Real Dollars Earned
-	realDollars : 0.50, //INPUT
+	realDollars : gameParameters.realDollars,
 
 	// Signals end of game when true
 	gameOver: false,
@@ -51,19 +51,19 @@ game = {
 	bonusTwoTotal: 0,
 
 	// Bonus payments, in dollars
-	bonusOneDollars: 1.25, //INPUT
-	bonusTwoDollars: 0.75, //INPUT
+	bonusOneDollars: gameParameters.bonusOneDollars,
+	bonusTwoDollars: gameParameters.bonusTwoDollars
 
 // Discrete game version
 	discrete: {
 
 		// Discrete weather crop payouts
-	    payoutAwet: 55, //INPUT
-		payoutAdry: 30, //INPUT
-		payoutBwet: 80, //INPUT
-		payoutBdry: 10, //INPUT
+	    payoutAwet: gameParameters.payoutAwet,
+		payoutAdry: gameParameters.payoutAdry,
+		payoutBwet: gameParameters.payoutBwet,
+		payoutBdry: gameParameters.payoutBdry,
 		// Set rain threshold
-		threshold: 250, //INPUT
+		threshold: gameParameters.threshold,
 		//array of scores if you knew the weather (post-hoc optimal) and chose the correct crop for each turn; used to calculate maxScore
 		optimalCrops: [],
 		// maximum possible score, determined by optimalCrops
@@ -74,31 +74,31 @@ game = {
 		// and indifferentTurn (turn at which indiff point is reached)
 		indifferencePoint: 0,
 		indifferentTurn: 0,
-		// Climate change per turn
-		climateArray: []
+		// Incremental climate change per turn
+		climateArray: gameParameters.discrete_climateArray
 	},
 
 // Continuous game version
 	continuous: {
 		// Bonuses are manually determined as a percentage of maxScore
 		// Change the percentage of maxScore using firstBonusThreshold and secondBonusThreshold
-		maxScore: 1000, //INPUT
-		firstBonusThreshold: .75, //INPUT
-		secondBonusThreshold: .90, //INPUT
+		maxScore: gameParameters.maxScore,
+		firstBonusThreshold: gameParameters.firstBonusThreshold,
+		secondBonusThreshold: gameParameters.secondBonusThreshold,
 		// Continuous weather crop payouts -- enter here
-		betaA : -.004, //INPUT
-		betaB : -.001, //INPUT
-		maxApayout : 200, //P*(A) //INPUT
-		maxAweather : 800, //w*(A) //INPUT
-		maxBpayout : 120, //P*(B) //INPUT
-		maxBweather : 450, //w*(B) //INPUT
+		betaA : gameParameters.betaA,
+		betaB : gameParameters.betaB,
+		maxApayout : gameParameters.maxApayout,
+		maxAweather : gameParameters.maxAweather,
+		maxBpayout : gameParameters.maxBpayout,
+		maxBweather : gameParameters.maxBweather,
 		// Roots of payout parabolas, calculated below
 		gameRoots : {
 			topRoot: 0,
 			bottomRoot: 0
 		},
-		// Manually set climate change by turn, up to game.maxturn
-		climateArray : [],
+		// Weather distribution per turn ({mean, std_dev})
+		climateArray : gameParameters.continuous_climateArray,
 
 		// Contains continuous game chart options. setOptions() function stores completed objects here
 		optionsObj: {
