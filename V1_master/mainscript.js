@@ -438,64 +438,6 @@ $(function initializeGame (gameVersionObject) {
 
 		// Unhide continuous version elements
 		$("#crop_payouts_chart, #continuous_history, #continuous_payout").removeClass("hidden");
-
-		//Populate continuous.climateArray //INPUT
-
-		game.continuous.climateArray = [
-			{mean: 750, std_dev: 80}, //0 -- initial climate
-			{mean: 750, std_dev: 80}, //1
-			{mean: 750, std_dev: 80}, //2
-			{mean: 750, std_dev: 80}, //3
-			{mean: 750, std_dev: 80}, //4
-			{mean: 750, std_dev: 80}, //5
-			{mean: 750, std_dev: 80}, //6
-			{mean: 750, std_dev: 80}, //7
-			{mean: 750, std_dev: 80}, //8
-			{mean: 750, std_dev: 80}, //9
-			{mean: 750, std_dev: 80}, //10
-			{mean: 750, std_dev: 80}, //11
-			{mean: 750, std_dev: 80}, //12
-			{mean: 750, std_dev: 80}, //13
-			{mean: 750, std_dev: 80}, //14
-			{mean: 350, std_dev: 80}, //15
-			{mean: 350, std_dev: 80}, //16
-			{mean: 350, std_dev: 80}, //17
-			{mean: 350, std_dev: 80}, //18
-			{mean: 350, std_dev: 80}, //19
-			{mean: 350, std_dev: 80}, //20
-			{mean: 350, std_dev: 80}, //21
-			{mean: 350, std_dev: 80}, //22
-			{mean: 350, std_dev: 80}, //23
-			{mean: 350, std_dev: 80}, //24
-			{mean: 350, std_dev: 80}, //25
-			{mean: 350, std_dev: 80}, //26
-			{mean: 350, std_dev: 80}, //27
-			{mean: 350, std_dev: 80}, //28
-			{mean: 350, std_dev: 80}, //29
-			{mean: 350, std_dev: 80}, //30
-			{mean: 350, std_dev: 80}, //31
-			{mean: 350, std_dev: 80}, //32
-			{mean: 350, std_dev: 80}, //33
-			{mean: 350, std_dev: 80}, //34
-			{mean: 350, std_dev: 80}, //35
-			{mean: 350, std_dev: 80}, //36
-			{mean: 350, std_dev: 80}, //37
-			{mean: 350, std_dev: 80}, //38
-			{mean: 350, std_dev: 80}, //39
-			{mean: 350, std_dev: 80}, //40
-			{mean: 350, std_dev: 80}, //41
-			{mean: 350, std_dev: 80}, //42
-			{mean: 350, std_dev: 80}, //43
-			{mean: 350, std_dev: 80}, //44
-			{mean: 350, std_dev: 80}, //45
-			{mean: 350, std_dev: 80}, //46
-			{mean: 350, std_dev: 80}, //47
-			{mean: 350, std_dev: 80}, //48
-			{mean: 350, std_dev: 80}, //49
-			{mean: 350, std_dev: 80}  //50
-		];
-
-
 		$.jqplot.config.enablePlugins = true;
 
 		// objects containing data series arrays and canvas overlay arrays to be drawn in continuous payout and historic weather charts
