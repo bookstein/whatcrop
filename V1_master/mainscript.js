@@ -52,7 +52,7 @@ game = {
 
 	// Bonus payments, in dollars
 	bonusOneDollars: gameParameters.bonusOneDollars,
-	bonusTwoDollars: gameParameters.bonusTwoDollars
+	bonusTwoDollars: gameParameters.bonusTwoDollars,
 
 // Discrete game version
 	discrete: {
@@ -1399,8 +1399,8 @@ function weatherResults () { //triggered by #grow click, calls updateGame with c
 	var sunOpacity = 0;
 
 	//Declare sound files
-	var rainsound = new Audio("sound/rainstick_3.0.mp3");
-	var sunsound = new Audio("sound/cigales_3.0.mp3");
+	var rainsound = new Audio("V1_master/sound/rainstick_3.0.mp3");
+	var sunsound = new Audio("V1_master/sound/cigales_3.0.mp3");
 
 	// 6.A Weather opacity chosen for discrete and continuous games separately. <<<<<<<<<<<<<<<<<<
 
