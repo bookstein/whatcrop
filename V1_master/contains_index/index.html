@@ -1,0 +1,390 @@
+<!-- WhatCrop game code, 2013. Contact Emily Bookstein (ehbookstein [at] gmail.com) with questions. -->
+<!DOCTYPE html>
+
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>What Crop?</title>
+
+	<!-- INSERT PARAMETERS HERE between the <script> tags -->
+	<script type="text/javascript">
+gameParameters = {
+//Initial Parameters
+testing: false, discreteWeather: false, gameLabel: "test", maxturn: 15,
+//Game-wide Parameters
+turnLength: 4000, realDollars: .5, bonusOneDollars: 1.75, bonusTwoDollars: .5,
+//Discrete Parameters
+payoutAwet: 0, payoutAdry: 0, payoutBwet: 0, payoutBdry: 0, threshold: 0,
+//Continuous Parameters
+maxScore: 5000, firstBonusThreshold: .65, secondBonusThreshold: .99, betaA: -.02, maxAweather: 400, maxApayout: 400, betaB: -.04, maxBweather: 500, maxBpayout: 500,
+//Discrete Climate Array
+discrete_climateArray: [ 0 ],
+//Continuous Climate Array
+continuous_climateArray: [ {mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20} ]
+};
+
+	</script>
+
+	<!-- >>>>>>>>>>>>>>>>> Do not modify file below this line <<<<<<<<<<<<<<<<<<<<<<<<<< -->
+
+	<!-- 1. External links: <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+	<link rel="stylesheet" type="text/css" href="../V1_master/main.css" /> <!-- CSS stylesheet -->
+	<script src="../V1_master/jQuery_plugins/jquery1.10.1.js" type="text/javascript"></script> <!-- jQuery1.10.1 -->
+	<script src="../V1_master/jQuery_plugins/jquery-migrate-1.2.1.js"></script> <!-- jQuery migration -->
+	<script src="../V1_master/mainscript.js" type="text/javascript"></script> <!-- game script (Javascript, Jquery) -->
+
+	<!-- 2. Plugins <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+ 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> <!-- jQuery UI dialog boxes -->
+	<link href="../V1_master/jQuery_UI/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet"> <!-- <!-- jQuery UI customized css, overrides jquery-ui.css -->
+	<script src="../V1_master/jQuery_UI/custom-theme/jquery-ui-1.10.3.custom.js" type="text/javascript"></script> <!-- jQuery UI customized Javascript -->
+	<script src="../V1_master/jQuery_plugins/jquery_animate_shadow.js"></script> <!-- Edwin Martin's jQuery plugin for shadow animation (used on points_bar) -->
+
+	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="jqPlot/excanvas.min.js"></script><![endif]--><!--excanvas support for IE 6,7,8-->
+	<script language="javascript" type="text/javascript" src="../V1_master/jqPlot/jquery.jqplot.min.js"></script><!-- jqPlot Javascript -->
+	<link rel="stylesheet" type="text/css" href="../V1_master/jqPlot/jquery.jqplot.css" /> <!-- jqPlot stylesheet -->
+	<script type="text/javascript" src ="../V1_master/jqPlot/jqplot.barRenderer.min.js"></script> <!-- jqPlot additional plugin -->
+	<script type="text/javascript" src="../V1_master/jqPlot/jqplot.canvasTextRenderer.min.js"></script><!-- jqPlot additional plugin -->
+	<script type="text/javascript" src="../V1_master/jqPlot/jqplot.canvasAxisLabelRenderer.min.js"></script><!-- jqPlot additional plugin -->
+	<script type="text/javascript" src= "../V1_master/jqPlot/jqplot.pointLabels.min.js"></script><!-- jqPlot additional plugin -->
+	<script type="text/javascript" src= "../V1_master/jqPlot/jqplot.canvasOverlay.min.js"></script><!-- jqPlot additional plugin -->
+	<script type="text/javascript" src= "../V1_master/jqPlot/jqplot.enhancedLegendRenderer.js"></script><!-- jqPlot additional plugin -->
+	<noscript>Sorry, your browser does not support JavaScript!</noscript>
+</head>
+
+<body>
+
+<!-- 3. Header <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<-->
+<header>
+	<h1>What Crop Will You Choose?</h1>
+		<!-- 3A. Intro Dialogs (2 through 5) -->
+		<div class="instructions dialog-message ui-dialog" id="second-message" title="Game instructions">
+				<br>
+				<p>
+				  	1. For each turn, plant either <span class="Acolor emphasize">Crop A</span> or <span class="Bcolor emphasize">Crop B</span> based on your best guess about the weather.
+				  </p>
+				  <br>
+				  <img id="screenshot" src="../V1_master/images/game_screenshot.png" />
+				<br>
+		</div>
+		<div class="instructions dialog-message ui-dialog" id="third-message" title="Game instructions">
+				<p>
+				  	2. The <span class="emphasize">points</span> you earn per turn depend on how <span class="emphasize">wet</span> or <span class="emphasize">dry</span> the weather is.
+				</p>
+				<br>
+				<h5> Maximum Points Per Crop </h5>
+				<br>
+				<!-- div to contain continuous payouts chart -->
+					<div id="crop_payouts_chart" class="hidden">
+					</div>
+
+				<!-- div to contain discrete payouts table -->
+					<div id="crop_payouts_table" class="hidden">
+						<table id="intro_table">
+							<thead colspan="3">
+								<tr>
+									<th id="empty"><!--empty--></th>
+										<th class="Acolor"> A </th>
+										<th class="Bcolor"> B </th>
+								</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td id="wetColor">Wet </td>
+								<td id="payoutAwet"></td>
+								<td id="payoutBwet"></td>
+							</tr>
+
+							<tr>
+								<td id="dryColor">Dry </td>
+								<td id="payoutAdry"></td>
+								<td id="payoutBdry"></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				<br>
+				<p>
+					3. You will be paid based on your <span>total score</span> at the end of the game.
+				</p>
+		</div>
+
+		<div class="instructions dialog-message ui-dialog" id="fourth-message" title="Game instructions">
+			<br>
+			<p>
+				For the past <span class="turncount_instructions"></span> years, the <span id="weather_type"></span> has been about <span class="wet_percent emphasize" id="mean_rainfall"></span><span id="weather_modifier" class="emphasize"></span>.
+			</p>
+			<br>
+			<!-- div to contain continuous version historic weather data -->
+			<div id="continuous_history" class="hidden">
+				<h5>Historic Weather Pattern</h5>
+				<br>
+				<div id="history_histogram"> <!-- jqPlot targets this div -->
+				</div>
+			</div>
+
+			<!-- div to contain discrete version historic weather data -->
+			<div id="discrete_history" class="hidden">
+				<table id="weather_bar_graph">
+					<thead colspan = "2">
+						<tr>
+							<th>Wet</th><th>Dry</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="percent">
+								<span class="wet_percent"></span>
+							</td>
+							<td class="percent">
+								<span class="dry_percent"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class = "bar">
+								<div id="rain_probability"></div> <!-- use height of div to represent probability -->
+							</td>
+							<td class = "bar">
+								<div id="sun_probability"></div> <!-- use height of div to represent probability -->
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br>
+		</div>
+
+		<div class="instructions dialog-message ui-dialog" id="final-message" title="Game instructions">
+			<br>
+			<p>
+			  	4. Please play without stopping for <span class="turncount_instructions emphasize"></span> <span class="emphasize">turns</span>. This may take about 10 minutes.
+			</p>
+			<br>
+			<img class="final_screenshot" src="../V1_master/images/turns.png" alt="turns counter" />
+			<br>
+			<p>
+				5. You will earn <span class="emphasize">bonus money</span> if you reach <span class="emphasize" id="bonus_one_instructions"></span> and <span class="emphasize" id="bonus_two_instructions"></span> <span class="emphasize">points</span>!
+			</p>
+			<br>
+			<img class="final_screenshot" src="../V1_master/images/dollars.png" alt="dollars counter" />
+			<br>
+		</div>
+		<!-- 3B. Creating Game dialog -->
+		<div class="instructions dialog-message ui-dialog" id="creating-game-dialog" title="Creating game">
+                        <p>Creating Game...</p>
+		</div>
+
+</header>
+
+<!-- 4. Navigation bar: Turns and dollars earned <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+<nav>
+
+	<!-- 4A. Turns counter -->
+	<div id="turns">
+		<h5>Turns Taken</h5>
+		<span id="turns_counter">Number of turns</span>
+	</div>
+
+	<!-- 4A. Dollars counter -->
+	<div id="dollars">
+		<h5>Dollars Earned</h5>
+		<span id="dollars_counter">$0.50</span>
+	</div><!-- end of #dollars -->
+
+	<!-- 4C. First Intro Dialog -->
+		<div class="instructions dialog-message ui-dialog" id="first-message" title="Game instructions">
+				<br>
+				<p>
+				    <span class="emphasize">Welcome to the game "What Crop."</span>
+				</p>
+				<br>
+				<p>
+				   This game is part of a research project at <br> Stanford University.
+				<p>
+				<br>
+				<img src= "../V1_master/images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" />
+				<br>
+	</div>
+</nav>
+
+<div id="container"><!-- Parent of all following divs and sections except footer -->
+
+	<!--5. Givens. Contains infographics explaining value of A and B, weather distribution (if any) <<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+	<section id="givens">
+		<h5>Crop Yield</h5>
+		<br>
+		<!-- 5A. div for continuous game version -->
+		<div id="continuous_payout" class="hidden">
+			<!-- 5Ai. iv for containing payout chart -->
+			<img id="legend" src="../V1_master/images/legend.png" />
+			<div id="chartdiv">
+			</div>
+		</div>
+		<!-- 5B. div for discrete game version -->
+		<div id="tablediv" class="hidden">
+			<table>
+				<thead colspan="3">
+					<tr>
+						<th id="empty"><!--empty--></th>
+							<th class="Acolor"> A </th>
+							<th class="Bcolor"> B </th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td id="wetColor">Wet </td>
+					<td id="payoutAwet"></td>
+					<td id="payoutBwet"></td>
+				</tr>
+
+				<tr>
+					<td id="dryColor">Dry </td>
+					<td id="payoutAdry"></td>
+					<td id="payoutBdry"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</section> <!-- end of #givens -->
+
+	<!-- 6. Choice Screen. Area of screen with interactive elements and crop/weather graphics -->
+	<section id="choice_screen">
+
+		<!-- 6A. Crop graphics, screen images, weather graphics-->
+
+		<!-- background image default, medium-width: see CSS "background" property -->
+		<img id="farm" src="../V1_master/images/default_background_medium.png" alt="Your farm" />
+
+		<!-- all weather images, CSS set to display: none -->
+		<img class="weather hidden" id="rain" src="../V1_master/images/rain.png" alt="Rain" />
+		<img class="weather hidden" id="sun" src="../V1_master/images/sun.png" alt="Sun" />
+
+		<!-- crop sprout images -->
+		<img id="sproutA" class="croprows hidden" src="../V1_master/images/crops/cropAsprouts.png" />
+		<img id="sproutB" class="croprows hidden" src="../V1_master/images/crops/cropBsprouts.png" />
+
+		<!-- healthy crop images: optimal range of weather -->
+		<img id="rowsCropA" class="croprows hidden" src="../V1_master/images/crops/cropArows.png" />
+		<img id="rowsCropB" class="croprows hidden" src="../V1_master/images/crops/cropBrows.png" />
+
+		<!-- dead crop images: too wet or too dry -->
+		<img id="deadAdry" class="croprows hidden" src="../V1_master/images/crops/cropAdead_tooDry.png" />
+		<img id="deadBdry" class="croprows hidden" src="../V1_master/images/crops/cropBdead_tooDry.png" />
+		<img id="deadAwet" class="croprows hidden" src="../V1_master/images/crops/cropAdead_tooWet.png" />
+		<img id="deadBwet" class="croprows hidden" src="../V1_master/images/crops/cropBdead2_tooWet.png" />
+
+		<!-- half-dead crop images: somewhat wet or dry -->
+		<img id="dryA" class="croprows hidden" src="../V1_master/images/crops/cropArows_dry.png" />
+		<img id="dryB" class="croprows hidden" src="../V1_master/images/crops/cropBrows_dry.png" />
+		<img id="wetA" class="croprows hidden" src="../V1_master/images/crops/cropArows_wet.png" />
+		<img id="wetB" class="croprows hidden" src="../V1_master/images/crops/cropBrows_wet.png" />
+
+		<!-- Crop A button -->
+		<button class="plant" id="cropA" type="button"  name="PlantA">
+			<img src="../V1_master/images/SeedpacketA.png" alt="A"/>
+			<h4 class="Acolor">Crop A</h4>
+		</button>
+
+
+		<!-- Grow button -->
+		<div id="grow_container">
+			<input type="submit" name="Grow" id="grow" value="Choose a crop" class="disabled"></input>
+		</div> <!-- end of Grow button -->
+
+
+		<!-- Crop B button -->
+		<button class="plant" id="cropB" type="button" name="PlantB">
+			<img src="../V1_master/images/SeedpacketB.png" alt="B"/>
+			<h4 class="Bcolor">Crop B </h4>
+		</button>
+
+		<!-- This text will appear if background image does not load -->
+		<p id="broken_images">
+			Your browser does not support these images. Please try either <a href="http://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/">Firefox</a>, which are both free Internet browsers you can download.
+		</p>
+
+		<!--6B. Results Dialogs.-->
+		<div id="results_dialogs" class="hidden"> <!-- div containing all results dialogs for the game -->
+
+			<!-- dialog: Weather report and points earned -->
+			<div class="results dialog-message ui-dialog" id="normal_results" title="Results">
+					<p>
+					  	Weather: <span id="weather_outcome" class="emphasize"></span><span id="weather_report" class="emphasize"></span><span id="chosen_crop"></span>.
+					</p>
+					<br>
+				  	<p>
+					  	You made <span class="emphasize" id="new_score"></span>!
+					</p>
+			</div>
+
+			<!-- dialog: Bonus earned -->
+			<div class="results dialog-message ui-dialog" id="bonus_results" title="Results">
+					<p>
+					  	Weather: <span id="weather_outcome"></span>. You made <span id="new_score" class="emphasize"></span>!
+					</p>
+					<p>
+						You also earned a bonus of <span class="emphasize" id="bonus_count"></span>!
+					</p>
+			</div>
+
+			<!-- dialog: End of game + score + unique ID number -->
+			<div class="dialog-message ui-dialog" id="end_results" title="Game Over">
+					<p>
+					  	You made it to <span class="turncount_instructions"></span>! This ends the game.
+					</p>
+					<p>
+					  	With your score of <span class="emphasize" id="total_score"></span>, you earned $<span class="emphasize" id="total_dollars"></span>.
+					</p>
+					<p>
+						Your Player ID is: <span class="emphasize" id="playerID"></span>. Use this ID number to receive your payment.
+					</p>
+					<br>
+					<h4>Thanks for playing!</h4>
+					<br>
+					<br>
+					<a href = "http://foodsecurity.stanford.edu"><img src= "../V1_master/images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" /></a>
+			</div>
+		</div> <!-- end of dialogs div-->
+
+	</section> <!-- end of #choice_screen -->
+
+	<!-- 7. Score. Contains points counter <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+	<section id="score">
+		<br>
+		<h5>Points Earned </h5>
+
+		<div id="points_bar"><!-- this div is the vertical points bar and fills up with different images. -->
+
+			<!-- bonus marker divs -->
+			<p id="bonusLabel1">Bonus 1: <span id="bonus1value"></span> </p>
+
+			<div id="bonus1marker">
+			</div>
+
+			<p id="bonusLabel2">Bonus 2: <span id="bonus2value"></span></p>
+
+			<div id="bonus2marker">
+			</div>
+
+			<!-- points flag and counter -->
+			<div id="points_flag"> <!-- Target this div with jQuery css height update -->
+				<div id="point_count"><!-- Target this div with jQuery score updates -->
+				</div><!-- end of #points_count. -->
+			</div><!-- end of #points_flag -->
+
+			<!-- yellow fill in points bar -->
+			<div id="points_fill"><!-- Target this div with jQuery points fill updates. -->
+			</div> <!-- end of #points_fill -->
+
+		</div> <!-- end of #points_bar -->
+
+	</section> <!-- end of #points -->
+
+</div> <!-- end of #container -->
+
+<footer>
+	<!-- footer (extra info, link to whatcrop website) -->
+	<img src="../V1_master/images/FSElogo_full.jpeg" alt="Food Security and the Environment at Stanford University" />
+</footer>
+
+</body>
+</html>
