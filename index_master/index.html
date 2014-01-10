@@ -5,7 +5,7 @@
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 	<title>What Crop?</title>
 
-	<!-- INSERT PARAMETERS HERE between the <script> tags -->
+	<!-- INSERT NEW PARAMETERS HERE and delete any sample parameters between the <script> tags -->
 	<script type="text/javascript">
 
 indexParameters = {
@@ -28,26 +28,26 @@ continuous_climateArray: [ {mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{me
 	<!-- >>>>>>>>>>>>>>>>> Do not modify file below this line <<<<<<<<<<<<<<<<<<<<<<<<<< -->
 
 	<!-- 1. External links: <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
-	<link rel="stylesheet" type="text/css" href="../V1_master/main.css" /> <!-- CSS stylesheet -->
-	<script src="../V1_master/jQuery_plugins/jquery1.10.1.min.js" type="text/javascript"></script> <!-- jQuery1.10.1 -->
-	<script src="../V1_master/jQuery_plugins/jquery-migrate-1.2.1.js"></script> <!-- jQuery migration -->
-	<script src="../V1_master/mainscript.js" type="text/javascript"></script> <!-- game script (Javascript, Jquery) -->
+	<link rel="stylesheet" type="text/css" href="../game_master/main.css" /> <!-- CSS stylesheet -->
+	<script src="../game_master/jQuery_plugins/jquery1.10.1.min.js" type="text/javascript"></script> <!-- jQuery1.10.1 -->
+	<script src="../game_master/jQuery_plugins/jquery-migrate-1.2.1.js"></script> <!-- jQuery migration -->
+	<script src="../game_master/mainscript.js" type="text/javascript"></script> <!-- game script (Javascript, Jquery) -->
 
 	<!-- 2. Plugins <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> <!-- jQuery UI dialog boxes -->
-	<link href="../V1_master/jQuery_UI/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet"> <!-- jQuery UI customized css, overrides jquery-ui.css -->
-	<script src="../V1_master/jQuery_UI/custom-theme/jquery-ui-1.10.3.custom.js" type="text/javascript"></script> <!-- jQuery UI customized Javascript -->
-	<script src="../V1_master/jQuery_plugins/jquery_animate_shadow.js"></script> <!-- Edwin Martin's jQuery plugin for shadow animation (used on points_bar) -->
+	<link href="../game_master/jQuery_UI/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet"> <!-- jQuery UI customized css, overrides jquery-ui.css -->
+	<script src="../game_master/jQuery_UI/custom-theme/jquery-ui-1.10.3.custom.js" type="text/javascript"></script> <!-- jQuery UI customized Javascript -->
+	<script src="../game_master/jQuery_plugins/jquery_animate_shadow.js"></script> <!-- Edwin Martin's jQuery plugin for shadow animation (used on points_bar) -->
 
 	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="jqPlot/excanvas.min.js"></script><![endif]--><!--excanvas support for IE 6,7,8-->
-	<script language="javascript" type="text/javascript" src="../V1_master/jqPlot/jquery.jqplot.min.js"></script><!-- jqPlot Javascript -->
-	<link rel="stylesheet" type="text/css" href="../V1_master/jqPlot/jquery.jqplot.css" /> <!-- jqPlot stylesheet -->
-	<script type="text/javascript" src ="../V1_master/jqPlot/jqplot.barRenderer.min.js"></script> <!-- jqPlot additional plugin -->
-	<script type="text/javascript" src="../V1_master/jqPlot/jqplot.canvasTextRenderer.min.js"></script><!-- jqPlot additional plugin -->
-	<script type="text/javascript" src="../V1_master/jqPlot/jqplot.canvasAxisLabelRenderer.min.js"></script><!-- jqPlot additional plugin -->
-	<script type="text/javascript" src= "../V1_master/jqPlot/jqplot.pointLabels.min.js"></script><!-- jqPlot additional plugin -->
-	<script type="text/javascript" src= "../V1_master/jqPlot/jqplot.canvasOverlay.min.js"></script><!-- jqPlot additional plugin -->
-	<script type="text/javascript" src= "../V1_master/jqPlot/jqplot.enhancedLegendRenderer.min.js"></script><!-- jqPlot additional plugin -->
+	<script language="javascript" type="text/javascript" src="../game_master/jqPlot/jquery.jqplot.min.js"></script><!-- jqPlot Javascript -->
+	<link rel="stylesheet" type="text/css" href="../game_master/jqPlot/jquery.jqplot.css" /> <!-- jqPlot stylesheet -->
+	<script type="text/javascript" src ="../game_master/jqPlot/jqplot.barRenderer.min.js"></script> <!-- jqPlot additional plugin -->
+	<script type="text/javascript" src="../game_master/jqPlot/jqplot.canvasTextRenderer.min.js"></script><!-- jqPlot additional plugin -->
+	<script type="text/javascript" src="../game_master/jqPlot/jqplot.canvasAxisLabelRenderer.min.js"></script><!-- jqPlot additional plugin -->
+	<script type="text/javascript" src= "../game_master/jqPlot/jqplot.pointLabels.min.js"></script><!-- jqPlot additional plugin -->
+	<script type="text/javascript" src= "../game_master/jqPlot/jqplot.canvasOverlay.min.js"></script><!-- jqPlot additional plugin -->
+	<script type="text/javascript" src= "../game_master/jqPlot/jqplot.enhancedLegendRenderer.min.js"></script><!-- jqPlot additional plugin -->
 	<noscript>Sorry, your browser does not support JavaScript!</noscript>
 </head>
 
@@ -63,7 +63,7 @@ continuous_climateArray: [ {mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{me
 				  	1. For each turn, plant either <span class="Acolor emphasize">Crop A</span> or <span class="Bcolor emphasize">Crop B</span> based on your best guess about the weather.
 				  </p>
 				  <br>
-				  <img id="screenshot" src="../V1_master/images/game_screenshot.png" />
+				  <img id="screenshot" src="../game_master/images/game_screenshot.png" />
 				<br>
 		</div>
 		<div class="instructions dialog-message ui-dialog" id="third-message" title="Game instructions">
@@ -159,13 +159,13 @@ continuous_climateArray: [ {mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{me
 			  	4. Please play without stopping for <span class="turncount_instructions emphasize"></span> <span class="emphasize">turns</span>. This may take about 10 minutes.
 			</p>
 			<br>
-			<img class="final_screenshot" src="../V1_master/images/turns.png" alt="turns counter" />
+			<img class="final_screenshot" src="../game_master/images/turns.png" alt="turns counter" />
 			<br>
 			<p>
 				5. You will earn <span class="emphasize">bonus money</span> if you reach <span class="emphasize" id="bonus_one_instructions"></span> and <span class="emphasize" id="bonus_two_instructions"></span> <span class="emphasize">points</span>!
 			</p>
 			<br>
-			<img class="final_screenshot" src="../V1_master/images/dollars.png" alt="dollars counter" />
+			<img class="final_screenshot" src="../game_master/images/dollars.png" alt="dollars counter" />
 			<br>
 		</div>
 		<!-- 3B. Creating Game dialog -->
@@ -201,7 +201,7 @@ continuous_climateArray: [ {mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{me
 				   This game is part of a research project at <br> Stanford University.
 				<p>
 				<br>
-				<img src= "../V1_master/images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" />
+				<img src= "../game_master/images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" />
 				<br>
 	</div>
 </nav>
@@ -215,7 +215,7 @@ continuous_climateArray: [ {mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{me
 		<!-- 5A. div for continuous game version -->
 		<div id="continuous_payout" class="hidden">
 			<!-- 5Ai. iv for containing payout chart -->
-			<img id="legend" src="../V1_master/images/legend.png" />
+			<img id="legend" src="../game_master/images/legend.png" />
 			<div id="chartdiv">
 			</div>
 		</div>
@@ -253,35 +253,35 @@ continuous_climateArray: [ {mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{me
 		<!-- 6A. Crop graphics, screen images, weather graphics-->
 
 		<!-- background image default, medium-width: see CSS "background" property -->
-		<img id="farm" src="../V1_master/images/default_background_medium.png" alt="Your farm" />
+		<img id="farm" src="../game_master/images/default_background_medium.png" alt="Your farm" />
 
 		<!-- all weather images, CSS set to display: none -->
-		<img class="weather hidden" id="rain" src="../V1_master/images/rain.png" alt="Rain" />
-		<img class="weather hidden" id="sun" src="../V1_master/images/sun.png" alt="Sun" />
+		<img class="weather hidden" id="rain" src="../game_master/images/rain.png" alt="Rain" />
+		<img class="weather hidden" id="sun" src="../game_master/images/sun.png" alt="Sun" />
 
 		<!-- crop sprout images -->
-		<img id="sproutA" class="croprows hidden" src="../V1_master/images/crops/cropAsprouts.png" />
-		<img id="sproutB" class="croprows hidden" src="../V1_master/images/crops/cropBsprouts.png" />
+		<img id="sproutA" class="croprows hidden" src="../game_master/images/crops/cropAsprouts.png" />
+		<img id="sproutB" class="croprows hidden" src="../game_master/images/crops/cropBsprouts.png" />
 
 		<!-- healthy crop images: optimal range of weather -->
-		<img id="rowsCropA" class="croprows hidden" src="../V1_master/images/crops/cropArows.png" />
-		<img id="rowsCropB" class="croprows hidden" src="../V1_master/images/crops/cropBrows.png" />
+		<img id="rowsCropA" class="croprows hidden" src="../game_master/images/crops/cropArows.png" />
+		<img id="rowsCropB" class="croprows hidden" src="../game_master/images/crops/cropBrows.png" />
 
 		<!-- dead crop images: too wet or too dry -->
-		<img id="deadAdry" class="croprows hidden" src="../V1_master/images/crops/cropAdead_tooDry.png" />
-		<img id="deadBdry" class="croprows hidden" src="../V1_master/images/crops/cropBdead_tooDry.png" />
-		<img id="deadAwet" class="croprows hidden" src="../V1_master/images/crops/cropAdead_tooWet.png" />
-		<img id="deadBwet" class="croprows hidden" src="../V1_master/images/crops/cropBdead2_tooWet.png" />
+		<img id="deadAdry" class="croprows hidden" src="../game_master/images/crops/cropAdead_tooDry.png" />
+		<img id="deadBdry" class="croprows hidden" src="../game_master/images/crops/cropBdead_tooDry.png" />
+		<img id="deadAwet" class="croprows hidden" src="../game_master/images/crops/cropAdead_tooWet.png" />
+		<img id="deadBwet" class="croprows hidden" src="../game_master/images/crops/cropBdead2_tooWet.png" />
 
 		<!-- half-dead crop images: somewhat wet or dry -->
-		<img id="dryA" class="croprows hidden" src="../V1_master/images/crops/cropArows_dry.png" />
-		<img id="dryB" class="croprows hidden" src="../V1_master/images/crops/cropBrows_dry.png" />
-		<img id="wetA" class="croprows hidden" src="../V1_master/images/crops/cropArows_wet.png" />
-		<img id="wetB" class="croprows hidden" src="../V1_master/images/crops/cropBrows_wet.png" />
+		<img id="dryA" class="croprows hidden" src="../game_master/images/crops/cropArows_dry.png" />
+		<img id="dryB" class="croprows hidden" src="../game_master/images/crops/cropBrows_dry.png" />
+		<img id="wetA" class="croprows hidden" src="../game_master/images/crops/cropArows_wet.png" />
+		<img id="wetB" class="croprows hidden" src="../game_master/images/crops/cropBrows_wet.png" />
 
 		<!-- Crop A button -->
 		<button class="plant" id="cropA" type="button"  name="PlantA">
-			<img src="../V1_master/images/SeedpacketA.png" alt="A"/>
+			<img src="../game_master/images/SeedpacketA.png" alt="A"/>
 			<h4 class="Acolor">Crop A</h4>
 		</button>
 
@@ -294,7 +294,7 @@ continuous_climateArray: [ {mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{me
 
 		<!-- Crop B button -->
 		<button class="plant" id="cropB" type="button" name="PlantB">
-			<img src="../V1_master/images/SeedpacketB.png" alt="B"/>
+			<img src="../game_master/images/SeedpacketB.png" alt="B"/>
 			<h4 class="Bcolor">Crop B </h4>
 		</button>
 
@@ -342,7 +342,7 @@ continuous_climateArray: [ {mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{me
 					<h4>Thanks for playing!</h4>
 					<br>
 					<br>
-					<a href = "http://foodsecurity.stanford.edu"><img src= "../V1_master/images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" /></a>
+					<a href = "http://foodsecurity.stanford.edu"><img src= "../game_master/images/FSElogo_full.jpeg" alt="Center on Food Security and the Environment" /></a>
 			</div>
 		</div> <!-- end of dialogs div-->
 
@@ -384,7 +384,7 @@ continuous_climateArray: [ {mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{me
 
 <footer>
 	<!-- footer (extra info, link to whatcrop website) -->
-	<img src="../V1_master/images/FSElogo_full.jpeg" alt="Food Security and the Environment at Stanford University" />
+	<img src="../game_master/images/FSElogo_full.jpeg" alt="Food Security and the Environment at Stanford University" />
 </footer>
 
 </body>
