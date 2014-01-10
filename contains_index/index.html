@@ -8,8 +8,20 @@
 	<!-- INSERT PARAMETERS HERE between the <script> tags -->
 	<script type="text/javascript">
 
-
-
+indexParameters = {
+//Initial Parameters
+testing: false, discreteWeather: false, gameLabel: "test", maxturn: 15,
+//Game-wide Parameters
+turnLength: 4000, realDollars: .5, bonusOneDollars: 1.75, bonusTwoDollars: .5,
+//Discrete Parameters
+payoutAwet: 0, payoutAdry: 0, payoutBwet: 0, payoutBdry: 0, threshold: 0,
+//Continuous Parameters
+maxScore: 5000, firstBonusThreshold: .65, secondBonusThreshold: .99, betaA: -.02, maxAweather: 400, maxApayout: 400, betaB: -.04, maxBweather: 500, maxBpayout: 500,
+//Discrete Climate Array
+discrete_climateArray: [ 0 ],
+//Continuous Climate Array
+continuous_climateArray: [ {mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20},{mean: 500, std_dev: 20} ]
+};
 
 	</script>
 
@@ -17,7 +29,7 @@
 
 	<!-- 1. External links: <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
 	<link rel="stylesheet" type="text/css" href="../V1_master/main.css" /> <!-- CSS stylesheet -->
-	<script src="../V1_master/jQuery_plugins/jquery1.10.1.js" type="text/javascript"></script> <!-- jQuery1.10.1 -->
+	<script src="../V1_master/jQuery_plugins/jquery1.10.1.min.js" type="text/javascript"></script> <!-- jQuery1.10.1 -->
 	<script src="../V1_master/jQuery_plugins/jquery-migrate-1.2.1.js"></script> <!-- jQuery migration -->
 	<script src="../V1_master/mainscript.js" type="text/javascript"></script> <!-- game script (Javascript, Jquery) -->
 
@@ -35,7 +47,7 @@
 	<script type="text/javascript" src="../V1_master/jqPlot/jqplot.canvasAxisLabelRenderer.min.js"></script><!-- jqPlot additional plugin -->
 	<script type="text/javascript" src= "../V1_master/jqPlot/jqplot.pointLabels.min.js"></script><!-- jqPlot additional plugin -->
 	<script type="text/javascript" src= "../V1_master/jqPlot/jqplot.canvasOverlay.min.js"></script><!-- jqPlot additional plugin -->
-	<script type="text/javascript" src= "../V1_master/jqPlot/jqplot.enhancedLegendRenderer.js"></script><!-- jqPlot additional plugin -->
+	<script type="text/javascript" src= "../V1_master/jqPlot/jqplot.enhancedLegendRenderer.min.js"></script><!-- jqPlot additional plugin -->
 	<noscript>Sorry, your browser does not support JavaScript!</noscript>
 </head>
 
